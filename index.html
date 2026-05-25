@@ -1,1 +1,467 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><style>:root{--primary:#0f5132;--primary-light:#d1e7dd;--accent:#ffc107;--bg:#f8f9fa;--surface:#ffffff;--text:#212529;--text-muted:#6c757d;--border:#e9ecef;--radius:12px;--shadow:0 10px 30px rgba(0,0,0,0.05)}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Plus Jakarta Sans',sans-serif;background-color:var(--bg);color:var(--text);line-height:1.6;padding-bottom:60px}header{background:linear-gradient(135deg,#09331e 0,var(--primary) 100%);color:#fff;text-align:center;padding:60px 20px;position:relative;overflow:hidden}header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:8px;background:var(--accent)}header h1{font-size:2.8rem;font-weight:700;letter-spacing:-1px;margin-bottom:8px}header p{font-size:1.2rem;color:var(--primary-light);font-weight:500}.container{max-width:840px;margin:-40px auto 0 auto;padding:0 20px;position:relative;z-index:10}.card{background:var(--surface);padding:35px;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:30px;border:1px solid rgba(0,0,0,0.03)}h2{font-size:1.5rem;font-weight:700;color:var(--primary);margin-bottom:25px;display:flex;align-items:center;gap:10px}.table-container{overflow-x:auto}.ranking-table{width:100%;border-collapse:collapse;text-align:left}.ranking-table th{background-color:#f1f3f5;color:var(--text-muted);font-weight:600;padding:16px;font-size:.9rem;text-transform:uppercase;letter-spacing:.5px}.ranking-table td{padding:16px;border-bottom:1px solid var(--border);font-size:1rem}.ranking-table tr:last-child td{border-bottom:none}.sem-dados{text-align:center;color:var(--text-muted);padding:40px 16px!important;font-style:italic}.part-lista{display:flex;flex-direction:column;gap:12px}.part-item{display:flex;justify-content:between;align-items:center;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-radius:8px;justify-content:space-between}.part-nome{font-weight:600;font-size:1.1rem;color:var(--text)}.btn-palpites{background-color:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.9rem;transition:background-color .2s}.btn-palpites:hover{background-color:#09331e}.jogos-lista{display:flex;flex-direction:column;gap:20px}.jogo-card{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);transition:transform .2s,border-color .2s}.jogo-card:hover{transform:translateY(-2px);border-color:#ced4da}.time-container{display:flex;align-items:center;gap:12px;font-weight:600;font-size:1.1rem}.time-container.casa{justify-content:flex-end}.time-container.fora{justify-content:flex-start}.bandeira{font-size:1.6rem}.placar-container{display:flex;align-items:center;gap:12px;padding:0 20px}.placar-box{width:50px;height:50px;background:var(--surface);border:2px solid var(--border);border-radius:8px;text-align:center;font-size:1.3rem;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center}.divisor{font-weight:700;color:var(--text-muted);font-size:.9rem}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;padding:20px}.modal.ativo{display:flex}.modal-conteudo{background:var(--surface);padding:30px;border-radius:var(--radius);max-width:600px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,.2);position:relative;animation:modalShow .3s ease;max-height:85vh;overflow-y:auto}.modal-fechar{position:absolute;top:20px;right:20px;background:0 0;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-muted)}@keyframes modalShow{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}@media (max-width:600px){header h1{font-size:2rem}.jogo-card{grid-template-columns:1fr;gap:15px;text-align:center}.time-container.casa,.time-container.fora{justify-content:center}.placar-container{justify-content:center;order:3}}</style></head><body><header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header><div class="container"><div class="card"><h2>Classificação Geral</h2><div class="table-container"><table class="ranking-table"><thead><tr><th style="width:80px">Posição</th><th>Participante</th><th style="width:120px;text-align:center">Pontos</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Nenhum jogador registrado ainda.</td></tr></tbody></table></div></div><div class="card"><h2>Lista de Participantes</h2><div class="part-lista"><div class="part-item"><span class="part-nome">Walishow</span><button class="btn-palpites" onclick="abrirPalpites('Walishow')">Ver Palpites</button></div></div></div><div class="card"><h2>Jogos & Resultados (Rodada 1)</h2><div class="jogos-lista" id="lista-jogos-principal"></div></div></div><div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo" style="margin-bottom:20px">Palpites</h2><div class="jogos-lista" id="modal-lista-jogos"></div></div></div><script>const dadosPalpites={Walishow:{j1_a:"-",j1_b:"-",j2_a:"-",j2_b:"-",j3_a:"-",j3_b:"-",j4_a:"-",j4_b:"-",j5_a:"-",j5_b:"-",j6_a:"-",j6_b:"-",j7_a:"-",j7_b:"-",j8_a:"-",j8_b:"-",j9_a:"-",j9_b:"-",j10_a:"-",j10_b:"-",j11_a:"-",j11_b:"-",j12_a:"-",j12_b:"-",j13_a:"-",j13_b:"-",j14_a:"-",j14_b:"-",j15_a:"-",j15_b:"-",j16_a:"-",j16_b:"-",j17_a:"-",j17_b:"-",j18_a:"-",j18_b:"-",j19_a:"-",j19_b:"-",j20_a:"-",j20_b:"-",j21_a:"-",j21_b:"-",j22_a:"-",j22_b:"-",j23_a:"-",j23_b:"-",j24_a:"-",j24_b:"-"}};const resultadosFinais={j1_a:"-",j1_b:"-",j2_a:"-",j2_b:"-",j3_a:"-",j3_b:"-",j4_a:"-",j4_b:"-",j5_a:"-",j5_b:"-",j6_a:"-",j6_b:"-",j7_a:"-",j7_b:"-",j8_a:"-",j8_b:"-",j9_a:"-",j9_b:"-",j10_a:"-",j10_b:"-",j11_a:"-",j11_b:"-",j12_a:"-",j12_b:"-",j13_a:"-",j13_b:"-",j14_a:"-",j14_b:"-",j15_a:"-",j15_b:"-",j16_a:"-",j16_b:"-",j17_a:"-",j17_b:"-",j18_a:"-",j18_b:"-",j19_a:"-",j19_b:"-",j20_a:"-",j20_b:"-",j21_a:"-",j21_b:"-",j22_a:"-",j22_b:"-",j23_a:"-",j23_b:"-",j24_a:"-",j24_b:"-"};const estruturaJogos=[{tA:"México",bA:"🇲🇽",tB:"Indonésia",bB:"🇮🇩",idA:"j1_a",idB:"j1_b"},{tA:"Estados Unidos",bA:"🇺🇸",tB:"Jamaica",bB:"🇯🇲",idA:"j2_a",idB:"j2_b"},{tA:"Canadá",bA:"🇨🇦",tB:"Togo",bB:"🇹🇬",idA:"j3_a",idB:"j3_b"},{tA:"Nova Zelândia",bA:"🇳🇿",tB:"Equador",bB:"🇪🇨",idA:"j4_a",idB:"j4_b"},{tA:"Argentina",bA:"🇦🇷",tB:"Malaia",bB:"🇲🇾",idA:"j5_a",idB:"j5_b"},{tA:"França",bA:"🇫🇷",tB:"Zâmbia",bB:"🇿🇲",idA:"j6_a",idB:"j6_b"},{tA:"Espanha",bA:"🇪🇸",tB:"Gana",bB:"🇬🇭",idA:"j7_a",idB:"j7_b"},{tA:"Catar",bA:"🇶🇦",tB:"Panamá",bB:"🇵🇦",idA:"j8_a",idB:"j8_b"},{tA:"Itália",bA:"🇮🇹",tB:"Mali",bB:"🇲🇱",idA:"j9_a",idB:"j9_b"},{tA:"Dinamarca",bA:"🇩🇰",tB:"África do Sul",bB:"🇿🇦",idA:"j10_a",idB:"j10_b"},{tA:"Uruguai",bA:"🇺🇾",tB:"Fiji",bB:"🇫🇯",idA:"j11_a",idB:"j11_b"},{tA:"Inglaterra",bA:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",tB:"Peru",bB:"🇵🇪",idA:"j12_a",idB:"j12_b"},{tA:"Irã",bA:"🇮🇷",tB:"Venezuela",bB:"🇻🇪",idA:"j13_a",idB:"j13_b"},{tA:"Croácia",bA:"🇭🇷",tB:"Iraque",bB:"🇮🇶",idA:"j14_a",idB:"j14_b"},{tA:"Portugal",bA:"🇵🇹",tB:"Coreia do Norte",bB:"🇰🇵",idA:"j15_a",idB:"j15_b"},{tA:"Japão",bA:"🇯🇵",tB:"Nigéria",bB:"🇳🇬",idA:"j16_a",idB:"j16_b"},{tA:"Holanda",bA:"🇳🇱",tB:"Honduras",bB:"🇭🇳",idA:"j17_a",idB:"j17_b"},{tA:"Bélgica",bA:"🇧🇪",tB:"Austrália",bB:"🇦🇺",idA:"j18_a",idB:"j18_b"},{tA:"Chile",bA:"🇨🇱",tB:"Tunísia",bB:"🇹🇳",idA:"j19_a",idB:"j19_b"},{tA:"Brasil",bA:"🇧🇷",tB:"Irlanda",bB:"🇮🇪",idA:"j20_a",idB:"j20_b"},{tA:"Marrocos",bA:"🇲🇦",tB:"Uzbequistão",bB:"🇺🇿",idA:"j21_a",idB:"j21_b"},{tA:"Alemanha",bA:"🇩🇪",tB:"Nova Caledônia",bB:"🇳🇨",idA:"j22_a",idB:"j22_b"},{tA:"Colômbia",bA:"🇨🇴",tB:"Emirados Árabes",bB:"🇦🇪",idA:"j23_a",idB:"j23_b"},{tA:"Áustria",bA:"🇦🇹",tB:"Camarões",bB:"🇨🇲",idA:"j24_a",idB:"j24_b"}];function renderizarJogosPrincipais(){let a="";estruturaJogos.forEach(e=>{a+=`<div class="jogo-card"><div class="time-container casa"><span>${e.tA}</span><span class="bandeira">${e.bA}</span></div><div class="placar-container"><div class="placar-box">${resultadosFinais[e.idA]}</div><span class="divisor">X</span><div class="placar-box">${resultadosFinais[e.idB]}</div></div><div class="time-container fora"><span class="bandeira">${e.bB}</span><span>${e.tB}</span></div></div>`}),document.getElementById("lista-jogos-principal").innerHTML=a}function abrirPalpites(a){document.getElementById("modal-titulo").innerText=`Palpites de ${a}`;const e=dadosPalpites[a];let t="";estruturaJogos.forEach(a=>{t+=`<div class="jogo-card"><div class="time-container casa"><span>${a.tA}</span><span class="bandeira">${a.bA}</span></div><div class="placar-container"><div class="placar-box">${e[a.idA]}</div><span class="divisor">X</span><div class="placar-box">${e[a.idB]}</div></div><div class="time-container fora"><span class="bandeira">${a.bB}</span><span>${a.tB}</span></div></div>`}),document.getElementById("modal-lista-jogos").innerHTML=t,document.getElementById("modal-palpites").classList.add("ativo")}function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo")}function fecharModalExterno(a){a.target.id==="modal-palpites"&&fecharPalpites()}renderizarJogosPrincipais();</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolão Copa do Mundo - Antas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f5132;
+            --primary-light: #d1e7dd;
+            --accent: #ffc107;
+            --bg: #f8f9fa;
+            --surface: #ffffff;
+            --text: #212529;
+            --text-muted: #6c757d;
+            --border: #e9ecef;
+            --radius: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #09331e 0%, var(--primary) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--accent);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: -40px auto 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .ranking-table th {
+            background-color: #f1f3f5;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 16px;
+            font-size: .9rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .ranking-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+        }
+
+        .ranking-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sem-dados {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 40px 16px !important;
+            font-style: italic;
+        }
+
+        .part-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .part-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            justify-content: space-between;
+        }
+
+        .part-nome {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .btn-palpites {
+            background-color: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: .9rem;
+            transition: background-color .2s;
+        }
+
+        .btn-palpites:hover {
+            background-color: #09331e;
+        }
+
+        .jogos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .jogo-card {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: transform .2s, border-color .2s;
+        }
+
+        .jogo-card:hover {
+            transform: translateY(-2px);
+            border-color: #ced4da;
+        }
+
+        .time-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .time-container.casa {
+            justify-content: flex-end;
+        }
+
+        .time-container.fora {
+            justify-content: flex-start;
+        }
+
+        .bandeira {
+            font-size: 1.6rem;
+        }
+
+        .placar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .placar-box {
+            width: 50px;
+            height: 50px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divisor {
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.5);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.ativo {
+            display: flex;
+        }
+
+        .modal-conteudo {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,.2);
+            position: relative;
+            animation: modalShow .3s ease;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-fechar {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: 0 0;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        @keyframes modalShow {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .jogo-card {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                text-align: center;
+            }
+            .time-container.casa, .time-container.fora {
+                justify-content: center;
+            }
+            .placar-container {
+                justify-content: center;
+                order: 3;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bolão Copa do Mundo</h1>
+        <p>Grupo Oficial: Os Antas 🐗</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>Classificação Geral</h2>
+            <div class="table-container">
+                <table class="ranking-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 80px;">Posição</th>
+                            <th>Participante</th>
+                            <th style="width: 120px; text-align: center;">Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-ranking">
+                        <tr>
+                            <td colspan="3" class="sem-dados">Nenhum jogador registrado ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Lista de Participantes</h2>
+            <div class="part-lista">
+                <div class="part-item">
+                    <span class="part-nome">Walishow</span>
+                    <button class="btn-palpites" onclick="abrirPalpites('Walishow')">Ver Palpites</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Jogos & Resultados (Rodada 1)</h2>
+            <div class="jogos-lista" id="lista-jogos-principal"></div>
+        </div>
+    </div>
+
+    <div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)">
+        <div class="modal-conteudo">
+            <button class="modal-fechar" onclick="fecharPalpites()">&times;</button>
+            <h2 id="modal-titulo" style="margin-bottom:20px;">Palpites</h2>
+            <div class="jogos-lista" id="modal-lista-jogos"></div>
+        </div>
+    </div>
+
+    <script>
+        const dadosPalpites = {
+            Walishow: {
+                j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-",
+                j5_a: "-", j5_b: "-", j6_a: "-", j6_b: "-", j7_a: "-", j7_b: "-", j8_a: "-", j8_b: "-",
+                j9_a: "-", j9_b: "-", j10_a: "-", j10_b: "-", j11_a: "-", j11_b: "-", j12_a: "-", j12_b: "-",
+                j13_a: "-", j13_b: "-", j14_a: "-", j14_b: "-", j15_a: "-", j15_b: "-", j16_a: "-", j16_b: "-",
+                j17_a: "-", j17_b: "-", j18_a: "-", j18_b: "-", j19_a: "-", j19_b: "-", j20_a: "-", j20_b: "-",
+                j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-"
+            }
+        };
+
+        const resultadosFinais = {
+            j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-",
+            j5_a: "-", j5_b: "-", j6_a: "-", j6_b: "-", j7_a: "-", j7_b: "-", j8_a: "-", j8_b: "-",
+            j9_a: "-", j9_b: "-", j10_a: "-", j10_b: "-", j11_a: "-", j11_b: "-", j12_a: "-", j12_b: "-",
+            j13_a: "-", j13_b: "-", j14_a: "-", j14_b: "-", j15_a: "-", j15_b: "-", j16_a: "-", j16_b: "-",
+            j17_a: "-", j17_b: "-", j18_a: "-", j18_b: "-", j19_a: "-", j19_b: "-", j20_a: "-", j20_b: "-",
+            j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-"
+        };
+
+        const estruturaJogos = [
+            { tA: "México", bA: "🇲🇽", tB: "Indonésia", bB: "🇮🇩", idA: "j1_a", idB: "j1_b" },
+            { tA: "Estados Unidos", bA: "🇺🇸", tB: "Jamaica", bB: "🇯🇲", idA: "j2_a", idB: "j2_b" },
+            { tA: "Canadá", bA: "🇨🇦", tB: "Togo", bB: "🇹🇬", idA: "j3_a", idB: "j3_b" },
+            { tA: "Nova Zelândia", bA: "🇳🇿", tB: "Equador", bB: "🇪🇨", idA: "j4_a", idB: "j4_b" },
+            { tA: "Argentina", bA: "🇦🇷", tB: "Malásia", bB: "🇲🇾", idA: "j5_a", idB: "j5_b" },
+            { tA: "França", bA: "🇫🇷", tB: "Zâmbia", bB: "🇿🇲", idA: "j6_a", idB: "j6_b" },
+            { tA: "Espanha", bA: "🇪🇸", tB: "Gana", bB: "🇬🇭", idA: "j7_a", idB: "j7_b" },
+            { tA: "Catar", bA: "🇶🇦", tB: "Panamá", bB: "🇵🇦", idA: "j8_a", idB: "j8_b" },
+            { tA: "Itália", bA: "🇮🇹", tB: "Mali", bB: "🇲🇱", idA: "j9_a", idB: "j9_b" },
+            { tA: "Dinamarca", bA: "🇩🇰", tB: "África do Sul", bB: "🇿🇦", idA: "j10_a", idB: "j10_b" },
+            { tA: "Uruguai", bA: "🇺🇾", tB: "Fiji", bB: "🇫🇯", idA: "j11_a", idB: "j11_b" },
+            { tA: "Inglaterra", bA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB: "Peru", bB: "🇵🇪", idA: "j12_a", idB: "j12_b" },
+            { tA: "Irã", bA: "🇮🇷", tB: "Venezuela", bB: "🇻🇪", idA: "j13_a", idB: "j13_b" },
+            { tA: "Croácia", bA: "🇭🇷", tB: "Iraque", bB: "🇮🇶", idA: "j14_a", idB: "j14_b" },
+            { tA: "Portugal", bA: "🇵🇹", tB: "Coreia do Norte", bB: "🇰🇵", idA: "j15_a", idB: "j15_b" },
+            { tA: "Japão", bA: "🇯🇵", tB: "Nigéria", bB: "🇳🇬", idA: "j16_a", idB: "j16_b" },
+            { tA: "Holanda", bA: "🇳🇱", tB: "Honduras", bB: "🇭🇳", idA: "j17_a", idB: "j17_b" },
+            { tA: "Bélgica", bA: "🇧🇪", tB: "Austrália", bB: "🇦🇺", idA: "j18_a", idB: "j18_b" },
+            { tA: "Chile", bA: "🇨🇱", tB: "Tunísia", bB: "🇹🇳", idA: "j19_a", idB: "j19_b" },
+            { tA: "Brasil", bA: "🇧🇷", tB: "Irlanda", bB: "🇮🇪", idA: "j20_a", idB: "j20_b" },
+            { tA: "Marrocos", bA: "🇲🇦", tB: "Uzbequistão", bB: "🇺🇿", idA: "j21_a", idB: "j21_b" },
+            { tA: "Alemanha", bA: "🇩🇪", tB: "Nova Caledônia", bB: "🇳🇨", idA: "j22_a", idB: "j22_b" },
+            { tA: "Colômbia", bA: "🇨🇴", tB: "Emirados Árabes", bB: "🇦🇪", idA: "j23_a", idB: "j23_b" },
+            { tA: "Áustria", bA: "🇦🇹", tB: "Camarões", bB: "🇨🇲", idA: "j24_a", idB: "j24_b" }
+        ];
+
+        function renderizarJogosPrincipais() {
+            let html = "";
+            estruturaJogos.forEach(jogo => {
+                html += `
+                <div class="jogo-card">
+                    <div class="time-container casa">
+                        <span>${jogo.tA}</span>
+                        <span class="bandeira">${jogo.bA}</span>
+                    </div>
+                    <div class="placar-container">
+                        <div class="placar-box">${resultadosFinais[jogo.idA]}</div>
+                        <span class="divisor">X</span>
+                        <div class="placar-box">${resultadosFinais[jogo.idB]}</div>
+                    </div>
+                    <div class="time-container fora">
+                        <span class="bandeira">${jogo.bB}</span>
+                        <span>${jogo.tB}</span>
+                    </div>
+                </div>`;
+            });
+            document.getElementById("lista-jogos-principal").innerHTML = html;
+        }
+
+        function abrirPalpites(nome) {
+            document.getElementById("modal-titulo").innerText = `Palpites de ${nome}`;
+            const palpites = dadosPalpites[nome];
+            let html = "";
+            estruturaJogos.forEach(jogo => {
+                html += `
+                <div class="jogo-card">
+                    <div class="time-container casa">
+                        <span>${jogo.tA}</span>
+                        <span class="bandeira">${jogo.bA}</span>
+                    </div>
+                    <div class="placar-container">
+                        <div class="placar-box">${palpites[jogo.idA]}</div>
+                        <span class="divisor">X</span>
+                        <div class="placar-box">${palpites[jogo.idB]}</div>
+                    </div>
+                    <div class="time-container fora">
+                        <span class="bandeira">${jogo.bB}</span>
+                        <span>${jogo.tB}</span>
+                    </div>
+                </div>`;
+            });
+            document.getElementById("modal-lista-jogos").innerHTML = html;
+            document.getElementById("modal-palpites").classList.add("ativo");
+        }
+
+        function fecharPalpites() {
+            document.getElementById("modal-palpites").classList.remove("ativo");
+        }
+
+        function fecharModalExterno(e) {
+            if (e.target.id === "modal-palpites") fecharPalpites();
+        }
+
+        renderizarJogosPrincipais();
+    </script>
+</body>
+</html>
