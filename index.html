@@ -357,6 +357,7 @@
     </div>
 
     <script>
+        // Palpites do Walishow configurados para os 24 jogos corretos
         const dadosPalpites = {
             Walishow: {
                 j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-",
@@ -368,6 +369,7 @@
             }
         };
 
+        // Resultados oficiais reais da rodada 1
         const resultadosFinais = {
             j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-",
             j5_a: "-", j5_b: "-", j6_a: "-", j6_b: "-", j7_a: "-", j7_b: "-", j8_a: "-", j8_b: "-",
@@ -377,31 +379,32 @@
             j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-"
         };
 
+        // Lista com os 24 confrontos oficiais passados por você
         const estruturaJogos = [
-            { tA: "México", bA: "🇲🇽", tB: "Indonésia", bB: "🇮🇩", idA: "j1_a", idB: "j1_b" },
-            { tA: "Estados Unidos", bA: "🇺🇸", tB: "Jamaica", bB: "🇯🇲", idA: "j2_a", idB: "j2_b" },
-            { tA: "Canadá", bA: "🇨🇦", tB: "Togo", bB: "🇹🇬", idA: "j3_a", idB: "j3_b" },
-            { tA: "Nova Zelândia", bA: "🇳🇿", tB: "Equador", bB: "🇪🇨", idA: "j4_a", idB: "j4_b" },
-            { tA: "Argentina", bA: "🇦🇷", tB: "Malásia", bB: "🇲🇾", idA: "j5_a", idB: "j5_b" },
-            { tA: "França", bA: "🇫🇷", tB: "Zâmbia", bB: "🇿🇲", idA: "j6_a", idB: "j6_b" },
-            { tA: "Espanha", bA: "🇪🇸", tB: "Gana", bB: "🇬🇭", idA: "j7_a", idB: "j7_b" },
-            { tA: "Catar", bA: "🇶🇦", tB: "Panamá", bB: "🇵🇦", idA: "j8_a", idB: "j8_b" },
-            { tA: "Itália", bA: "🇮🇹", tB: "Mali", bB: "🇲🇱", idA: "j9_a", idB: "j9_b" },
-            { tA: "Dinamarca", bA: "🇩🇰", tB: "África do Sul", bB: "🇿🇦", idA: "j10_a", idB: "j10_b" },
-            { tA: "Uruguai", bA: "🇺🇾", tB: "Fiji", bB: "🇫🇯", idA: "j11_a", idB: "j11_b" },
-            { tA: "Inglaterra", bA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB: "Peru", bB: "🇵🇪", idA: "j12_a", idB: "j12_b" },
-            { tA: "Irã", bA: "🇮🇷", tB: "Venezuela", bB: "🇻🇪", idA: "j13_a", idB: "j13_b" },
-            { tA: "Croácia", bA: "🇭🇷", tB: "Iraque", bB: "🇮🇶", idA: "j14_a", idB: "j14_b" },
-            { tA: "Portugal", bA: "🇵🇹", tB: "Coreia do Norte", bB: "🇰🇵", idA: "j15_a", idB: "j15_b" },
-            { tA: "Japão", bA: "🇯🇵", tB: "Nigéria", bB: "🇳🇬", idA: "j16_a", idB: "j16_b" },
-            { tA: "Holanda", bA: "🇳🇱", tB: "Honduras", bB: "🇭🇳", idA: "j17_a", idB: "j17_b" },
-            { tA: "Bélgica", bA: "🇧🇪", tB: "Austrália", bB: "🇦🇺", idA: "j18_a", idB: "j18_b" },
-            { tA: "Chile", bA: "🇨🇱", tB: "Tunísia", bB: "🇹🇳", idA: "j19_a", idB: "j19_b" },
-            { tA: "Brasil", bA: "🇧🇷", tB: "Irlanda", bB: "🇮🇪", idA: "j20_a", idB: "j20_b" },
-            { tA: "Marrocos", bA: "🇲🇦", tB: "Uzbequistão", bB: "🇺🇿", idA: "j21_a", idB: "j21_b" },
-            { tA: "Alemanha", bA: "🇩🇪", tB: "Nova Caledônia", bB: "🇳🇨", idA: "j22_a", idB: "j22_b" },
-            { tA: "Colômbia", bA: "🇨🇴", tB: "Emirados Árabes", bB: "🇦🇪", idA: "j23_a", idB: "j23_b" },
-            { tA: "Áustria", bA: "🇦🇹", tB: "Camarões", bB: "🇨🇲", idA: "j24_a", idB: "j24_b" }
+            { tA: "México", bA: "🇲🇽", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" },
+            { tA: "Coreia do Sul", bA: "🇰🇷", tB: "República Tcheca", bB: "🇨🇿", idA: "j2_a", idB: "j2_b" },
+            { tA: "Canadá", bA: "🇨🇦", tB: "Bósnia", bB: "🇧🇦", idA: "j3_a", idB: "j3_b" },
+            { tA: "Catar", bA: "🇶🇦", tB: "Suíça", bB: "🇨🇭", idA: "j4_a", idB: "j4_b" },
+            { tA: "Brasil", bA: "🇧🇷", tB: "Marrocos", bB: "🇲🇦", idA: "j5_a", idB: "j5_b" },
+            { tA: "Haiti", bA: "🇭🇹", tB: "Escócia", bB: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", idA: "j6_a", idB: "j6_b" },
+            { tA: "Estados Unidos", bA: "🇺🇸", tB: "Paraguai", bB: "🇵🇾", idA: "j7_a", idB: "j7_b" },
+            { tA: "Austrália", bA: "🇦🇺", tB: "Turquia", bB: "🇹🇷", idA: "j8_a", idB: "j8_b" },
+            { tA: "Alemanha", bA: "🇩🇪", tB: "Curaçao", bB: "🇨🇼", idA: "j9_a", idB: "j9_b" },
+            { tA: "Costa do Marfim", bA: "🇨🇮", tB: "Equador", bB: "🇪🇨", idA: "j10_a", idB: "j10_b" },
+            { tA: "Holanda", bA: "🇳🇱", tB: "Japão", bB: "🇯🇵", idA: "j11_a", idB: "j11_b" },
+            { tA: "Suécia", bA: "🇸🇪", tB: "Tunísia", bB: "🇹🇳", idA: "j12_a", idB: "j12_b" },
+            { tA: "Bélgica", bA: "🇧🇪", tB: "Egito", bB: "🇪🇬", idA: "j13_a", idB: "j13_b" },
+            { tA: "Irã", bA: "🇮🇷", tB: "Nova Zelândia", bB: "🇳🇿", idA: "j14_a", idB: "j14_b" },
+            { tA: "Espanha", bA: "🇪🇸", tB: "Cabo Verde", bB: "🇨🇻", idA: "j15_a", idB: "j15_b" },
+            { tA: "Arábia Saudita", bA: "🇸🇦", tB: "Uruguai", bB: "🇺🇾", idA: "j16_a", idB: "j16_b" },
+            { tA: "França", bA: "🇫🇷", tB: "Senegal", bB: "🇸🇳", idA: "j17_a", idB: "j17_b" },
+            { tA: "Iraque", bA: "🇮🇶", tB: "Noruega", bB: "🇳🇴", idA: "j18_a", idB: "j18_b" },
+            { tA: "Argentina", bA: "🇦🇷", tB: "Argélia", bB: "🇩🇿", idA: "j19_a", idB: "j19_b" },
+            { tA: "Áustria", bA: "🇦🇹", tB: "Jordânia", bB: "🇯🇴", idA: "j20_a", idB: "j20_b" },
+            { tA: "Portugal", bA: "🇵🇹", tB: "Congo", bB: "🇨🇬", idA: "j21_a", idB: "j21_b" },
+            { tA: "Uzbequistão", bA: "🇺🇿", tB: "Colômbia", bB: "🇨🇴", idA: "j22_a", idB: "j22_b" },
+            { tA: "Inglaterra", bA: "🏴\u200D🏴\u200D󠁢\u200D󠁥\u200D󠁮\u200D󠁧\u200D󠁿", tB: "Croácia", bB: "🇭🇷", idA: "j23_a", idB: "j23_b" },
+            { tA: "Gana", bA: "🇬🇭", tB: "Panamá", bB: "🇵🇦", idA: "j24_a", idB: "j24_b" }
         ];
 
         function renderizarJogosPrincipais() {
