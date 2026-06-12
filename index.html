@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -63,13 +63,12 @@
             </tr>
         </thead>
         <tbody id="tabela-classificacao">
-            <!-- Os dados serão inseridos aqui pelo JavaScript -->
-        </tbody>
+            </tbody>
     </table>
 </div>
 
 <script>
-// 1. LISTA DE PARTICIPANTES (Bases do seu Bolão)
+// 1. LISTA DE PARTICIPANTES
 const participantes = [
     { id: "walishow", nome: "Walishow", pontos: 0 },
     { id: "paulao", nome: "Paulão", pontos: 0 },
@@ -88,34 +87,32 @@ const participantes = [
 
 // 2. CADASTRO DOS JOGOS E RESULTADOS REAIS
 const jogos = [
-    { id: "jogo1", time1: "EUA", time2: "Paraguai", gols1: null, gols2: null }, // Jogo em aberto
-    { id: "jogo2", time1: "Canadá", time2: "Bósnia", gols1: 1, gols2: 1 }      // Resultado finalizado
+    { id: "j7", time1: "EUA", time2: "Paraguai", gols1: null, gols2: null }, 
+    { id: "j3", time1: "Canadá", time2: "Bósnia", gols1: 1, gols2: 1 }
 ];
 
 // 3. BANCO DE DADOS DOS PALPITES DO DIA
 const dadosPalpites = {
-    "walishow":   { "jogo1": { gols1: 1, gols2: 1 }, "jogo2": { gols1: 0, gols2: 0 } },
-    "paulao":     { "jogo1": { gols1: 1, gols2: 1 }, "jogo2": { gols1: 1, gols2: 1 } },
-    "okc_freitas":{ "jogo1": { gols1: 1, gols2: 0 }, "jogo2": { gols1: 0, gols2: 1 } },
-    "fish":       { "jogo1": { gols1: 0, gols2: 1 }, "jogo2": { gols1: 1, gols2: 0 } },
-    "psico":      { "jogo1": { gols1: 1, gols2: 2 }, "jogo2": { gols1: 0, gols2: 0 } },
-    "sid":        { "jogo1": { gols1: 2, gols2: 1 }, "jogo2": { gols1: 2, gols2: 1 } },
-    "lucas":      { "jogo1": { gols1: 1, gols2: 1 }, "jogo2": { gols1: 1, gols2: 1 } },
-    "gu":         { "jogo1": { gols1: 2, gols2: 0 }, "jogo2": { gols1: 1, gols2: 1 } },
-    "wix":        { "jogo1": { gols1: 0, gols2: 2 }, "jogo2": { gols1: 0, gols2: 1 } },
-    "julian":     { "jogo1": { gols1: 2, gols2: 1 }, "jogo2": { gols1: 1, gols2: 1 } },
-    "soltin":     { "jogo1": { gols1: 2, gols2: 1 }, "jogo2": { gols1: 1, gols2: 0 } },
-    "samuel":     { "jogo1": { gols1: 2, gols2: 1 }, "jogo2": { gols1: 1, gols2: 2 } },
-    "abner":      { "jogo1": { gols1: 2, gols2: 1 }, "jogo2": { gols1: 2, gols2: 0 } }
+    "walishow":   { "j7": { gols1: 1, gols2: 1 }, "j3": { gols1: 0, gols2: 0 } },
+    "paulao":     { "j7": { gols1: 1, gols2: 1 }, "j3": { gols1: 1, gols2: 1 } },
+    "okc_freitas":{ "j7": { gols1: 1, gols2: 0 }, "j3": { gols1: 0, gols2: 1 } },
+    "fish":       { "j7": { gols1: 0, gols2: 1 }, "j3": { gols1: 1, gols2: 0 } },
+    "psico":      { "j7": { gols1: 1, gols2: 2 }, "j3": { gols1: 0, gols2: 0 } },
+    "sid":        { "j7": { gols1: 2, gols2: 1 }, "j3": { gols1: 2, gols2: 1 } },
+    "lucas":      { "j7": { gols1: 1, gols2: 1 }, "j3": { gols1: 1, gols2: 1 } },
+    "gu":         { "j7": { gols1: 2, gols2: 0 }, "j3": { gols1: 1, gols2: 1 } },
+    "wix":        { "j7": { gols1: 0, gols2: 2 }, "j3": { gols1: 0, gols2: 1 } },
+    "julian":     { "j7": { gols1: 2, gols2: 1 }, "j3": { gols1: 1, gols2: 1 } },
+    "soltin":     { "j7": { gols1: 2, gols2: 1 }, "j3": { gols1: 1, gols2: 0 } },
+    "samuel":     { "j7": { gols1: 2, gols2: 1 }, "j3": { gols1: 1, gols2: 2 } },
+    "abner":      { "j7": { gols1: 2, gols2: 1 }, "j3": { gols1: 2, gols2: 0 } }
 };
 
-// 4. FUNÇÃO RECORRIGIDA COM AS REGRAS OFICIAIS DA IMAGEM
+// 4. FUNÇÃO DE PONTUAÇÃO CORRIGIDA DE ACORDO COM A SUA IMAGEM
 function atualizarClassificacao() {
-    // Zera os pontos para recalcular do zero com segurança
     participantes.forEach(p => p.pontos = 0);
 
     jogos.forEach(jogo => {
-        // Só calcula se o jogo já tiver resultado preenchido
         if (jogo.gols1 !== null && jogo.gols2 !== null) {
             const resGols1 = jogo.gols1;
             const resGols2 = jogo.gols2;
@@ -123,25 +120,25 @@ function atualizarClassificacao() {
 
             participantes.forEach(p => {
                 const palpite = dadosPalpites[p.id]?.[jogo.id];
-                if (!palpite) return; // Pula se não houver palpite cadastrado
+                if (!palpite) return;
 
                 const palGols1 = palpite.gols1;
                 const palGols2 = palpite.gols2;
                 const saldoPalpite = palGols1 - palGols2;
 
-                // Regra 1: Acertou o placar exato (10 pontos)
+                // 1. ACERTOU O PLACAR EXATO (10 PONTOS)
                 if (palGols1 === resGols1 && palGols2 === resGols2) {
                     p.pontos += 10;
                 }
-                // Regra 2: Vendedor + Saldo de gols (6 pontos)
+                // 2. VENDEDOR + SALDO DE GOLS (6 PONTOS)
                 else if (saldoReal !== 0 && saldoPalpite === saldoReal && ((resGols1 > resGols2 && palGols1 > palGols2) || (resGols2 > resGols1 && palGols2 > palGols1))) {
                     p.pontos += 6;
                 }
-                // Regra 3: Empate não exato (5 pontos)
-                else if (saldoReal === 0 && saldoPalpite === 0) {
+                // 3. EMPATE NÃO EXATO (5 PONTOS)
+                else if (saldoReal === 0 && saldoPalpite === 0 && (palGols1 !== resGols1 || palGols2 !== resGols2)) {
                     p.pontos += 5;
                 }
-                // Regra 4: Vendedor apenas tendência (3 pontos)
+                // 4. VENDEDOR APENAS TENDÊNCIA (3 PONTOS)
                 else if ((resGols1 > resGols2 && palGols1 > palGols2) || (resGols2 > resGols1 && palGols2 > palGols1)) {
                     p.pontos += 3;
                 }
@@ -149,14 +146,10 @@ function atualizarClassificacao() {
         }
     });
 
-    // Ordena os participantes do maior para o menor ponto
     participantes.sort((a, b) => b.pontos - a.pontos);
-
-    // Renderiza na tela
     exibirTabelaClassificacao();
 }
 
-// 5. RENDERIZADOR DA TABELA HTML
 function exibirTabelaClassificacao() {
     const tbody = document.getElementById("tabela-classificacao");
     tbody.innerHTML = "";
@@ -172,7 +165,6 @@ function exibirTabelaClassificacao() {
     });
 }
 
-// Executa a função assim que abrir a página para gerar o ranking inicial
 atualizarClassificacao();
 </script>
 
