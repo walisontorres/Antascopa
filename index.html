@@ -27,17 +27,17 @@ function atualizarClassificacao(){let e=[];Object.keys(dadosPalpites).forEach(t=
 function gerarNoticias(ranking) {
     const container = document.getElementById("news-container");
     const topo = ranking[0];
-    const base = ranking[ranking.length - 1];
+    const lanterna = ranking[ranking.length - 1];
     container.innerHTML = `
         <div class="news-card">
-            <span class="news-tag">LÍDER DO BOLÃO</span>
-            <h3 class="news-title">${topo.nome} no comando</h3>
-            <p class="news-text">Com ${topo.pontos} pontos, ${topo.nome} assume a ponta da tabela e dita o ritmo da disputa.</p>
+            <span class="news-tag">O MAGO DO BOLÃO</span>
+            <h3 class="news-title">Alguém avisa o ${topo.nome} que é só um bolão?</h3>
+            <p class="news-text">Com ${topo.pontos} pontos, ${topo.nome} claramente vendeu a alma pro capeta ou consultou um vidente de esquina. O resto da galera segue apenas participando, mas a liderança dele é o ápice do desequilíbrio emocional coletivo.</p>
         </div>
         <div class="news-card">
-            <span class="news-tag">ZONA DE REAÇÃO</span>
-            <h3 class="news-title">Alerta para ${base.nome}</h3>
-            <p class="news-text">Atualmente na última posição com ${base.pontos} pontos, ${base.nome} precisa pontuar na próxima rodada para sair da lanterna.</p>
+            <span class="news-tag">CAMPANHA DE ARREPENDIMENTO</span>
+            <h3 class="news-title">Abner, a gente entende a sua dor...</h3>
+            <p class="news-text">Com ${lanterna.pontos} pontos, ${lanterna.nome} está provando que o fundo do poço tem porão. É uma performance tão memorável que a gente tá cogitando criar um troféu 'participação especial (e desastrosa)' só pra ele.</p>
         </div>
     `;
 }
