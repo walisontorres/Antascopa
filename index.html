@@ -1,24 +1,68 @@
-<style>
-    body{font-family:sans-serif;padding:20px;background:#f4f4f4}
-    .card{background:#fff;padding:15px;margin-bottom:15px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
-    .item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #eee}
-    .news{font-size:0.9rem;color:#333;margin-top:10px}
-</style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão Copa do Mundo - Antas</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .card { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; }
+        .news { font-size: 0.95rem; color: #444; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
 <div class="card">
     <h2>Últimas do Front 📰</h2>
     <div class="news">
-        <p><b>Iluminado:</b> Walishow segue operando milagres com precisão cirúrgica e liderança isolada.</p>
-        <p><b>Lanterna:</b> Wix desafia a probabilidade com uma consistência reversa impressionante na última posição.</p>
+        <p><b>Iluminado:</b> Walishow segue operando milagres e lidera com precisão cirúrgica.</p>
+        <p><b>Lanterna:</b> Wix desafia as leis da probabilidade e mantém sua posição de destaque absoluto na lanterna.</p>
     </div>
 </div>
-<div class="card"><h2>Ranking</h2><div id="rank"></div></div>
+
+<div class="card">
+    <h2>Classificação Geral</h2>
+    <div id="rank"></div>
+</div>
+
 <script>
-const part = ["Walishow", "Paulão", "Campeão de 2026 Okc Freitas", "Fish", "Psico", "Sid", "Lucas", "Gu", "Wix", "Julian", "soltin", "Samuel", "Abner"];
-const flags = { "Escócia": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Inglaterra": "🏴󠁧󠁢󠁥󠁮󠁧󠁿" };
+// Dados completos mantidos conforme estrutura original
+const palpites = {
+    "Walishow": { j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" },
+    "Paulão": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "0" },
+    "Campeão de 2026 Okc Freitas": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "3", j7_a: "1", j7_b: "0", j8_a: "1", j8_b: "2", j9_a: "7", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "1", j19_a: "1", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "2" },
+    "Fish": { j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "0" },
+    "Psico": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "3", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1" },
+    "Sid": { j1_a: "1", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "2", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "2", j6_a: "2", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "2", j11_b: "1", j12_a: "3", j12_b: "1", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "3", j20_b: "1", j21_a: "4", j21_b: "1", j22_a: "1", j22_b: "3", j23_a: "0", j23_b: "0", j24_a: "2", j24_b: "0" },
+    "Lucas": { j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "1", j24_b: "1" },
+    "Gu": { j1_a: "3", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "0", j8_a: "0", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "5", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "1", j22_a: "0", j22_b: "5", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "1" },
+    "Wix": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "19", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "1", j24_a: "0", j24_b: "0" },
+    "Julian": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "2", j24_b: "0" },
+    "soltin": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "2", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "0" },
+    "Samuel": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "0", j3_a: "1", j3_b: "2", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "0", j8_b: "3", j9_a: "1", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "2", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "2", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "1", j16_a: "0", j16_b: "1", j17_a: "1", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" },
+    "Abner": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1" }
+};
 
-// Exemplo de exibição das bandeiras corrigidas
-console.log(`Escócia: ${flags["Escócia"]}, Inglaterra: ${flags["Inglaterra"]}`);
+// Exemplo simples de como exibir (basta expandir para os 24 jogos conforme necessário)
+const res = { j1_a: "2", j1_b: "0", j2_a: "2", j2_b: "1", j7_a: "4", j7_b: "1" }; 
 
-document.getElementById('rank').innerHTML = part.map(n => 
-    `<div class="item"><span>${n}</span><b>0 pts</b></div>`).join('');
+function calc(p) {
+    let pts = 0;
+    Object.keys(res).forEach(k => {
+        if(p[k] === res[k]) pts += 10;
+        else if(parseInt(p[k]) == parseInt(res[k])) pts += 3;
+    });
+    return pts;
+}
+
+let rankHtml = Object.keys(palpites)
+    .map(n => ({ n, p: calc(palpites[n]) }))
+    .sort((a,b) => b.p - a.p)
+    .map(x => `<div class="item"><span>${x.n}</span><b>${x.p} pontos</b></div>`)
+    .join('');
+
+document.getElementById('rank').innerHTML = rankHtml;
 </script>
+
+</body>
+</html>
