@@ -30,14 +30,15 @@ function gerarNoticias(ranking) {
     container.innerHTML = `
         <div class="news-card">
             <span class="news-tag">ALERTA VERDE-AMARELO</span>
-            <h3 class="news-title">Brasil tropeça contra Marrocos.</h3>
-            <p class="news-text">1x1. A Seleção não convenceu e o bolão, mais uma vez, provou que ninguém aqui entende de futebol. É o caos instaurado na tabela de pontos.</p>
+            <h3 class="news-title">Brasil 1 x 1 Marrocos.</h3>
+            <p class="news-text">A Seleção empatou, frustrando a expectativa de muitos, e o bolão segue embolado. Ninguém esperava esse placar.</p>
         </div>
         <div class="news-card">
             <span class="news-tag">O MAGO DO BOLÃO</span>
             <h3 class="news-title">${topo.nome} segue intocável.</h3>
-            <p class="news-text">Mesmo com o empate frustrante do Brasil, ${topo.nome} continua na liderança com ${topo.pontos} pontos. O pessoal abaixo que lute, porque a distância só aumenta.</p>
+            <p class="news-text">Mesmo com o empate do Brasil, ${topo.nome} continua na liderança com ${topo.pontos} pontos. O pessoal abaixo que lute, porque a distância só aumenta.</p>
         </div>
     `;
 }
-function salvarERenderizarEvolucao(e){let t=JSON.parse(localStorage.getItem("bolao_posicoes_anteriores")||"{}"),a=!t||0===Object.keys(t).length,l={},n=e.length>0?e[0].pontos:1;0===n&&(n=1);let r="";e.forEach((e,o)=>{let s=o+1;l[e.nome]=s;let i="-",c="manteve";if(!a&&t[e.nome]){let d=t[e.nome];s<d?(i="▲",c="subiu"):s>d&&(i="▼",c="desceu")}let d=e.pontos/n*100;r+=`<div class="evolucao-linha"><span class="evolucao-nome">${e.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,d)}%"></div></div>
+function salvarERenderizarEvolucao(e){let t=JSON.parse(localStorage.getItem("bolao_posicoes_anteriores")||"{}"),a=!t||0===Object.keys(t).length,l={},n=e.length>0?e[0].pontos:1;0===n&&(n=1);let r="";e.forEach((e,o)=>{let s=o+1;l[e.nome]=s;let i="-",c="manteve";if(!a&&t[e.nome]){let d=t[e.nome];s<d?(i="▲",c="subiu"):s>d&&(i="▼",c="desceu")}let d=e.pontos/n*100;r+=`<div class="evolucao-linha"><span class="evolucao-nome">${e.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,d)}%"></div></div><span class="evolucao-pts">${e.pontos} pts</span><span class="evolucao-tendencia ${c}">${i}</span></div>`}),localStorage.setItem("bolao_posicoes_anteriores",JSON.stringify(l)),document.getElementById("painel-evolucao").innerHTML=r}
+renderizarJogosPrincipais(),atualizarClassificacao();</script></body></html>
