@@ -1,88 +1,90 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } .table-container { overflow-x: auto } .ranking-table { width: 100%; border-collapse: collapse; text-align: left } .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } .ranking-table tr:last-child td { border-bottom: none } .sem-dados { text-align: center; color: var(--text-muted); padding: 50px 18px!important; font-style: italic } .part-lista { display: flex; flex-direction: column; gap: 15px } .part-item { display: flex; align-items: center; padding: 20px 25px; background: rgba(15,81,50,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); justify-content: space-between; transition: all .3s ease } .btn-palpites { background: linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: .95rem; box-shadow: 0 10px 20px rgba(15,81,50,0.15); transition: all .3s ease } .jogos-lista { display: none; flex-direction: column; gap: 18px } .jogos-lista.ativo { display: flex } .btn-tab { background: #eee; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; margin-right: 5px; font-weight: 600; color: var(--text-muted); } .btn-tab.ativo { background: var(--primary); color: white; } .jogo-card { display: flex; flex-direction: column; padding: 16px 12px; background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.02); gap: 12px } .jogo-principal { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px } .time-container { flex: 1; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 1rem; color: var(--text); min-width: 0 } .time-container.casa { justify-content: flex-end; text-align: right } .time-container.fora { justify-content: flex-start; text-align: left } .bandeira { font-size: 1.4rem; flex-shrink: 0 } .placar-container { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; width: 125px } .placar-wrapper { display: flex; align-items: center; gap: 6px } .placar-box { width: 38px; height: 38px; background: rgba(15,81,50,0.03); border: 2px solid var(--border); border-radius: 10px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; justify-content: center } .divisor { font-weight: 700; color: rgba(15,81,50,0.3); font-size: .85rem } .jogo-odds { font-size: .65rem; font-weight: 700; color: var(--text-muted); background: rgba(15,81,50,0.05); padding: 3px 8px; border-radius: 100px; text-align: center; width: 100% } .grupo-stats { display: flex; justify-content: space-between; background: rgba(15,81,50,0.02); padding: 6px 12px; border-radius: 8px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px dashed var(--border) } .stat-col { display: flex; flex-direction: column; align-items: center; flex: 1 } .stat-val { font-weight: 700; color: var(--primary-dark) } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } .modal.ativo { display: flex } .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto } .modal-fechar { position: absolute; top: 20px; right: 16px; background: rgba(15,81,50,0.05); border: none; font-size: 1.3rem; cursor: pointer; border-radius: 100px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center }</style></head><body>
-<header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
-<div class="container">
-    <div class="card"><h2>Classificação Geral</h2><div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Calculando...</td></tr></tbody></table></div></div>
-    <div class="card"><h2>Painel de Evolução do Grupo 📈</h2><div class="evolucao-container" id="painel-evolucao"></div></div>
-    <div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
-    <div class="card">
-        <h2>Jogos & Resultados</h2>
-        <div style="margin-bottom: 20px;">
-            <button class="btn-tab ativo" onclick="alternarRodada(1, this)">Rodada 1</button>
-            <button class="btn-tab" onclick="alternarRodada(2, this)">Rodada 2</button>
-        </div>
-        <div class="jogos-lista ativo" id="lista-jogos-r1"></div>
-        <div class="jogos-lista" id="lista-jogos-r2"></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolão Copa do Mundo - Antas</title>
+    <style>
+        body { font-family: sans-serif; background: #f3f7f5; padding: 20px; }
+        .card { background: white; padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-tab { padding: 8px 16px; cursor: pointer; border: none; background: #eee; border-radius: 20px; margin-right: 5px; }
+        .btn-tab.ativo { background: #0f5132; color: white; }
+        .jogos-lista { display: none; }
+        .jogos-lista.ativo { display: block; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
+        .modal.ativo { display: flex; }
+        .modal-conteudo { background: white; padding: 20px; border-radius: 14px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; }
+        .evolucao-linha { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .evolucao-barra-bg { flex: 1; height: 10px; background: #eee; border-radius: 5px; }
+        .evolucao-barra-fill { height: 100%; background: #0f5132; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Classificação Geral</h2>
+    <table style="width:100%"><thead><tr><th>Posição</th><th>Participante</th><th>Pontos</th></tr></thead><tbody id="tabela-ranking"></tbody></table>
+</div>
+
+<div class="card">
+    <h2>Evolução</h2>
+    <div id="painel-evolucao"></div>
+</div>
+
+<div class="card">
+    <h2>Participantes</h2>
+    <div id="lista-participantes"></div>
+</div>
+
+<div id="modal-palpites" class="modal">
+    <div class="modal-conteudo">
+        <button onclick="fecharPalpites()" style="float:right">Fechar</button>
+        <h2 id="modal-titulo"></h2>
+        <div id="modal-lista-jogos"></div>
     </div>
 </div>
-<div id="modal-palpites" class="modal"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo">Palpites</h2>
-<div style="margin-bottom: 20px; display:flex; justify-content:center;">
-    <button class="btn-tab ativo" id="btn-modal-r1" onclick="alternarRodadaModal(1)">Rodada 1</button>
-    <button class="btn-tab" id="btn-modal-r2" onclick="alternarRodadaModal(2)">Rodada 2</button>
-</div>
-<div class="jogos-lista ativo" id="modal-lista-jogos-r1" style="display:flex"></div>
-<div class="jogos-lista" id="modal-lista-jogos-r2"></div>
-</div></div>
+
 <script>
 const dadosPalpites = { 
-    "Walishow": { j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" }, 
-    "Paulão": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "0" }, 
-    "Campeão de 2026 Okc Freitas": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "3", j7_a: "1", j7_b: "0", j8_a: "1", j8_b: "2", j9_a: "7", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "1", j19_a: "1", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "2" }, 
-    "Fish": { j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "0" }, 
     "Psico": { 
-        j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "3", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1",
-        j1_a_r2: "1", j1_b_r2: "0", j2_a_r2: "1", j2_b_r2: "1", j3_a_r2: "2", j3_b_r2: "2", j4_a_r2: "2", j4_b_r2: "2", j5_a_r2: "3", j5_b_r2: "1", j6_a_r2: "1", j6_b_r2: "1", j7_a_r2: "3", j7_b_r2: "0", j8_a_r2: "1", j8_b_r2: "1", j9_a_r2: "1", j9_b_r2: "2", j10_a_r2: "2", j10_b_r2: "1", j11_a_r2: "3", j11_b_r2: "0", j12_a_r2: "1", j12_b_r2: "1", j13_a_r2: "1", j13_b_r2: "0", j14_a_r2: "2", j14_b_r2: "1", j15_a_r2: "1", j15_b_r2: "0", j16_a_r2: "1", j16_b_r2: "2", j17_a_r2: "1", j17_b_r2: "0", j18_a_r2: "3", j18_b_r2: "1", j19_a_r2: "2", j19_b_r2: "1", j20_a_r2: "1", j20_b_r2: "1", j21_a_r2: "2", j21_b_r2: "0", j22_a_r2: "1", j22_b_r2: "2", j23_a_r2: "1", j23_b_r2: "2", j24_a_r2: "3", j24_b_r2: "0" 
-    }, 
-    "Sid": { j1_a: "1", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "2", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "2", j6_a: "2", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "2", j11_b: "1", j12_a: "3", j12_b: "1", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "3", j20_b: "1", j21_a: "4", j21_b: "1", j22_a: "1", j22_b: "3", j23_a: "0", j23_b: "0", j24_a: "2", j24_b: "0" }, 
-    "Lucas": { j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "1", j24_b: "1" }, 
-    "Gu": { j1_a: "3", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "0", j8_a: "0", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "5", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "1", j22_a: "0", j22_b: "5", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "1" }, 
-    "Wix": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "19", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "1", j24_a: "0", j24_b: "0" }, 
-    "Julian": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "2", j24_b: "0" }, 
-    "soltin": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "2", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "0" }, 
-    "Samuel": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "0", j3_a: "1", j3_b: "2", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "0", j8_b: "3", j9_a: "1", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "2", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "2", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "1", j16_a: "0", j16_b: "1", j17_a: "1", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" }, 
-    "Abner": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1" } 
+        j1_a: "2", j1_b: "1", j1_a_r2: "1", j1_b_r2: "0", j2_a: "1", j2_b: "1", j2_a_r2: "1", j2_b_r2: "1", j3_a: "0", j3_b: "0", j3_a_r2: "2", j3_b_r2: "2", j4_a: "1", j4_b: "2", j4_a_r2: "2", j4_b_r2: "2", j5_a: "3", j5_b: "0", j5_a_r2: "3", j5_b_r2: "1", j6_a: "0", j6_b: "2", j6_a_r2: "1", j6_b_r2: "1", j7_a: "1", j7_b: "2", j7_a_r2: "3", j7_b_r2: "0", j8_a: "1", j8_b: "2", j8_a_r2: "1", j8_b_r2: "1", j9_a: "3", j9_b: "0", j9_a_r2: "1", j9_b_r2: "2", j10_a: "1", j10_b: "2", j10_a_r2: "2", j10_b_r2: "1", j11_a: "1", j11_b: "3", j11_a_r2: "3", j11_b_r2: "0", j12_a: "1", j12_b: "2", j12_a_r2: "1", j12_b_r2: "1", j13_a: "0", j13_b: "1", j13_a_r2: "1", j13_b_r2: "0", j14_a: "2", j14_b: "0", j14_a_r2: "2", j14_b_r2: "1", j15_a: "2", j15_b: "0", j15_a_r2: "1", j15_b_r2: "0", j16_a: "1", j16_b: "2", j16_a_r2: "1", j16_b_r2: "2", j17_a: "2", j17_b: "1", j17_a_r2: "1", j17_b_r2: "0", j18_a: "0", j18_b: "4", j18_a_r2: "3", j18_b_r2: "1", j19_a: "2", j19_b: "1", j19_a_r2: "2", j19_b_r2: "1", j20_a: "2", j20_b: "0", j20_a_r2: "1", j20_b_r2: "1", j21_a: "3", j21_b: "0", j21_a_r2: "2", j21_b_r2: "0", j22_a: "1", j22_b: "3", j22_a_r2: "1", j22_b_r2: "2", j23_a: "1", j23_b: "1", j23_a_r2: "1", j23_b_r2: "2", j24_a: "2", j24_b: "1", j24_a_r2: "3", j24_b_r2: "0" 
+    }
+    // Adicione outros participantes mantendo a mesma estrutura de chaves
 };
-const resultadosFinaisR1 = { j1_a: "2", j1_b: "0", j2_a: "2", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "1", j4_b: "1", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "4", j7_b: "1", j8_a: "2", j8_b: "0", j9_a: "7", j9_b: "1", j10_a: "1", j10_b: "0", j11_a: "2", j11_b: "2", j12_a: "5", j12_b: "1", j13_a: "1", j13_b: "1", j14_a: "2", j14_b: "2", j15_a: "0", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "3", j19_b: "0", j20_a: "-", j20_b: "-", j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-" };
-const resultadosFinaisR2 = { j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-", j5_a: "-", j5_b: "-", j6_a: "-", j6_b: "-", j7_a: "-", j7_b: "-", j8_a: "-", j8_b: "-", j9_a: "-", j9_b: "-", j10_a: "-", j10_b: "-", j11_a: "-", j11_b: "-", j12_a: "-", j12_b: "-", j13_a: "-", j13_b: "-", j14_a: "-", j14_b: "-", j15_a: "-", j15_b: "-", j16_a: "-", j16_b: "-", j17_a: "-", j17_b: "-", j18_a: "-", j18_b: "-", j19_a: "-", j19_b: "-", j20_a: "-", j20_b: "-", j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-" };
-const estruturaJogosR1 = [{ tA: "México", bA: "🇲🇽", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" }, { tA: "Coreia do Sul", bA: "🇰🇷", tB: "República Tcheca", bB: "🇨🇿", idA: "j2_a", idB: "j2_b" }, { tA: "Canadá", bA: "🇨🇦", tB: "Bósnia", bB: "🇧🇦", idA: "j3_a", idB: "j3_b" }, { tA: "Catar", bA: "🇶🇦", tB: "Suíça", bB: "🇨🇭", idA: "j4_a", idB: "j4_b" }, { tA: "Brasil", bA: "🇧🇷", tB: "Marrocos", bB: "🇲🇦", idA: "j5_a", idB: "j5_b" }, { tA: "Haiti", bA: "🇭🇹", tB: "Escócia", bB: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", idA: "j6_a", idB: "j6_b" }, { tA: "Estados Unidos", bA: "🇺🇸", tB: "Paraguai", bB: "🇵🇾", idA: "j7_a", idB: "j7_b" }, { tA: "Austrália", bA: "🇦🇺", tB: "Turquia", bB: "🇹🇷", idA: "j8_a", idB: "j8_b" }, { tA: "Alemanha", bA: "🇩🇪", tB: "Curaçao", bB: "🇨🇼", idA: "j9_a", idB: "j9_b" }, { tA: "Costa do Marfim", bA: "🇨🇮", tB: "Equador", bB: "🇪🇨", idA: "j10_a", idB: "j10_b" }, { tA: "Holanda", bA: "🇳🇱", tB: "Japão", bB: "🇯🇵", idA: "j11_a", idB: "j11_b" }, { tA: "Suécia", bA: "🇸🇪", tB: "Tunísia", bB: "🇪🇳", idA: "j12_a", idB: "j12_b" }, { tA: "Bélgica", bA: "🇧🇪", tB: "Egito", bB: "🇪🇬", idA: "j13_a", idB: "j13_b" }, { tA: "Irã", bA: "🇮🇷", tB: "Nova Zelândia", bB: "🇳🇿", idA: "j14_a", idB: "j14_b" }, { tA: "Espanha", bA: "🇪🇸", tB: "Cabo Verde", bB: "🇨🇻", idA: "j15_a", idB: "j15_b" }, { tA: "Arábia Saudita", bA: "🇸🇦", tB: "Uruguai", bB: "🇺🇾", idA: "j16_a", idB: "j16_b" }, { tA: "França", bA: "🇫🇷", tB: "Senegal", bB: "🇸🇳", idA: "j17_a", idB: "j17_b" }, { tA: "Iraque", bA: "🇮🇶", tB: "Noruega", bB: "🇳🇴", idA: "j18_a", idB: "j18_b" }, { tA: "Argentina", bA: "🇦🇷", tB: "Argélia", bB: "🇩🇿", idA: "j19_a", idB: "j19_b" }, { tA: "Áustria", bA: "🇦🇹", tB: "Jordânia", bB: "🇯🇴", idA: "j20_a", idB: "j20_b" }, { tA: "Portugal", bA: "🇵🇹", tB: "Congo", bB: "🇨🇬", idA: "j21_a", idB: "j21_b" }, { tA: "Uzbequistão", bA: "🇺🇿", tB: "Colômbia", bB: "🇨🇴", idA: "j22_a", idB: "j22_b" }, { tA: "Inglaterra", bA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB: "Croácia", bB: "🇭🇷", idA: "j23_a", idB: "j23_b" }, { tA: "Gana", bA: "🇬🇭", tB: "Panamá", bB: "🇵🇦", idA: "j24_a", idB: "j24_b" }];
-const estruturaJogosR2 = [{ tA: "República Tcheca", bA: "🇨🇿", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" }, { tA: "Suíça", bA: "🇨🇭", tB: "Bósnia", bB: "🇧🇦", idA: "j2_a", idB: "j2_b" }, { tA: "Canadá", bA: "🇨🇦", tB: "Catar", bB: "🇶🇦", idA: "j3_a", idB: "j3_b" }, { tA: "México", bA: "🇲🇽", tB: "Coreia do Sul", bB: "🇰🇷", idA: "j4_a", idB: "j4_b" }, { tA: "EUA", bA: "🇺🇸", tB: "Austrália", bB: "🇦🇺", idA: "j5_a", idB: "j5_b" }, { tA: "Escócia", bA: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", tB: "Marrocos", bB: "🇲🇦", idA: "j6_a", idB: "j6_b" }, { tA: "Brasil", bA: "🇧🇷", tB: "Haiti", bB: "🇭🇹", idA: "j7_a", idB: "j7_b" }, { tA: "Turquia", bA: "🇹🇷", tB: "Paraguai", bB: "🇵🇾", idA: "j8_a", idB: "j8_b" }, { tA: "Países Baixos", bA: "🇳🇱", tB: "Suécia", bB: "🇸🇪", idA: "j9_a", idB: "j9_b" }, { tA: "Alemanha", bA: "🇩🇪", tB: "Costa do Marfim", bB: "🇨🇮", idA: "j10_a", idB: "j10_b" }, { tA: "Equador", bA: "🇪🇨", tB: "Curaçao", bB: "🇨🇼", idA: "j11_a", idB: "j11_b" }, { tA: "Tunísia", bA: "🇹🇳", tB: "Japão", bB: "🇯🇵", idA: "j12_a", idB: "j12_b" }, { tA: "Espanha", bA: "🇪🇸", tB: "Arábia Saudita", bB: "🇸🇦", idA: "j13_a", idB: "j13_b" }, { tA: "Bélgica", bA: "🇧🇪", tB: "Irã", bB: "🇮🇷", idA: "j14_a", idB: "j14_b" }, { tA: "Uruguai", bA: "🇺🇾", tB: "Cabo Verde", bB: "🇨🇻", idA: "j15_a", idB: "j15_b" }, { tA: "Nova Zelândia", bA: "🇳🇿", tB: "Egito", bB: "🇪🇬", idA: "j16_a", idB: "j16_b" }, { tA: "Argentina", bA: "🇦🇷", tB: "Áustria", bB: "🇦🇹", idA: "j17_a", idB: "j17_b" }, { tA: "França", bA: "🇫🇷", tB: "Iraque", bB: "🇮🇶", idA: "j18_a", idB: "j18_b" }, { tA: "Noruega", bA: "🇳🇴", tB: "Senegal", bB: "🇸🇳", idA: "j19_a", idB: "j19_b" }, { tA: "Jordânia", bA: "🇯🇴", tB: "Argélia", bB: "🇩🇿", idA: "j20_a", idB: "j20_b" }, { tA: "Portugal", bA: "🇵🇹", tB: "Uzbequistão", bB: "🇺🇿", idA: "j21_a", idB: "j21_b" }, { tA: "Inglaterra", bA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB: "Gana", bB: "🇬🇭", idA: "j22_a", idB: "j22_b" }, { tA: "Panamá", bA: "🇵🇦", tB: "Croácia", bB: "🇭🇷", idA: "j23_a", idB: "j23_b" }, { tA: "Colômbia", bA: "🇨🇴", tB: "R. D. Congo", bB: "🇨🇬", idA: "j24_a", idB: "j24_b" }];
-function calcularOddsETendencias(e, dados){let t=0,a=0,l=0,n=0,r=.92;Object.values(dados).forEach(o=>{let s=o[e.idA],i=o[e.idB];"-"!==s&&"-"!==i&&(n++,s=parseInt(s),i=parseInt(i),s>i?t++:s<i?l++:a++)});if(0===n)return{texto:"1 1.85 | X 3.20 | 2 1.85",pC:33,pE:34,pF:33};let o=t>0?Math.max(1.01,r/(t/n)).toFixed(2):"15.00",s=a>0?Math.max(1.01,r/(a/n)).toFixed(2):"15.00",i=l>0?Math.max(1.01,r/(l/n)).toFixed(2):"15.00";return{texto:`1 ${o} | X ${s} | 2 ${i}`,pC:Math.round(t/n*100),pE:Math.round(a/n*100),pF:Math.round(l/n*100)}}
-function renderizarJogos() {
-    [1, 2].forEach(n => {
-        let e="", estr = n === 1 ? estruturaJogosR1 : estruturaJogosR2, res = n === 1 ? resultadosFinaisR1 : resultadosFinaisR2;
-        estr.forEach(t=>{let a=calcularOddsETendencias(t, dadosPalpites);e+=`<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${t.tA}</span><span class="bandeira">${t.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${res[t.idA]}</div><span class="divisor">X</span><div class="placar-box">${res[t.idB]}</div></div><div class="jogo-odds">${a.texto}</div></div><div class="time-container fora"><span class="bandeira">${t.bB}</span><span>${t.tB}</span></div></div><div class="grupo-stats"><div class="stat-col"><span>Palpites ${t.tA}</span><span class="stat-val">${a.pC}%</span></div><div class="stat-col"><span>Empate</span><span class="stat-val">${a.pE}%</span></div><div class="stat-col"><span>Palpites ${t.tB}</span><span class="stat-val">${a.pF}%</span></div></div></div>`});
-        document.getElementById("lista-jogos-r"+n).innerHTML=e;
-    });
+
+const resR1 = { j1_a: "2", j1_b: "0", j2_a: "2", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "1", j4_b: "1", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "4", j7_b: "1", j8_a: "2", j8_b: "0", j9_a: "7", j9_b: "1", j10_a: "1", j10_b: "0", j11_a: "2", j11_b: "2", j12_a: "5", j12_b: "1", j13_a: "1", j13_b: "1", j14_a: "2", j14_b: "2", j15_a: "0", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "3", j19_b: "0" };
+const resR2 = { /* Adicione os resultados da R2 aqui quando houver */ };
+
+function calcPts(p, res, isR2 = false) {
+    let pts = 0;
+    for (let i = 1; i <= 24; i++) {
+        let suf = isR2 ? "_r2" : "";
+        let rA = parseInt(res["j"+i+"_a"]), rB = parseInt(res["j"+i+"_b"]);
+        let pA = parseInt(p["j"+i+"_a"+suf]), pB = parseInt(p["j"+i+"_b"+suf]);
+        if (isNaN(rA) || isNaN(pA)) continue;
+        if (rA === pA && rB === pB) pts += 10;
+        else if ((rA - rB) === (pA - pB)) pts += 6;
+        else if ((rA > rB && pA > pB) || (rA < rB && pA < pB)) pts += 3;
+    }
+    return pts;
 }
-function alternarRodada(n, btn) {
-    document.querySelectorAll('.jogos-lista').forEach(el => el.classList.remove('ativo'));
-    document.querySelectorAll('.btn-tab').forEach(el => el.classList.remove('ativo'));
-    document.getElementById('lista-jogos-r' + n).classList.add('ativo');
-    if(btn) btn.classList.add('ativo');
+
+function abrirPalpites(nome) {
+    let p = dadosPalpites[nome], html = "<h3>Rodada 1</h3>";
+    for(let i=1; i<=24; i++) html += `<div>Jogo ${i}: ${p['j'+i+'_a']||'-'} x ${p['j'+i+'_b']||'-'}</div>`;
+    html += "<h3>Rodada 2</h3>";
+    for(let i=1; i<=24; i++) html += `<div>Jogo ${i}: ${p['j'+i+'_a_r2']||'-'} x ${p['j'+i+'_b_r2']||'-'}</div>`;
+    document.getElementById("modal-lista-jogos").innerHTML = html;
+    document.getElementById("modal-titulo").innerText = "Palpites de " + nome;
+    document.getElementById("modal-palpites").classList.add("ativo");
 }
-function alternarRodadaModal(n) {
-    document.querySelectorAll('#modal-palpites .jogos-lista').forEach(el => el.classList.remove('ativo'));
-    document.querySelectorAll('#modal-palpites .btn-tab').forEach(el => el.classList.remove('ativo'));
-    document.getElementById('modal-lista-jogos-r' + n).classList.add('ativo');
-    document.getElementById('btn-modal-r' + n).classList.add('ativo');
-}
-function abrirPalpites(pNome){document.getElementById("modal-titulo").innerText=`Palpites de ${pNome}`;const pData=dadosPalpites[pNome];[1,2].forEach(r=>{let a="", estr = r === 1 ? estruturaJogosR1 : estruturaJogosR2, res = r === 1 ? resultadosFinaisR1 : resultadosFinaisR2; estr.forEach(e=>{let n=res[e.idA],i=res[e.idB],o=pData[e.idA],s=pData[e.idB],bg="rgba(15,81,50,0.03)",txt="-",cor="var(--text-muted)";if(r===2){o=pData[e.idA+'_r2'];s=pData[e.idB+'_r2'];}if(o!==undefined && s!==undefined && "-"!==n&&"-"!==i){let u=parseInt(n),g=parseInt(i),F=parseInt(o),m=parseInt(s);let sR=u-g,sP=F-m;if(u===F&&g===m){bg="rgba(25,135,84,0.15)";txt="+10 PONTOS";cor="#198754"}else if(sR!==0&&sP===sR&&((u>g&&F>m)||(g>u&&m>F))){bg="rgba(25,135,84,0.15)";txt="+6 PONTOS";cor="#198754"}else if(sR===0&&sP===0){bg="rgba(25,135,84,0.15)";txt="+5 PONTOS";cor="#198754"}else if((u>g&&F>m)||(g>u&&m>F)){bg="rgba(25,135,84,0.15)";txt="+3 PONTOS";cor="#198754"}else{bg="rgba(220,53,69,0.15)";txt="0 PONTOS";cor="#dc3545"}}a+=`<div class="jogo-card" style="background:${bg}"><div class="jogo-principal"><div class="time-container casa"><span>${e.tA}</span><span class="bandeira">${e.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${o !== undefined ? o : '-'}</div><span class="divisor">X</span><div class="placar-box">${s !== undefined ? s : '-'}</div></div></div><div class="time-container fora"><span class="bandeira">${e.bB}</span><span>${e.tB}</span></div></div><div style="text-align:center;font-weight:700;color:${cor}">${txt}</div></div>`});document.getElementById("modal-lista-jogos-r"+r).innerHTML=a;});document.getElementById("modal-palpites").classList.add("ativo")}
-function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo")}
-function carregarParticipantes() {
-    const list = document.getElementById('lista-participantes');
-    Object.keys(dadosPalpites).forEach(p => {
-        list.innerHTML += `<div class="part-item"><span class="part-nome">${p}</span><button class="btn-palpites" onclick="abrirPalpites('${p}')">Ver Palpites</button></div>`;
-    });
-}
-function atualizarTabelaENoticias(){
-    let e=[];Object.keys(dadosPalpites).forEach(t=>{let a=0,l=dadosPalpites[t];estruturaJogosR1.forEach(e=>{let t=resultadosFinaisR1[e.idA],n=resultadosFinaisR1[e.idB],r=l[e.idA],o=l[e.idB];if("-"!==t&&"-"!==n&&"-"!==r&&"-"!==o){let s=parseInt(t),i=parseInt(n),c=parseInt(r),d=parseInt(o);if(s===c&&i===d)a+=10;else if((s-i)===(c-d)&&((s>i&&c>d)||(i>s&&d>c)))a+=6;else if((s-i)===0&&(c-d)===0)a+=5;else if((s>i&&c>d)||(i>s&&d>c))a+=3}});e.push({nome:t,pontos:a})});e.sort((a,b)=>b.pontos-a.pontos);
-    let htmlTabela="";e.forEach((p,i)=>{htmlTabela+=`<tr><td style="padding-left:25px">${i+1}º</td><td>${p.nome}</td><td style="text-align:center;font-weight:700">${p.pontos}</td></tr>`});document.getElementById("tabela-ranking").innerHTML=htmlTabela;
-    const topo = e[0];
-    let htmlEvolucao = "";
-    e.forEach(p => {
-        let pts = (p.pontos/Math.max(1, topo.pontos))*100;
-        htmlEvolucao += `<div class="evolucao-linha"><span class="evolucao-nome">${p.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,pts)}%"></div></div><span class="evolucao-pts">${p.pontos} pts</span></div>`;
-    });
-    document.getElementById("painel-evolucao").innerHTML = htmlEvolucao;
-}
-renderizarJogos(); carregarParticipantes(); atualizarTabelaENoticias();
-</script></body></html>
+function fecharPalpites() { document.getElementById("modal-palpites").classList.remove("ativo"); }
+
+// Inicialização
+let ranking = Object.keys(dadosPalpites).map(n => ({ nome: n, pts: calcPts(dadosPalpites[n], resR1) + calcPts(dadosPalpites[n], resR2, true) })).sort((a,b) => b.pts - a.pts);
+ranking.forEach((r, i) => document.getElementById("tabela-ranking").innerHTML += `<tr><td>${i+1}º</td><td>${r.nome}</td><td>${r.pts}</td></tr>`);
+ranking.forEach(r => document.getElementById("painel-evolucao").innerHTML += `<div class="evolucao-linha"><span>${r.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5, r.pts * 2)}%"></div></div></div>`);
+Object.keys(dadosPalpites).forEach(n => document.getElementById("lista-participantes").innerHTML += `<button onclick="abrirPalpites('${n}')" style="margin:5px">${n}</button>`);
+</script>
+</body>
+</html>
