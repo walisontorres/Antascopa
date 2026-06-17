@@ -1,67 +1,16 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } .table-container { overflow-x: auto } .ranking-table { width: 100%; border-collapse: collapse; text-align: left } .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } .ranking-table tr:last-child td { border-bottom: none } .sem-dados { text-align: center; color: var(--text-muted); padding: 50px 18px!important; font-style: italic } .part-lista { display: flex; flex-direction: column; gap: 15px } .part-item { display: flex; align-items: center; padding: 20px 25px; background: rgba(15,81,50,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); justify-content: space-between; transition: all .3s ease } .btn-palpites { background: linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: .95rem; box-shadow: 0 10px 20px rgba(15,81,50,0.15); transition: all .3s ease } .jogos-lista { display: none; flex-direction: column; gap: 18px } .jogos-lista.ativo { display: flex } .btn-tab { background: #eee; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; margin-right: 5px; font-weight: 600; color: var(--text-muted); } .btn-tab.ativo { background: var(--primary); color: white; } .jogo-card { display: flex; flex-direction: column; padding: 16px 12px; background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.02); gap: 12px } .jogo-principal { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px } .time-container { flex: 1; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 1rem; color: var(--text); min-width: 0 } .time-container.casa { justify-content: flex-end; text-align: right } .time-container.fora { justify-content: flex-start; text-align: left } .bandeira { font-size: 1.4rem; flex-shrink: 0 } .placar-container { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; width: 125px } .placar-wrapper { display: flex; align-items: center; gap: 6px } .placar-box { width: 38px; height: 38px; background: rgba(15,81,50,0.03); border: 2px solid var(--border); border-radius: 10px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; justify-content: center } .divisor { font-weight: 700; color: rgba(15,81,50,0.3); font-size: .85rem } .jogo-odds { font-size: .65rem; font-weight: 700; color: var(--text-muted); background: rgba(15,81,50,0.05); padding: 3px 8px; border-radius: 100px; text-align: center; width: 100% } .grupo-stats { display: flex; justify-content: space-between; background: rgba(15,81,50,0.02); padding: 6px 12px; border-radius: 8px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px dashed var(--border) } .stat-col { display: flex; flex-direction: column; align-items: center; flex: 1 } .stat-val { font-weight: 700; color: var(--primary-dark) } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } .modal.ativo { display: flex } .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto } .modal-fechar { position: absolute; top: 20px; right: 16px; background: rgba(15,81,50,0.05); border: none; font-size: 1.3rem; cursor: pointer; border-radius: 100px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center }</style></head><body>
-<header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
-<div class="container">
-    <div class="card"><h2>Classificação Geral</h2><div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Calculando...</td></tr></tbody></table></div></div>
-    <div class="card"><h2>Painel de Evolução do Grupo 📈</h2><div class="evolucao-container" id="painel-evolucao"></div></div>
-    <div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
-    <div class="card">
-        <h2>Jogos & Resultados</h2>
-        <div style="margin-bottom: 20px;">
-            <button class="btn-tab ativo" onclick="alternarRodada(1, this)">Rodada 1</button>
-            <button class="btn-tab" onclick="alternarRodada(2, this)">Rodada 2</button>
-        </div>
-        <div class="jogos-lista ativo" id="lista-jogos-r1"></div>
-        <div class="jogos-lista" id="lista-jogos-r2"></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão Copa do Mundo</title>
+</head>
+<body>
+    <h1>Bolão Copa do Mundo</h1>
+    <div id="conteudo">
+        <p>Site carregado com sucesso!</p>
     </div>
-</div>
-<div id="modal-palpites" class="modal"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo">Palpites</h2>
-<div style="margin-bottom: 20px; display:flex; justify-content:center;">
-    <button class="btn-tab ativo" id="btn-modal-r1" onclick="alternarRodadaModal(1)">Rodada 1</button>
-    <button class="btn-tab" id="btn-modal-r2" onclick="alternarRodadaModal(2)">Rodada 2</button>
-</div>
-<div class="jogos-lista ativo" id="modal-lista-jogos-r1" style="display:flex"></div>
-<div class="jogos-lista" id="modal-lista-jogos-r2"></div>
-</div></div>
-<script>
-const dadosPalpites = { 
-    "Psico": { 
-        j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "3", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1",
-        j1_a_r2: "1", j1_b_r2: "0", j2_a_r2: "1", j2_b_r2: "1", j3_a_r2: "2", j3_b_r2: "2", j4_a_r2: "2", j4_b_r2: "2", j5_a_r2: "3", j5_b_r2: "1", j6_a_r2: "1", j6_b_r2: "1", j7_a_r2: "3", j7_b_r2: "0", j8_a_r2: "1", j8_b_r2: "1", j9_a_r2: "1", j9_b_r2: "2", j10_a_r2: "2", j10_b_r2: "1", j11_a_r2: "3", j11_b_r2: "0", j12_a_r2: "1", j12_b_r2: "1", j13_a_r2: "1", j13_b_r2: "0", j14_a_r2: "2", j14_b_r2: "1", j15_a_r2: "1", j15_b_r2: "0", j16_a_r2: "1", j16_b_r2: "2", j17_a_r2: "1", j17_b_r2: "0", j18_a_r2: "3", j18_b_r2: "1", j19_a_r2: "2", j19_b_r2: "1", j20_a_r2: "1", j20_b_r2: "1", j21_a_r2: "2", j21_b_r2: "0", j22_a_r2: "1", j22_b_r2: "2", j23_a_r2: "1", j23_b_r2: "2", j24_a_r2: "3", j24_b_r2: "0" 
-    }
-};
-const resultadosFinaisR1 = { j1_a: "2", j1_b: "0", j2_a: "2", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "1", j4_b: "1", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "4", j7_b: "1", j8_a: "2", j8_b: "0", j9_a: "7", j9_b: "1", j10_a: "1", j10_b: "0", j11_a: "2", j11_b: "2", j12_a: "5", j12_b: "1", j13_a: "1", j13_b: "1", j14_a: "2", j14_b: "2", j15_a: "0", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "3", j19_b: "0", j20_a: "-", j20_b: "-", j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-" };
-const resultadosFinaisR2 = { j1_a: "-", j1_b: "-", j2_a: "-", j2_b: "-", j3_a: "-", j3_b: "-", j4_a: "-", j4_b: "-", j5_a: "-", j5_b: "-", j6_a: "-", j6_b: "-", j7_a: "-", j7_b: "-", j8_a: "-", j8_b: "-", j9_a: "-", j9_b: "-", j10_a: "-", j10_b: "-", j11_a: "-", j11_b: "-", j12_a: "-", j12_b: "-", j13_a: "-", j13_b: "-", j14_a: "-", j14_b: "-", j15_a: "-", j15_b: "-", j16_a: "-", j16_b: "-", j17_a: "-", j17_b: "-", j18_a: "-", j18_b: "-", j19_a: "-", j19_b: "-", j20_a: "-", j20_b: "-", j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-" };
-const estruturaJogosR1 = [{ tA: "México", bA: "🇲🇽", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" }, { tA: "Coreia do Sul", bA: "🇰🇷", tB: "República Tcheca", bB: "🇨🇿", idA: "j2_a", idB: "j2_b" }, { tA: "Canadá", bA: "🇨🇦", tB: "Bósnia", bB: "🇧🇦", idA: "j3_a", idB: "j3_b" }, { tA: "Catar", bA: "🇶🇦", tB: "Suíça", bB: "🇨🇭", idA: "j4_a", idB: "j4_b" }, { tA: "Brasil", bA: "🇧🇷", tB: "Marrocos", bB: "🇲🇦", idA: "j5_a", idB: "j5_b" }, { tA: "Haiti", bA: "🇭🇹", tB: "Escócia", bB: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", idA: "j6_a", idB: "j6_b" }];
-const estruturaJogosR2 = [{ tA: "República Tcheca", bA: "🇨🇿", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" }, { tA: "Suíça", bA: "🇨🇭", tB: "Bósnia", bB: "🇧🇦", idA: "j2_a", idB: "j2_b" }, { tA: "Canadá", bA: "🇨🇦", tB: "Catar", bB: "🇶🇦", idA: "j3_a", idB: "j3_b" }, { tA: "México", bA: "🇲🇽", tB: "Coreia do Sul", bB: "🇰🇷", idA: "j4_a", idB: "j4_b" }, { tA: "EUA", bA: "🇺🇸", tB: "Austrália", bB: "🇦🇺", idA: "j5_a", idB: "j5_b" }, { tA: "Escócia", bA: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", tB: "Marrocos", bB: "🇲🇦", idA: "j6_a", idB: "j6_b" }];
-
-function abrirPalpites(pNome) {
-    document.getElementById("modal-titulo").innerText = `Palpites de ${pNome}`;
-    const pData = dadosPalpites[pNome];
-    [1, 2].forEach(r => {
-        let html = "", estr = (r === 1 ? estruturaJogosR1 : estruturaJogosR2);
-        estr.forEach(e => {
-            // Se for rodada 2, pegamos os IDs com sufixo _r2
-            let idA = (r === 1 ? e.idA : e.idA + "_r2");
-            let idB = (r === 1 ? e.idB : e.idB + "_r2");
-            let palpiteA = pData[idA] || "-";
-            let palpiteB = pData[idB] || "-";
-            
-            html += `<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${e.tA}</span><span class="bandeira">${e.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${palpiteA}</div><span class="divisor">X</span><div class="placar-box">${palpiteB}</div></div></div><div class="time-container fora"><span class="bandeira">${e.bB}</span><span>${e.tB}</span></div></div></div>`;
-        });
-        document.getElementById("modal-lista-jogos-r" + r).innerHTML = html;
-    });
-    document.getElementById("modal-palpites").classList.add("ativo");
-}
-function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo")}
-function carregarParticipantes() {
-    const list = document.getElementById('lista-participantes');
-    list.innerHTML = `<div class="part-item"><span class="part-nome">Psico</span><button class="btn-palpites" onclick="abrirPalpites('Psico')">Ver Palpites</button></div>`;
-}
-function alternarRodadaModal(n) {
-    document.querySelectorAll('#modal-palpites .jogos-lista').forEach(el => el.classList.remove('ativo'));
-    document.querySelectorAll('#modal-palpites .btn-tab').forEach(el => el.classList.remove('ativo'));
-    document.getElementById('modal-lista-jogos-r' + n).classList.add('ativo');
-    document.getElementById('btn-modal-r' + n).classList.add('ativo');
-}
-carregarParticipantes();
-</script></body></html>
+    <script>
+        console.log("Sistema ativo");
+    </script>
+</body>
+</html>
