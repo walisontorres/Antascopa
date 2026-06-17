@@ -1,92 +1,61 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bolão Copa do Mundo - Antas</title>
-    <style>
-        :root { --primary: #0f5132; --bg: #f3f7f5; }
-        body { font-family: sans-serif; background-color: var(--bg); padding: 20px; }
-        table { width: 100%; border-collapse: collapse; background: white; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        .jogos-lista { display: none; }
-        .jogos-lista.ativo { display: block; }
-        .btn-tab { padding: 10px; cursor: pointer; border: none; background: #eee; }
-        .btn-tab.ativo { background: var(--primary); color: white; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-        .modal.ativo { display: flex; align-items: center; justify-content: center; }
-        .modal-conteudo { background: white; padding: 20px; width: 90%; max-width: 500px; max-height: 80vh; overflow-y: auto; }
-    </style>
-</head>
-<body>
-
-<div style="margin-bottom: 20px;">
-    <button class="btn-tab ativo" onclick="mostrarRodada(1, this)">Rodada 1</button>
-    <button class="btn-tab" onclick="mostrarRodada(2, this)">Rodada 2</button>
-</div>
-
-<div id="lista-r1" class="jogos-lista ativo">
-    <table><thead><tr><th>Jogo</th></tr></thead><tbody id="corpo-r1"></tbody></table>
-</div>
-
-<div id="lista-r2" class="jogos-lista">
-    <table><thead><tr><th>Jogo</th></tr></thead><tbody id="corpo-r2"></tbody></table>
-</div>
-
-<button onclick="abrirModal()">Ver Palpites</button>
-
-<div id="modal-palpites" class="modal">
-    <div class="modal-conteudo">
-        <button class="btn-tab ativo" id="btn-m1" onclick="atualizarModal(1)">R1</button>
-        <button class="btn-tab" id="btn-m2" onclick="atualizarModal(2)">R2</button>
-        <div id="conteudo-modal"></div>
-        <button onclick="document.getElementById('modal-palpites').classList.remove('ativo')">Fechar</button>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } .table-container { overflow-x: auto } .ranking-table { width: 100%; border-collapse: collapse; text-align: left } .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } .ranking-table tr:last-child td { border-bottom: none } .sem-dados { text-align: center; color: var(--text-muted); padding: 50px 18px!important; font-style: italic } .part-lista { display: flex; flex-direction: column; gap: 15px } .part-item { display: flex; align-items: center; padding: 20px 25px; background: rgba(15,81,50,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); justify-content: space-between; transition: all .3s ease } .btn-palpites { background: linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: .95rem; box-shadow: 0 10px 20px rgba(15,81,50,0.15); transition: all .3s ease } .jogos-lista { display: none; flex-direction: column; gap: 18px } .jogos-lista.ativo { display: flex } .btn-tab { background: #eee; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; margin-right: 5px; font-weight: 600; color: var(--text-muted); } .btn-tab.ativo { background: var(--primary); color: white; } .jogo-card { display: flex; flex-direction: column; padding: 16px 12px; background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.02); gap: 12px } .jogo-principal { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px } .time-container { flex: 1; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 1rem; color: var(--text); min-width: 0 } .time-container.casa { justify-content: flex-end; text-align: right } .time-container.fora { justify-content: flex-start; text-align: left } .bandeira { font-size: 1.4rem; flex-shrink: 0 } .placar-container { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; width: 125px } .placar-wrapper { display: flex; align-items: center; gap: 6px } .placar-box { width: 38px; height: 38px; background: rgba(15,81,50,0.03); border: 2px solid var(--border); border-radius: 10px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; justify-content: center } .divisor { font-weight: 700; color: rgba(15,81,50,0.3); font-size: .85rem } .jogo-odds { font-size: .65rem; font-weight: 700; color: var(--text-muted); background: rgba(15,81,50,0.05); padding: 3px 8px; border-radius: 100px; text-align: center; width: 100% } .grupo-stats { display: flex; justify-content: space-between; background: rgba(15,81,50,0.02); padding: 6px 12px; border-radius: 8px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px dashed var(--border) } .stat-col { display: flex; flex-direction: column; align-items: center; flex: 1 } .stat-val { font-weight: 700; color: var(--primary-dark) } .news-feed { display: flex; flex-direction: column; gap: 20px } .news-card { border-left: 4px solid var(--primary); padding: 5px 0 5px 18px; display: flex; flex-direction: column; gap: 6px } .news-tag { font-size: .75rem; font-weight: 700; text-transform: uppercase; color: var(--accent); background: var(--primary-dark); padding: 2px 10px; border-radius: 100px; width: fit-content } .news-title { font-size: 1.15rem; font-weight: 700; color: var(--primary-dark) } .news-text { font-size: .95rem; color: var(--text-muted) } .evolucao-container { display: flex; flex-direction: column; gap: 12px } .evolucao-linha { display: flex; align-items: center; gap: 10px; font-size: 0.9rem } .evolucao-nome { font-weight: 700; width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap } .evolucao-barra-bg { flex: 1; background: rgba(15,81,50,0.05); height: 14px; border-radius: 100px; overflow: hidden } .evolucao-barra-fill { background: linear-gradient(90deg,var(--primary) 0%,var(--primary-dark) 100%); height: 100%; border-radius: 100px } .evolucao-pts { font-weight: 700; color: var(--primary); width: 55px; text-align: right } .evolucao-tendencia { font-size: 0.75rem; width: 45px; text-align: right } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } .modal.ativo { display: flex } .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto } .modal-fechar { position: absolute; top: 20px; right: 16px; background: rgba(15,81,50,0.05); border: none; font-size: 1.3rem; cursor: pointer; border-radius: 100px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center }</style></head><body>
+<header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
+<div class="container">
+    <div class="card"><h2>Classificação Geral</h2><div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Calculando...</td></tr></tbody></table></div></div>
+    <div class="card"><h2>Painel de Evolução do Grupo 📈</h2><div class="evolucao-container" id="painel-evolucao"></div></div>
+    <div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
+    <div class="card">
+        <h2>Jogos & Resultados</h2>
+        <div style="margin-bottom: 20px;">
+            <button class="btn-tab ativo" onclick="alternarRodada(1, this)">Rodada 1</button>
+            <button class="btn-tab" onclick="alternarRodada(2, this)">Rodada 2</button>
+        </div>
+        <div class="jogos-lista ativo" id="lista-jogos-r1"></div>
+        <div class="jogos-lista" id="lista-jogos-r2"></div>
     </div>
+    <div class="card"><h2>Últimas Notícias do Front 📰</h2><div class="news-feed" id="news-container"></div></div>
 </div>
-
+<div id="modal-palpites" class="modal"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo">Palpites</h2><div class="jogos-lista" id="modal-lista-jogos" style="display:flex"></div></div></div>
 <script>
-    const R1 = [{tA: "Time A", tB: "Time B"}]; // Preencha aqui
-    const R2 = [
-        {tA: "Rep. Tcheca", tB: "África do Sul"}, {tA: "Suíça", tB: "Bósnia"},
-        {tA: "Canadá", tB: "Catar"}, {tA: "México", tB: "Coreia do Sul"},
-        {tA: "EUA", tB: "Austrália"}, {tA: "Escócia", tB: "Marrocos"},
-        {tA: "Brasil", tB: "Haiti"}, {tA: "Turquia", tB: "Paraguai"},
-        {tA: "Países Baixos", tB: "Suécia"}, {tA: "Alemanha", tB: "Costa do Marfim"},
-        {tA: "Equador", tB: "Curaçao"}, {tA: "Tunísia", tB: "Japão"},
-        {tA: "Espanha", tB: "Arábia Saudita"}, {tA: "Bélgica", tB: "Irã"},
-        {tA: "Uruguai", tB: "Cabo Verde"}, {tA: "Nova Zelândia", tB: "Egito"},
-        {tA: "Argentina", tB: "Áustria"}, {tA: "França", tB: "Iraque"},
-        {tA: "Noruega", tB: "Senegal"}, {tA: "Jordânia", tB: "Argélia"},
-        {tA: "Portugal", tB: "Uzbequistão"}, {tA: "Inglaterra", tB: "Gana"},
-        {tA: "Panamá", tB: "Croácia"}, {tA: "Colômbia", tB: "R. D. Congo"}
-    ];
+// SEUS DADOS ORIGINAIS
+const dadosPalpites = { "Walishow": { j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" }, "Paulão": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "0" }, "Campeão de 2026 Okc Freitas": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "3", j7_a: "1", j7_b: "0", j8_a: "1", j8_b: "2", j9_a: "7", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "1", j19_a: "1", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "2" }, "Fish": { j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "0" }, "Psico": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "3", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1" }, "Sid": { j1_a: "1", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "2", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "2", j6_a: "2", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "2", j11_b: "1", j12_a: "3", j12_b: "1", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "3", j20_b: "1", j21_a: "4", j21_b: "1", j22_a: "1", j22_b: "3", j23_a: "0", j23_b: "0", j24_a: "2", j24_b: "0" }, "Lucas": { j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "2", j23_b: "2", j24_a: "1", j24_b: "1" }, "Gu": { j1_a: "3", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "0", j8_a: "0", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "5", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "1", j22_a: "0", j22_b: "5", j23_a: "2", j23_b: "2", j24_a: "2", j24_b: "1" }, "Wix": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "19", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "1", j24_a: "0", j24_b: "0" }, "Julian": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "2", j24_b: "0" }, "soltin": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "2", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "0" }, "Samuel": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "0", j3_a: "1", j3_b: "2", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "0", j8_b: "3", j9_a: "1", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "2", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "2", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "1", j16_a: "0", j16_b: "1", j17_a: "1", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "1", j22_a: "0", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "2", j24_b: "0" }, "Abner": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "0", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "2", j24_b: "1" } };
+const resultadosFinais = { j1_a: "2", j1_b: "0", j2_a: "2", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "1", j4_b: "1", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "4", j7_b: "1", j8_a: "2", j8_b: "0", j9_a: "7", j9_b: "1", j10_a: "1", j10_b: "0", j11_a: "2", j11_b: "2", j12_a: "5", j12_b: "1", j13_a: "1", j13_b: "1", j14_a: "2", j14_b: "2", j15_a: "0", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "3", j19_b: "0", j20_a: "-", j20_b: "-", j21_a: "-", j21_b: "-", j22_a: "-", j22_b: "-", j23_a: "-", j23_b: "-", j24_a: "-", j24_b: "-" };
+const estruturaJogos = [{ tA: "México", bA: "🇲🇽", tB: "África do Sul", bB: "🇿🇦", idA: "j1_a", idB: "j1_b" }, { tA: "Coreia do Sul", bA: "🇰🇷", tB: "República Tcheca", bB: "🇨🇿", idA: "j2_a", idB: "j2_b" }, { tA: "Canadá", bA: "🇨🇦", tB: "Bósnia", bB: "🇧🇦", idA: "j3_a", idB: "j3_b" }, { tA: "Catar", bA: "🇶🇦", tB: "Suíça", bB: "🇨🇭", idA: "j4_a", idB: "j4_b" }, { tA: "Brasil", bA: "🇧🇷", tB: "Marrocos", bB: "🇲🇦", idA: "j5_a", idB: "j5_b" }, { tA: "Haiti", bA: "🇭🇹", tB: "Escócia", bB: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", idA: "j6_a", idB: "j6_b" }, { tA: "Estados Unidos", bA: "🇺🇸", tB: "Paraguai", bB: "🇵🇾", idA: "j7_a", idB: "j7_b" }, { tA: "Austrália", bA: "🇦🇺", tB: "Turquia", bB: "🇹🇷", idA: "j8_a", idB: "j8_b" }, { tA: "Alemanha", bA: "🇩🇪", tB: "Curaçao", bB: "🇨🇼", idA: "j9_a", idB: "j9_b" }, { tA: "Costa do Marfim", bA: "🇨🇮", tB: "Equador", bB: "🇪🇨", idA: "j10_a", idB: "j10_b" }, { tA: "Holanda", bA: "🇳🇱", tB: "Japão", bB: "🇯🇵", idA: "j11_a", idB: "j11_b" }, { tA: "Suécia", bA: "🇸🇪", tB: "Tunísia", bB: "🇪🇳", idA: "j12_a", idB: "j12_b" }, { tA: "Bélgica", bA: "🇧🇪", tB: "Egito", bB: "🇪🇬", idA: "j13_a", idB: "j13_b" }, { tA: "Irã", bA: "🇮🇷", tB: "Nova Zelândia", bB: "🇳🇿", idA: "j14_a", idB: "j14_b" }, { tA: "Espanha", bA: "🇪🇸", tB: "Cabo Verde", bB: "🇨🇻", idA: "j15_a", idB: "j15_b" }, { tA: "Arábia Saudita", bA: "🇸🇦", tB: "Uruguai", bB: "🇺🇾", idA: "j16_a", idB: "j16_b" }, { tA: "França", bA: "🇫🇷", tB: "Senegal", bB: "🇸🇳", idA: "j17_a", idB: "j17_b" }, { tA: "Iraque", bA: "🇮🇶", tB: "Noruega", bB: "🇳🇴", idA: "j18_a", idB: "j18_b" }, { tA: "Argentina", bA: "🇦🇷", tB: "Argélia", bB: "🇩🇿", idA: "j19_a", idB: "j19_b" }, { tA: "Áustria", bA: "🇦🇹", tB: "Jordânia", bB: "🇯🇴", idA: "j20_a", idB: "j20_b" }, { tA: "Portugal", bA: "🇵🇹", tB: "Congo", bB: "🇨🇬", idA: "j21_a", idB: "j21_b" }, { tA: "Uzbequistão", bA: "🇺🇿", tB: "Colômbia", bB: "🇨🇴", idA: "j22_a", idB: "j22_b" }, { tA: "Inglaterra", bA: "🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB: "Croácia", bB: "🇭🇷", idA: "j23_a", idB: "j23_b" }, { tA: "Gana", bA: "🇬🇭", tB: "Panamá", bB: "🇵🇦", idA: "j24_a", idB: "j24_b" }];
+// FUNÇÕES DE LÓGICA E RENDERIZAÇÃO
+function calcularOddsETendencias(e){let t=0,a=0,l=0,n=0,r=.92;Object.values(dadosPalpites).forEach(o=>{let s=o[e.idA],i=o[e.idB];"-"!==s&&"-"!==i&&(n++,s=parseInt(s),i=parseInt(i),s>i?t++:s<i?l++:a++)});if(0===n)return{texto:"1 1.85 | X 3.20 | 2 1.85",pC:33,pE:34,pF:33};let o=t>0?Math.max(1.01,r/(t/n)).toFixed(2):"15.00",s=a>0?Math.max(1.01,r/(a/n)).toFixed(2):"15.00",i=l>0?Math.max(1.01,r/(l/n)).toFixed(2):"15.00";return{texto:`1 ${o} | X ${s} | 2 ${i}`,pC:Math.round(t/n*100),pE:Math.round(a/n*100),pF:Math.round(l/n*100)}}
+function renderizarJogos() {
+    let e="";estruturaJogos.forEach(t=>{let a=calcularOddsETendencias(t);e+=`<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${t.tA}</span><span class="bandeira">${t.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${resultadosFinais[t.idA]}</div><span class="divisor">X</span><div class="placar-box">${resultadosFinais[t.idB]}</div></div><div class="jogo-odds">${a.texto}</div></div><div class="time-container fora"><span class="bandeira">${t.bB}</span><span>${t.tB}</span></div></div><div class="grupo-stats"><div class="stat-col"><span>Palpites ${t.tA}</span><span class="stat-val">${a.pC}%</span></div><div class="stat-col"><span>Empate</span><span class="stat-val">${a.pE}%</span></div><div class="stat-col"><span>Palpites ${t.tB}</span><span class="stat-val">${a.pF}%</span></div></div></div>`});
+    document.getElementById("lista-jogos-r1").innerHTML=e;
+}
+function alternarRodada(n, btn) {
+    document.querySelectorAll('.jogos-lista').forEach(el => el.classList.remove('ativo'));
+    document.querySelectorAll('.btn-tab').forEach(el => el.classList.remove('ativo'));
+    document.getElementById('lista-jogos-r' + n).classList.add('ativo');
+    btn.classList.add('ativo');
+}
+function abrirPalpites(e){document.getElementById("modal-titulo").innerText=`Palpites de ${e}`;const t=dadosPalpites[e];let a="";estruturaJogos.forEach(e=>{let n=resultadosFinais[e.idA],r=resultadosFinais[e.idB],o=t[e.idA],s=t[e.idB],i="rgba(15,81,50,0.03)",c="-",d="var(--text-muted)";if("-"!==n&&"-"!==r&&"-"!==o&&"-"!==s){let u=parseInt(n),g=parseInt(r),F=parseInt(o),m=parseInt(s);let saldoReal=u-g,saldoPalpite=F-m;if(u===F&&g===m){i="rgba(25,135,84,0.15)";c="+10 PONTOS";d="#198754"}else if(saldoReal!==0&&saldoPalpite===saldoReal&&((u>g&&F>m)||(g>u&&m>F))){i="rgba(25,135,84,0.15)";c="+6 PONTOS";d="#198754"}else if(saldoReal===0&&saldoPalpite===0){i="rgba(25,135,84,0.15)";c="+5 PONTOS";d="#198754"}else if((u>g&&F>m)||(g>u&&m>F)){i="rgba(25,135,84,0.15)";c="+3 PONTOS";d="#198754"}else{i="rgba(220,53,69,0.15)";c="0 PONTOS";d="#dc3545"}}a+=`<div class="jogo-card" style="background:${i}"><div class="jogo-principal"><div class="time-container casa"><span>${e.tA}</span><span class="bandeira">${e.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${o}</div><span class="divisor">X</span><div class="placar-box">${s}</div></div></div><div class="time-container fora"><span class="bandeira">${e.bB}</span><span>${e.tB}</span></div></div><div style="text-align:center;font-weight:700;color:${d}">${c}</div></div>`});document.getElementById("modal-lista-jogos").innerHTML=a;document.getElementById("modal-palpites").classList.add("ativo")}
+function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo")}
+function carregarParticipantes() {
+    const list = document.getElementById('lista-participantes');
+    Object.keys(dadosPalpites).forEach(p => {
+        list.innerHTML += `<div class="part-item"><span class="part-nome">${p}</span><button class="btn-palpites" onclick="abrirPalpites('${p}')">Ver Palpites</button></div>`;
+    });
+}
+function atualizarTabelaENoticias(){
+    let e=[];Object.keys(dadosPalpites).forEach(t=>{let a=0,l=dadosPalpites[t];estruturaJogos.forEach(e=>{let t=resultadosFinais[e.idA],n=resultadosFinais[e.idB],r=l[e.idA],o=l[e.idB];if("-"!==t&&"-"!==n&&"-"!==r&&"-"!==o){let s=parseInt(t),i=parseInt(n),c=parseInt(r),d=parseInt(o);if(s===c&&i===d)a+=10;else if((s-i)===(c-d)&&((s>i&&c>d)||(i>s&&d>c)))a+=6;else if((s-i)===0&&(c-d)===0)a+=5;else if((s>i&&c>d)||(i>s&&d>c))a+=3}});e.push({nome:t,pontos:a})});e.sort((a,b)=>b.pontos-a.pontos);
+    let htmlTabela="";e.forEach((p,i)=>{htmlTabela+=`<tr><td style="padding-left:25px">${i+1}º</td><td>${p.nome}</td><td style="text-align:center;font-weight:700">${p.pontos}</td></tr>`});document.getElementById("tabela-ranking").innerHTML=htmlTabela;
+    
+    // Notícias e Evolução
+    const topo = e[0];
+    document.getElementById("news-container").innerHTML = `<div class="news-card"><span class="news-tag">LÍDER</span><h3 class="news-title">${topo.nome} na ponta!</h3><p class="news-text">Com ${topo.pontos} pontos, o topo permanece disputado.</p></div>`;
+    
+    let htmlEvolucao = "";
+    e.forEach(p => {
+        let pts = (p.pontos/Math.max(1, topo.pontos))*100;
+        htmlEvolucao += `<div class="evolucao-linha"><span class="evolucao-nome">${p.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,pts)}%"></div></div><span class="evolucao-pts">${p.pontos} pts</span></div>`;
+    });
+    document.getElementById("painel-evolucao").innerHTML = htmlEvolucao;
+}
 
-    function renderizarTabela(lista, idCorpo) {
-        document.getElementById(idCorpo).innerHTML = lista.map(j => `<tr><td>${j.tA} X ${j.tB}</td></tr>`).join('');
-    }
-
-    function mostrarRodada(n, btn) {
-        document.querySelectorAll('.jogos-lista').forEach(el => el.classList.remove('ativo'));
-        document.querySelectorAll('.btn-tab').forEach(el => el.classList.remove('ativo'));
-        document.getElementById('lista-r' + n).classList.add('ativo');
-        btn.classList.add('ativo');
-    }
-
-    function abrirModal() {
-        document.getElementById('modal-palpites').classList.add('ativo');
-        atualizarModal(1);
-    }
-
-    function atualizarModal(n) {
-        const lista = n === 1 ? R1 : R2;
-        document.getElementById('conteudo-modal').innerHTML = `<table>${lista.map(j => `<tr><td>${j.tA} X ${j.tB}</td></tr>`).join('')}</table>`;
-        document.getElementById('btn-m1').className = n === 1 ? 'btn-tab ativo' : 'btn-tab';
-        document.getElementById('btn-m2').className = n === 2 ? 'btn-tab ativo' : 'btn-tab';
-    }
-
-    renderizarTabela(R1, 'corpo-r1');
-    renderizarTabela(R2, 'corpo-r2');
-</script>
-
-</body>
-</html>
+renderizarJogos(); carregarParticipantes(); atualizarTabelaENoticias();
+</script></body></html>
