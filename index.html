@@ -1,70 +1,59 @@
-<!-- ... (Código CSS permanece o mesmo) ... -->
-
-<div class="card">
-    <h2>Jogos & Resultados</h2>
-    <!-- Botões de navegação -->
-    <div style="display:flex; gap:10px; margin-bottom:20px;">
-        <button class="btn-palpites" onclick="filtrarRodada(1)">Rodada 1</button>
-        <button class="btn-palpites" onclick="filtrarRodada(2)">Rodada 2</button>
-    </div>
-    <div class="jogos-lista" id="lista-jogos-principal"></div>
-</div>
-
-<!-- ... (Modal de Palpites) ... -->
-<div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)">
-    <div class="modal-conteudo">
-        <button class="modal-fechar" onclick="fecharPalpites()">&times;</button>
-        <h2 id="modal-titulo">Palpites</h2>
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <button class="btn-palpites" onclick="renderizarPalpitesModal(null, 1)">Rodada 1</button>
-            <button class="btn-palpites" onclick="renderizarPalpitesModal(null, 2)">Rodada 2</button>
-        </div>
-        <div class="jogos-lista" id="modal-lista-jogos"></div>
-    </div>
-</div>
-
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px } .ranking-table { width: 100%; border-collapse: collapse } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border) } .btn-palpites { background: var(--primary); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer; margin: 5px } .nav-rodadas { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } .modal.ativo { display: flex } .modal-conteudo { background: var(--surface); padding: 30px; border-radius: var(--radius); max-width: 650px; width: 100%; max-height: 85vh; overflow-y: auto } .modal-fechar { cursor: pointer; float: right; font-size: 1.5rem; border: none; background: none } </style></head><body><header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
+<div class="container"><div class="card"><h2>Classificação Geral</h2><table class="ranking-table"><tbody id="tabela-ranking"><tr><td>Calculando...</td></tr></tbody></table></div>
+<div class="card"><h2>Jogos & Resultados</h2><div class="nav-rodadas"><button class="btn-palpites" onclick="renderizarJogos(1)">Rodada 1</button><button class="btn-palpites" onclick="renderizarJogos(2)">Rodada 2</button></div><div id="lista-jogos-principal"></div></div></div>
+<div id="modal-palpites" class="modal"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo">Palpites</h2><div class="nav-rodadas" id="modal-nav"></div><div id="modal-lista-jogos"></div></div></div>
 <script>
-// ... (dadosPalpites e resultadosFinais mantidos)
+const dadosPalpites = { "Walishow": { j1_a: "2", j1_b: "0", j20_a: "1", j20_b: "0", j21_a: "2", j21_b: "0" } };
+const resultadosFinais = { j1_a:"2", j1_b:"0", j20_a:"3", j20_b:"1", j21_a:"-", j21_b:"-" };
+const estruturaJogos = [ {tA:"México",bA:"🇲🇽",tB:"África do Sul",bB:"🇿🇦",idA:"j1_a",idB:"j1_b",rodada:1}, {tA:"Áustria",bA:"🇦🇹",tB:"Jordânia",bB:"🇯🇴",idA:"j20_a",idB:"j20_b",rodada:1}, {tA:"Portugal",bA:"🇵🇹",tB:"Congo",bB:"🇨🇬",idA:"j21_a",idB:"j21_b",rodada:2} ];
+let participanteGlobal = "";
 
-// Adicionando campo 'rodada' na estrutura
-const estruturaJogos = [
-    {tA:"México",bA:"🇲🇽",tB:"África do Sul",bB:"🇿🇦",idA:"j1_a",idB:"j1_b", rodada: 1},
-    // ... manter todos da rodada 1 ...
-    {tA:"Áustria",bA:"🇦🇹",tB:"Jordânia",bB:"🇯🇴",idA:"j20_a",idB:"j20_b", rodada: 1},
-    {tA:"Portugal",bA:"🇵🇹",tB:"Congo",bB:"🇨🇬",idA:"j21_a",idB:"j21_b", rodada: 2},
-    // ... adicione aqui os jogos da rodada 2 ...
-];
-
-function filtrarRodada(rodada) {
-    let e = "";
-    estruturaJogos.filter(j => j.rodada === rodada).forEach(t => {
-        let a = calcularOddsETendencias(t);
-        e += `<div class="jogo-card">... (manter mesma estrutura de renderização) ...</div>`;
+function atualizarClassificacao() {
+    let ranking = [];
+    Object.keys(dadosPalpites).forEach(p => {
+        let pts = 0;
+        estruturaJogos.forEach(j => {
+            let rA = resultadosFinais[j.idA], rB = resultadosFinais[j.idB], pA = dadosPalpites[p][j.idA], pB = dadosPalpites[p][j.idB];
+            if(rA !== "-" && pA !== "-") {
+                let sR = parseInt(rA)-parseInt(rB), sP = parseInt(pA)-parseInt(pB);
+                if(rA==pA && rB==pB) pts += 10;
+                else if(sR == sP && ((parseInt(rA)>parseInt(rB)&&parseInt(pA)>parseInt(pB))||(parseInt(rB)>parseInt(rA)&&parseInt(pB)>parseInt(pA)))) pts += 6;
+                else if((parseInt(rA)>parseInt(rB)&&parseInt(pA)>parseInt(pB))||(parseInt(rB)>parseInt(rA)&&parseInt(pB)>parseInt(pA))) pts += 3;
+            }
+        });
+        ranking.push({nome: p, pontos: pts});
     });
-    document.getElementById("lista-jogos-principal").innerHTML = e;
+    ranking.sort((a,b) => b.pontos - a.pontos);
+    let html = "";
+    ranking.forEach((r, i) => html += `<tr><td>${i+1}º ${r.nome}</td><td style="text-align:right"><b>${r.pontos} pts</b></td></tr>`);
+    document.getElementById("tabela-ranking").innerHTML = html;
 }
 
-// Variável global para armazenar o participante aberto no modal
-let participanteAtual = "";
+function renderizarJogos(r) {
+    let html = "";
+    estruturaJogos.filter(j=>j.rodada===r).forEach(j=>{
+        html += `<div style="padding:10px; border-bottom:1px solid #ccc">${j.tA} ${resultadosFinais[j.idA]} x ${resultadosFinais[j.idB]} ${j.tB}</div>`;
+    });
+    document.getElementById("lista-jogos-principal").innerHTML = html;
+}
 
 function abrirPalpites(nome) {
-    participanteAtual = nome;
-    renderizarPalpitesModal(nome, 1);
-}
-
-function renderizarPalpitesModal(nome, rodada) {
-    if(!nome) nome = participanteAtual;
-    document.getElementById("modal-titulo").innerText = `Palpites de ${nome} (Rodada ${rodada})`;
-    const t = dadosPalpites[nome];
-    let a = "";
-    estruturaJogos.filter(j => j.rodada === rodada).forEach(e => {
-        // ... (manter lógica de cálculo de pontos do modal) ...
-    });
-    document.getElementById("modal-lista-jogos").innerHTML = a;
+    participanteGlobal = nome;
+    document.getElementById("modal-nav").innerHTML = `<button class="btn-palpites" onclick="renderizarPalpites(1)">Rodada 1</button><button class="btn-palpites" onclick="renderizarPalpites(2)">Rodada 2</button>`;
+    renderizarPalpites(1);
     document.getElementById("modal-palpites").classList.add("ativo");
 }
 
-// Inicialização
-filtrarRodada(1);
-// ... (resto das funções)
-</script>
+function renderizarPalpites(r) {
+    let html = "";
+    estruturaJogos.filter(j=>j.rodada===r).forEach(j=>{
+        html += `<div style="padding:10px">${j.tA} ${dadosPalpites[participanteGlobal][j.idA]} x ${dadosPalpites[participanteGlobal][j.idB]} ${j.tB}</div>`;
+    });
+    document.getElementById("modal-lista-jogos").innerHTML = html;
+}
+
+function fecharPalpites(){ document.getElementById("modal-palpites").classList.remove("ativo"); }
+
+atualizarClassificacao();
+renderizarJogos(1);
+</script></body></html>
