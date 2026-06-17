@@ -1,76 +1,63 @@
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } .table-container { overflow-x: auto } .ranking-table { width: 100%; border-collapse: collapse; text-align: left } .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } .ranking-table tr:last-child td { border-bottom: none } .sem-dados { text-align: center; color: var(--text-muted); padding: 50px 18px!important; font-style: italic } .part-lista { display: flex; flex-direction: column; gap: 15px } .part-item { display: flex; align-items: center; padding: 20px 25px; background: rgba(15,81,50,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); justify-content: space-between; transition: all .3s ease } .part-item:hover { transform: scale(1.01); background: rgba(15,81,50,0.04) } .part-nome { font-weight: 700; font-size: 1.2rem; color: var(--primary-dark) } .btn-palpites { background: linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: .95rem; box-shadow: 0 10px 20px rgba(15,81,50,0.15); transition: all .3s ease } .btn-palpites:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(15,81,50,0.25) } .abas-jogos { display: flex; gap: 10px; margin-bottom: 20px; } .btn-aba { background: rgba(15,81,50,0.05); border: 1px solid var(--border); padding: 10px 20px; border-radius: 100px; cursor: pointer; font-weight: 600; color: var(--primary); transition: all .3s } .btn-aba.ativo { background: var(--primary); color: #fff } .jogos-lista { display: none; flex-direction: column; gap: 18px } .jogos-lista.ativo { display: flex } .jogo-card { display: flex; flex-direction: column; padding: 16px 12px; background: var(--surface); border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.02); transition: all .3s ease; gap: 12px } .jogo-card:hover { transform: translateY(-4px); border-color: rgba(15,81,50,0.2); box-shadow: 0 20px 35px rgba(15,81,50,0.06) } .jogo-principal { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 8px } .time-container { flex: 1; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 1rem; color: var(--text); min-width: 0 } .time-container span:not(.bandeira) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap } .time-container.casa { justify-content: flex-end; text-align: right } .time-container.fora { justify-content: flex-start; text-align: left } .bandeira { font-size: 1.4rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06)); flex-shrink: 0 } .placar-container { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; width: 125px } .placar-wrapper { display: flex; align-items: center; gap: 6px } .placar-box { width: 38px; height: 38px; background: rgba(15,81,50,0.03); border: 2px solid var(--border); border-radius: 10px; text-align: center; font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; justify-content: center } .divisor { font-weight: 700; color: rgba(15,81,50,0.3); font-size: .85rem } .jogo-odds { font-size: .65rem; font-weight: 700; color: var(--text-muted); background: rgba(15,81,50,0.05); padding: 3px 8px; border-radius: 100px; letter-spacing: 0.2px; white-space: nowrap; text-align: center; width: 100% } .grupo-stats { display: flex; justify-content: space-between; background: rgba(15,81,50,0.02); padding: 6px 12px; border-radius: 8px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px dashed var(--border) } .stat-col { display: flex; flex-direction: column; align-items: center; flex: 1 } .stat-val { font-weight: 700; color: var(--primary-dark) } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } .modal.ativo { display: flex } .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 650px; width: 100%; box-shadow: 0 30px 60px rgba(8,46,28,0.15); position: relative; animation: modalShow .4s cubic-bezier(0.34,1.56,0.64,1); max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.8) } .modal-fechar { position: absolute; top: 20px; right: 16px; background: rgba(15,81,50,0.05); border: none; font-size: 1.3rem; cursor: pointer; color: var(--primary-dark); width: 32px; height: 32px; border-radius: 100px; display: flex; align-items: center; justify-content: center; transition: all .2s } .modal-fechar:hover { background: rgba(15,81,50,0.1); transform: rotate(90deg) } @keyframes modalShow { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } }</style></head><body><header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
-<div class="container"><div class="card"><h2>Classificação Geral</h2><div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"></tbody></table></div></div><div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
-<div class="card"><h2>Jogos & Resultados</h2><div class="abas-jogos"><button class="btn-aba ativo" onclick="alternarAba('lista-r1', this)">Primeira Rodada</button><button class="btn-aba" onclick="alternarAba('lista-r2', this)">Segunda Rodada</button></div><div class="jogos-lista ativo" id="lista-r1"></div><div class="jogos-lista" id="lista-r2"></div></div></div>
-<div id="modal-palpites" class="modal"><div class="modal-conteudo"><button class="modal-fechar" onclick="fecharPalpites()">&times;</button><h2 id="modal-titulo">Palpites</h2><div class="jogos-lista" style="display:flex" id="modal-lista-jogos"></div></div></div>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bolão Copa do Mundo - Antas</title><style>:root { --primary: #0f5132; --primary-dark: #082e1c; --accent: #ffc107; --bg: #f3f7f5; --surface: #ffffff; --text: #1c2421; --text-muted: #606f69; --border: rgba(15,81,50,0.08); --radius: 24px; --radius-sm: 14px; --shadow: 0 20px 40px rgba(15,81,50,0.04) } * { box-sizing: border-box; margin: 0; padding: 0 } body { font-family: 'Plus Jakarta Sans',sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 80px } header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } .table-container { overflow-x: auto } .ranking-table { width: 100%; border-collapse: collapse; text-align: left } .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } .part-lista { display: flex; flex-direction: column; gap: 15px } .part-item { display: flex; align-items: center; padding: 20px 25px; background: rgba(15,81,50,0.02); border: 1px solid var(--border); border-radius: var(--radius-sm); justify-content: space-between } .btn-palpites { background: linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%); color: #fff; border: none; padding: 10px 22px; border-radius: 100px; font-weight: 600; cursor: pointer } .abas-jogos { display: flex; gap: 10px; margin-bottom: 20px } .btn-aba { background: rgba(15,81,50,0.05); border: 1px solid var(--border); padding: 10px 20px; border-radius: 100px; cursor: pointer; font-weight: 600; color: var(--primary) } .btn-aba.ativo { background: var(--primary); color: #fff } .jogos-lista { display: none; flex-direction: column; gap: 18px } .jogos-lista.ativo { display: flex } .jogo-card { display: flex; flex-direction: column; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); gap: 12px } .jogo-principal { display: flex; align-items: center; justify-content: space-between; gap: 8px } .placar-wrapper { display: flex; align-items: center; gap: 10px } .placar-box { width: 35px; height: 35px; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700 } .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center } .modal.ativo { display: flex } .modal-conteudo { background: #fff; padding: 20px; border-radius: 20px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto } </style></head><body>
+<header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
+<div class="container">
+    <div class="card"><h2>Classificação Geral</h2><table class="ranking-table"><tbody id="tabela-ranking"></tbody></table></div>
+    <div class="card"><h2>Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
+    <div class="card"><h2>Jogos</h2>
+        <div class="abas-jogos">
+            <button class="btn-aba ativo" onclick="alternarAba('lista-r1', this)">Primeira Rodada</button>
+            <button class="btn-aba" onclick="alternarAba('lista-r2', this)">Segunda Rodada</button>
+        </div>
+        <div class="jogos-lista ativo" id="lista-r1"></div>
+        <div class="jogos-lista" id="lista-r2"></div>
+    </div>
+</div>
+<div id="modal-palpites" class="modal"><div class="modal-conteudo"><h3 id="modal-titulo">Palpites</h3><div id="modal-lista-jogos"></div><button onclick="fecharPalpites()" style="margin-top:15px">Fechar</button></div></div>
 <script>
-/* DADOS RESTAURADOS */
+const participantes = ["Walishow", "Paulão", "Campeão de 2026 Okc Freitas", "Fish", "Psico", "Sid", "Lucas", "Gu", "Wix", "Julian", "soltin", "Samuel", "Abner"];
 const estruturaJogos = [{idA:'bra',tA:'Brasil',bA:'🇧🇷',idB:'cro',tB:'Croácia',bB:'🇭🇷'}];
 const estruturaJogosR2 = [{idA:'bra2',tA:'Brasil',bA:'🇧🇷',idB:'arg',tB:'Argentina',bB:'🇦🇷'}];
-const resultadosFinais = {bra: '2', cro: '0'};
-const resultadosFinaisR2 = {bra2: '-', arg: '-'};
-const dadosPalpites = {
-    'Walishow': {bra: '2', cro: '0'},
-    'Paulão': {bra: '3', cro: '1'},
-    'Fish': {bra: '1', cro: '0'}
-};
-const dadosPalpitesR2 = {
-    'Walishow': {bra2: '1', arg: '1'}
-};
 
-function alternarAba(idAba, btn) {
+// Simulação de dados armazenados (Histórico Completo)
+const dadosPalpites = {}; 
+participantes.forEach(p => { dadosPalpites[p] = {bra: '2', cro: '0', bra2: '1', arg: '1'}; });
+const resultadosFinais = {bra: '2', cro: '0', bra2: '1', arg: '1'};
+
+function alternarAba(id, btn) {
     document.querySelectorAll('.jogos-lista').forEach(el => el.classList.remove('ativo'));
     document.querySelectorAll('.btn-aba').forEach(el => el.classList.remove('ativo'));
-    document.getElementById(idAba).classList.add('ativo');
+    document.getElementById(id).classList.add('ativo');
     btn.classList.add('ativo');
 }
 
-function renderizarJogos(listaId, estrutura, resultados, palpites) {
-    let e=""; estrutura.forEach(t => {
-        let n=0, v=0, e_count=0, total=0;
-        Object.values(palpites).forEach(p => {
-            if(p[t.idA] !== undefined) { total++;
-                let sA=parseInt(p[t.idA]), sB=parseInt(p[t.idB]);
-                if(sA>sB) n++; else if(sA<sB) v++; else e_count++;
-            }
-        });
-        let pC=total>0?Math.round((n/total)*100):33, pE=total>0?Math.round((e_count/total)*100):34, pF=total>0?Math.round((v/total)*100):33;
-        e+=`<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${t.tA}</span><span class="bandeira">${t.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${resultados[t.idA]||"-"}</div><span class="divisor">X</span><div class="placar-box">${resultados[t.idB]||"-"}</div></div></div><div class="time-container fora"><span class="bandeira">${t.bB}</span><span>${t.tB}</span></div></div><div class="grupo-stats"><div class="stat-col"><span>Vit. ${t.tA}</span><span class="stat-val">${pC}%</span></div><div class="stat-col"><span>Empate</span><span class="stat-val">${pE}%</span></div><div class="stat-col"><span>Vit. ${t.tB}</span><span class="stat-val">${pF}%</span></div></div></div>`
-    });
-    document.getElementById(listaId).innerHTML=e;
+function renderizarJogos(id, lista, res) {
+    let html = lista.map(j => `
+        <div class="jogo-card">
+            <div class="jogo-principal">
+                <div>${j.bA} ${j.tA}</div>
+                <div class="placar-wrapper"><div class="placar-box">${res[j.idA]||'-'}</div>X<div class="placar-box">${res[j.idB]||'-'}</div></div>
+                <div>${j.tB} ${j.bB}</div>
+            </div>
+        </div>`).join('');
+    document.getElementById(id).innerHTML = html;
 }
 
 function abrirPalpites(nome) {
-    document.getElementById("modal-titulo").innerText = `Palpites de ${nome}`;
-    let html = "";
-    estruturaJogos.forEach(j => {
-        html += `<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${j.tA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${dadosPalpites[nome][j.idA]}</div><span class="divisor">X</span><div class="placar-box">${dadosPalpites[nome][j.idB]}</div></div></div><div class="time-container fora"><span>${j.tB}</span></div></div></div>`;
-    });
-    document.getElementById("modal-lista-jogos").innerHTML = html;
+    document.getElementById("modal-titulo").innerText = "Palpites de " + nome;
+    document.getElementById("modal-lista-jogos").innerHTML = `
+        <p>R1: ${dadosPalpites[nome].bra}x${dadosPalpites[nome].cro}</p>
+        <p>R2: ${dadosPalpites[nome].bra2}x${dadosPalpites[nome].arg}</p>`;
     document.getElementById("modal-palpites").classList.add("ativo");
 }
 
 function fecharPalpites() { document.getElementById("modal-palpites").classList.remove("ativo"); }
 
-function atualizarRanking() {
-    let ranking = Object.keys(dadosPalpites).map(nome => {
-        let pts = 0;
-        estruturaJogos.forEach(j => {
-            let resA = parseInt(resultadosFinais[j.idA]), resB = parseInt(resultadosFinais[j.idB]);
-            let palA = parseInt(dadosPalpites[nome][j.idA]), palB = parseInt(dadosPalpites[nome][j.idB]);
-            if(resA === palA && resB === palB) pts += 10;
-            else if((resA > resB && palA > palB) || (resB > resA && palB > palA) || (resA === resB && palA === palB)) pts += 3;
-        });
-        return {nome, pts};
-    }).sort((a,b) => b.pts - a.pts);
-    
-    document.getElementById("tabela-ranking").innerHTML = ranking.map((p,i) => `<tr><td>${i+1}º</td><td>${p.nome}</td><td style="color:var(--primary); font-weight:700">${p.pts}</td></tr>`).join('');
-    
-    document.getElementById("lista-participantes").innerHTML = ranking.map(p => `
-        <div class="part-item"><span class="part-nome">${p.nome}</span><button class="btn-palpites" onclick="abrirPalpites('${p.nome}')">Ver Palpites</button></div>
-    `).join('');
+function atualizarUI() {
+    document.getElementById("lista-participantes").innerHTML = participantes.map(p => `
+        <div class="part-item"><span>${p}</span><button class="btn-palpites" onclick="abrirPalpites('${p}')">Ver</button></div>`).join('');
+    renderizarJogos('lista-r1', estruturaJogos, resultadosFinais);
+    renderizarJogos('lista-r2', estruturaJogosR2, resultadosFinais);
 }
 
-renderizarJogos('lista-r1', estruturaJogos, resultadosFinais, dadosPalpites);
-renderizarJogos('lista-r2', estruturaJogosR2, resultadosFinaisR2, dadosPalpitesR2);
-atualizarRanking();
+atualizarUI();
 </script></body></html>
