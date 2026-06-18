@@ -15,6 +15,7 @@
         <div class="stats-grid" id="stats-container"></div>
         <div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Calculando...</td></tr></tbody></table></div>
     </div>
+    <div class="card"><h2>Estatísticas Avançadas 🏆</h2><div id="estatisticas-dinamicas"></div></div>
     <div class="card"><h2>Painel de Evolução do Grupo 📈</h2><div class="evolucao-container" id="painel-evolucao"></div></div>
     <div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
     <div class="card">
@@ -57,6 +58,14 @@ const jogosR1=[{tA:"México",bA:"🇲🇽",tB:"África do Sul",bB:"🇿🇦",idA
 const jogosR2=[{tA:"Rep. Tcheca",bA:"🇨🇿",tB:"África do Sul",bB:"🇿🇦",idA:"r2_j1_a",idB:"r2_j1_b"},{tA:"Suíça",bA:"🇨🇭",tB:"Bósnia",bB:"🇧🇦",idA:"r2_j2_a",idB:"r2_j2_b"},{tA:"Canadá",bA:"🇨🇦",tB:"Catar",bB:"🇶🇦",idA:"r2_j3_a",idB:"r2_j3_b"},{tA:"México",bA:"🇲🇽",tB:"Coreia do Sul",bB:"🇰🇷",idA:"r2_j4_a",idB:"r2_j4_b"},{tA:"EUA",bA:"🇺🇸",tB:"Austrália",bB:"🇦🇺",idA:"r2_j5_a",idB:"r2_j5_b"},{tA:"Escócia",bA:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",tB:"Marrocos",bB:"🇲🇦",idA:"r2_j6_a",idB:"r2_j6_b"},{tA:"Brasil",bA:"🇧🇷",tB:"Haiti",bB:"🇭🇹",idA:"r2_j7_a",idB:"r2_j7_b"},{tA:"Turquia",bA:"🇹🇷",tB:"Paraguai",bB:"🇵🇾",idA:"r2_j8_a",idB:"r2_j8_b"},{tA:"Países Baixos",bA:"🇳🇱",tB:"Suécia",bB:"🇸🇪",idA:"r2_j9_a",idB:"r2_j9_b"},{tA:"Alemanha",bA:"🇩🇪",tB:"Costa do Marfim",bB:"🇨🇮",idA:"r2_j10_a",idB:"r2_j10_b"},{tA:"Equador",bA:"🇪🇨",tB:"Curaçao",bB:"🇨🇼",idA:"r2_j11_a",idB:"r2_j11_b"},{tA:"Tunísia",bA:"🇳🇱",tB:"Japão",bB:"🇯🇵",idA:"r2_j12_a",idB:"r2_j12_b"},{tA:"Espanha",bA:"🇪🇸",tB:"Arábia Saudita",bB:"🇸🇦",idA:"r2_j13_a",idB:"r2_j13_b"},{tA:"Bélgica",bA:"🇧🇪",tB:"Irã",bB:"🇮🇷",idA:"r2_j14_a",idB:"r2_j14_b"},{tA:"Uruguai",bA:"🇺🇾",tB:"Cabo Verde",bB:"🇨🇻",idA:"r2_j15_a",idB:"r2_j15_b"},{tA:"Nova Zelândia",bA:"🇳🇿",tB:"Egito",bB:"🇪🇬",idA:"r2_j16_a",idB:"r2_j16_b"},{tA:"Argentina",bA:"🇦🇷",tB:"Áustria",bB:"🇦🇹",idA:"r2_j17_a",idB:"r2_j17_b"},{tA:"França",bA:"🇫🇷",tB:"Iraque",bB:"🇮🇶",idA:"r2_j18_a",idB:"r2_j18_b"},{tA:"Noruega",bA:"🇳🇴",tB:"Senegal",bB:"🇸🇳",idA:"r2_j19_a",idB:"r2_j19_b"},{tA:"Jordânia",bA:"🇯🇴",tB:"Argélia",bB:"🇩🇿",idA:"r2_j20_a",idB:"r2_j20_b"},{tA:"Portugal",bA:"🇵🇹",tB:"Uzbequistão",bB:"🇺🇿",idA:"r2_j21_a",idB:"r2_j21_b"},{tA:"Inglaterra",bA:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",tB:"Gana",bB:"🇬🇭",idA:"r2_j22_a",idB:"r2_j22_b"},{tA:"Panamá",bA:"🇵🇦",tB:"Croácia",bB:"🇭🇷",idA:"r2_j23_a",idB:"r2_j23_b"},{tA:"Colômbia",bA:"🇨🇴",tB:"R. D. Congo",bB:"🇨🇩",idA:"r2_j24_a",idB:"r2_j24_b"}];
 let rodadaAtual = 1;
 
+function calcularPontos(rA, rB, pA, pB) {
+    if (rA === pA && rB === pB) return 10;
+    if ((rA - rB) === (pA - pB) && ((rA > rB && pA > pB) || (rB > rA && pB > pA))) return 6;
+    if ((rA - rB) === 0 && (pA - pB) === 0) return 5;
+    if ((rA > rB && pA > pB) || (rB > rA && pB > pA)) return 3;
+    return 0;
+}
+
 function calcularOddsDinamicas(jogo) {
     let casa = 0, empate = 0, fora = 0, total = 0;
     Object.values(dadosPalpites).forEach(p => {
@@ -75,61 +84,88 @@ function calcularOddsDinamicas(jogo) {
 
 function renderizarPorRodada(n){rodadaAtual=n;document.getElementById('btnR1').className=n===1?'tab-btn active':'tab-btn';document.getElementById('btnR2').className=n===2?'tab-btn active':'tab-btn';renderizarJogos();}
 function renderizarJogos(){const container=document.getElementById("lista-jogos-principal");const jogos=rodadaAtual===1?jogosR1:jogosR2;let html="";jogos.forEach(t=>{const resA=resultadosFinais[t.idA]||"-";const resB=resultadosFinais[t.idB]||"-";const odds=calcularOddsDinamicas(t);html+=`<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${t.tA}</span><span class="bandeira">${t.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${resA}</div><span class="divisor">X</span><div class="placar-box">${resB}</div></div></div><div class="time-container fora"><span class="bandeira">${t.bB}</span><span>${t.tB}</span></div></div><div class="jogo-odds">PROB: ${odds}</div></div>`});container.innerHTML=html}
+
 function abrirPalpites(e, rodada=1) {
     document.getElementById("modal-titulo").innerText = `Palpites de ${e}`;
     const t = dadosPalpites[e];
     const jogos = rodada === 1 ? jogosR1 : jogosR2;
-    let html = `
-        <div class="tab-container" style="justify-content:center">
-            <button class="tab-btn ${rodada===1?'active':''}" onclick="abrirPalpites('${e}',1)">Rodada 1</button>
-            <button class="tab-btn ${rodada===2?'active':''}" onclick="abrirPalpites('${e}',2)">Rodada 2</button>
-        </div>
-        <div class="jogos-lista">`;
-
+    let html = `<div class="tab-container" style="justify-content:center"><button class="tab-btn ${rodada===1?'active':''}" onclick="abrirPalpites('${e}',1)">Rodada 1</button><button class="tab-btn ${rodada===2?'active':''}" onclick="abrirPalpites('${e}',2)">Rodada 2</button></div><div class="jogos-lista">`;
     jogos.forEach((jogo) => {
-        const idA = jogo.idA;
-        const idB = jogo.idB;
-        const pA = t[idA] || "-";
-        const pB = t[idB] || "-";
-        
-        let ptsJogo = 0;
-        const resA = parseInt(resultadosFinais[idA]);
-        const resB = parseInt(resultadosFinais[idB]);
-        const palA = parseInt(pA);
-        const palB = parseInt(pB);
-
-        if (!isNaN(resA) && !isNaN(resB) && !isNaN(palA) && !isNaN(palB)) {
-            if (resA === palA && resB === palB) ptsJogo = 10;
-            else if ((resA - resB) === (palA - palB) && ((resA > resB && palA > palB) || (resB > resA && palB > palA))) ptsJogo = 6;
-            else if ((resA - resB) === 0 && (palA - palB) === 0) ptsJogo = 5;
-            else if ((resA > resB && palA > palB) || (resB > resA && palB > palA)) ptsJogo = 3;
-        }
-
-        html += `
-        <div class="jogo-card">
-            <div style="font-size:0.75rem; font-weight:700; color:var(--primary); margin-bottom:5px; text-align:center; background:rgba(15,81,50,0.05); padding:2px; border-radius:4px;">
-                Pontos neste jogo: ${ptsJogo}
-            </div>
-            <div class="jogo-principal">
-                <div class="time-container casa"><span>${jogo.tA}</span><span class="bandeira">${jogo.bA}</span></div>
-                <div class="placar-container">
-                    <div class="placar-wrapper">
-                        <div class="placar-box">${pA}</div>
-                        <span class="divisor">X</span>
-                        <div class="placar-box">${pB}</div>
-                    </div>
-                </div>
-                <div class="time-container fora"><span class="bandeira">${jogo.bB}</span><span>${jogo.tB}</span></div>
-            </div>
-        </div>`;
+        const resA = parseInt(resultadosFinais[jogo.idA]);
+        const resB = parseInt(resultadosFinais[jogo.idB]);
+        const pA = parseInt(t[jogo.idA]);
+        const pB = parseInt(t[jogo.idB]);
+        const pts = calcularPontos(resA, resB, pA, pB);
+        html += `<div class="jogo-card"><div style="font-size:0.75rem; font-weight:700; color:var(--primary); text-align:center;">Pontos: ${pts}</div><div class="jogo-principal"><div class="time-container casa"><span>${jogo.tA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${isNaN(pA)?'-':pA}</div>X<div class="placar-box">${isNaN(pB)?'-':pB}</div></div></div><div class="time-container fora"><span>${jogo.tB}</span></div></div></div>`;
     });
     html += `</div>`;
     document.getElementById("modal-container-interno").innerHTML = html;
     document.getElementById("modal-palpites").classList.add("ativo");
 }
+
 function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo")}function fecharModalExterno(e){"modal-palpites"===e.target.id&&fecharPalpites()}
-function atualizarClassificacao(){let e=[];Object.keys(dadosPalpites).forEach(t=>{let a=0,l=dadosPalpites[t];jogosR1.forEach(e=>{let t=resultadosFinais[e.idA],n=resultadosFinais[e.idB],r=l[e.idA],o=l[e.idB];if(t&&n&&r&&o){let s=parseInt(t),i=parseInt(n),c=parseInt(r),d=parseInt(o);if(s===c&&i===d)a+=10;else if((s-i)===(c-d)&&((s>i&&c>d)||(i>s&&d>c)))a+=6;else if((s-i)===0&&(c-d)===0)a+=5;else if((s>i&&c>d)||(i>s&&d>c))a+=3}});jogosR2.forEach(e=>{let t=resultadosFinais[e.idA],n=resultadosFinais[e.idB],r=l[e.idA],o=l[e.idB];if(t&&n&&r&&o){let s=parseInt(t),i=parseInt(n),c=parseInt(r),d=parseInt(o);if(s===c&&i===d)a+=10;else if((s-i)===(c-d)&&((s>i&&c>d)||(i>s&&d>c)))a+=6;else if((s-i)===0&&(c-d)===0)a+=5;else if((s>i&&c>d)||(i>s&&d>c))a+=3}});e.push({nome:t,pontos:a})});e.sort((e,t)=>t.pontos-e.pontos);let t="";e.forEach((e,a)=>{t+=`<tr><td style="font-weight:700;padding-left:25px">${a+1}º</td><td style="font-weight:600">${e.nome}</td><td style="text-align:center;font-weight:700;color:var(--primary)">${e.pontos}</td></tr>`});document.getElementById("tabela-ranking").innerHTML=t;renderizarEstatisticas(e);salvarERenderizarEvolucao(e);gerarNoticias(e);let p="";Object.keys(dadosPalpites).forEach(n=>{p+=`<div class="part-item"><span class="part-nome">${n}</span><button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver Palpites</button></div>`});document.getElementById("lista-participantes").innerHTML=p}
+
+function atualizarClassificacao(){
+    let e=[];
+    Object.keys(dadosPalpites).forEach(participante=>{
+        let ptsTotal=0, cravar=0, seqPontos=0, maxSeqPontos=0, seqZero=0, maxSeqZero=0;
+        const p = dadosPalpites[participante];
+        
+        [...jogosR1, ...jogosR2].forEach(jogo=>{
+            const resA = parseInt(resultadosFinais[jogo.idA]);
+            const resB = parseInt(resultadosFinais[jogo.idB]);
+            const pA = parseInt(p[jogo.idA]);
+            const pB = parseInt(p[jogo.idB]);
+            const pts = calcularPontos(resA, resB, pA, pB);
+            
+            ptsTotal += pts;
+            if(pts === 10) cravar++;
+            
+            if(pts > 0){ seqPontos++; seqZero=0; } else { seqZero++; seqPontos=0; }
+            if(seqPontos > maxSeqPontos) maxSeqPontos = seqPontos;
+            if(seqZero > maxSeqZero) maxSeqZero = seqZero;
+        });
+        e.push({nome:participante, pontos:ptsTotal, cravar:cravar, maxSeqPontos:maxSeqPontos, maxSeqZero:maxSeqZero});
+    });
+    e.sort((a,b)=>b.pontos-a.pontos);
+    
+    let htmlTabela=""; e.forEach((p,i)=>htmlTabela+=`<tr><td style="font-weight:700;padding-left:25px">${i+1}º</td><td>${p.nome}</td><td style="text-align:center;font-weight:700;color:var(--primary)">${p.pontos}</td></tr>`);
+    document.getElementById("tabela-ranking").innerHTML=htmlTabela;
+    
+    renderizarEstatisticas(e);
+    renderizarEstatisticasAvancadas(e);
+    salvarERenderizarEvolucao(e);
+    gerarNoticias(e);
+    
+    let htmlPart=""; Object.keys(dadosPalpites).forEach(n=>{htmlPart+=`<div class="part-item"><span class="part-nome">${n}</span><button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver Palpites</button></div>`});
+    document.getElementById("lista-participantes").innerHTML=htmlPart;
+}
+
+function renderizarEstatisticasAvancadas(ranking){
+    const topCravar = [...ranking].sort((a,b)=>b.cravar-a.cravar).slice(0,5);
+    const maiorSeqPts = [...ranking].sort((a,b)=>b.maxSeqPontos-a.maxSeqPontos)[0];
+    const maiorSeqZero = [...ranking].sort((a,b)=>b.maxSeqZero-a.maxSeqZero)[0];
+    
+    let html = `
+        <div class="stats-grid">
+            <div class="stat-card" style="grid-column: span 2">
+                <span class="stat-label">Top 5 - Mestre dos Placares (Cravadas)</span>
+                <div style="display:flex; justify-content:space-around; margin-top:10px">
+                    ${topCravar.map(p=>`<div><span style="font-weight:800">${p.nome}</span><br>${p.cravar}</div>`).join('')}
+                </div>
+            </div>
+            <div class="stat-card"><span class="stat-value">${maiorSeqPts.maxSeqPontos}</span><span class="stat-label">Maior Sequência Pontuando (${maiorSeqPts.nome})</span></div>
+            <div class="stat-card"><span class="stat-value">${maiorSeqZero.maxSeqZero}</span><span class="stat-label">Maior Sequência Sem Pontuar (${maiorSeqZero.nome})</span></div>
+        </div>`;
+    document.getElementById("estatisticas-dinamicas").innerHTML = html;
+}
+
 function renderizarEstatisticas(ranking){const totalPts=ranking.reduce((acc,curr)=>acc+curr.pontos,0);const avgPts=(totalPts/ranking.length).toFixed(1);const maxPts=ranking[0].pontos;document.getElementById("stats-container").innerHTML=`<div class="stat-card"><span class="stat-value">${maxPts}</span><span class="stat-label">Maior Pontuação</span></div><div class="stat-card"><span class="stat-value">${avgPts}</span><span class="stat-label">Média de Grupo</span></div><div class="stat-card"><span class="stat-value">${ranking.length}</span><span class="stat-label">Antas Ativos</span></div>`}
-function gerarNoticias(ranking){const container=document.getElementById("news-container");const topo=ranking[0];container.innerHTML=`<div class="news-card"><span class="news-tag">RESULTADO</span><h3 class="news-title">Uzbequistão 1x3 Colômbia.</h3><p class="news-text">Pontuações atualizadas no bolão.</p></div><div class="news-card"><span class="news-tag">LÍDER</span><h3 class="news-title">${topo.nome} na liderança!</h3><p class="news-text">Com ${topo.pontos} pontos.</p></div>`}
+function gerarNoticias(ranking){const container=document.getElementById("news-container");const topo=ranking[0];container.innerHTML=`<div class="news-card"><span class="news-tag">LÍDER</span><h3 class="news-title">${topo.nome} na liderança!</h3><p class="news-text">Com ${topo.pontos} pontos.</p></div>`}
 function salvarERenderizarEvolucao(e){let t=JSON.parse(localStorage.getItem("bolao_posicoes_anteriores")||"{}"),a=!t||0===Object.keys(t).length,l={},n=e[0].pontos||1;let r="";e.forEach((e,o)=>{let s=o+1;l[e.nome]=s;let i="-",c="manteve";if(!a&&t[e.nome]){let d=t[e.nome];if(s<d){i="▲";c="subiu"}else if(s>d){i="▼";c="desceu"}}let d=e.pontos/n*100;r+=`<div class="evolucao-linha"><span class="evolucao-nome">${e.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,d)}%"></div></div><span class="evolucao-pts">${e.pontos} pts</span><span class="evolucao-tendencia ${c}">${i}</span></div>`});localStorage.setItem("bolao_posicoes_anteriores",JSON.stringify(l));document.getElementById("painel-evolucao").innerHTML=r}
-renderizarPorRodada(1);atualizarClassificacao();</script></body></html>
+
+renderizarPorRodada(1);
+atualizarClassificacao();
+</script>
+</body>
+</html>
