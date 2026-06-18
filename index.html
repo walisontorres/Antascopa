@@ -95,7 +95,7 @@ function abrirPalpites(e, rodada=1) {
         const resB = parseInt(resultadosFinais[jogo.idB]);
         const pA = parseInt(t[jogo.idA]);
         const pB = parseInt(t[jogo.idB]);
-        const pts = calcularPontos(resA, resB, pA, pB);
+        const pts = (isNaN(resA) || isNaN(resB)) ? 0 : calcularPontos(resA, resB, pA, pB);
         html += `<div class="jogo-card"><div style="font-size:0.75rem; font-weight:700; color:var(--primary); text-align:center;">Pontos: ${pts}</div><div class="jogo-principal"><div class="time-container casa"><span>${jogo.tA}</span><span class="bandeira">${jogo.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${isNaN(pA)?'-':pA}</div>X<div class="placar-box">${isNaN(pB)?'-':pB}</div></div></div><div class="time-container fora"><span class="bandeira">${jogo.bB}</span><span>${jogo.tB}</span></div></div></div>`;
     });
     html += `</div>`;
@@ -114,23 +114,27 @@ function atualizarClassificacao(){
         [...jogosR1, ...jogosR2].forEach(jogo=>{
             const resA = parseInt(resultadosFinais[jogo.idA]);
             const resB = parseInt(resultadosFinais[jogo.idB]);
-            const pA = parseInt(p[jogo.idA]);
-            const pB = parseInt(p[jogo.idB]);
-            const pts = calcularPontos(resA, resB, pA, pB);
             
-            ptsTotal += pts;
-            if(jogo.idA.startsWith('r2')) ptsR2 += pts; else ptsR1 += pts;
-            
-            if(pts === 10) cravar++;
-            
-            if(pts > 0){ 
-                seqPontos += pts; 
-                if(seqPontos > maxSeqPontos) maxSeqPontos = seqPontos;
-                seqZero = 0; 
-            } else { 
-                seqZero++; 
-                if(seqZero > maxSeqZero) maxSeqZero = seqZero;
-                seqPontos = 0; 
+            // Verifica se o jogo tem resultado (se não for NaN)
+            if(!isNaN(resA) && !isNaN(resB)) {
+                const pA = parseInt(p[jogo.idA]);
+                const pB = parseInt(p[jogo.idB]);
+                const pts = calcularPontos(resA, resB, pA, pB);
+                
+                ptsTotal += pts;
+                if(jogo.idA.startsWith('r2')) ptsR2 += pts; else ptsR1 += pts;
+                
+                if(pts === 10) cravar++;
+                
+                if(pts > 0){ 
+                    seqPontos += pts; 
+                    if(seqPontos > maxSeqPontos) maxSeqPontos = seqPontos;
+                    seqZero = 0; 
+                } else { 
+                    seqZero++; 
+                    if(seqZero > maxSeqZero) maxSeqZero = seqZero;
+                    seqPontos = 0; 
+                }
             }
         });
         e.push({nome:participante, pontos:ptsTotal, ptsR1:ptsR1, ptsR2:ptsR2, cravar:cravar, maxSeqPontos:maxSeqPontos, maxSeqZero:maxSeqZero});
