@@ -186,7 +186,47 @@ function renderizarTabelaEstatisticaDinamica(ranking) {
 
 function renderizarEstatisticas(ranking){const totalPts=ranking.reduce((acc,curr)=>acc+curr.pontos,0);const avgPts=(totalPts/ranking.length).toFixed(1);const maxPts=ranking[0].pontos;document.getElementById("stats-container").innerHTML=`<div class="stat-card"><span class="stat-value">${maxPts}</span><span class="stat-label">Maior Pontuação</span></div><div class="stat-card"><span class="stat-value">${avgPts}</span><span class="stat-label">Média de Grupo</span></div><div class="stat-card"><span class="stat-value">${ranking.length}</span><span class="stat-label">Antas Ativos</span></div>`}
 function gerarNoticias(ranking){const container=document.getElementById("news-container");const topo=ranking[0];container.innerHTML=`<div class="news-card"><span class="news-tag">LÍDER</span><h3 class="news-title">${topo.nome} na liderança!</h3><p class="news-text">Com ${topo.pontos} pontos.</p></div>`}
-function salvarERenderizarEvolucao(e){let t=JSON.parse(localStorage.getItem("bolao_posicoes_anteriores")||"{}"),a=!t||0===Object.keys(t).length,l={},n=e[0].pontos||1;let r="";e.forEach((e,o)=>{let s=o+1;l[e.nome]=s;let i="-",c="manteve";if(!a&&t[e.nome]){let d=t[e.nome];if(s<d){i="▲";c="subiu"}else if(s>d){i="▼";c="desceu"}}let d=e.pontos/n*100;r+=`<div class="evolucao-linha"><span class="evolucao-nome">${e.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,d)}%"></div></div><span class="evolucao-pts">${e.pontos} pts</span><span class="evolucao-tendencia ${c}">${i}</span></div>`});localStorage.setItem("bolao_posicoes_anteriores",JSON.stringify(l));document.getElementById("painel-evolucao").innerHTML=r}
+
+function salvarERenderizarEvolucao(e) {
+    let posicoesAnteriores = JSON.parse(localStorage.getItem("bolao_posicoes_anteriores") || "{}");
+    let novasPosicoes = {};
+    let maiorPontuacao = e[0].pontos || 1;
+    let html = "";
+
+    e.forEach((p, index) => {
+        let posicaoAtual = index + 1;
+        novasPosicoes[p.nome] = posicaoAtual;
+        
+        let tendencia = "";
+        let classeTendencia = "manteve";
+        
+        if (posicoesAnteriores[p.nome]) {
+            let posAnterior = posicoesAnteriores[p.nome];
+            if (posicaoAtual < posAnterior) {
+                tendencia = "▲";
+                classeTendencia = "subiu";
+            } else if (posicaoAtual > posAnterior) {
+                tendencia = "▼";
+                classeTendencia = "desceu";
+            }
+        }
+
+        let percentual = (p.pontos / maiorPontuacao) * 100;
+        
+        html += `
+            <div class="evolucao-linha">
+                <span class="evolucao-nome">${p.nome}</span>
+                <div class="evolucao-barra-bg">
+                    <div class="evolucao-barra-fill" style="width:${Math.max(5, percentual)}%"></div>
+                </div>
+                <span class="evolucao-pts">${p.pontos} pts</span>
+                <span class="evolucao-tendencia ${classeTendencia}">${tendencia}</span>
+            </div>`;
+    });
+
+    localStorage.setItem("bolao_posicoes_anteriores", JSON.stringify(novasPosicoes));
+    document.getElementById("painel-evolucao").innerHTML = html;
+}
 
 renderizarPorRodada(1);
 atualizarClassificacao();
