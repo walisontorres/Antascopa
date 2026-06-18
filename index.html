@@ -108,7 +108,7 @@ function fecharPalpites(){document.getElementById("modal-palpites").classList.re
 function atualizarClassificacao(){
     let e=[];
     Object.keys(dadosPalpites).forEach(participante=>{
-        let ptsTotal=0, cravar=0, seqPontos=0, maxSeqPontos=0, seqZero=0, maxSeqZero=0;
+        let ptsTotal=0, ptsR1=0, ptsR2=0, cravar=0, seqPontos=0, maxSeqPontos=0, seqZero=0, maxSeqZero=0;
         const p = dadosPalpites[participante];
         
         [...jogosR1, ...jogosR2].forEach(jogo=>{
@@ -119,13 +119,15 @@ function atualizarClassificacao(){
             const pts = calcularPontos(resA, resB, pA, pB);
             
             ptsTotal += pts;
+            if(jogo.idA.startsWith('r2')) ptsR2 += pts; else ptsR1 += pts;
+            
             if(pts === 10) cravar++;
             
             if(pts > 0){ seqPontos++; seqZero=0; } else { seqZero++; seqPontos=0; }
             if(seqPontos > maxSeqPontos) maxSeqPontos = seqPontos;
             if(seqZero > maxSeqZero) maxSeqZero = seqZero;
         });
-        e.push({nome:participante, pontos:ptsTotal, cravar:cravar, maxSeqPontos:maxSeqPontos, maxSeqZero:maxSeqZero});
+        e.push({nome:participante, pontos:ptsTotal, ptsR1:ptsR1, ptsR2:ptsR2, cravar:cravar, maxSeqPontos:maxSeqPontos, maxSeqZero:maxSeqZero});
     });
     e.sort((a,b)=>b.pontos-a.pontos);
     
@@ -133,7 +135,7 @@ function atualizarClassificacao(){
     document.getElementById("tabela-ranking").innerHTML=htmlTabela;
     
     renderizarEstatisticas(e);
-    renderizarEstatisticasAvancadas(e);
+    renderizarTabelaEstatisticaDinamica(e);
     salvarERenderizarEvolucao(e);
     gerarNoticias(e);
     
@@ -141,21 +143,34 @@ function atualizarClassificacao(){
     document.getElementById("lista-participantes").innerHTML=htmlPart;
 }
 
-function renderizarEstatisticasAvancadas(ranking){
-    const topCravar = [...ranking].sort((a,b)=>b.cravar-a.cravar).slice(0,5);
-    const maiorSeqPts = [...ranking].sort((a,b)=>b.maxSeqPontos-a.maxSeqPontos)[0];
-    const maiorSeqZero = [...ranking].sort((a,b)=>b.maxSeqZero-a.maxSeqZero)[0];
-    
+function renderizarTabelaEstatisticaDinamica(ranking) {
+    const maiorPontuadorRodada1 = [...ranking].sort((a, b) => b.ptsR1 - a.ptsR1)[0];
+    const maiorPontuadorRodada2 = [...ranking].sort((a, b) => b.ptsR2 - a.ptsR2)[0];
+    const top5Cravadas = [...ranking].sort((a, b) => b.cravar - a.cravar).slice(0, 5);
+    const jogadorMaisTempoZero = [...ranking].sort((a, b) => b.maxSeqZero - a.maxSeqZero)[0];
+    const jogadorMaisSequencia = [...ranking].sort((a, b) => b.maxSeqPontos - a.maxSeqPontos)[0];
+
     let html = `
-        <div class="stats-grid">
-            <div class="stat-card" style="grid-column: span 2">
-                <span class="stat-label">Top 5 - Mestre dos Placares (Cravadas)</span>
-                <div style="display:flex; justify-content:space-around; margin-top:10px">
-                    ${topCravar.map(p=>`<div><span style="font-weight:800">${p.nome}</span><br>${p.cravar}</div>`).join('')}
+        <div class="table-container" style="margin-bottom:20px">
+            <table class="ranking-table">
+                <thead><tr><th>Estatística</th><th>Destaque</th><th>Valor</th></tr></thead>
+                <tbody>
+                    <tr><td>Maior Pontuador R1</td><td>${maiorPontuadorRodada1.nome}</td><td>${maiorPontuadorRodada1.ptsR1} pts</td></tr>
+                    <tr><td>Maior Pontuador R2</td><td>${maiorPontuadorRodada2.nome}</td><td>${maiorPontuadorRodada2.ptsR2} pts</td></tr>
+                    <tr><td>Mais Tempo Sem Pontuar</td><td>${jogadorMaisTempoZero.nome}</td><td>${jogadorMaisTempoZero.maxSeqZero} jogos</td></tr>
+                    <tr><td>Melhor Sequência de Pontos</td><td>${jogadorMaisSequencia.nome}</td><td>${jogadorMaisSequencia.maxSeqPontos} jogos</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h2 style="font-size:1.2rem">Top 5 - Mestres do Placar Exato</h2>
+        <div class="evolucao-container">
+            ${top5Cravadas.map(p => `
+                <div class="evolucao-linha">
+                    <span class="evolucao-nome">${p.nome}</span>
+                    <div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${p.cravar * 20}%"></div></div>
+                    <span class="evolucao-pts">${p.cravar} acertos</span>
                 </div>
-            </div>
-            <div class="stat-card"><span class="stat-value">${maiorSeqPts.maxSeqPontos}</span><span class="stat-label">Maior Sequência Pontuando (${maiorSeqPts.nome})</span></div>
-            <div class="stat-card"><span class="stat-value">${maiorSeqZero.maxSeqZero}</span><span class="stat-label">Maior Sequência Sem Pontuar (${maiorSeqZero.nome})</span></div>
+            `).join('')}
         </div>`;
     document.getElementById("estatisticas-dinamicas").innerHTML = html;
 }
