@@ -194,56 +194,61 @@ atualizarClassificacao();
 </body>
 </html>
 
-// --- CONFIGURAÇÃO: COLOQUE SEUS LINKS AQUI ---
-const URL_RESULTADOS = 'https://docs.google.com/spreadsheets/d/10gHmeFFVs3q3mhWISnD4aNjHSFXU8VJv41E8R3kWxZQ/edit?usp=drivesdk';
-const URL_PALPITES = 'COLE_AQUI_O_LINK_DO_CSV_DA_ABA_PALPITES';
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Bolão Os Antas - 3ª Rodada</title>
+</head>
+<body>
+    <script>
+        // --- RESULTADOS FIXOS (ATUALIZE AQUI APÓS OS JOGOS) ---
+        const resultadosFinais = {
+            // Rodada 3
+            "r3_j1_a": "", "r3_j1_b": "", // Suíça x Canadá
+            "r3_j2_a": "", "r3_j2_b": "", // Bósnia e Herzegovina x Catar
+            "r3_j3_a": "", "r3_j3_b": "", // Escócia x Brasil
+            "r3_j4_a": "", "r3_j4_b": "", // Marrocos x Haiti
+            "r3_j5_a": "", "r3_j5_b": "", // República Tcheca x México
+            "r3_j6_a": "", "r3_j6_b": "", // África do Sul x Coreia do Sul
+            "r3_j7_a": "", "r3_j7_b": "", // Equador x Alemanha
+            "r3_j8_a": "", "r3_j8_b": "", // Curaçao x Costa do Marfim
+            "r3_j9_a": "", "r3_j9_b": "", // Tunísia x Holanda
+            "r3_j10_a": "", "r3_j10_b": "", // Japão x Suécia
+            "r3_j11_a": "", "r3_j11_b": "", // Turquia x Estados Unidos
+            "r3_j12_a": "", "r3_j12_b": "", // Paraguai x Austrália
+            "r3_j13_a": "", "r3_j13_b": "", // Noruega x França
+            "r3_j14_a": "", "r3_j14_b": "", // Senegal x Iraque
+            "r3_j15_a": "", "r3_j15_b": "", // Uruguai x Espanha
+            "r3_j16_a": "", "r3_j16_b": "", // Cabo Verde x Arábia Saudita
+            "r3_j17_a": "", "r3_j17_b": "", // Nova Zelândia x Bélgica
+            "r3_j18_a": "", "r3_j18_b": "", // Egito x Irã
+            "r3_j19_a": "", "r3_j19_b": "", // Panamá x Inglaterra
+            "r3_j20_a": "", "r3_j20_b": "", // Croácia x Gana
+            "r3_j21_a": "", "r3_j21_b": "", // Colômbia x Portugal
+            "r3_j22_a": "", "r3_j22_b": "", // RD Congo x Uzbequistão
+            "r3_j23_a": "", "r3_j23_b": "", // Jordânia x Argentina
+            "r3_j24_a": "", "r3_j24_b": ""  // Argélia x Áustria
+        };
 
-// Variáveis globais que o seu sistema utiliza
-let resultadosFinais = {};
-let dadosPalpites = {};
+        // --- PALPITES ---
+        const dadosPalpites = {
+            // Insira os palpites aqui seguindo o padrão abaixo:
+            // "Nome": { "r3_j1_a": "0", "r3_j1_b": "0", ... }
+        };
 
-// Função principal de carregamento
-async function carregarDadosDoBolao() {
-    try {
-        // 1. Processar Resultados
-        const res = await fetch(URL_RESULTADOS);
-        const textoRes = await res.text();
-        textoRes.split('\n').slice(1).forEach(linha => {
-            const [id, casa, fora] = linha.split(',');
-            if (id) {
-                resultadosFinais[`${id}_a`] = casa.trim();
-                resultadosFinais[`${id}_b`] = fora.trim();
-            }
-        });
+        function calcularPontos() {
+            // Lógica de cálculo do bolão
+            console.log("Calculando pontuação...");
+        }
 
-        // 2. Processar Palpites
-        const resP = await fetch(URL_PALPITES);
-        const textoP = await resP.text();
-        textoP.split('\n').slice(1).forEach(linha => {
-            const [nome, id, casa, fora] = linha.split(',');
-            if (nome) {
-                if (!dadosPalpites[nome]) dadosPalpites[nome] = {};
-                dadosPalpites[nome][`${id}_a`] = casa.trim();
-                dadosPalpites[nome][`${id}_b`] = fora.trim();
-            }
-        });
+        // Função para iniciar o sistema
+        function iniciarApp() {
+            calcularPontos();
+            // Restante da sua lógica de renderização...
+        }
 
-        // 3. Iniciar a lógica de exibição que você já tem no seu site
-        console.log("Dados carregados. Iniciando renderização...");
-        iniciarInterface(); 
-    } catch (error) {
-        console.error("Erro crítico ao carregar dados:", error);
-        alert("Erro ao carregar o bolão. Verifique se os links do Google Sheets estão públicos.");
-    }
-}
-
-// Inicia o sistema
-carregarDadosDoBolao();
-
-// --- ABAIXO VOCÊ MANTÉM A SUA LÓGICA ATUAL ---
-function iniciarInterface() {
-    // Aqui você mantém as funções que já possui:
-    // calcularPontos(), montarTabela(), gerarCards(), etc.
-    // Elas agora usarão as variáveis 'resultadosFinais' e 'dadosPalpites' atualizadas.
-}
-
+        iniciarApp();
+    </script>
+</body>
+</html>
