@@ -193,3 +193,57 @@ atualizarClassificacao();
 </script>
 </body>
 </html>
+
+// --- CONFIGURAÇÃO: COLOQUE SEUS LINKS AQUI ---
+const URL_RESULTADOS = 'https://docs.google.com/spreadsheets/d/10gHmeFFVs3q3mhWISnD4aNjHSFXU8VJv41E8R3kWxZQ/edit?usp=drivesdk';
+const URL_PALPITES = 'COLE_AQUI_O_LINK_DO_CSV_DA_ABA_PALPITES';
+
+// Variáveis globais que o seu sistema utiliza
+let resultadosFinais = {};
+let dadosPalpites = {};
+
+// Função principal de carregamento
+async function carregarDadosDoBolao() {
+    try {
+        // 1. Processar Resultados
+        const res = await fetch(URL_RESULTADOS);
+        const textoRes = await res.text();
+        textoRes.split('\n').slice(1).forEach(linha => {
+            const [id, casa, fora] = linha.split(',');
+            if (id) {
+                resultadosFinais[`${id}_a`] = casa.trim();
+                resultadosFinais[`${id}_b`] = fora.trim();
+            }
+        });
+
+        // 2. Processar Palpites
+        const resP = await fetch(URL_PALPITES);
+        const textoP = await resP.text();
+        textoP.split('\n').slice(1).forEach(linha => {
+            const [nome, id, casa, fora] = linha.split(',');
+            if (nome) {
+                if (!dadosPalpites[nome]) dadosPalpites[nome] = {};
+                dadosPalpites[nome][`${id}_a`] = casa.trim();
+                dadosPalpites[nome][`${id}_b`] = fora.trim();
+            }
+        });
+
+        // 3. Iniciar a lógica de exibição que você já tem no seu site
+        console.log("Dados carregados. Iniciando renderização...");
+        iniciarInterface(); 
+    } catch (error) {
+        console.error("Erro crítico ao carregar dados:", error);
+        alert("Erro ao carregar o bolão. Verifique se os links do Google Sheets estão públicos.");
+    }
+}
+
+// Inicia o sistema
+carregarDadosDoBolao();
+
+// --- ABAIXO VOCÊ MANTÉM A SUA LÓGICA ATUAL ---
+function iniciarInterface() {
+    // Aqui você mantém as funções que já possui:
+    // calcularPontos(), montarTabela(), gerarCards(), etc.
+    // Elas agora usarão as variáveis 'resultadosFinais' e 'dadosPalpites' atualizadas.
+}
+
