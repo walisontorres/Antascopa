@@ -21,8 +21,8 @@
         .stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600 } 
         .table-container { overflow-x: auto } 
         .ranking-table { width: 100%; border-collapse: collapse; text-align: left } 
-        .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 18px; font-size: .9rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } 
-        .ranking-table td { padding: 18px; border-bottom: 1px solid var(--border); font-size: 1rem } 
+        .ranking-table th { background-color: rgba(15,81,50,0.04); color: var(--text-muted); font-weight: 600; padding: 12px 16px; font-size: .8rem; text-transform: uppercase; letter-spacing: 1px; border-radius: var(--radius-sm) var(--radius-sm) 0 0 } 
+        .ranking-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem } 
         .ranking-table tr:last-child td { border-bottom: none } 
         .sem-dados { text-align: center; color: var(--text-muted); padding: 50px 18px!important; font-style: italic } 
         .part-lista { display: flex; flex-direction: column; gap: 15px } 
@@ -67,28 +67,6 @@
         .tab-btn { padding: 8px 16px; cursor: pointer; border-radius: 20px; border: 1px solid var(--primary); background: transparent; font-weight: 600; color: var(--primary); transition: 0.3s; font-size: 0.85rem } 
         .tab-btn.active { background: var(--primary); color: #fff }
         
-        /* ESTILOS DO MATA-MATA */
-        .mata-container { display: flex; flex-direction: column; gap: 25px }
-        .fase-block { background: rgba(15,81,50,0.02); border-radius: var(--radius-sm); padding: 15px; border: 1px solid var(--border) }
-        .fase-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); text-align: center; margin-bottom: 12px }
-        .confrontos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px }
-        .confronto-card { background: var(--surface); border-radius: 10px; border: 1px solid var(--border); padding: 12px; transition: all .3s ease }
-        .confronto-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(15,81,50,0.06) }
-        .confronto-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.7rem; color: var(--text-muted) }
-        .confronto-jogadores { display: flex; flex-direction: column; gap: 4px }
-        .jogador-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px; border-radius: 6px; background: rgba(15,81,50,0.02) }
-        .jogador-row .nome { font-weight: 600; font-size: 0.9rem }
-        .jogador-row .pts { font-weight: 700; font-size: 0.85rem; color: var(--primary) }
-        .jogador-row.vencedor { background: rgba(25,135,84,0.08); border-left: 3px solid #198754 }
-        .jogador-row.vencedor .nome { color: #198754 }
-        .jogador-row.vencedor .pts { color: #198754 }
-        .jogador-row.eliminado { opacity: 0.5 }
-        .jogador-row.eliminado .nome { text-decoration: line-through; color: #dc3545 }
-        .confronto-status { font-size: 0.6rem; font-weight: 600; padding: 2px 10px; border-radius: 100px; text-align: center; margin-top: 6px }
-        .status-finalizado { background: #19875415; color: #198754 }
-        .status-aguardando { background: #ffc10715; color: #856404 }
-        .triple-badge { font-size: 0.55rem; background: var(--primary); color: #fff; padding: 1px 8px; border-radius: 100px; margin-left: 6px }
-        
         /* CORES DOS PALPITES */
         .palpite-cor-verde { background: #19875420 !important; border-color: #198754 !important; }
         .palpite-cor-verde .placar-box { background: #198754 !important; color: #fff !important; border-color: #198754 !important; }
@@ -98,14 +76,6 @@
         .palpite-cor-vermelho .placar-box { background: #dc3545 !important; color: #fff !important; border-color: #dc3545 !important; }
         .palpite-cor-branco { background: var(--surface) !important; border-color: var(--border) !important; }
         .palpite-cor-branco .placar-box { background: rgba(15,81,50,0.03) !important; color: var(--text) !important; border-color: var(--border) !important; }
-        
-        .legenda-cores { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin: 10px 0; font-size: 0.75rem }
-        .legenda-item { display: flex; align-items: center; gap: 5px }
-        .legenda-cor { width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--border) }
-        .legenda-cor.verde { background: #198754 }
-        .legenda-cor.amarelo { background: #ffc107 }
-        .legenda-cor.vermelho { background: #dc3545 }
-        .legenda-cor.branco { background: var(--surface); border: 1px solid var(--border) }
         
         @media (max-width: 700px) { .confrontos-grid { grid-template-columns: 1fr } }
         @keyframes modalShow { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } } 
@@ -120,18 +90,6 @@
         <h2>Classificação Geral</h2>
         <div class="stats-grid" id="stats-container"></div>
         <div class="table-container"><table class="ranking-table"><thead><tr><th style="width:100px">Posição</th><th>Participante</th><th style="width:140px;text-align:center">Points</th></tr></thead><tbody id="tabela-ranking"><tr><td colspan="3" class="sem-dados">Calculando...</td></tr></tbody></table></div>
-    </div>
-    
-    <!-- MATA-MATA -->
-    <div class="card" id="card-mata-mata">
-        <h2>🏆 MATA-MATA</h2>
-        <div class="legenda-cores">
-            <div class="legenda-item"><div class="legenda-cor verde"></div> Placar Exato (10 pts)</div>
-            <div class="legenda-item"><div class="legenda-cor amarelo"></div> Pontuou (3-6 pts)</div>
-            <div class="legenda-item"><div class="legenda-cor vermelho"></div> 0 Pontos</div>
-            <div class="legenda-item"><div class="legenda-cor branco"></div> Aguardando</div>
-        </div>
-        <div id="mata-mata-container"><p style="text-align:center;color:var(--text-muted)">Aguardando participantes...</p></div>
     </div>
     
     <div class="card"><h2>Estatísticas Avançadas 🏆</h2><div id="estatisticas-dinamicas"></div></div>
@@ -159,21 +117,30 @@
 </div>
 
 <script>
-// ==================== DADOS (MANTIDOS) ====================
+// ==================== DADOS COM NOVO PARTICIPANTE XERECA ====================
 const dadosPalpites = {
+    "Lucas": { j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "0", j24_b: "2", r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0", r2_j3_a: "1", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "0", r2_j6_a: "1", r2_j6_b: "2", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "2", r2_j13_b: "1", r2_j14_a: "1", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "1", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "1", r2_j23_b: "2", r2_j24_a: "2", r2_j24_b: "1", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "0", r3_j6_b: "1", r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "1", r3_j11_b: "1", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "1", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "0", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "2", r3_j24_a: "0", r3_j24_b: "1" },
     "Walishow": { j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "3", r2_j3_b: "0", r2_j4_a: "0", r2_j4_b: "1", r2_j5_a: "3", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "4", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "0", r2_j10_a: "3", r2_j10_b: "0", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "5", r2_j13_b: "0", r2_j14_a: "1", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "3", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "2", r2_j21_b: "1", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "3", r3_j4_a: "4", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "4", r3_j10_a: "1", r3_j10_b: "0", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "4", r3_j14_b: "0", r3_j15_a: "0", r3_j15_b: "3", r3_j16_a: "0", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "3", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "3", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "1", r3_j24_b: "2" },
     "Paulão": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "0", r2_j3_a: "2", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "1", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "1", r2_j9_a: "1", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "2", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "0", r2_j18_a: "3", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "2", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "1", r2_j23_a: "1", r2_j23_b: "3", r2_j24_a: "2", r2_j24_b: "0", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "1", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "2", r3_j10_a: "2", r3_j10_b: "2", r3_j11_a: "1", r3_j11_b: "2", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "3", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "1", r3_j22_a: "2", r3_j22_b: "1", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "1", r3_j24_b: "2" },
+    "Fish": { j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "2", r2_j5_a: "2", r2_j5_b: "0", r2_j6_a: "0", r2_j6_b: "1", r2_j7_a: "6", r2_j7_b: "0", r2_j8_a: "0", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "0", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "1", r2_j13_b: "0", r2_j14_a: "0", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "3", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "4", r3_j4_a: "1", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "3", r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "2", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "1", r3_j12_a: "2", r3_j12_b: "0", r3_j13_a: "2", r3_j13_b: "3", r3_j14_a: "3", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "0", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "1", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "0", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "0", r3_j24_b: "2" },
+    "soltin": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "0", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "2", r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "3", r2_j3_b: "1", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "1", r2_j5_b: "1", r2_j6_a: "1", r2_j6_b: "3", r2_j7_a: "5", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "3", r2_j11_b: "0", r2_j12_a: "1", r2_j13_a: "3", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "2", r2_j17_b: "1", r2_j18_a: "3", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "1", r2_j20_a: "1", r2_j20_b: "2", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "0", r2_j23_a: "1", r2_j23_b: "3", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "1", r3_j6_b: "2", r3_j7_a: "1", r3_j7_b: "0", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "4", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "1", r3_j11_b: "2", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "3", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "2", r3_j24_a: "1", r3_j24_b: "1" },
+    "Julian": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "2", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "2", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "3", r2_j7_b: "1", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "0", r2_j10_a: "3", r2_j10_b: "0", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "4", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "3", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "1", r2_j24_a: "3", r2_j24_b: "1", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "2", r3_j9_a: "1", r3_j9_b: "3", r3_j10_a: "1", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "3", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "2", r3_j16_a: "2", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "2", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "0", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "2", r3_j22_b: "1", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "1", r3_j24_b: "2" },
     "Gu": { j1_a: "3", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "0", j8_a: "0", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "5", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "1", j22_a: "2", j22_b: "2", j23_a: "2", j23_b: "1", j24_a: "0", j24_b: "5", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "1", r2_j4_a: "2", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "0", r2_j6_a: "1", r2_j6_b: "2", r2_j7_a: "4", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "1", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "3", r2_j10_b: "1", r2_j11_a: "3", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "2", r2_j13_b: "0", r2_j14_a: "1", r2_j14_b: "0", r2_j15_a: "1", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "2", r2_j20_a: "0", r2_j20_b: "2", r2_j21_a: "3", r2_j21_b: "1", r2_j22_a: "1", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "3", r2_j24_a: "4", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "1", r3_j9_b: "4", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "1", r3_j13_a: "2", r3_j13_b: "3", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "0", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "2", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "4", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "2", r3_j22_a: "2", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "1", r3_j24_b: "2" },
     "Campeão de 2026 Okc Freitas": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "3", j7_a: "1", j7_b: "0", j8_a: "1", j8_b: "2", j9_a: "7", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "1", j19_a: "1", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "2", j21_b: "1", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "2", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "1", r2_j4_a: "1", r2_j4_b: "2", r2_j5_a: "1", r2_j5_b: "1", r2_j6_a: "1", r2_j6_b: "3", r2_j7_a: "3", r2_j7_b: "1", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "3", r2_j10_b: "2", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "3", r2_j13_a: "3", r2_j13_b: "1", r2_j14_a: "2", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "3", r2_j17_a: "3", r2_j17_b: "1", r2_j18_a: "4", r2_j18_b: "1", r2_j19_a: "2", r2_j19_b: "2", r2_j20_a: "1", r2_j20_b: "1", r2_j21_a: "3", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "3", r2_j24_a: "3", r2_j24_b: "1", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "1", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "1", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "3", r3_j8_a: "1", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "2", r3_j10_b: "2", r3_j11_a: "2", r3_j11_b: "1", r3_j12_a: "2", r3_j12_b: "2", r3_j13_a: "1", r3_j13_b: "1", r3_j14_a: "1", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "1", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "5", r3_j20_a: "2", r3_j20_b: "1", r3_j21_a: "1", r3_j21_b: "3", r3_j22_a: "2", r3_j22_b: "1", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "1", r3_j24_b: "2" },
-    "Fish": { j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "2", r2_j5_a: "2", r2_j5_b: "0", r2_j6_a: "0", r2_j6_b: "1", r2_j7_a: "6", r2_j7_b: "0", r2_j8_a: "0", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "0", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "1", r2_j13_b: "0", r2_j14_a: "0", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "3", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "4", r3_j4_a: "1", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "3", r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "2", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "1", r3_j12_a: "2", r3_j12_b: "0", r3_j13_a: "2", r3_j13_b: "3", r3_j14_a: "3", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "0", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "1", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "0", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "0", r3_j24_b: "2" },
-    "Psico": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_0: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "2", r2_j3_b: "2", r2_j4_a: "2", r2_j4_b: "2", r2_j5_a: "3", r2_j5_b: "1", r2_j6_a: "1", r2_j6_b: "1", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "1", r2_j9_a: "1", r2_j9_b: "2", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "3", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "1", r2_j13_a: "1", r2_j13_b: "0", r2_j14: "2", r2_j14_b: "1", r2_j15_a: "1", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "1", r2_j17_b: "0", r2_j18_a: "3", r2_j18_b: "1", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "1", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "1", r2_j22_b: "2", r2_j23_a: "1", r2_j23_b: "2", r2_j24_a: "3", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "2", r3_j13_a: "2", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "1", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "0", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "0", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "2", r3_j24_b: "1" },
     "Sid": { j1_a: "1", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "2", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "2", j6_a: "2", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "2", j11_b: "1", j12_a: "3", j12_b: "1", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "3", j20_b: "1", j21_a: "4", j21_b: "1", j22_a: "0", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "1", j24_b: "3", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "2", r2_j3_a: "3", r2_j3_b: "1", r2_j4_a: "3", r2_j4_b: "2", r2_j5_a: "3", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "3", r2_j7_a: "4", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "3", r2_j10_a: "3", r2_j10_b: "1", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "3", r2_j13_a: "3", r2_j13_b: "1", r2_j14_a: "3", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "1", r2_j16_a: "0", r2_j16_b: "3", r2_j17_a: "3", r2_j17_b: "2", r2_j18_a: "5", r2_j18_b: "0", r2_j19_a: "3", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "2", r2_j21_a: "4", r2_j21_b: "0", r2_j22_a: "4", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "3", r2_j24_a: "3", r2_j24_b: "1", r3_j1_a: "2", r3_j1_b: "3", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "4", r3_j4_a: "5", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "3", r3_j7_a: "1", r3_j7_b: "3", r3_j8_a: "0", r3_j8_b: "4", r3_j9_a: "0", r3_j9_b: "6", r3_j10_a: "4", r3_j10_b: "2", r3_j11_a: "1", r3_j11_b: "3", r3_j12_a: "2", r3_j12_b: "2", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "3", r3_j14_b: "1", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "2", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "3", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "4", r3_j20_a: "0", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "3", r3_j22_a: "2", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "1", r3_j24_b: "3" },
-    "Lucas": { j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "0", j24_b: "2", r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0", r2_j3_a: "1", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "0", r2_j6_a: "1", r2_j6_b: "2", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "2", r2_j13_b: "1", r2_j14_a: "1", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "1", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "1", r2_j23_b: "2", r2_j24_a: "2", r2_j24_b: "1", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "0", r3_j6_b: "1", r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "1", r3_j11_b: "1", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "1", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "0", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "2", r3_j24_a: "0", r3_j24_b: "1" },
-    "Wix": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "1", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "1", r2_j4_a: "1", r2_j4_b: "2", r2_j5_a: "3", r2_j5_b: "0", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "2", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "3", r2_j9_b: "1", r2_j10_a: "1", r2_j10_b: "1", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "3", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "1", r2_j17_a: "2", r2_j17_b: "29", r2_j18_a: "3", r2_j18_b: "1", r2_j19_a: "3", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "3", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "0", r3_j1_b: "2", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "1", r3_j7_b: "3", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "1", r3_j9_b: "4", r3_j10_a: "2", r3_j10_b: "2", r3_j11_a: "0", r3_j11_b: "1", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "2", r3_j13_b: "2", r3_j14_a: "0", r3_j14_b: "1", r3_j15_a: "1", r3_j15_b: "0", r3_j16_a: "2", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "3", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "4", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "1", r3_j22_b: "1", r3_j23_a: "36", r3_j23_b: "1", r3_j24_a: "2", r3_j24_b: "1" },
-    "Julian": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "2", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "2", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "3", r2_j7_b: "1", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "0", r2_j10_a: "3", r2_j10_b: "0", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "4", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "3", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "1", r2_j24_a: "3", r2_j24_b: "1", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "2", r3_j9_a: "1", r3_j9_b: "3", r3_j10_a: "1", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "3", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "2", r3_j16_a: "2", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "2", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "0", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "2", r3_j22_b: "1", r3_j23_a: "0", r3_j23_b: "4", r3_j24_a: "1", r3_j24_b: "2" },
-    "soltin": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "0", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "2", r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "3", r2_j3_b: "1", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "1", r2_j5_b: "1", r2_j6_a: "1", r2_j6_b: "3", r2_j7_a: "5", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "3", r2_j11_b: "0", r2_j12_a: "1", r2_j13_a: "3", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "2", r2_j17_b: "1", r2_j18_a: "3", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "1", r2_j20_a: "1", r2_j20_b: "2", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "0", r2_j23_a: "1", r2_j23_b: "3", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "1", r3_j6_b: "2", r3_j7_a: "1", r3_j7_b: "0", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "4", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "1", r3_j11_b: "2", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "1", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "3", r3_j18_a: "1", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "2", r3_j24_a: "1", r3_j24_b: "1" },
+    "Psico": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_0: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "2", r2_j3_b: "2", r2_j4_a: "2", r2_j4_b: "2", r2_j5_a: "3", r2_j5_b: "1", r2_j6_a: "1", r2_j6_b: "1", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "1", r2_j9_a: "1", r2_j9_b: "2", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "3", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "1", r2_j13_a: "1", r2_j13_b: "0", r2_j14: "2", r2_j14_b: "1", r2_j15_a: "1", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "1", r2_j17_b: "0", r2_j18_a: "3", r2_j18_b: "1", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "1", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "1", r2_j22_b: "2", r2_j23_a: "1", r2_j23_b: "2", r2_j24_a: "3", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "2", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "2", r3_j13_a: "2", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "1", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "0", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "0", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "1", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "2", r3_j24_b: "1" },
     "Samuel": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "0", j3_a: "1", j3_b: "2", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "0", j8_b: "3", j9_a: "1", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "2", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "2", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "1", j16_a: "0", j16_b: "1", j17_a: "1", j17_b: "1", r18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "1", j22_a: "2", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "0", r2_j4_a: "3", r2_j4_b: "2", r2_j5_a: "1", r2_j5_b: "2", r2_j6_a: "0", r2_j6_b: "3", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "2", r2_j9_b: "2", r2_j10_a: "3", r2_j10_b: "1", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "3", r2_j13_a: "2", r2_j13_b: "2", r2_j14_a: "2", r2_j14_b: "0", r2_j15_a: "3", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "2", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "3", r2_j19_b: "1", r2_j20_a: "1", r2_j20_b: "2", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "5", r2_j22_b: "2", r2_j23_a: "1", r2_j23_b: "2", r2_j24_a: "2", r2_j24_b: "0", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "3", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "3", r3_j10_b: "1", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "0", r3_j15_b: "2", r3_j16_a: "1", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "2", r3_j18_a: "2", r3_j18_b: "0", r3_j19_a: "0", r3_j19_b: "3", r3_j20_a: "0", r3_j20_b: "1", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "2", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "2", r3_j24_a: "2", r3_j24_b: "1" },
-    "Abner": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", r2_j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", r2_j18_a: "5", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "2", r2_j21_a: "3", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "2", r2_j24_b: "1", r3_j1_a: "3", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "1", r3_j10_b: "2", r3_j11_a: "1", r3_j11_b: "1", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "2", r3_j16_a: "0", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "3", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "3", r3_j20_a: "2", r3_j20_b: "1", r3_j21_a: "2", r3_j21_b: "3", r3_j22_a: "1", r3_j22_b: "0",r3_j23_a: "1", r3_j23_b: "1", r3_j24_a: "0", r3_j24_b: "4" }
+    "Abner": { j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", r2_j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", r2_j18_a: "5", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "2", r2_j21_a: "3", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "2", r2_j24_b: "1", r3_j1_a: "3", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "1", r3_j6_b: "3", r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "3", r3_j10_a: "1", r3_j10_b: "2", r3_j11_a: "1", r3_j11_b: "1", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "2", r3_j16_a: "0", r3_j16_b: "1", r3_j17_a: "0", r3_j17_b: "3", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "3", r3_j20_a: "2", r3_j20_b: "1", r3_j21_a: "2", r3_j21_b: "3", r3_j22_a: "1", r3_j22_b: "0",r3_j23_a: "1", r3_j23_b: "1", r3_j24_a: "0", r3_j24_b: "4" },
+    "Wix": { j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "1", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "1", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "1", r2_j3_a: "1", r2_j3_b: "1", r2_j4_a: "1", r2_j4_b: "2", r2_j5_a: "3", r2_j5_b: "0", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "2", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "0", r2_j9_a: "3", r2_j9_b: "1", r2_j10_a: "1", r2_j10_b: "1", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "1", r2_j12_b: "2", r2_j13_a: "3", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "0", r2_j16_b: "1", r2_j17_a: "2", r2_j17_b: "29", r2_j18_a: "3", r2_j18_b: "1", r2_j19_a: "3", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "3", r2_j21_b: "0", r2_j22_a: "3", r2_j22_b: "1", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "0", r3_j1_b: "2", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "3", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "1", r3_j7_b: "3", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "1", r3_j9_b: "4", r3_j10_a: "2", r3_j10_b: "2", r3_j11_a: "0", r3_j11_b: "1", r3_j12_a: "0", r3_j12_b: "0", r3_j13_a: "2", r3_j13_b: "2", r3_j14_a: "0", r3_j14_b: "1", r3_j15_a: "1", r3_j15_b: "0", r3_j16_a: "2", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "3", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "4", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "2", r3_j22_a: "1", r3_j22_b: "1", r3_j23_a: "36", r3_j23_b: "1", r3_j24_a: "2", r3_j24_b: "1" },
+    // NOVO PARTICIPANTE: XERECA
+    "Xereca": { 
+        o1_a: "0", o1_b: "2", o2_a: "2", o2_b: "0", o3_a: "4", o3_b: "0", 
+        o4_a: "1", o4_b: "1", o5_a: "1", o5_b: "3", o6_a: "5", o6_b: "1",
+        o7_a: "0", o7_b: "1", o8_a: "2", o8_b: "0", o9_a: "1", o9_b: "1",
+        o10_a: "2", o10_b: "0", o11_a: "0", o11_b: "1", o12_a: "3", o12_b: "1",
+        o13_a: "1", o13_b: "0", o14_a: "0", o14_b: "0", o15_a: "3", o15_b: "0",
+        o16_a: "2", o16_b: "0"
+    }
 };
 const resultadosFinais={j1_a:"2",j1_b:"0",j2_a:"2",j2_b:"1",j3_a:"1",j3_b:"1",j4_a:"1",j4_b:"1",j5_a:"1",j5_b:"1",j6_a:"0",j6_b:"1",j7_a:"4",j7_b:"1",j8_a:"2",j8_b:"0",j9_a:"7",j9_b:"1",j10_a:"1",j10_b:"0",j11_a:"2",j11_b:"2",j12_a:"5",j12_b:"1",j13_a:"1",j13_b:"1",j14_a:"2",j14_b:"2",j15_a:"0",j15_b:"0",j16_a:"1",j16_b:"1",j17_a:"3",j17_b:"1",j18_a:"1",j18_b:"4",j19_a:"3",j19_b:"0",j20_a:"3",j20_b:"1",j21_a:"1",j21_b:"1",j22_a:"4",j22_b:"2",j23_a:"1",j23_b:"0",j24_a:"1",j24_b:"3",r2_j1_a:"1",r2_j1_b:"1",r2_j2_a:"4",r2_j2_b:"1",r2_j3_a:"6",r2_j3_b:"0",r2_j4_a:"1",r2_j4_b:"0",r2_j5_a:"2",r2_j5_b:"0",r2_j6_a:"0",r2_j6_b:"1",r2_j7_a:"3",r2_j7_b:"0",r2_j8_a:"0",r2_j8_b:"1",r2_j9_a:"5",r2_j9_b:"1",r2_j10_a:"2",r2_j10_b:"1",r2_j11_a:"0",r2_j11_b:"0",r2_j12_a:"0",r2_j12_b:"4",r2_j13_a:"4",r2_j13_b:"0",r2_j14_a:"0",r2_j14_b:"0",r2_j15_a:"0",r2_j15_b:"0",r2_j16_a:"1",r2_j16_b:"3",r2_j17_a:"2",r2_j17_b:"0",r2_j18_a:"3",r2_j18_b:"0",r2_j19_a:"3",r2_j19_b:"2",r2_j20_a:"1",r2_j20_b:"2",r2_j21_a:"5",r2_j21_b:"0",r2_j22_a:"0",r2_j22_b:"0",r2_j23_a:"0",r2_j23_b:"1",r2_j24_a:"1",r2_j24_b:"0",r3_j1_a:"2",r3_j1_b:"1",r3_j2_a:"3",r3_j2_b:"1",r3_j3_a:"0",r3_j3_b:"3",r3_j4_a:"4",r3_j4_b:"2",r3_j5_a:"0",r3_j5_b:"3",r3_j6_a:"1",r3_j6_b:"0",r3_j7_a:"2",r3_j7_b:"1",r3_j8_a:"0",r3_j8_b:"2",r3_j9_a:"1",r3_j9_b:"3",r3_j10_a:"1",r3_j10_b:"1",r3_j11_a:"3",r3_j11_b:"2",r3_j12_a:"0",r3_j12_b:"0",r3_j13_a:"1",r3_j13_b:"4",r3_j14_a:"5",r3_j14_b:"0",r3_j15_a:"0",r3_j15_b:"1",r3_j16_a:"0",r3_j16_b:"0",r3_j17_a:"1",r3_j17_b:"5",r3_j18_a:"1",r3_j18_b:"1",r3_j19_a:"0",r3_j19_b:"2",r3_j20_a:"2",r3_j20_b:"1",r3_j21_a:"0",r3_j21_b:"0",r3_j22_a:"3",r3_j22_b:"1",r3_j23_a:"1",r3_j23_b:"3",r3_j24_a:"3",r3_j24_b:"3" }
 const jogosR1=[{tA:"México",bA:"🇲🇽",tB:"África do Sul",bB:"🇿🇦",idA:"j1_a",idB:"j1_b"},{tA:"Coreia do Sul",bA:"🇰🇷",tB:"República Tcheca",bB:"🇨🇿",idA:"j2_a",idB:"j2_b"},{tA:"Canadá",bA:"🇨🇦",tB:"Bósnia",bB:"🇧🇦",idA:"j3_a",idB:"j3_b"},{tA:"Catar",bA:"🇶🇦",tB:"Suíça",bB:"🇨🇭",idA:"j4_a",idB:"j4_b"},{tA:"Brasil",bA:"🇧🇷",tB:"Marrocos",bB:"🇲🇦",idA:"j5_a",idB:"j5_b"},{tA:"Haiti",bA:"🇭🇹",tB:"Escócia",bB:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",idA:"j6_a",idB:"j6_b"},{tA:"Estados Unidos",bA:"🇺🇸",tB:"Paraguai",bB:"🇵🇾",idA:"j7_a",idB:"j7_b"},{tA:"Austrália",bA:"🇦🇺",tB:"Turquia",bB:"🇹🇷",idA:"j8_a",idB:"j8_b"},{tA:"Alemanha",bA:"🇩🇪",tB:"Curaçao",bB:"🇨🇼",idA:"j9_a",idB:"j9_b"},{tA:"Costa do Marfim",bA:"🇨🇮",tB:"Equador",bB:"🇪🇨",idA:"j10_a",idB:"j10_b"},{tA:"Holanda",bA:"🇳🇱",tB:"Japão",bB:"🇯🇵",idA:"j11_a",idB:"j11_b"},{tA:"Suécia",bA:"🇸🇪",tB:"Tunísia",bB:"🇹🇳",idA:"j12_a",idB:"j12_b"},{tA:"Bélgica",bA:"🇧🇪",tB:"Egito",bB:"🇪🇬",idA:"j13_a",idB:"j13_b"},{tA:"Irã",bA:"🇮🇷",tB:"Nova Zelândia",bB:"🇳🇿",idA:"j14_a",idB:"j14_b"},{tA:"Espanha",bA:"🇪🇸",tB:"Cabo Verde",bB:"🇨🇻",idA:"j15_a",idB:"j15_b"},{tA:"Arábia Saudita",bA:"🇸🇦",tB:"Uruguai",bB:"🇺🇾",idA:"j16_a",idB:"j16_b"},{tA:"França",bA:"🇫🇷",tB:"Senegal",bB:"🇸🇳",idA:"j17_a",idB:"j17_b"},{tA:"Iraque",bA:"🇮🇶",tB:"Noruega",bB:"🇳🇴",idA:"j18_a",idB:"j18_b"},{tA:"Argentina",bA:"🇦🇷",tB:"Argélia",bB:"🇩🇿",idA:"j19_a",idB:"j19_b"},{tA:"Áustria",bA:"🇦🇹",tB:"Jordânia",bB:"🇯🇴",idA:"j20_a",idB:"j20_b"},{tA:"Portugal",bA:"🇵🇹",tB:"Congo",bB:"🇨🇬",idA:"j21_a",idB:"j21_b"},{tA:"Inglaterra",bA:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",tB:"Croácia",bB:"🇭🇷",idA:"j22_a",idB:"j22_b"},{tA:"Gana",bA:"🇬🇭",tB:"Panamá",bB:"🇵🇦",idA:"j23_a",idB:"j23_b"},{tA:"Uzbequistão",bA:"🇺🇿",tB:"Colômbia",bB:"🇨🇴",idA:"j24_a",idB:"j24_b"}];
@@ -212,226 +179,24 @@ function getRanking() {
 function getPontosOitavas(jogador) {
     let pts = 0, acertos = 0;
     const p = dadosPalpites[jogador];
-    if (!p) return { pontos: 0, acertos: 0, detalhes: [] };
-    const detalhes = [];
+    if (!p) return { pontos: 0, acertos: 0 };
     jogosOitavas.forEach(j => {
         const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
         const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-        const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
-        let ptsJogo = 0, cor = 'branco';
-        if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
-            ptsJogo = calcularPontos(ra, rb, pa, pb);
-            if (ptsJogo === 10) { cor = 'verde'; acertos++; }
-            else if (ptsJogo > 0) cor = 'amarelo';
-            else cor = 'vermelho';
+        if (!isNaN(ra) && !isNaN(rb)) {
+            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+            if (!isNaN(pa) && !isNaN(pb)) {
+                const ptsJogo = calcularPontos(ra, rb, pa, pb);
+                pts += ptsJogo;
+                if (ptsJogo === 10) acertos++;
+            }
         }
-        pts += ptsJogo;
-        detalhes.push({ jogo: j, pts: ptsJogo, cor, palpite: { a: pa, b: pb }, resultado: { a: ra, b: rb } });
     });
-    return { pontos: pts, acertos: acertos, detalhes };
+    return { pontos: pts, acertos: acertos };
 }
 
 function todosResultadosOitavas() {
     return jogosOitavas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
-}
-
-function gerarMataMata() {
-    const ranking = getRanking();
-    if (ranking.length < 2) {
-        document.getElementById('mata-mata-container').innerHTML = '<p style="text-align:center;color:var(--text-muted)">Aguardando participantes...</p>';
-        return;
-    }
-    
-    // Organiza os confrontos: todos participam, grupos de 3 onde 1 passa
-    const participantes = ranking.map(r => r.nome);
-    const grupos = [];
-    const numGrupos = Math.ceil(participantes.length / 3);
-    
-    for (let i = 0; i < numGrupos; i++) {
-        const grupo = participantes.slice(i * 3, i * 3 + 3);
-        if (grupo.length > 0) grupos.push(grupo);
-    }
-    
-    // Primeira fase: grupos de 3, passa o melhor
-    const fase1 = [];
-    grupos.forEach((grupo, idx) => {
-        const dados = grupo.map(nome => {
-            const d = getPontosOitavas(nome);
-            return { nome, pontos: d.pontos, acertos: d.acertos, detalhes: d.detalhes };
-        });
-        // Ordena por pontos, depois acertos, depois posição no ranking
-        dados.sort((a, b) => {
-            if (b.pontos !== a.pontos) return b.pontos - a.pontos;
-            if (b.acertos !== a.acertos) return b.acertos - a.acertos;
-            const posA = ranking.findIndex(r => r.nome === a.nome);
-            const posB = ranking.findIndex(r => r.nome === b.nome);
-            return posA - posB;
-        });
-        const vencedor = dados.length > 0 ? dados[0].nome : null;
-        fase1.push({ 
-            id: `g${idx+1}`,
-            jogadores: dados,
-            vencedor: vencedor,
-            finalizado: todosResultadosOitavas()
-        });
-    });
-    
-    // Fase 2: vencedores da fase 1 se enfrentam
-    const vencedores = fase1.filter(f => f.vencedor).map(f => f.vencedor);
-    const fase2 = [];
-    for (let i = 0; i < vencedores.length; i += 2) {
-        if (i + 1 < vencedores.length) {
-            const j1 = vencedores[i], j2 = vencedores[i+1];
-            fase2.push({
-                id: `f2_${i/2+1}`,
-                jogador1: j1, jogador2: j2,
-                vencedor: null,
-                finalizado: false
-            });
-        } else {
-            // Se sobrar um, passa direto
-            fase2.push({
-                id: `f2_${Math.floor(i/2)+1}`,
-                jogador1: vencedores[i],
-                jogador2: null,
-                vencedor: vencedores[i],
-                finalizado: true,
-                bye: true
-            });
-        }
-    }
-    
-    // Fase 3: semi
-    const vencedoresF2 = fase2.filter(f => f.vencedor).map(f => f.vencedor);
-    const fase3 = [];
-    for (let i = 0; i < vencedoresF2.length; i += 2) {
-        if (i + 1 < vencedoresF2.length) {
-            fase3.push({
-                id: `f3_${i/2+1}`,
-                jogador1: vencedoresF2[i], jogador2: vencedoresF2[i+1],
-                vencedor: null,
-                finalizado: false
-            });
-        }
-    }
-    
-    // Fase 4: final
-    const vencedoresF3 = fase3.filter(f => f.vencedor).map(f => f.vencedor);
-    const fase4 = [];
-    if (vencedoresF3.length >= 2) {
-        fase4.push({
-            id: 'final',
-            jogador1: vencedoresF3[0], jogador2: vencedoresF3[1],
-            vencedor: null,
-            finalizado: false
-        });
-    }
-    
-    renderizarMataMata(fase1, fase2, fase3, fase4);
-}
-
-function renderizarMataMata(fase1, fase2, fase3, fase4) {
-    const container = document.getElementById('mata-mata-container');
-    let html = '<div class="mata-container">';
-    
-    // Fase 1 - Grupos
-    html += `<div class="fase-block"><div class="fase-title">📋 FASE 1 - GRUPOS (melhor de cada grupo avança)</div><div class="confrontos-grid">`;
-    fase1.forEach(g => {
-        html += `<div class="confronto-card">`;
-        html += `<div class="confronto-header"><span>Grupo ${g.id}</span><span>${g.finalizado ? '✅ Finalizado' : '⏳ Aguardando'}</span></div>`;
-        html += `<div class="confronto-jogadores">`;
-        g.jogadores.forEach(j => {
-            const isVencedor = j.nome === g.vencedor;
-            const cls = isVencedor ? 'vencedor' : (g.finalizado && g.vencedor ? 'eliminado' : '');
-            html += `<div class="jogador-row ${cls}"><span class="nome">${j.nome}</span><span class="pts">${j.pontos} pts (${j.acertos} ac)</span></div>`;
-        });
-        if (g.finalizado && g.vencedor) {
-            html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${g.vencedor} avança!</div>`;
-        } else if (g.finalizado) {
-            html += `<div style="font-size:0.65rem;color:#dc3545;text-align:center;margin-top:4px">Nenhum vencedor definido</div>`;
-        }
-        html += `</div></div>`;
-    });
-    html += `</div></div>`;
-    
-    // Fase 2 - Quartas
-    if (fase2.length > 0) {
-        html += `<div class="fase-block"><div class="fase-title">⚔️ FASE 2 - QUARTAS</div><div class="confrontos-grid">`;
-        fase2.forEach(c => {
-            html += `<div class="confronto-card">`;
-            html += `<div class="confronto-header"><span>Confronto</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
-            html += `<div class="confronto-jogadores">`;
-            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            html += `<div class="jogador-row ${j1cls}"><span class="nome">${c.jogador1 || '?'}</span></div>`;
-            if (c.bye) {
-                html += `<div style="text-align:center;font-size:0.6rem;color:var(--text-muted)">💰 Bye - Avança direto!</div>`;
-            } else {
-                html += `<div class="jogador-row ${j2cls}"><span class="nome">${c.jogador2 || '?'}</span></div>`;
-                if (c.finalizado && c.vencedor) {
-                    html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${c.vencedor} avança!</div>`;
-                }
-            }
-            html += `</div></div>`;
-        });
-        html += `</div></div>`;
-    }
-    
-    // Fase 3 - Semi
-    if (fase3.length > 0) {
-        html += `<div class="fase-block"><div class="fase-title">🏅 FASE 3 - SEMI-FINAL</div><div class="confrontos-grid">`;
-        fase3.forEach(c => {
-            html += `<div class="confronto-card">`;
-            html += `<div class="confronto-header"><span>Semi ${c.id}</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
-            html += `<div class="confronto-jogadores">`;
-            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            html += `<div class="jogador-row ${j1cls}"><span class="nome">${c.jogador1 || '?'}</span></div>`;
-            html += `<div class="jogador-row ${j2cls}"><span class="nome">${c.jogador2 || '?'}</span></div>`;
-            if (c.finalizado && c.vencedor) {
-                html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${c.vencedor} vai à final!</div>`;
-            }
-            html += `</div></div>`;
-        });
-        html += `</div></div>`;
-    }
-    
-    // Fase 4 - Final
-    if (fase4.length > 0) {
-        html += `<div class="fase-block" style="border-color:var(--primary);background:rgba(15,81,50,0.04)"><div class="fase-title" style="font-size:1.3rem;color:var(--primary)">🏆 FINAL</div><div class="confrontos-grid">`;
-        fase4.forEach(c => {
-            html += `<div class="confronto-card" style="border-color:var(--primary);border-width:2px">`;
-            html += `<div class="confronto-header"><span>🏆 Grande Final</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
-            html += `<div class="confronto-jogadores">`;
-            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
-            html += `<div class="jogador-row ${j1cls}" style="font-size:1.1rem"><span class="nome">${c.jogador1 || '?'}</span></div>`;
-            html += `<div style="text-align:center;font-size:0.8rem;color:var(--text-muted)">⚔️ VS</div>`;
-            html += `<div class="jogador-row ${j2cls}" style="font-size:1.1rem"><span class="nome">${c.jogador2 || '?'}</span></div>`;
-            if (c.finalizado && c.vencedor) {
-                html += `<div style="font-size:0.9rem;color:#198754;text-align:center;margin-top:8px;font-weight:700">🏆🏆🏆 ${c.vencedor} É O CAMPEÃO!!! 🏆🏆🏆</div>`;
-            }
-            html += `</div></div>`;
-        });
-        html += `</div></div>`;
-    }
-    
-    html += '</div>';
-    container.innerHTML = html;
-}
-
-// ==================== FUNÇÕES EXISTENTES (mantidas com cores) ====================
-function calcularOddsDinamicas(jogo) {
-    let casa = 0, empate = 0, fora = 0, total = 0;
-    Object.values(dadosPalpites).forEach(p => {
-        let pA = parseInt(p[jogo.idA]), pB = parseInt(p[jogo.idB]);
-        if (!isNaN(pA) && !isNaN(pB)) {
-            if (pA > pB) casa++; else if (pB > pA) fora++; else empate++;
-            total++;
-        }
-    });
-    if (total === 0) return "1.90 - 3.20 - 3.80";
-    return `${(total/(casa||0.1)).toFixed(2)} - ${(total/(empate||0.1)).toFixed(2)} - ${(total/(fora||0.1)).toFixed(2)}`;
 }
 
 function renderizarPorRodada(n){
@@ -446,6 +211,19 @@ function renderizarPorRodada(n){
         html+=`<div class="jogo-card"><div class="jogo-principal"><div class="time-container casa"><span>${t.tA}</span><span class="bandeira">${t.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${resA}</div><span class="divisor">X</span><div class="placar-box">${resB}</div></div></div><div class="time-container fora"><span class="bandeira">${t.bB}</span><span>${t.tB}</span></div></div><div class="jogo-odds">PROB: ${calcularOddsDinamicas(t)}</div></div>`
     });
     container.innerHTML=html
+}
+
+function calcularOddsDinamicas(jogo) {
+    let casa = 0, empate = 0, fora = 0, total = 0;
+    Object.values(dadosPalpites).forEach(p => {
+        let pA = parseInt(p[jogo.idA]), pB = parseInt(p[jogo.idB]);
+        if (!isNaN(pA) && !isNaN(pB)) {
+            if (pA > pB) casa++; else if (pB > pA) fora++; else empate++;
+            total++;
+        }
+    });
+    if (total === 0) return "1.90 - 3.20 - 3.80";
+    return `${(total/(casa||0.1)).toFixed(2)} - ${(total/(empate||0.1)).toFixed(2)} - ${(total/(fora||0.1)).toFixed(2)}`;
 }
 
 function abrirPalpites(e, rodada=1) {
@@ -532,9 +310,6 @@ function atualizarClassificacao(){
     e.forEach((p,i)=>{let pos=i+1;novo[p.nome]=pos;let s="-",c="manteve";if(!first&&ant[p.nome]){let a=ant[p.nome];if(pos<a){s="▲";c="subiu"}else if(pos>a){s="▼";c="desceu"}}let barra=p.pontos/max*100;evol+=`<div class="evolucao-linha"><span class="evolucao-nome">${p.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,barra)}%"></div></div><span class="evolucao-pts">${p.pontos} pts</span><span class="evolucao-tendencia ${c}">${s}</span></div>`});
     localStorage.setItem("bolao_posicoes_anteriores",JSON.stringify(novo));
     document.getElementById("painel-evolucao").innerHTML=evol;
-    
-    // Atualiza mata-mata
-    gerarMataMata();
 }
 
 // ==================== INICIALIZAÇÃO ====================
