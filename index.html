@@ -68,24 +68,24 @@
         .tab-btn.active { background: var(--primary); color: #fff }
         
         /* ESTILOS DO MATA-MATA */
-        .chaveamento { display: flex; gap: 20px; overflow-x: auto; padding: 10px 0; justify-content: center }
-        .coluna-fase { flex: 1; min-width: 180px; max-width: 220px }
-        .fase-titulo { text-align: center; font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); padding: 8px; background: rgba(15,81,50,0.04); border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--border) }
-        .confronto { position: relative; margin-bottom: 12px; padding: 10px 12px; background: var(--surface); border-radius: 10px; border: 1px solid var(--border); transition: all .3s ease }
-        .confronto:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(15,81,50,0.08) }
-        .confronto-linha { display: flex; align-items: center; justify-content: space-between; gap: 6px }
-        .jogador { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.8rem; flex: 1; min-width: 0 }
+        .chaveamento { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; justify-content: center }
+        .coluna-fase { flex: 1; min-width: 170px; max-width: 210px }
+        .fase-titulo { text-align: center; font-weight: 700; font-size: 0.8rem; color: var(--primary-dark); padding: 6px; background: rgba(15,81,50,0.04); border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border) }
+        .confronto { position: relative; margin-bottom: 10px; padding: 8px 10px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); transition: all .3s ease }
+        .confronto:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(15,81,50,0.08) }
+        .confronto-linha { display: flex; align-items: center; justify-content: space-between; gap: 4px }
+        .jogador { display: flex; align-items: center; gap: 4px; font-weight: 600; font-size: 0.75rem; flex: 1; min-width: 0 }
         .jogador .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-        .jogador .pts { font-size: 0.7rem; font-weight: 700; color: var(--primary); background: rgba(15,81,50,0.06); padding: 0 6px; border-radius: 4px }
+        .jogador .pts { font-size: 0.65rem; font-weight: 700; color: var(--primary); background: rgba(15,81,50,0.06); padding: 0 5px; border-radius: 3px; flex-shrink: 0 }
+        .jogador .bye { color: var(--text-muted); font-weight: 400; font-size: 0.6rem }
         .jogador.vencedor .nome { color: #198754 }
-        .jogador.vencedor::after { content: "🏆"; font-size: 0.7rem; margin-left: 2px }
+        .jogador.vencedor::after { content: "🏆"; font-size: 0.6rem; margin-left: 2px }
         .jogador.eliminado .nome { color: #dc3545; text-decoration: line-through }
-        .vs { font-size: 0.6rem; font-weight: 700; color: var(--text-muted); padding: 0 4px }
-        .confronto-status { font-size: 0.55rem; font-weight: 600; padding: 2px 8px; border-radius: 100px; white-space: nowrap }
+        .vs { font-size: 0.55rem; font-weight: 700; color: var(--text-muted); padding: 0 3px; flex-shrink: 0 }
+        .confronto-status { font-size: 0.5rem; font-weight: 600; padding: 1px 6px; border-radius: 100px; white-space: nowrap }
         .status-finalizado { background: #19875415; color: #198754 }
         .status-aguardando { background: #ffc10715; color: #856404 }
-        .status-empate { background: #dc354515; color: #dc3545 }
-        .conectores { position: relative }
+        .byes { text-align: center; font-size: 0.7rem; color: var(--text-muted); padding: 4px; background: rgba(15,81,50,0.03); border-radius: 6px; margin-top: 4px }
         
         @media (max-width: 700px) { .chaveamento { flex-direction: column; align-items: center } .coluna-fase { min-width: 100%; max-width: 100% } }
         @keyframes modalShow { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } } 
@@ -105,7 +105,7 @@
     <!-- MATA-MATA -->
     <div class="card" id="card-mata-mata">
         <h2>🏆 MATA-MATA</h2>
-        <div id="mata-mata-container"><p style="text-align:center;color:var(--text-muted)">Aguardando 16 participantes...</p></div>
+        <div id="mata-mata-container"><p style="text-align:center;color:var(--text-muted)">Aguardando participantes...</p></div>
     </div>
     
     <div class="card"><h2>Estatísticas Avançadas 🏆</h2><div id="estatisticas-dinamicas"></div></div>
@@ -157,7 +157,6 @@ const jogosOitavas=[{tA:"África do Sul",bA:"🇿🇦",tB:"Canadá",bB:"🇨🇦
 
 // ==================== VARIÁVEIS ====================
 let rodadaAtual = 1;
-let mataMata = null;
 
 // ==================== FUNÇÕES ====================
 function calcularPontos(rA, rB, pA, pB) {
@@ -207,78 +206,118 @@ function todosResultadosOitavas() {
     return jogosOitavas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
 }
 
-function processarConfronto(j1, j2, ranking) {
-    const d1 = getPontosOitavas(j1), d2 = getPontosOitavas(j2);
-    let vencedor = null, status = 'aguardando';
-    if (todosResultadosOitavas()) {
-        status = 'finalizado';
-        if (d1.pontos > d2.pontos) vencedor = j1;
-        else if (d2.pontos > d1.pontos) vencedor = j2;
-        else if (d1.acertos > d2.acertos) vencedor = j1;
-        else if (d2.acertos > d1.acertos) vencedor = j2;
-        else {
-            const pos1 = ranking.findIndex(r => r.nome === j1);
-            const pos2 = ranking.findIndex(r => r.nome === j2);
-            vencedor = pos1 < pos2 ? j1 : j2;
-        }
-    }
-    return { jogador1: j1, jogador2: j2, pontos1: d1.pontos, pontos2: d2.pontos, acertos1: d1.acertos, acertos2: d2.acertos, vencedor, status };
-}
-
 function gerarMataMata() {
     const ranking = getRanking();
-    if (ranking.length < 16) {
-        document.getElementById('mata-mata-container').innerHTML = '<p style="text-align:center;color:var(--text-muted)">Aguardando 16 participantes...</p>';
+    if (ranking.length < 2) {
+        document.getElementById('mata-mata-container').innerHTML = '<p style="text-align:center;color:var(--text-muted)">Aguardando participantes...</p>';
         return;
     }
     
-    const top16 = ranking.slice(0, 16);
-    // 1º vs 16º, 2º vs 15º, 3º vs 14º, 4º vs 13º, 5º vs 12º, 6º vs 11º, 7º vs 10º, 8º vs 9º
+    // Para 13 participantes: 3 melhores vão direto para as quartas (1º, 2º e 3º)
+    // Os outros 10 disputam as oitavas (4º vs 13º, 5º vs 12º, 6º vs 11º, 7º vs 10º, 8º vs 9º)
+    const top3 = ranking.slice(0, 3);
+    const resto = ranking.slice(3);
+    
+    // Oitavas: 4º vs 13º, 5º vs 12º, 6º vs 11º, 7º vs 10º, 8º vs 9º
     const oitavas = [];
-    for (let i = 0; i < 8; i++) {
-        oitavas.push(processarConfronto(top16[i].nome, top16[15 - i].nome, ranking));
+    for (let i = 0; i < 5; i++) {
+        const j1 = resto[i];
+        const j2 = resto[9 - i];
+        if (j1 && j2) {
+            const d1 = getPontosOitavas(j1.nome);
+            const d2 = getPontosOitavas(j2.nome);
+            let vencedor = null, status = 'aguardando';
+            if (todosResultadosOitavas()) {
+                status = 'finalizado';
+                if (d1.pontos > d2.pontos) vencedor = j1.nome;
+                else if (d2.pontos > d1.pontos) vencedor = j2.nome;
+                else if (d1.acertos > d2.acertos) vencedor = j1.nome;
+                else if (d2.acertos > d1.acertos) vencedor = j2.nome;
+                else {
+                    const pos1 = ranking.findIndex(r => r.nome === j1.nome);
+                    const pos2 = ranking.findIndex(r => r.nome === j2.nome);
+                    vencedor = pos1 < pos2 ? j1.nome : j2.nome;
+                }
+            }
+            oitavas.push({
+                jogador1: j1.nome, jogador2: j2.nome,
+                pontos1: d1.pontos, pontos2: d2.pontos,
+                acertos1: d1.acertos, acertos2: d2.acertos,
+                vencedor, status
+            });
+        }
     }
     
-    // Gera fases seguintes baseado nos vencedores
-    function gerarFase(confrontos, nomeFase) {
-        const vencedores = confrontos.filter(c => c.vencedor).map(c => c.vencedor);
-        if (vencedores.length < 2) return [];
-        const fase = [];
-        for (let i = 0; i < vencedores.length / 2; i++) {
-            fase.push({
-                jogador1: vencedores[i],
-                jogador2: vencedores[vencedores.length - 1 - i],
-                pontos1: 0, pontos2: 0, acertos1: 0, acertos2: 0,
+    // Quartas: vencedores das oitavas + top3
+    const vencedoresOitavas = oitavas.filter(c => c.vencedor).map(c => c.vencedor);
+    const quartas = [];
+    if (vencedoresOitavas.length === 5 && top3.length === 3) {
+        // Ordena: vencedores das oitavas + top3, depois chaveia
+        const todos = [...vencedoresOitavas, ...top3.map(t => t.nome)];
+        // Melhor vs pior dentre os 8
+        for (let i = 0; i < 4; i++) {
+            quartas.push({
+                jogador1: todos[i],
+                jogador2: todos[7 - i],
+                pontos1: 0, pontos2: 0,
+                acertos1: 0, acertos2: 0,
                 vencedor: null, status: 'aguardando'
             });
         }
-        return fase;
     }
     
-    const quartas = gerarFase(oitavas, 'quartas');
-    const semi = gerarFase(quartas, 'semi');
-    const final = gerarFase(semi, 'final');
+    // Semi: vencedores das quartas
+    const semi = [];
+    const vencedoresQuartas = quartas.filter(c => c.vencedor).map(c => c.vencedor);
+    if (vencedoresQuartas.length === 4) {
+        for (let i = 0; i < 2; i++) {
+            semi.push({
+                jogador1: vencedoresQuartas[i],
+                jogador2: vencedoresQuartas[3 - i],
+                pontos1: 0, pontos2: 0,
+                acertos1: 0, acertos2: 0,
+                vencedor: null, status: 'aguardando'
+            });
+        }
+    }
     
-    mataMata = { oitavas, quartas, semi, final };
-    renderizarMataMata();
+    // Final
+    const final = [];
+    const vencedoresSemi = semi.filter(c => c.vencedor).map(c => c.vencedor);
+    if (vencedoresSemi.length === 2) {
+        final.push({
+            jogador1: vencedoresSemi[0],
+            jogador2: vencedoresSemi[1],
+            pontos1: 0, pontos2: 0,
+            acertos1: 0, acertos2: 0,
+            vencedor: null, status: 'aguardando'
+        });
+    }
+    
+    renderizarMataMata(oitavas, quartas, semi, final, top3);
 }
 
-function renderizarMataMata() {
-    if (!mataMata) return;
+function renderizarMataMata(oitavas, quartas, semi, final, top3) {
     const container = document.getElementById('mata-mata-container');
     let html = '<div class="chaveamento">';
     
+    // Byes (top3)
+    const byesHtml = top3 ? `<div class="byes">🏅 Byes: ${top3.map(t => t.nome).join(', ')}</div>` : '';
+    
     const fases = [
-        { nome: '16 avos', dados: mataMata.oitavas },
-        { nome: 'Quartas', dados: mataMata.quartas },
-        { nome: 'Semi', dados: mataMata.semi },
-        { nome: 'Final', dados: mataMata.final }
+        { nome: '16 avos', dados: oitavas },
+        { nome: 'Quartas', dados: quartas },
+        { nome: 'Semi', dados: semi },
+        { nome: 'Final', dados: final }
     ];
     
-    fases.forEach(fase => {
+    fases.forEach((fase, idx) => {
         html += `<div class="coluna-fase"><div class="fase-titulo">${fase.nome}</div>`;
+        if (idx === 0 && top3) {
+            html += byesHtml;
+        }
         if (fase.dados.length === 0) {
-            html += '<div style="text-align:center;color:var(--text-muted);font-size:0.8rem;padding:10px">Aguardando...</div>';
+            html += '<div style="text-align:center;color:var(--text-muted);font-size:0.7rem;padding:8px">Aguardando...</div>';
         } else {
             fase.dados.forEach(c => {
                 const statusClass = c.status === 'finalizado' ? 'status-finalizado' : 'status-aguardando';
@@ -292,10 +331,10 @@ function renderizarMataMata() {
                             <span class="vs">vs</span>
                             <div class="jogador ${v2}"><span class="pts">${c.pontos2 || 0}</span><span class="nome">${c.jogador2 || '?'}</span></div>
                         </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-                            <span style="font-size:0.55rem;color:var(--text-muted)">${c.acertos1 || 0} acertos</span>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:3px">
+                            <span style="font-size:0.5rem;color:var(--text-muted)">${c.acertos1 || 0} ac</span>
                             <span class="confronto-status ${statusClass}">${statusText}</span>
-                            <span style="font-size:0.55rem;color:var(--text-muted)">${c.acertos2 || 0} acertos</span>
+                            <span style="font-size:0.5rem;color:var(--text-muted)">${c.acertos2 || 0} ac</span>
                         </div>
                     </div>
                 `;
