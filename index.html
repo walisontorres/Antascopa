@@ -12,7 +12,7 @@
         header { background: linear-gradient(135deg,var(--primary-dark) 0%,var(--primary) 100%); color: #fff; text-align: center; padding: 60px 20px 80px 20px; border-radius: 0 0 var(--radius) var(--radius); position: relative } 
         header h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 10px } 
         header p { font-size: 1.1rem; opacity: .85; font-weight: 500; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 100px; display: inline-block } 
-        .container { max-width: 880px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } 
+        .container { max-width: 960px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10 } 
         .card { background: var(--surface); padding: 30px 20px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 35px; border: 1px solid var(--border) } 
         h2 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 25px; letter-spacing: -0.5px } 
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px } 
@@ -60,7 +60,7 @@
         .subiu { color: #198754 } .desceu { color: #dc3545 } .manteve { color: var(--text-muted) } 
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(8,46,28,0.4); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; padding: 16px } 
         .modal.ativo { display: flex } 
-        .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 650px; width: 100%; box-shadow: 0 30px 60px rgba(8,46,28,0.15); position: relative; animation: modalShow .4s cubic-bezier(0.34,1.56,0.64,1); max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.8) } 
+        .modal-conteudo { background: var(--surface); padding: 30px 16px; border-radius: var(--radius); max-width: 800px; width: 100%; box-shadow: 0 30px 60px rgba(8,46,28,0.15); position: relative; animation: modalShow .4s cubic-bezier(0.34,1.56,0.64,1); max-height: 85vh; overflow-y: auto; border: 1px solid rgba(255,255,255,0.8) } 
         .modal-fechar { position: absolute; top: 20px; right: 16px; background: rgba(15,81,50,0.05); border: none; font-size: 1.3rem; cursor: pointer; color: var(--primary-dark); width: 32px; height: 32px; border-radius: 100px; display: flex; align-items: center; justify-content: center; transition: all .2s } 
         .modal-fechar:hover { background: rgba(15,81,50,0.1); transform: rotate(90deg) } 
         .tab-container { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; justify-content: center } 
@@ -68,28 +68,48 @@
         .tab-btn.active { background: var(--primary); color: #fff }
         
         /* ESTILOS DO MATA-MATA */
-        .chaveamento { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; justify-content: center }
-        .coluna-fase { flex: 1; min-width: 170px; max-width: 210px }
-        .fase-titulo { text-align: center; font-weight: 700; font-size: 0.8rem; color: var(--primary-dark); padding: 6px; background: rgba(15,81,50,0.04); border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border) }
-        .confronto { position: relative; margin-bottom: 10px; padding: 8px 10px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border); transition: all .3s ease }
-        .confronto:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(15,81,50,0.08) }
-        .confronto-linha { display: flex; align-items: center; justify-content: space-between; gap: 4px }
-        .jogador { display: flex; align-items: center; gap: 4px; font-weight: 600; font-size: 0.75rem; flex: 1; min-width: 0 }
-        .jogador .nome { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-        .jogador .pts { font-size: 0.65rem; font-weight: 700; color: var(--primary); background: rgba(15,81,50,0.06); padding: 0 5px; border-radius: 3px; flex-shrink: 0 }
-        .jogador .bye { color: var(--text-muted); font-weight: 400; font-size: 0.6rem }
-        .jogador.vencedor .nome { color: #198754 }
-        .jogador.vencedor::after { content: "🏆"; font-size: 0.6rem; margin-left: 2px }
-        .jogador.eliminado .nome { color: #dc3545; text-decoration: line-through }
-        .vs { font-size: 0.55rem; font-weight: 700; color: var(--text-muted); padding: 0 3px; flex-shrink: 0 }
-        .confronto-status { font-size: 0.5rem; font-weight: 600; padding: 1px 6px; border-radius: 100px; white-space: nowrap }
+        .mata-container { display: flex; flex-direction: column; gap: 25px }
+        .fase-block { background: rgba(15,81,50,0.02); border-radius: var(--radius-sm); padding: 15px; border: 1px solid var(--border) }
+        .fase-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); text-align: center; margin-bottom: 12px }
+        .confrontos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px }
+        .confronto-card { background: var(--surface); border-radius: 10px; border: 1px solid var(--border); padding: 12px; transition: all .3s ease }
+        .confronto-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(15,81,50,0.06) }
+        .confronto-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.7rem; color: var(--text-muted) }
+        .confronto-jogadores { display: flex; flex-direction: column; gap: 4px }
+        .jogador-row { display: flex; align-items: center; justify-content: space-between; padding: 4px 8px; border-radius: 6px; background: rgba(15,81,50,0.02) }
+        .jogador-row .nome { font-weight: 600; font-size: 0.9rem }
+        .jogador-row .pts { font-weight: 700; font-size: 0.85rem; color: var(--primary) }
+        .jogador-row.vencedor { background: rgba(25,135,84,0.08); border-left: 3px solid #198754 }
+        .jogador-row.vencedor .nome { color: #198754 }
+        .jogador-row.vencedor .pts { color: #198754 }
+        .jogador-row.eliminado { opacity: 0.5 }
+        .jogador-row.eliminado .nome { text-decoration: line-through; color: #dc3545 }
+        .confronto-status { font-size: 0.6rem; font-weight: 600; padding: 2px 10px; border-radius: 100px; text-align: center; margin-top: 6px }
         .status-finalizado { background: #19875415; color: #198754 }
         .status-aguardando { background: #ffc10715; color: #856404 }
-        .byes { text-align: center; font-size: 0.7rem; color: var(--text-muted); padding: 4px; background: rgba(15,81,50,0.03); border-radius: 6px; margin-top: 4px }
+        .triple-badge { font-size: 0.55rem; background: var(--primary); color: #fff; padding: 1px 8px; border-radius: 100px; margin-left: 6px }
         
-        @media (max-width: 700px) { .chaveamento { flex-direction: column; align-items: center } .coluna-fase { min-width: 100%; max-width: 100% } }
+        /* CORES DOS PALPITES */
+        .palpite-cor-verde { background: #19875420 !important; border-color: #198754 !important; }
+        .palpite-cor-verde .placar-box { background: #198754 !important; color: #fff !important; border-color: #198754 !important; }
+        .palpite-cor-amarelo { background: #ffc10720 !important; border-color: #ffc107 !important; }
+        .palpite-cor-amarelo .placar-box { background: #ffc107 !important; color: #000 !important; border-color: #ffc107 !important; }
+        .palpite-cor-vermelho { background: #dc354520 !important; border-color: #dc3545 !important; }
+        .palpite-cor-vermelho .placar-box { background: #dc3545 !important; color: #fff !important; border-color: #dc3545 !important; }
+        .palpite-cor-branco { background: var(--surface) !important; border-color: var(--border) !important; }
+        .palpite-cor-branco .placar-box { background: rgba(15,81,50,0.03) !important; color: var(--text) !important; border-color: var(--border) !important; }
+        
+        .legenda-cores { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin: 10px 0; font-size: 0.75rem }
+        .legenda-item { display: flex; align-items: center; gap: 5px }
+        .legenda-cor { width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--border) }
+        .legenda-cor.verde { background: #198754 }
+        .legenda-cor.amarelo { background: #ffc107 }
+        .legenda-cor.vermelho { background: #dc3545 }
+        .legenda-cor.branco { background: var(--surface); border: 1px solid var(--border) }
+        
+        @media (max-width: 700px) { .confrontos-grid { grid-template-columns: 1fr } }
         @keyframes modalShow { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } } 
-        @media (max-width:480px) { header h1 { font-size: 2rem } .time-container { font-size: 0.82rem; gap: 4px } .bandeira { font-size: 1.2rem } .placar-box { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px } .placar-container { width: 110px } .jogo-card { padding: 10px 4px; gap: 8px } .jogo-odds { font-size: .56rem; padding: 2px 4px } }
+        @media (max-width:480px) { header h1 { font-size: 2rem } .time-container { font-size: 0.82rem; gap: 4px } .bandeira { font-size: 1.2rem } .placar-box { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px } .placar-container { width: 110px } .jogo-card { padding: 10px 4px; gap: 8px } .jogo-odds { font-size: .56rem; padding: 2px 4px } .modal-conteudo { padding: 20px 10px } }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -105,6 +125,12 @@
     <!-- MATA-MATA -->
     <div class="card" id="card-mata-mata">
         <h2>🏆 MATA-MATA</h2>
+        <div class="legenda-cores">
+            <div class="legenda-item"><div class="legenda-cor verde"></div> Placar Exato (10 pts)</div>
+            <div class="legenda-item"><div class="legenda-cor amarelo"></div> Pontuou (3-6 pts)</div>
+            <div class="legenda-item"><div class="legenda-cor vermelho"></div> 0 Pontos</div>
+            <div class="legenda-item"><div class="legenda-cor branco"></div> Aguardando</div>
+        </div>
         <div id="mata-mata-container"><p style="text-align:center;color:var(--text-muted)">Aguardando participantes...</p></div>
     </div>
     
@@ -133,7 +159,7 @@
 </div>
 
 <script>
-// ==================== DADOS ====================
+// ==================== DADOS (MANTIDOS) ====================
 const dadosPalpites = {
     "Walishow": { j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "1", r2_j3_a: "3", r2_j3_b: "0", r2_j4_a: "0", r2_j4_b: "1", r2_j5_a: "3", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "2", r2_j7_a: "4", r2_j7_b: "0", r2_j8_a: "1", r2_j8_b: "0", r2_j9_a: "1", r2_j9_b: "0", r2_j10_a: "3", r2_j10_b: "0", r2_j11_a: "4", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "5", r2_j13_b: "0", r2_j14_a: "1", r2_j14_b: "0", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "1", r2_j17_a: "3", r2_j17_b: "0", r2_j18_a: "4", r2_j18_b: "0", r2_j19_a: "2", r2_j19_b: "1", r2_j20_a: "0", r2_j20_b: "0", r2_j21_a: "2", r2_j21_b: "1", r2_j22_a: "3", r2_j22_b: "0", r2_j23_a: "0", r2_j23_b: "2", r2_j24_a: "1", r2_j24_b: "0", r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "3", r3_j4_a: "4", r3_j4_b: "0", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "4", r3_j10_a: "1", r3_j10_b: "0", r3_j11_a: "0", r3_j11_b: "2", r3_j12_a: "1", r3_j12_b: "0", r3_j13_a: "1", r3_j13_b: "3", r3_j14_a: "4", r3_j14_b: "0", r3_j15_a: "0", r3_j15_b: "3", r3_j16_a: "0", r3_j16_b: "0", r3_j17_a: "0", r3_j17_b: "1", r3_j18_a: "3", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "2", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "1", r3_j21_b: "3", r3_j22_a: "1", r3_j22_b: "0", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "1", r3_j24_b: "2" },
     "Paulão": { j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", r2_j1_a: "2", r2_j1_b: "0", r2_j2_a: "1", r2_j2_b: "0", r2_j3_a: "2", r2_j3_b: "0", r2_j4_a: "1", r2_j4_b: "1", r2_j5_a: "2", r2_j5_b: "1", r2_j6_a: "0", r2_j6_b: "1", r2_j7_a: "3", r2_j7_b: "0", r2_j8_a: "2", r2_j8_b: "1", r2_j9_a: "1", r2_j9_b: "1", r2_j10_a: "2", r2_j10_b: "1", r2_j11_a: "2", r2_j11_b: "0", r2_j12_a: "0", r2_j12_b: "2", r2_j13_a: "2", r2_j13_b: "0", r2_j14_a: "2", r2_j14_b: "1", r2_j15_a: "2", r2_j15_b: "0", r2_j16_a: "1", r2_j16_b: "2", r2_j17_a: "2", r2_j17_b: "0", r2_j18_a: "3", r2_j18_b: "0", r2_j19_a: "1", r2_j19_b: "2", r2_j20_a: "0", r2_j20_b: "1", r2_j21_a: "2", r2_j21_b: "0", r2_j22_a: "2", r2_j22_b: "1", r2_j23_a: "1", r2_j23_b: "3", r2_j24_a: "2", r2_j24_b: "0", r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "1", r3_j2_b: "0", r3_j3_a: "0", r3_j3_b: "2", r3_j4_a: "2", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "2", r3_j6_a: "0", r3_j6_b: "2", r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "0", r3_j8_b: "2", r3_j9_a: "0", r3_j9_b: "2", r3_j10_a: "2", r3_j10_b: "2", r3_j11_a: "1", r3_j11_b: "2", r3_j12_a: "2", r3_j12_b: "1", r3_j13_a: "1", r3_j13_b: "2", r3_j14_a: "2", r3_j14_b: "0", r3_j15_a: "1", r3_j15_b: "3", r3_j16_a: "1", r3_j16_b: "1", r3_j17_a: "1", r3_j17_b: "2", r3_j18_a: "2", r3_j18_b: "1", r3_j19_a: "0", r3_j19_b: "3", r3_j20_a: "1", r3_j20_b: "0", r3_j21_a: "2", r3_j21_b: "1", r3_j22_a: "2", r3_j22_b: "1", r3_j23_a: "0", r3_j23_b: "3", r3_j24_a: "1", r3_j24_b: "2" },
@@ -186,20 +212,23 @@ function getRanking() {
 function getPontosOitavas(jogador) {
     let pts = 0, acertos = 0;
     const p = dadosPalpites[jogador];
-    if (!p) return { pontos: 0, acertos: 0 };
+    if (!p) return { pontos: 0, acertos: 0, detalhes: [] };
+    const detalhes = [];
     jogosOitavas.forEach(j => {
         const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
         const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-        if (!isNaN(ra) && !isNaN(rb)) {
-            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
-            if (!isNaN(pa) && !isNaN(pb)) {
-                const ptsJogo = calcularPontos(ra, rb, pa, pb);
-                pts += ptsJogo;
-                if (ptsJogo === 10) acertos++;
-            }
+        const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+        let ptsJogo = 0, cor = 'branco';
+        if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
+            ptsJogo = calcularPontos(ra, rb, pa, pb);
+            if (ptsJogo === 10) { cor = 'verde'; acertos++; }
+            else if (ptsJogo > 0) cor = 'amarelo';
+            else cor = 'vermelho';
         }
+        pts += ptsJogo;
+        detalhes.push({ jogo: j, pts: ptsJogo, cor, palpite: { a: pa, b: pb }, resultado: { a: ra, b: rb } });
     });
-    return { pontos: pts, acertos: acertos };
+    return { pontos: pts, acertos: acertos, detalhes };
 }
 
 function todosResultadosOitavas() {
@@ -213,141 +242,185 @@ function gerarMataMata() {
         return;
     }
     
-    // Para 13 participantes: 3 melhores vão direto para as quartas (1º, 2º e 3º)
-    // Os outros 10 disputam as oitavas (4º vs 13º, 5º vs 12º, 6º vs 11º, 7º vs 10º, 8º vs 9º)
-    const top3 = ranking.slice(0, 3);
-    const resto = ranking.slice(3);
+    // Organiza os confrontos: todos participam, grupos de 3 onde 1 passa
+    const participantes = ranking.map(r => r.nome);
+    const grupos = [];
+    const numGrupos = Math.ceil(participantes.length / 3);
     
-    // Oitavas: 4º vs 13º, 5º vs 12º, 6º vs 11º, 7º vs 10º, 8º vs 9º
-    const oitavas = [];
-    for (let i = 0; i < 5; i++) {
-        const j1 = resto[i];
-        const j2 = resto[9 - i];
-        if (j1 && j2) {
-            const d1 = getPontosOitavas(j1.nome);
-            const d2 = getPontosOitavas(j2.nome);
-            let vencedor = null, status = 'aguardando';
-            if (todosResultadosOitavas()) {
-                status = 'finalizado';
-                if (d1.pontos > d2.pontos) vencedor = j1.nome;
-                else if (d2.pontos > d1.pontos) vencedor = j2.nome;
-                else if (d1.acertos > d2.acertos) vencedor = j1.nome;
-                else if (d2.acertos > d1.acertos) vencedor = j2.nome;
-                else {
-                    const pos1 = ranking.findIndex(r => r.nome === j1.nome);
-                    const pos2 = ranking.findIndex(r => r.nome === j2.nome);
-                    vencedor = pos1 < pos2 ? j1.nome : j2.nome;
-                }
-            }
-            oitavas.push({
-                jogador1: j1.nome, jogador2: j2.nome,
-                pontos1: d1.pontos, pontos2: d2.pontos,
-                acertos1: d1.acertos, acertos2: d2.acertos,
-                vencedor, status
+    for (let i = 0; i < numGrupos; i++) {
+        const grupo = participantes.slice(i * 3, i * 3 + 3);
+        if (grupo.length > 0) grupos.push(grupo);
+    }
+    
+    // Primeira fase: grupos de 3, passa o melhor
+    const fase1 = [];
+    grupos.forEach((grupo, idx) => {
+        const dados = grupo.map(nome => {
+            const d = getPontosOitavas(nome);
+            return { nome, pontos: d.pontos, acertos: d.acertos, detalhes: d.detalhes };
+        });
+        // Ordena por pontos, depois acertos, depois posição no ranking
+        dados.sort((a, b) => {
+            if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+            if (b.acertos !== a.acertos) return b.acertos - a.acertos;
+            const posA = ranking.findIndex(r => r.nome === a.nome);
+            const posB = ranking.findIndex(r => r.nome === b.nome);
+            return posA - posB;
+        });
+        const vencedor = dados.length > 0 ? dados[0].nome : null;
+        fase1.push({ 
+            id: `g${idx+1}`,
+            jogadores: dados,
+            vencedor: vencedor,
+            finalizado: todosResultadosOitavas()
+        });
+    });
+    
+    // Fase 2: vencedores da fase 1 se enfrentam
+    const vencedores = fase1.filter(f => f.vencedor).map(f => f.vencedor);
+    const fase2 = [];
+    for (let i = 0; i < vencedores.length; i += 2) {
+        if (i + 1 < vencedores.length) {
+            const j1 = vencedores[i], j2 = vencedores[i+1];
+            fase2.push({
+                id: `f2_${i/2+1}`,
+                jogador1: j1, jogador2: j2,
+                vencedor: null,
+                finalizado: false
+            });
+        } else {
+            // Se sobrar um, passa direto
+            fase2.push({
+                id: `f2_${Math.floor(i/2)+1}`,
+                jogador1: vencedores[i],
+                jogador2: null,
+                vencedor: vencedores[i],
+                finalizado: true,
+                bye: true
             });
         }
     }
     
-    // Quartas: vencedores das oitavas + top3
-    const vencedoresOitavas = oitavas.filter(c => c.vencedor).map(c => c.vencedor);
-    const quartas = [];
-    if (vencedoresOitavas.length === 5 && top3.length === 3) {
-        // Ordena: vencedores das oitavas + top3, depois chaveia
-        const todos = [...vencedoresOitavas, ...top3.map(t => t.nome)];
-        // Melhor vs pior dentre os 8
-        for (let i = 0; i < 4; i++) {
-            quartas.push({
-                jogador1: todos[i],
-                jogador2: todos[7 - i],
-                pontos1: 0, pontos2: 0,
-                acertos1: 0, acertos2: 0,
-                vencedor: null, status: 'aguardando'
+    // Fase 3: semi
+    const vencedoresF2 = fase2.filter(f => f.vencedor).map(f => f.vencedor);
+    const fase3 = [];
+    for (let i = 0; i < vencedoresF2.length; i += 2) {
+        if (i + 1 < vencedoresF2.length) {
+            fase3.push({
+                id: `f3_${i/2+1}`,
+                jogador1: vencedoresF2[i], jogador2: vencedoresF2[i+1],
+                vencedor: null,
+                finalizado: false
             });
         }
     }
     
-    // Semi: vencedores das quartas
-    const semi = [];
-    const vencedoresQuartas = quartas.filter(c => c.vencedor).map(c => c.vencedor);
-    if (vencedoresQuartas.length === 4) {
-        for (let i = 0; i < 2; i++) {
-            semi.push({
-                jogador1: vencedoresQuartas[i],
-                jogador2: vencedoresQuartas[3 - i],
-                pontos1: 0, pontos2: 0,
-                acertos1: 0, acertos2: 0,
-                vencedor: null, status: 'aguardando'
-            });
-        }
-    }
-    
-    // Final
-    const final = [];
-    const vencedoresSemi = semi.filter(c => c.vencedor).map(c => c.vencedor);
-    if (vencedoresSemi.length === 2) {
-        final.push({
-            jogador1: vencedoresSemi[0],
-            jogador2: vencedoresSemi[1],
-            pontos1: 0, pontos2: 0,
-            acertos1: 0, acertos2: 0,
-            vencedor: null, status: 'aguardando'
+    // Fase 4: final
+    const vencedoresF3 = fase3.filter(f => f.vencedor).map(f => f.vencedor);
+    const fase4 = [];
+    if (vencedoresF3.length >= 2) {
+        fase4.push({
+            id: 'final',
+            jogador1: vencedoresF3[0], jogador2: vencedoresF3[1],
+            vencedor: null,
+            finalizado: false
         });
     }
     
-    renderizarMataMata(oitavas, quartas, semi, final, top3);
+    renderizarMataMata(fase1, fase2, fase3, fase4);
 }
 
-function renderizarMataMata(oitavas, quartas, semi, final, top3) {
+function renderizarMataMata(fase1, fase2, fase3, fase4) {
     const container = document.getElementById('mata-mata-container');
-    let html = '<div class="chaveamento">';
+    let html = '<div class="mata-container">';
     
-    // Byes (top3)
-    const byesHtml = top3 ? `<div class="byes">🏅 Byes: ${top3.map(t => t.nome).join(', ')}</div>` : '';
-    
-    const fases = [
-        { nome: '16 avos', dados: oitavas },
-        { nome: 'Quartas', dados: quartas },
-        { nome: 'Semi', dados: semi },
-        { nome: 'Final', dados: final }
-    ];
-    
-    fases.forEach((fase, idx) => {
-        html += `<div class="coluna-fase"><div class="fase-titulo">${fase.nome}</div>`;
-        if (idx === 0 && top3) {
-            html += byesHtml;
+    // Fase 1 - Grupos
+    html += `<div class="fase-block"><div class="fase-title">📋 FASE 1 - GRUPOS (melhor de cada grupo avança)</div><div class="confrontos-grid">`;
+    fase1.forEach(g => {
+        html += `<div class="confronto-card">`;
+        html += `<div class="confronto-header"><span>Grupo ${g.id}</span><span>${g.finalizado ? '✅ Finalizado' : '⏳ Aguardando'}</span></div>`;
+        html += `<div class="confronto-jogadores">`;
+        g.jogadores.forEach(j => {
+            const isVencedor = j.nome === g.vencedor;
+            const cls = isVencedor ? 'vencedor' : (g.finalizado && g.vencedor ? 'eliminado' : '');
+            html += `<div class="jogador-row ${cls}"><span class="nome">${j.nome}</span><span class="pts">${j.pontos} pts (${j.acertos} ac)</span></div>`;
+        });
+        if (g.finalizado && g.vencedor) {
+            html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${g.vencedor} avança!</div>`;
+        } else if (g.finalizado) {
+            html += `<div style="font-size:0.65rem;color:#dc3545;text-align:center;margin-top:4px">Nenhum vencedor definido</div>`;
         }
-        if (fase.dados.length === 0) {
-            html += '<div style="text-align:center;color:var(--text-muted);font-size:0.7rem;padding:8px">Aguardando...</div>';
-        } else {
-            fase.dados.forEach(c => {
-                const statusClass = c.status === 'finalizado' ? 'status-finalizado' : 'status-aguardando';
-                const statusText = c.status === 'finalizado' ? '✅' : '⏳';
-                const v1 = c.vencedor === c.jogador1 ? 'vencedor' : (c.vencedor ? 'eliminado' : '');
-                const v2 = c.vencedor === c.jogador2 ? 'vencedor' : (c.vencedor ? 'eliminado' : '');
-                html += `
-                    <div class="confronto">
-                        <div class="confronto-linha">
-                            <div class="jogador ${v1}"><span class="nome">${c.jogador1 || '?'}</span><span class="pts">${c.pontos1 || 0}</span></div>
-                            <span class="vs">vs</span>
-                            <div class="jogador ${v2}"><span class="pts">${c.pontos2 || 0}</span><span class="nome">${c.jogador2 || '?'}</span></div>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:3px">
-                            <span style="font-size:0.5rem;color:var(--text-muted)">${c.acertos1 || 0} ac</span>
-                            <span class="confronto-status ${statusClass}">${statusText}</span>
-                            <span style="font-size:0.5rem;color:var(--text-muted)">${c.acertos2 || 0} ac</span>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-        html += '</div>';
+        html += `</div></div>`;
     });
+    html += `</div></div>`;
+    
+    // Fase 2 - Quartas
+    if (fase2.length > 0) {
+        html += `<div class="fase-block"><div class="fase-title">⚔️ FASE 2 - QUARTAS</div><div class="confrontos-grid">`;
+        fase2.forEach(c => {
+            html += `<div class="confronto-card">`;
+            html += `<div class="confronto-header"><span>Confronto</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
+            html += `<div class="confronto-jogadores">`;
+            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            html += `<div class="jogador-row ${j1cls}"><span class="nome">${c.jogador1 || '?'}</span></div>`;
+            if (c.bye) {
+                html += `<div style="text-align:center;font-size:0.6rem;color:var(--text-muted)">💰 Bye - Avança direto!</div>`;
+            } else {
+                html += `<div class="jogador-row ${j2cls}"><span class="nome">${c.jogador2 || '?'}</span></div>`;
+                if (c.finalizado && c.vencedor) {
+                    html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${c.vencedor} avança!</div>`;
+                }
+            }
+            html += `</div></div>`;
+        });
+        html += `</div></div>`;
+    }
+    
+    // Fase 3 - Semi
+    if (fase3.length > 0) {
+        html += `<div class="fase-block"><div class="fase-title">🏅 FASE 3 - SEMI-FINAL</div><div class="confrontos-grid">`;
+        fase3.forEach(c => {
+            html += `<div class="confronto-card">`;
+            html += `<div class="confronto-header"><span>Semi ${c.id}</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
+            html += `<div class="confronto-jogadores">`;
+            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            html += `<div class="jogador-row ${j1cls}"><span class="nome">${c.jogador1 || '?'}</span></div>`;
+            html += `<div class="jogador-row ${j2cls}"><span class="nome">${c.jogador2 || '?'}</span></div>`;
+            if (c.finalizado && c.vencedor) {
+                html += `<div style="font-size:0.65rem;color:#198754;text-align:center;margin-top:4px">🏆 ${c.vencedor} vai à final!</div>`;
+            }
+            html += `</div></div>`;
+        });
+        html += `</div></div>`;
+    }
+    
+    // Fase 4 - Final
+    if (fase4.length > 0) {
+        html += `<div class="fase-block" style="border-color:var(--primary);background:rgba(15,81,50,0.04)"><div class="fase-title" style="font-size:1.3rem;color:var(--primary)">🏆 FINAL</div><div class="confrontos-grid">`;
+        fase4.forEach(c => {
+            html += `<div class="confronto-card" style="border-color:var(--primary);border-width:2px">`;
+            html += `<div class="confronto-header"><span>🏆 Grande Final</span><span>${c.finalizado ? '✅' : '⏳'}</span></div>`;
+            html += `<div class="confronto-jogadores">`;
+            const j1cls = c.vencedor === c.jogador1 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            const j2cls = c.vencedor === c.jogador2 ? 'vencedor' : (c.finalizado && c.vencedor ? 'eliminado' : '');
+            html += `<div class="jogador-row ${j1cls}" style="font-size:1.1rem"><span class="nome">${c.jogador1 || '?'}</span></div>`;
+            html += `<div style="text-align:center;font-size:0.8rem;color:var(--text-muted)">⚔️ VS</div>`;
+            html += `<div class="jogador-row ${j2cls}" style="font-size:1.1rem"><span class="nome">${c.jogador2 || '?'}</span></div>`;
+            if (c.finalizado && c.vencedor) {
+                html += `<div style="font-size:0.9rem;color:#198754;text-align:center;margin-top:8px;font-weight:700">🏆🏆🏆 ${c.vencedor} É O CAMPEÃO!!! 🏆🏆🏆</div>`;
+            }
+            html += `</div></div>`;
+        });
+        html += `</div></div>`;
+    }
     
     html += '</div>';
     container.innerHTML = html;
 }
 
-// ==================== FUNÇÕES EXISTENTES (mantidas) ====================
+// ==================== FUNÇÕES EXISTENTES (mantidas com cores) ====================
 function calcularOddsDinamicas(jogo) {
     let casa = 0, empate = 0, fora = 0, total = 0;
     Object.values(dadosPalpites).forEach(p => {
@@ -388,7 +461,13 @@ function abrirPalpites(e, rodada=1) {
         const pa=t&&t[j.idA]!==undefined?parseInt(t[j.idA]):NaN;
         const pb=t&&t[j.idB]!==undefined?parseInt(t[j.idB]):NaN;
         const pts=(isNaN(ra)||isNaN(rb)||isNaN(pa)||isNaN(pb))?0:calcularPontos(ra,rb,pa,pb);
-        html+=`<div class="jogo-card"><div style="font-size:0.75rem;font-weight:700;color:var(--primary);text-align:center;">Pontos: ${pts}</div><div class="jogo-principal"><div class="time-container casa"><span>${j.tA}</span><span class="bandeira">${j.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${isNaN(pa)?'-':pa}</div>X<div class="placar-box">${isNaN(pb)?'-':pb}</div></div></div><div class="time-container fora"><span class="bandeira">${j.bB}</span><span>${j.tB}</span></div></div></div>`;
+        let corClasse = 'palpite-cor-branco';
+        if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
+            if (pts === 10) corClasse = 'palpite-cor-verde';
+            else if (pts > 0) corClasse = 'palpite-cor-amarelo';
+            else corClasse = 'palpite-cor-vermelho';
+        }
+        html+=`<div class="jogo-card ${corClasse}"><div style="font-size:0.75rem;font-weight:700;color:var(--primary);text-align:center;">Pontos: ${pts}</div><div class="jogo-principal"><div class="time-container casa"><span>${j.tA}</span><span class="bandeira">${j.bA}</span></div><div class="placar-container"><div class="placar-wrapper"><div class="placar-box">${isNaN(pa)?'-':pa}</div>X<div class="placar-box">${isNaN(pb)?'-':pb}</div></div></div><div class="time-container fora"><span class="bandeira">${j.bB}</span><span>${j.tB}</span></div></div></div>`;
     });
     html+='</div>';
     document.getElementById("modal-container-interno").innerHTML=html;
