@@ -144,8 +144,8 @@
             <button class="tab-btn active" id="btnR1" onclick="renderizarPorRodada(1)">Rodada 1</button>
             <button class="tab-btn" id="btnR2" onclick="renderizarPorRodada(2)">Rodada 2</button>
             <button class="tab-btn" id="btnR3" onclick="renderizarPorRodada(3)">Rodada 3</button>
-            <button class="tab-btn" id="btnOitavas" onclick="renderizarPorRodada(4)">Oitavas</button>
-            <button class="tab-btn" id="btnQuartas" onclick="renderizarPorRodada(5)">Quartas</button>
+            <button class="tab-btn" id="btnOitavas" onclick="renderizarPorRodada(4)">16 avos</button>
+            <button class="tab-btn" id="btnOitavasFinais" onclick="renderizarPorRodada(5)">Oitavas</button>
         </div>
         <h2>Jogos & Resultados</h2>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
@@ -226,8 +226,8 @@ const jogosR2=[{tA:"Rep. Tcheca",bA:"🇨🇿",tB:"África do Sul",bB:"🇿🇦"
 const jogosR3=[{tA:"Suíça",bA:"🇨🇭",tB:"Canadá",bB:"🇨🇦",idA:"r3_j1_a",idB:"r3_j1_b"},{tA:"Bósnia e Herzegovina",bA:"🇧🇦",tB:"Catar",bB:"🇶🇦",idA:"r3_j2_a",idB:"r3_j2_b"},{tA:"Escócia",bA:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",tB:"Brasil",bB:"🇧🇷",idA:"r3_j3_a",idB:"r3_j3_b"},{tA:"Marrocos",bA:"🇲🇦",tB:"Haiti",bB:"🇭🇹",idA:"r3_j4_a",idB:"r3_j4_b"},{tA:"República Tcheca",bA:"🇨🇿",tB:"México",bB:"🇲🇽",idA:"r3_j5_a",idB:"r3_j5_b"},{tA:"África do Sul",bA:"🇿🇦",tB:"Coreia do Sul",bB:"🇰🇷",idA:"r3_j6_a",idB:"r3_j6_b"},{tA:"Equador",bA:"🇪🇨",tB:"Alemanha",bB:"🇩🇪",idA:"r3_j7_a",idB:"r3_j7_b"},{tA:"Curaçao",bA:"🇨🇼",tB:"Costa do Marfim",bB:"🇨🇮",idA:"r3_j8_a",idB:"r3_j8_b"},{tA:"Tunísia",bA:"🇹🇳",tB:"Holanda",bB:"🇳🇱",idA:"r3_j9_a",idB:"r3_j9_b"},{tA:"Japão",bA:"🇯🇵",tB:"Suécia",bB:"🇸🇪",idA:"r3_j10_a",idB:"r3_j10_b"},{tA:"Turquia",bA:"🇹🇷",tB:"Estados Unidos",bB:"🇺🇸",idA:"r3_j11_a",idB:"r3_j11_b"},{tA:"Paraguai",bA:"🇵🇾",tB:"Austrália",bB:"🇦🇺",idA:"r3_j12_a",idB:"r3_j12_b"},{tA:"Noruega",bA:"🇳🇴",tB:"França",bB:"🇫🇷",idA:"r3_j13_a",idB:"r3_j13_b"},{tA:"Senegal",bA:"🇸🇳",tB:"Iraque",bB:"🇮🇶",idA:"r3_j14_a",idB:"r3_j14_b"},{tA:"Uruguai",bA:"🇺🇾",tB:"Espanha",bB:"🇪🇸",idA:"r3_j15_a",idB:"r3_j15_b"},{tA:"Cabo Verde",bA:"🇨🇻",tB:"Arábia Saudita",bB:"🇸🇦",idA:"r3_j16_a",idB:"r3_j16_b"},{tA:"Nova Zelândia",bA:"🇳🇿",tB:"Bélgica",bB:"🇧🇪",idA:"r3_j17_a",idB:"r3_j17_b"},{tA:"Egito",bA:"🇪🇬",tB:"Irã",bB:"🇮🇷",idA:"r3_j18_a",idB:"r3_j18_b"},{tA:"Panamá",bA:"🇵🇦",tB:"Inglaterra",bB:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",idA:"r3_j19_a",idB:"r3_j19_b"},{tA:"Croácia",bA:"🇭🇷",tB:"Gana",bB:"🇬🇭",idA:"r3_j20_a",idB:"r3_j20_b"},{tA:"Colômbia",bA:"🇨🇴",tB:"Portugal",bB:"🇵🇹",idA:"r3_j21_a",idB:"r3_j21_b"},{tA:"RD Congo",bA:"🇨🇩",tB:"Uzbequistão",bB:"🇺🇿",idA:"r3_j22_a",idB:"r3_j22_b"},{tA:"Jordânia",bA:"🇯🇴",tB:"Argentina",bB:"🇦🇷",idA:"r3_j23_a",idB:"r3_j23_b"},{tA:"Argélia",bA:"🇩🇿",tB:"Áustria",bB:"🇦🇹",idA:"r3_j24_a",idB:"r3_j24_b"}];
 const jogosOitavas=[{tA:"África do Sul",bA:"🇿🇦",tB:"Canadá",bB:"🇨🇦",idA:"o1_a",idB:"o1_b"},{tA:"Brasil",bA:"🇧🇷",tB:"Japão",bB:"🇯🇵",idA:"o2_a",idB:"o2_b"},{tA:"Alemanha",bA:"🇩🇪",tB:"Paraguai",bB:"🇵🇾",idA:"o3_a",idB:"o3_b"},{tA:"Países Baixos",bA:"🇳🇱",tB:"Marrocos",bB:"🇲🇦",idA:"o4_a",idB:"o4_b"},{tA:"Costa do Marfim",bA:"🇨🇮",tB:"Noruega",bB:"🇳🇴",idA:"o5_a",idB:"o5_b"},{tA:"França",bA:"🇫🇷",tB:"Suécia",bB:"🇸🇪",idA:"o6_a",idB:"o6_b"},{tA:"México",bA:"🇲🇽",tB:"Equador",bB:"🇪🇨",idA:"o7_a",idB:"o7_b"},{tA:"Inglaterra",bA:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",tB:"RD Congo",bB:"🇨🇩",idA:"o8_a",idB:"o8_b"},{tA:"Bélgica",bA:"🇧🇪",tB:"Senegal",bB:"🇸🇳",idA:"o9_a",idB:"o9_b"},{tA:"EUA",bA:"🇺🇸",tB:"Bósnia",bB:"🇧🇦",idA:"o10_a",idB:"o10_b"},{tA:"Espanha",bA:"🇪🇸",tB:"Áustria",bB:"🇦🇹",idA:"o11_a",idB:"o11_b"},{tA:"Portugal",bA:"🇵🇹",tB:"Croácia",bB:"🇭🇷",idA:"o12_a",idB:"o12_b"},{tA:"Suíça",bA:"🇨🇭",tB:"Argélia",bB:"🇩🇿",idA:"o13_a",idB:"o13_b"},{tA:"Austrália",bA:"🇦🇺",tB:"Egito",bB:"🇪🇬",idA:"o14_a",idB:"o14_b"},{tA:"Argentina",bA:"🇦🇷",tB:"Cabo Verde",bB:"🇨🇻",idA:"o15_a",idB:"o15_b"},{tA:"Colômbia",bA:"🇨🇴",tB:"Gana",bB:"🇬🇭",idA:"o16_a",idB:"o16_b"}];
 
-// NOVOS JOGOS DAS QUARTAS (OITAVAS DE FINAL)
-const jogosQuartas = [
+// JOGOS DAS OITAVAS DE FINAL
+const jogosOitavasFinais = [
     {tA:"Canadá",bA:"🇨🇦",tB:"Marrocos",bB:"🇲🇦",idA:"q1_a",idB:"q1_b"},
     {tA:"Paraguai",bA:"🇵🇾",tB:"França",bB:"🇫🇷",idA:"q2_a",idB:"q2_b"},
     {tA:"Brasil",bA:"🇧🇷",tB:"Noruega",bB:"🇳🇴",idA:"q3_a",idB:"q3_b"},
@@ -291,7 +291,7 @@ function todosResultadosOitavas() {
 
 function renderizarPorRodada(n){
     rodadaAtual=n;
-    const botoes = ['btnR1','btnR2','btnR3','btnOitavas','btnQuartas'];
+    const botoes = ['btnR1','btnR2','btnR3','btnOitavas','btnOitavasFinais'];
     botoes.forEach((id,i) => {
         document.getElementById(id).className = `tab-btn ${n === i+1 ? 'active' : ''}`;
     });
@@ -302,7 +302,7 @@ function renderizarPorRodada(n){
     else if (n === 2) jogos = jogosR2;
     else if (n === 3) jogos = jogosR3;
     else if (n === 4) jogos = jogosOitavas;
-    else if (n === 5) jogos = jogosQuartas;
+    else if (n === 5) jogos = jogosOitavasFinais;
     
     let html="";
     jogos.forEach(t=>{
@@ -334,11 +334,11 @@ function abrirPalpites(e, rodada=1) {
     else if (rodada === 2) jogos = jogosR2;
     else if (rodada === 3) jogos = jogosR3;
     else if (rodada === 4) jogos = jogosOitavas;
-    else if (rodada === 5) jogos = jogosQuartas;
+    else if (rodada === 5) jogos = jogosOitavasFinais;
     
     let html = `<div class="tab-container" style="justify-content:center">
         ${[1,2,3,4,5].map(r => {
-            const label = r === 1 ? 'Rodada 1' : r === 2 ? 'Rodada 2' : r === 3 ? 'Rodada 3' : r === 4 ? 'Oitavas' : 'Quartas';
+            const label = r === 1 ? 'Rodada 1' : r === 2 ? 'Rodada 2' : r === 3 ? 'Rodada 3' : r === 4 ? '16 avos' : 'Oitavas';
             return `<button class="tab-btn ${r===rodada?'active':''}" onclick="abrirPalpites('${e}',${r})">${label}</button>`;
         }).join('')}
     </div><div class="jogos-lista">`;
@@ -367,16 +367,16 @@ function fecharModalExterno(e){e.target.id==="modal-palpites"&&fecharPalpites()}
 function atualizarClassificacao(){
     let e=[];
     Object.keys(dadosPalpites).forEach(n=>{
-        let pts=0, ptsR1=0, ptsR2=0, ptsR3=0, ptsOit=0, ptsQuartas=0, cravar=0, seq=0, maxSeq=0, seqZ=0, maxZ=0;
+        let pts=0, ptsR1=0, ptsR2=0, ptsR3=0, ptsOit=0, ptsOitFinais=0, cravar=0, seq=0, maxSeq=0, seqZ=0, maxZ=0;
         const p=dadosPalpites[n];
-        [...jogosR1,...jogosR2,...jogosR3,...jogosOitavas,...jogosQuartas].forEach(j=>{
+        [...jogosR1,...jogosR2,...jogosR3,...jogosOitavas,...jogosOitavasFinais].forEach(j=>{
             const ra=resultadosFinais[j.idA]!==undefined?parseInt(resultadosFinais[j.idA]):NaN;
             const rb=resultadosFinais[j.idB]!==undefined?parseInt(resultadosFinais[j.idB]):NaN;
             if(!isNaN(ra)&&!isNaN(rb)){
                 const pa=parseInt(p[j.idA]), pb=parseInt(p[j.idB]);
                 const pt=calcularPontos(ra,rb,pa,pb);
                 pts+=pt;
-                if(j.idA.startsWith('q')) ptsQuartas+=pt;
+                if(j.idA.startsWith('q')) ptsOitFinais+=pt;
                 else if(j.idA.startsWith('o')) ptsOit+=pt;
                 else if(j.idA.startsWith('r3')) ptsR3+=pt;
                 else if(j.idA.startsWith('r2')) ptsR2+=pt;
@@ -385,7 +385,7 @@ function atualizarClassificacao(){
                 if(pt>0){seq+=pt;if(seq>maxSeq)maxSeq=seq;seqZ=0}else{seqZ++;if(seqZ>maxZ)maxZ=seqZ;seq=0}
             }
         });
-        e.push({nome:n,pontos:pts,ptsR1,ptsR2,ptsR3,ptsOit,ptsQuartas,cravar,maxSeq,maxZ});
+        e.push({nome:n,pontos:pts,ptsR1,ptsR2,ptsR3,ptsOit,ptsOitFinais,cravar,maxSeq,maxZ});
     });
     e.sort((a,b)=>b.pontos-a.pontos);
     let html=""; e.forEach((p,i)=>html+=`<tr><td style="font-weight:700;padding-left:25px">${i+1}º</td><td>${p.nome}</td><td style="text-align:center;font-weight:700;color:var(--primary)">${p.pontos}</td></tr>`);
@@ -395,7 +395,7 @@ function atualizarClassificacao(){
     document.getElementById("stats-container").innerHTML=`<div class="stat-card"><span class="stat-value">${e[0].pontos}</span><span class="stat-label">Maior Pontuação</span></div><div class="stat-card"><span class="stat-value">${(totalPts/e.length).toFixed(1)}</span><span class="stat-label">Média de Grupo</span></div><div class="stat-card"><span class="stat-value">${e.length}</span><span class="stat-label">Antas Ativos</span></div>`;
     
     // Estatísticas
-    const mR1=[...e].sort((a,b)=>b.ptsR1-a.ptsR1)[0], mR2=[...e].sort((a,b)=>b.ptsR2-a.ptsR2)[0], mR3=[...e].sort((a,b)=>b.ptsR3-a.ptsR3)[0], mOit=[...e].sort((a,b)=>b.ptsOit-a.ptsOit)[0], mQuartas=[...e].sort((a,b)=>b.ptsQuartas-a.ptsQuartas)[0];
+    const mR1=[...e].sort((a,b)=>b.ptsR1-a.ptsR1)[0], mR2=[...e].sort((a,b)=>b.ptsR2-a.ptsR2)[0], mR3=[...e].sort((a,b)=>b.ptsR3-a.ptsR3)[0], mOit=[...e].sort((a,b)=>b.ptsOit-a.ptsOit)[0], mOitFinais=[...e].sort((a,b)=>b.ptsOitFinais-a.ptsOitFinais)[0];
     const top5=[...e].sort((a,b)=>b.cravar-a.cravar).slice(0,5);
     const maisZ=[...e].sort((a,b)=>b.maxZ-a.maxZ)[0], maisSeq=[...e].sort((a,b)=>b.maxSeq-a.maxSeq)[0];
     document.getElementById("estatisticas-dinamicas").innerHTML=`
@@ -403,8 +403,8 @@ function atualizarClassificacao(){
             <tr><td>Maior Pontuador R1</td><td>${mR1.nome}</td><td>${mR1.ptsR1} pts</td></tr>
             <tr><td>Maior Pontuador R2</td><td>${mR2.nome}</td><td>${mR2.ptsR2} pts</td></tr>
             <tr><td>Maior Pontuador R3</td><td>${mR3.nome}</td><td>${mR3.ptsR3} pts</td></tr>
-            <tr><td>Maior Pontuador Oitavas</td><td>${mOit?mOit.nome:'-'}</td><td>${mOit?mOit.ptsOit+' pts':'-'}</td></tr>
-            <tr><td>Maior Pontuador Quartas</td><td>${mQuartas?mQuartas.nome:'-'}</td><td>${mQuartas?mQuartas.ptsQuartas+' pts':'-'}</td></tr>
+            <tr><td>Maior Pontuador 16 avos</td><td>${mOit?mOit.nome:'-'}</td><td>${mOit?mOit.ptsOit+' pts':'-'}</td></tr>
+            <tr><td>Maior Pontuador Oitavas</td><td>${mOitFinais?mOitFinais.nome:'-'}</td><td>${mOitFinais?mOitFinais.ptsOitFinais+' pts':'-'}</td></tr>
             <tr><td>Melhor Sequência</td><td>${maisSeq.nome}</td><td>${maisSeq.maxSeq} pts</td></tr>
             <tr><td>Mais Tempo Sem Pontuar</td><td>${maisZ.nome}</td><td>${maisZ.maxZ} jogos</td></tr>
         </tbody></table></div>
@@ -542,7 +542,7 @@ function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
     `;
     
     // COLUNA 1 - 16 AVOS
-    html += `<div class="coluna"><div class="coluna-titulo">🏹 OITAVAS</div>`;
+    html += `<div class="coluna"><div class="coluna-titulo">🏹 16 AVOS</div>`;
     confrontos16.forEach(c => {
         const v1 = c.vencedor === c.j1 ? 'vencedor' : (c.vencedor ? 'eliminado' : '');
         const v2 = c.vencedor === c.j2 ? 'vencedor' : (c.vencedor ? 'eliminado' : '');
