@@ -78,11 +78,6 @@
         .palpite-cor-branco .placar-box { background: rgba(15,81,50,0.03) !important; color: var(--text) !important; border-color: var(--border) !important; }
         
         /* ESTILOS DO MATA-MATA - ÁRVORE */
-        .mata-container { display: flex; flex-direction: column; gap: 30px }
-        .fase-block { background: rgba(15,81,50,0.02); border-radius: var(--radius-sm); padding: 20px; border: 1px solid var(--border) }
-        .fase-title { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); text-align: center; margin-bottom: 20px }
-        .fase-title .badge { font-size: 0.7rem; background: var(--primary); color: #fff; padding: 2px 12px; border-radius: 100px; margin-left: 8px }
-        
         .arvore { display: flex; justify-content: center; gap: 15px; overflow-x: auto; padding: 10px 0 }
         .coluna { display: flex; flex-direction: column; gap: 6px; min-width: 150px; max-width: 190px; flex: 1 }
         .coluna-titulo { text-align: center; font-size: 0.65rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 6px; border-bottom: 2px solid var(--border) }
@@ -280,7 +275,10 @@ function getRanking() {
     return r.sort((a, b) => b.pontos - a.pontos);
 }
 
-function getPontosOitavas(jogador) {
+// ==================== FUNÇÕES DE PONTUAÇÃO POR FASE ====================
+
+// Pontuação nos jogos de 16 avos (o1_a a o16_b)
+function getPontos16Avos(jogador) {
     let pts = 0, acertos = 0;
     const p = dadosPalpites[jogador];
     if (!p) return { pontos: 0, acertos: 0 };
@@ -299,8 +297,32 @@ function getPontosOitavas(jogador) {
     return { pontos: pts, acertos: acertos };
 }
 
-function todosResultadosOitavas() {
+// Pontuação nos jogos das oitavas (q1_a a q8_b)
+function getPontosOitavasFinais(jogador) {
+    let pts = 0, acertos = 0;
+    const p = dadosPalpites[jogador];
+    if (!p) return { pontos: 0, acertos: 0 };
+    jogosOitavasFinais.forEach(j => {
+        const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+        const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+        if (!isNaN(ra) && !isNaN(rb)) {
+            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+            if (!isNaN(pa) && !isNaN(pb)) {
+                const ptsJogo = calcularPontos(ra, rb, pa, pb);
+                pts += ptsJogo;
+                if (ptsJogo === 10) acertos++;
+            }
+        }
+    });
+    return { pontos: pts, acertos: acertos };
+}
+
+function todosResultados16Avos() {
     return jogosOitavas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
+}
+
+function todosResultadosOitavasFinais() {
+    return jogosOitavasFinais.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
 }
 
 function renderizarPorRodada(n){
@@ -437,7 +459,7 @@ function atualizarClassificacao(){
     localStorage.setItem("bolao_posicoes_anteriores",JSON.stringify(novo));
     document.getElementById("painel-evolucao").innerHTML=evol;
     
-    // ==================== MATA-MATA (CONFRONTOS FIXOS) ====================
+    // ==================== MATA-MATA ====================
     gerarMataMata(e);
 }
 
@@ -447,21 +469,21 @@ function gerarMataMata(ranking) {
         return;
     }
     
-    // CONFRONTOS FIXOS DO 16 AVOS (NÃO MUDAM)
-    const j1 = { id: "J1", j1: "Lucas", j2: "Xereca" };
-    const j2 = { id: "J2", j1: "Paulão", j2: "Wix" };
-    const j3 = { id: "J3", j1: "Fish", j2: "Abner" };
-    const j4 = { id: "J4", j1: "soltin", j2: "Samuel" };
-    const j5 = { id: "J5", j1: "Julian", j2: "Psico" };
-    const j6 = { id: "J6", j1: "Gu", j2: "Sid" };
-    const j7 = { id: "J7", j1: "Walishow", j2: "Campeão de 2026 Okc Freitas" };
+    // CONFRONTOS FIXOS DO 16 AVOS
+    const confrontos16 = [
+        { id: "J1", j1: "Lucas", j2: "Xereca" },
+        { id: "J2", j1: "Paulão", j2: "Wix" },
+        { id: "J3", j1: "Fish", j2: "Abner" },
+        { id: "J4", j1: "soltin", j2: "Samuel" },
+        { id: "J5", j1: "Julian", j2: "Psico" },
+        { id: "J6", j1: "Gu", j2: "Sid" },
+        { id: "J7", j1: "Walishow", j2: "Campeão de 2026 Okc Freitas" }
+    ];
     
-    const confrontos16 = [j1, j2, j3, j4, j5, j6, j7];
-    
-    // Processa confrontos do 16 avos
+    // Processa confrontos do 16 avos (usa pontuação dos jogos o1_a a o16_b)
     confrontos16.forEach(c => {
-        const d1 = getPontosOitavas(c.j1);
-        const d2 = getPontosOitavas(c.j2);
+        const d1 = getPontos16Avos(c.j1);
+        const d2 = getPontos16Avos(c.j2);
         c.pontos1 = d1.pontos;
         c.pontos2 = d2.pontos;
         c.acertos1 = d1.acertos;
@@ -469,7 +491,7 @@ function gerarMataMata(ranking) {
         c.vencedor = null;
         c.finalizado = false;
         
-        if (todosResultadosOitavas()) {
+        if (todosResultados16Avos()) {
             c.finalizado = true;
             if (d1.pontos > d2.pontos) c.vencedor = c.j1;
             else if (d2.pontos > d1.pontos) c.vencedor = c.j2;
@@ -483,7 +505,7 @@ function gerarMataMata(ranking) {
         }
     });
     
-    // MELHOR PERDEDOR (repescagem)
+    // MELHOR PERDEDOR (repescagem) - baseado nos 16 avos
     let melhorPerdedor = null;
     let melhorPts = -1;
     let melhorAcertos = -1;
@@ -491,7 +513,7 @@ function gerarMataMata(ranking) {
     confrontos16.forEach(c => {
         if (c.finalizado && c.vencedor) {
             const perdedor = c.j1 === c.vencedor ? c.j2 : c.j1;
-            const dados = getPontosOitavas(perdedor);
+            const dados = getPontos16Avos(perdedor);
             if (dados.pontos > melhorPts || (dados.pontos === melhorPts && dados.acertos > melhorAcertos)) {
                 melhorPts = dados.pontos;
                 melhorAcertos = dados.acertos;
@@ -500,17 +522,12 @@ function gerarMataMata(ranking) {
         }
     });
     
-    // QUARTAS FIXAS
-    // Q1: Vencedor J1 vs Vencedor J5
-    // Q2: Vencedor J3 vs Vencedor J6
-    // Q3: Vencedor J2 vs Vencedor J7
-    // Q4: Vencedor J4 vs REPESCAGEM
-    
+    // QUARTAS - usa pontuação dos jogos das oitavas (q1_a a q8_b)
     const quartas = [
-        { id: "Q1", j1: null, j1Origem: "J1", j2: null, j2Origem: "J5" },
-        { id: "Q2", j1: null, j1Origem: "J3", j2: null, j2Origem: "J6" },
-        { id: "Q3", j1: null, j1Origem: "J2", j2: null, j2Origem: "J7" },
-        { id: "Q4", j1: null, j1Origem: "J4", j2: null, j2Repescagem: true }
+        { id: "Q1", j1Origem: "J1", j2Origem: "J5", repescagem: false },
+        { id: "Q2", j1Origem: "J3", j2Origem: "J6", repescagem: false },
+        { id: "Q3", j1Origem: "J2", j2Origem: "J7", repescagem: false },
+        { id: "Q4", j1Origem: "J4", j2Repescagem: true, repescagem: true }
     ];
     
     quartas.forEach(q => {
@@ -518,27 +535,50 @@ function gerarMataMata(ranking) {
             q.j1 = confrontos16.find(c => c.id === q.j1Origem)?.vencedor || null;
             q.j2 = melhorPerdedor || null;
             q.finalizado = confrontos16.find(c => c.id === q.j1Origem)?.finalizado || false;
-            q.vencedor = null;
-            q.repescagem = true;
         } else {
-            q.j1 = confrontos16.find(c => c.id === q.j1Origem)?.vencedor || null;
-            q.j2 = confrontos16.find(c => c.id === q.j2Origem)?.vencedor || null;
-            q.finalizado = (confrontos16.find(c => c.id === q.j1Origem)?.finalizado && 
-                           confrontos16.find(c => c.id === q.j2Origem)?.finalizado) || false;
+            const c1 = confrontos16.find(c => c.id === q.j1Origem);
+            const c2 = confrontos16.find(c => c.id === q.j2Origem);
+            q.j1 = c1?.vencedor || null;
+            q.j2 = c2?.vencedor || null;
+            q.finalizado = (c1?.finalizado && c2?.finalizado) || false;
+        }
+        
+        // Calcula pontos das quartas com base nos palpites das oitavas
+        if (q.j1 && q.j2 && q.finalizado) {
+            const d1 = getPontosOitavasFinais(q.j1);
+            const d2 = getPontosOitavasFinais(q.j2);
+            q.pontos1 = d1.pontos;
+            q.pontos2 = d2.pontos;
+            q.acertos1 = d1.acertos;
+            q.acertos2 = d2.acertos;
+            
+            if (d1.pontos > d2.pontos) q.vencedor = q.j1;
+            else if (d2.pontos > d1.pontos) q.vencedor = q.j2;
+            else if (d1.acertos > d2.acertos) q.vencedor = q.j1;
+            else if (d2.acertos > d1.acertos) q.vencedor = q.j2;
+            else {
+                const pos1 = ranking.findIndex(r => r.nome === q.j1);
+                const pos2 = ranking.findIndex(r => r.nome === q.j2);
+                q.vencedor = pos1 < pos2 ? q.j1 : q.j2;
+            }
+        } else {
+            q.pontos1 = 0;
+            q.pontos2 = 0;
+            q.acertos1 = 0;
+            q.acertos2 = 0;
             q.vencedor = null;
-            q.repescagem = false;
         }
     });
     
-    // SEMI
+    // SEMI - FICA VAZIA (apenas "Aguardando...")
     const semi = [
-        { id: "S1", j1: null, j1Origem: "Q1", j2: null, j2Origem: "Q2" },
-        { id: "S2", j1: null, j1Origem: "Q3", j2: null, j2Origem: "Q4" }
+        { id: "S1", j1: null, j2: null },
+        { id: "S2", j1: null, j2: null }
     ];
     
-    // FINAL
+    // FINAL - FICA VAZIA (apenas "Aguardando...")
     const final = [
-        { id: "F1", j1: null, j1Origem: "S1", j2: null, j2Origem: "S2" }
+        { id: "F1", j1: null, j2: null }
     ];
     
     renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor);
@@ -563,9 +603,15 @@ function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
         const status = c.finalizado ? 'finalizado' : 'aguardando';
         html += `
             <div class="no">
-                <div class="jogador ${v1}"><span class="jogador-nome">${c.j1}</span><span class="jogador-pts">${c.pontos1||0}</span></div>
+                <div class="jogador ${v1}">
+                    <span class="jogador-nome">${c.j1}</span>
+                    <span class="jogador-pts">${c.pontos1||0}</span>
+                </div>
                 <div class="vs">vs</div>
-                <div class="jogador ${v2}"><span class="jogador-nome">${c.j2}</span><span class="jogador-pts">${c.pontos2||0}</span></div>
+                <div class="jogador ${v2}">
+                    <span class="jogador-nome">${c.j2}</span>
+                    <span class="jogador-pts">${c.pontos2||0}</span>
+                </div>
                 <div class="status ${status}">${c.finalizado ? '✅' : '⏳'}</div>
                 ${c.vencedor ? `<div style="font-size:0.5rem;color:#198754;text-align:center;font-weight:600">🏆 ${c.vencedor}</div>` : ''}
             </div>
@@ -576,41 +622,58 @@ function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
     // COLUNA 2 - QUARTAS
     html += `<div class="coluna"><div class="coluna-titulo">⚔️ QUARTAS</div>`;
     quartas.forEach(q => {
+        const v1 = q.vencedor === q.j1 ? 'vencedor' : (q.vencedor ? 'eliminado' : '');
+        const v2 = q.vencedor === q.j2 ? 'vencedor' : (q.vencedor ? 'eliminado' : '');
         const isRepescagem = q.repescagem;
         html += `
             <div class="no ${isRepescagem ? 'bye' : ''}">
-                <div class="jogador"><span class="jogador-nome">${q.j1 || 'Aguardando...'}</span></div>
+                <div class="jogador ${v1}">
+                    <span class="jogador-nome">${q.j1 || 'Aguardando...'}</span>
+                    <span class="jogador-pts">${q.j1 ? q.pontos1||0 : ''}</span>
+                </div>
                 <div class="vs">vs</div>
-                <div class="jogador"><span class="jogador-nome">${q.j2 || 'Aguardando...'} ${isRepescagem && q.j2 ? '<span class="badge-repescagem">REP</span>' : ''}</span></div>
+                <div class="jogador ${v2}">
+                    <span class="jogador-nome">${q.j2 || 'Aguardando...'} ${isRepescagem && q.j2 ? '<span class="badge-repescagem">REP</span>' : ''}</span>
+                    <span class="jogador-pts">${q.j2 ? q.pontos2||0 : ''}</span>
+                </div>
                 <div class="status ${q.finalizado ? 'finalizado' : 'aguardando'}">${q.finalizado ? '✅' : '⏳'}</div>
+                ${q.vencedor ? `<div style="font-size:0.5rem;color:#198754;text-align:center;font-weight:600">🏆 ${q.vencedor}</div>` : ''}
                 ${isRepescagem ? '<div style="font-size:0.45rem;color:#ffc107;text-align:center;font-weight:600">🟡 Repescagem</div>' : ''}
             </div>
         `;
     });
     html += `</div>`;
     
-    // COLUNA 3 - SEMI
+    // COLUNA 3 - SEMI (VAZIA)
     html += `<div class="coluna"><div class="coluna-titulo">🏅 SEMI</div>`;
     semi.forEach(s => {
         html += `
             <div class="no">
-                <div class="jogador"><span class="jogador-nome">${s.j1 || 'Aguardando...'}</span></div>
+                <div class="jogador">
+                    <span class="jogador-nome">Aguardando...</span>
+                </div>
                 <div class="vs">vs</div>
-                <div class="jogador"><span class="jogador-nome">${s.j2 || 'Aguardando...'}</span></div>
+                <div class="jogador">
+                    <span class="jogador-nome">Aguardando...</span>
+                </div>
                 <div class="status aguardando">⏳</div>
             </div>
         `;
     });
     html += `</div>`;
     
-    // COLUNA 4 - FINAL
+    // COLUNA 4 - FINAL (VAZIA)
     html += `<div class="coluna"><div class="coluna-titulo">🏆 FINAL</div>`;
     final.forEach(f => {
         html += `
             <div class="no" style="border-color:var(--primary);border-width:3px;background:rgba(15,81,50,0.05)">
-                <div class="jogador"><span class="jogador-nome" style="font-size:0.9rem">${f.j1 || 'Aguardando...'}</span></div>
+                <div class="jogador" style="font-size:0.9rem">
+                    <span class="jogador-nome">Aguardando...</span>
+                </div>
                 <div class="vs" style="font-weight:700;color:var(--primary)">⚔️ VS</div>
-                <div class="jogador"><span class="jogador-nome" style="font-size:0.9rem">${f.j2 || 'Aguardando...'}</span></div>
+                <div class="jogador" style="font-size:0.9rem">
+                    <span class="jogador-nome">Aguardando...</span>
+                </div>
                 <div class="status aguardando" style="font-weight:700;color:var(--primary)">🏆</div>
             </div>
         `;
