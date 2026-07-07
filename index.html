@@ -255,21 +255,76 @@ function calcularPontos(rA, rB, pA, pB) {
     return 0;
 }
 
+// Pontuação nos jogos de 16 avos (o1_a a o16_b)
+function getPontos16Avos(jogador) {
+    let pts = 0, acertos = 0;
+    const p = dadosPalpites[jogador];
+    if (!p) return { pontos: 0, acertos: 0 };
+    jogosOitavas.forEach(j => {
+        const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+        const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+        if (!isNaN(ra) && !isNaN(rb)) {
+            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+            if (!isNaN(pa) && !isNaN(pb)) {
+                const ptsJogo = calcularPontos(ra, rb, pa, pb);
+                pts += ptsJogo;
+                if (ptsJogo === 10) acertos++;
+            }
+        }
+    });
+    return { pontos: pts, acertos: acertos };
+}
+
+// Pontuação nos jogos das oitavas (q1_a a q8_b)
+function getPontosOitavasFinais(jogador) {
+    let pts = 0, acertos = 0;
+    const p = dadosPalpites[jogador];
+    if (!p) return { pontos: 0, acertos: 0 };
+    jogosOitavasFinais.forEach(j => {
+        const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+        const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+        if (!isNaN(ra) && !isNaN(rb)) {
+            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+            if (!isNaN(pa) && !isNaN(pb)) {
+                const ptsJogo = calcularPontos(ra, rb, pa, pb);
+                pts += ptsJogo;
+                if (ptsJogo === 10) acertos++;
+            }
+        }
+    });
+    return { pontos: pts, acertos: acertos };
+}
+
+// Pontuação nos jogos das quartas (c1_a a c4_b)
 function getPontosQuartas(jogador) {
     let pts = 0, acertos = 0;
     const p = dadosPalpites[jogador];
     if (!p) return { pontos: 0, acertos: 0 };
     jogosQuartas.forEach(j => {
-        // Palpite do final
-        const ra = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
-        const rb = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
-        const pa = p[j.idA] !== undefined ? p[j.idA] : "-";
-        const pb = p[j.idB] !== undefined ? p[j.idB] : "-";
-        const ptsJogo = calcularPontos(ra, rb, pa, pb);
-        pts += ptsJogo;
-        if (ptsJogo === 10) acertos++;
+        const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+        const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+        if (!isNaN(ra) && !isNaN(rb)) {
+            const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+            if (!isNaN(pa) && !isNaN(pb)) {
+                const ptsJogo = calcularPontos(ra, rb, pa, pb);
+                pts += ptsJogo;
+                if (ptsJogo === 10) acertos++;
+            }
+        }
     });
     return { pontos: pts, acertos: acertos };
+}
+
+function todosResultados16Avos() {
+    return jogosOitavas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
+}
+
+function todosResultadosOitavasFinais() {
+    return jogosOitavasFinais.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
+}
+
+function todosResultadosQuartas() {
+    return jogosQuartas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idB] !== undefined);
 }
 
 function renderizarPorRodada(n){
@@ -591,11 +646,37 @@ function gerarMataMata(ranking) {
         }
     });
     
-    // SEMI - FICA VAZIA (apenas "Aguardando...")
+    // SEMI - usa pontuação dos jogos das quartas (c1_a a c4_b)
     const semi = [
-        { id: "S1", j1: null, j2: null },
-        { id: "S2", j1: null, j2: null }
+        { id: "S1", j1Origem: "Q1", j2Origem: "Q2" },
+        { id: "S2", j1Origem: "Q3", j2Origem: "Q4" }
     ];
+    
+    semi.forEach(s => {
+        const q1 = quartas.find(q => q.id === s.j1Origem);
+        const q2 = quartas.find(q => q.id === s.j2Origem);
+        s.j1 = q1?.vencedor || null;
+        s.j2 = q2?.vencedor || null;
+        s.finalizado = (q1?.finalizado && q2?.finalizado) || false;
+        s.pontos1 = 0;
+        s.pontos2 = 0;
+        s.vencedor = null;
+        
+        if (s.j1 && s.j2 && s.finalizado) {
+            const d1 = getPontosQuartas(s.j1);
+            const d2 = getPontosQuartas(s.j2);
+            s.pontos1 = d1.pontos;
+            s.pontos2 = d2.pontos;
+            
+            if (d1.pontos > d2.pontos) s.vencedor = s.j1;
+            else if (d2.pontos > d1.pontos) s.vencedor = s.j2;
+            else {
+                const pos1 = ranking.findIndex(r => r.nome === s.j1);
+                const pos2 = ranking.findIndex(r => r.nome === s.j2);
+                s.vencedor = pos1 < pos2 ? s.j1 : s.j2;
+            }
+        }
+    });
     
     // FINAL - FICA VAZIA (apenas "Aguardando...")
     const final = [
@@ -665,25 +746,30 @@ function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
     });
     html += `</div>`;
     
-    // COLUNA 3 - SEMI (VAZIA)
+    // COLUNA 3 - SEMI (preenchida com confrontos)
     html += `<div class="coluna"><div class="coluna-titulo">🏅 SEMI</div>`;
     semi.forEach(s => {
+        const v1 = s.vencedor === s.j1 ? 'vencedor' : (s.vencedor ? 'eliminado' : '');
+        const v2 = s.vencedor === s.j2 ? 'vencedor' : (s.vencedor ? 'eliminado' : '');
         html += `
             <div class="no">
-                <div class="jogador">
-                    <span class="jogador-nome">Aguardando...</span>
+                <div class="jogador ${v1}">
+                    <span class="jogador-nome">${s.j1 || 'Aguardando...'}</span>
+                    <span class="jogador-pts">${s.j1 ? s.pontos1||0 : ''}</span>
                 </div>
                 <div class="vs">vs</div>
-                <div class="jogador">
-                    <span class="jogador-nome">Aguardando...</span>
+                <div class="jogador ${v2}">
+                    <span class="jogador-nome">${s.j2 || 'Aguardando...'}</span>
+                    <span class="jogador-pts">${s.j2 ? s.pontos2||0 : ''}</span>
                 </div>
-                <div class="status aguardando">⏳</div>
+                <div class="status ${s.finalizado ? 'finalizado' : 'aguardando'}">${s.finalizado ? '✅' : '⏳'}</div>
+                ${s.vencedor ? `<div style="font-size:0.5rem;color:#198754;text-align:center;font-weight:600">🏆 ${s.vencedor}</div>` : ''}
             </div>
         `;
     });
     html += `</div>`;
     
-    // COLUNA 4 - FINAL (VAZIA)
+    // COLUNA 4 - FINAL (VAZIA - apenas "Aguardando...")
     html += `<div class="coluna"><div class="coluna-titulo">🏆 FINAL</div>`;
     final.forEach(f => {
         html += `
