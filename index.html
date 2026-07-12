@@ -105,11 +105,20 @@
         .legenda-arvore-cor.vermelho { background: #dc3545 }
         .legenda-arvore-cor.amarelo { background: #ffc107 }
         
-        @media (max-width: 700px) { .arvore { flex-direction: column; align-items: center } .coluna { min-width: 100%; max-width: 100% } }
+        /* ESTILO DO GRÁFICO */
+        .grafico-container { width: 100%; max-width: 900px; margin: 0 auto; padding: 20px 0; position: relative; height: 400px; }
+        .grafico-container canvas { width: 100% !important; height: 100% !important; }
+        .grafico-legenda { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 10px 0; font-size: 0.75rem; }
+        .grafico-legenda-item { display: flex; align-items: center; gap: 6px; }
+        .grafico-legenda-cor { width: 16px; height: 4px; border-radius: 4px; }
+        
+        @media (max-width: 700px) { .arvore { flex-direction: column; align-items: center } .coluna { min-width: 100%; max-width: 100% } .grafico-container { height: 300px; } }
         @keyframes modalShow { from { opacity: 0; transform: translateY(30px) } to { opacity: 1; transform: translateY(0) } } 
-        @media (max-width:480px) { header h1 { font-size: 2rem } .time-container { font-size: 0.82rem; gap: 4px } .bandeira { font-size: 1.2rem } .placar-box { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px } .placar-container { width: 110px } .jogo-card { padding: 10px 4px; gap: 8px } .jogo-odds { font-size: .56rem; padding: 2px 4px } .modal-conteudo { padding: 20px 10px } }
+        @media (max-width:480px) { header h1 { font-size: 2rem } .time-container { font-size: 0.82rem; gap: 4px } .bandeira { font-size: 1.2rem } .placar-box { width: 32px; height: 32px; font-size: 1rem; border-radius: 8px } .placar-container { width: 110px } .jogo-card { padding: 10px 4px; gap: 8px } .jogo-odds { font-size: .56rem; padding: 2px 4px } .modal-conteudo { padding: 20px 10px } .grafico-container { height: 250px; } }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 <header><h1>Bolão Copa do Mundo</h1><p>Grupo Oficial: Os Antas 🐗</p></header>
@@ -132,7 +141,14 @@
     </div>
     
     <div class="card"><h2>Estatísticas Avançadas 🏆</h2><div id="estatisticas-dinamicas"></div></div>
-    <div class="card"><h2>Painel de Evolução do Grupo 📈</h2><div class="evolucao-container" id="painel-evolucao"></div></div>
+    <div class="card"><h2>Painel de Evolução do Grupo 📈</h2>
+        <div class="evolucao-container" id="painel-evolucao"></div>
+        <!-- GRÁFICO DE EVOLUÇÃO -->
+        <div class="grafico-container">
+            <canvas id="graficoEvolucao"></canvas>
+        </div>
+        <div class="grafico-legenda" id="grafico-legenda"></div>
+    </div>
     <div class="card"><h2>Lista de Participantes</h2><div class="part-lista" id="lista-participantes"></div></div>
     <div class="card">
         <div class="tab-container">
@@ -392,6 +408,13 @@ const jogosOitavasFinais = [
 
 // ==================== VARIÁVEIS ====================
 let rodadaAtual = 1;
+let chartInstance = null;
+const cores = [
+    '#0f5132', '#1a7a4a', '#2a9d6a', '#3db87a', '#5cd18a',
+    '#8a5c3c', '#b87a4a', '#d19a5c', '#e8b87a', '#f0d08a',
+    '#4a6a8a', '#5c8ab8', '#7aaad1', '#9ac5e8', '#b8daf0',
+    '#8a4a5c', '#b85c7a', '#d17a9a', '#e89ab8', '#f0b8d0'
+];
 
 // ==================== FUNÇÕES ====================
 function calcularPontos(rA, rB, pA, pB) {
@@ -403,6 +426,159 @@ function calcularPontos(rA, rB, pA, pB) {
     if ((rA - rB) === 0 && (pA - pB) === 0) return 5;
     if ((rA > rB && pA > pB) || (rB > rA && pB > pA)) return 3;
     return 0;
+}
+
+function getPontuacaoRodada(jogador, rodada) {
+    let pts = 0;
+    const p = dadosPalpites[jogador];
+    if (!p) return 0;
+    
+    let jogos = [];
+    if (rodada === 1) jogos = jogosR1;
+    else if (rodada === 2) jogos = jogosR2;
+    else if (rodada === 3) jogos = jogosR3;
+    else if (rodada === 4) jogos = jogosOitavas;
+    else if (rodada === 5) jogos = jogosOitavasFinais;
+    else if (rodada === 6) jogos = jogosQuartas;
+    
+    jogos.forEach(j => {
+        if (rodada === 6) {
+            // Quartas: soma INTERVALO + FINAL
+            const raI = resultadosFinais[j.idI_A] !== undefined ? parseInt(resultadosFinais[j.idI_A]) : NaN;
+            const rbI = resultadosFinais[j.idI_B] !== undefined ? parseInt(resultadosFinais[j.idI_B]) : NaN;
+            if (!isNaN(raI) && !isNaN(rbI)) {
+                const paI = parseInt(p[j.idI_A]), pbI = parseInt(p[j.idI_B]);
+                if (!isNaN(paI) && !isNaN(pbI)) {
+                    pts += calcularPontos(raI, rbI, paI, pbI);
+                }
+            }
+            const raF = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+            const rbF = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+            if (!isNaN(raF) && !isNaN(rbF)) {
+                const paF = parseInt(p[j.idA]), pbF = parseInt(p[j.idB]);
+                if (!isNaN(paF) && !isNaN(pbF)) {
+                    pts += calcularPontos(raF, rbF, paF, pbF);
+                }
+            }
+        } else {
+            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+            if (!isNaN(ra) && !isNaN(rb)) {
+                const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+                if (!isNaN(pa) && !isNaN(pb)) {
+                    pts += calcularPontos(ra, rb, pa, pb);
+                }
+            }
+        }
+    });
+    return pts;
+}
+
+function getHistoricoPontos(jogador) {
+    const historico = [];
+    for (let r = 1; r <= 6; r++) {
+        historico.push(getPontuacaoRodada(jogador, r));
+    }
+    return historico;
+}
+
+function getPontuacaoAcumulada(jogador) {
+    const hist = getHistoricoPontos(jogador);
+    let acum = 0;
+    return hist.map((val, i) => {
+        acum += val;
+        return acum;
+    });
+}
+
+function atualizarGrafico() {
+    const participantes = Object.keys(dadosPalpites);
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', '16 avos', 'Oitavas', 'Quartas'];
+    
+    const datasets = participantes.map((nome, index) => {
+        const dados = getPontuacaoAcumulada(nome);
+        const cor = cores[index % cores.length];
+        return {
+            label: nome,
+            data: dados,
+            borderColor: cor,
+            backgroundColor: cor + '20',
+            borderWidth: 2.5,
+            pointRadius: 3,
+            pointBackgroundColor: cor,
+            tension: 0.3,
+            fill: false,
+        };
+    });
+    
+    // Ordena por pontuação final (decrescente) para legenda
+    const pontuacaoFinal = participantes.map(n => ({
+        nome: n,
+        pontos: getPontuacaoAcumulada(n)[5] || 0
+    }));
+    pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
+    const ordem = pontuacaoFinal.map(p => p.nome);
+    datasets.sort((a, b) => ordem.indexOf(a.label) - ordem.indexOf(b.label));
+    
+    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
+    
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+    
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + ' pts';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    title: {
+                        display: true,
+                        text: 'Pontos Acumulados',
+                        color: '#606f69',
+                        font: { size: 11, weight: '600' }
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 10 } }
+                }
+            },
+            elements: {
+                line: {
+                    borderWidth: 2.5
+                }
+            }
+        }
+    });
+    
+    // Atualiza legenda customizada
+    const legendaHtml = datasets.map(d => {
+        return `<div class="grafico-legenda-item">
+            <div class="grafico-legenda-cor" style="background:${d.borderColor}"></div>
+            <span>${d.label}</span>
+        </div>`;
+    }).join('');
+    document.getElementById('grafico-legenda').innerHTML = legendaHtml;
 }
 
 function getPontos16Avos(jogador) {
@@ -765,6 +941,11 @@ function atualizarClassificacao() {
     document.getElementById("painel-evolucao").innerHTML = evol;
     
     gerarMataMata(e);
+    
+    // Atualiza o gráfico
+    setTimeout(() => {
+        atualizarGrafico();
+    }, 100);
 }
 
 function gerarMataMata(ranking) {
