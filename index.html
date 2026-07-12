@@ -142,7 +142,6 @@
     <div class="card"><h2>Estatísticas Avançadas 🏆</h2><div id="estatisticas-dinamicas"></div></div>
     <div class="card"><h2>Painel de Evolução do Grupo 📈</h2>
         <div class="evolucao-container" id="painel-evolucao"></div>
-        <!-- GRÁFICO DE EVOLUÇÃO -->
         <div class="grafico-container">
             <canvas id="graficoEvolucao"></canvas>
         </div>
@@ -158,7 +157,6 @@
             <button class="tab-btn" id="btnOitavasFinais" onclick="renderizarPorRodada(5)">Oitavas</button>
             <button class="tab-btn" id="btnQuartas" onclick="renderizarPorRodada(6)">Quartas</button>
             <button class="tab-btn" id="btnSemi" onclick="renderizarPorRodada(7)">Semi</button>
-            <button class="tab-btn" id="btnFinal" onclick="renderizarPorRodada(8)">Final</button>
         </div>
         <h2>Jogos & Resultados</h2>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
@@ -175,7 +173,7 @@
 </div>
 
 <script>
-// ==================== DADOS DOS PALPITES (COMPLETOS E CORRIGIDOS) ====================
+// ==================== DADOS DOS PALPITES (SEM SEMI E FINAL) ====================
 const dadosPalpites = {
     "Lucas": { 
         j1_a: "2", j1_b: "1", j2_a: "0", j2_b: "1", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "1", j17_a: "2", j17_b: "1", j18_a: "1", j18_b: "2", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "1", j23_b: "1", j24_a: "0", j24_b: "2", 
@@ -184,9 +182,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "2", o2_a: "3", o2_b: "1", o3_a: "2", o3_b: "0", o4_a: "3", o4_b: "1", o5_a: "1", o5_b: "2", o6_a: "2", o6_b: "0", o7_a: "1", o7_b: "2", o8_a: "3", o8_b: "1", o9_a: "2", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "1", o11_b: "1", o12_a: "1", o12_b: "0", o13_a: "1", o13_b: "0", o14_a: "0", o14_b: "1", o15_a: "3", o15_b: "0", o16_a: "1", o16_b: "0",
         q1_a: "0", q1_b: "1", q2_a: "1", q2_b: "4", q3_a: "2", q3_b: "1", q4_a: "2", q4_b: "1", q5_a: "1", q5_b: "2", q6_a: "1", q6_b: "1", q7_a: "2", q7_b: "1", q8_a: "2", q8_b: "2",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "1", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "0", c2_f_a: "3", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1",
-        s1_i_a: "2", s1_i_b: "1", s1_f_a: "2", s1_f_b: "0", s2_i_a: "1", s2_i_b: "0", s2_f_a: "1", s2_f_b: "1",
-        f1_i_a: "2", f1_i_b: "1", f1_f_a: "3", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "0", c2_f_a: "3", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1"
     },
     "Walishow": { 
         j1_a: "2", j1_b: "0", j2_a: "0", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "0", j4_b: "4", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "1", j8_a: "0", j8_b: "4", j9_a: "8", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "6", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "0", j21_a: "4", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", 
@@ -195,9 +191,7 @@ const dadosPalpites = {
         o1_a: "0", o1_b: "3", o2_a: "2", o2_b: "1", o3_a: "3", o3_b: "1", o4_a: "3", o4_b: "2", o5_a: "0", o5_b: "1", o6_a: "3", o6_b: "0", o7_a: "1", o7_b: "2", o8_a: "2", o8_b: "0", o9_a: "1", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "2", o11_b: "0", o12_a: "1", o12_b: "0", o13_a: "3", o13_b: "0", o14_a: "1", o14_b: "2", o15_a: "5", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "1", q1_b: "3", q2_a: "0", q2_b: "4", q3_a: "1", q3_b: "2", q4_a: "0", q4_b: "1", q5_a: "1", q5_b: "3", q6_a: "0", q6_b: "0", q7_a: "1", q7_b: "0", q8_a: "1", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "0", c2_i_b: "0", c3_i_a: "1", c3_i_b: "1", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "0", c2_f_a: "1", c2_f_b: "0", c3_f_a: "2", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1",
-        s1_i_a: "3", s1_i_b: "1", s1_f_a: "2", s1_f_b: "0", s2_i_a: "2", s2_i_b: "0", s2_f_a: "1", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "0", f1_f_a: "2", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "0", c2_f_a: "1", c2_f_b: "0", c3_f_a: "2", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1"
     },
     "Paulão": { 
         j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "1", j6_a: "0", j6_b: "1", j7_a: "1", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "1", j11_b: "0", j12_a: "2", j12_b: "0", j13_a: "3", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "1", j17_a: "3", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "2", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "2", 
@@ -206,9 +200,7 @@ const dadosPalpites = {
         o1_a: "0", o1_b: "2", o2_a: "2", o2_b: "1", o3_a: "2", o3_b: "0", o4_a: "1", o4_b: "2", o5_a: "2", o5_b: "1", o6_a: "3", o6_b: "1", o7_a: "1", o7_b: "1", o8_a: "1", o8_b: "0", o9_a: "1", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "1", o11_b: "0", o12_a: "1", o12_b: "1", o13_a: "2", o13_b: "1", o14_a: "0", o14_b: "1", o15_a: "2", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "0", q1_b: "2", q2_a: "0", q2_b: "3", q3_a: "3", q3_b: "1", q4_a: "1", q4_b: "1", q5_a: "1", q5_b: "2", q6_a: "2", q6_b: "1", q7_a: "2", q7_b: "0", q8_a: "1", q8_b: "2",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "1", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "3", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1",
-        s1_i_a: "2", s1_i_b: "1", s1_f_a: "2", s1_f_b: "0", s2_i_a: "1", s2_i_b: "1", s2_f_a: "1", s2_f_b: "1",
-        f1_i_a: "2", f1_i_b: "0", f1_f_a: "2", f1_f_b: "0"
+        c1_f_a: "3", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "1"
     },
     "Fish": { 
         j1_a: "2", j1_b: "0", j2_a: "3", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "0", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "1", j7_a: "0", j7_b: "1", j8_a: "0", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "0", j20_a: "0", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "2", j22_b: "0", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "2", 
@@ -217,9 +209,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "2", o2_a: "3", o2_b: "0", o3_a: "2", o3_b: "1", o4_a: "3", o4_b: "1", o5_a: "0", o5_b: "2", o6_a: "4", o6_b: "0", o7_a: "1", o7_b: "0", o8_a: "2", o8_b: "0", o9_a: "0", o9_b: "2", o10_a: "1", o10_b: "1", o11_a: "1", o11_b: "0", o12_a: "0", o12_b: "0", o13_a: "2", o13_b: "1", o14_a: "0", o14_b: "2", o15_a: "3", o15_b: "0", o16_a: "1", o16_b: "0",
         q1_a: "0", q1_b: "2", q2_a: "0", q2_b: "2", q3_a: "2", q3_b: "0", q4_a: "1", q4_b: "2", q5_a: "0", q5_b: "1", q6_a: "0", q6_b: "1", q7_a: "1", q7_b: "0", q8_a: "1", q8_b: "2",
         c1_i_a: "0", c1_i_b: "0", c2_i_a: "0", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "0", c4_i_b: "0",
-        c1_f_a: "0", c1_f_b: "1", c2_f_a: "1", c2_f_b: "0", c3_f_a: "0", c3_f_b: "1", c4_f_a: "1", c4_f_b: "0",
-        s1_i_a: "0", s1_i_b: "2", s1_f_a: "0", s1_f_b: "1", s2_i_a: "1", s2_i_b: "1", s2_f_a: "1", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "0", f1_f_a: "2", f1_f_b: "0"
+        c1_f_a: "0", c1_f_b: "1", c2_f_a: "1", c2_f_b: "0", c3_f_a: "0", c3_f_b: "1", c4_f_a: "1", c4_f_b: "0"
     },
     "soltin": { 
         j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "1", j3_a: "1", j3_b: "0", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "2", j6_a: "0", j6_b: "2", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "6", j9_b: "0", j10_a: "0", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "1", j12_b: "1", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "0", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "3", j17_b: "2", j18_a: "0", j18_b: "2", j19_a: "1", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "0", j23_a: "1", j23_b: "0", j24_a: "1", j24_b: "2", 
@@ -228,9 +218,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "2", o2_a: "2", o2_b: "1", o3_a: "3", o3_b: "1", o4_a: "1", o4_b: "1", o5_a: "1", o5_b: "1", o6_a: "4", o6_b: "1", o7_a: "0", o7_b: "0", o8_a: "3", o8_b: "0", o9_a: "2", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "2", o11_b: "1", o12_a: "1", o12_b: "1", o13_a: "2", o13_b: "1", o14_a: "1", o14_b: "1", o15_a: "3", o15_b: "0", o16_a: "1", o16_b: "0",
         q1_a: "1", q1_b: "2", q2_a: "1", q2_b: "3", q3_a: "4", q3_b: "2", q4_a: "1", q4_b: "2", q5_a: "1", q5_b: "2", q6_a: "1", q6_b: "2", q7_a: "3", q7_b: "0", q8_a: "1", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "1", c2_i_b: "1", c3_i_a: "0", c3_i_b: "0", c4_i_a: "1", c4_i_b: "1",
-        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "3", c4_f_a: "2", c4_f_b: "1",
-        s1_i_a: "1", s1_i_b: "2", s1_f_a: "1", s1_f_b: "1", s2_i_a: "0", s2_i_b: "1", s2_f_a: "0", s2_f_b: "1",
-        f1_i_a: "2", f1_i_b: "2", f1_f_a: "2", f1_f_b: "2"
+        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "3", c4_f_a: "2", c4_f_b: "1"
     },
     "Julian": { 
         j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "1", j5_b: "1", j6_a: "1", j6_b: "1", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "1", j9_a: "3", j9_b: "0", j10_a: "2", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "1", j12_b: "0", j13_a: "2", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "5", j15_b: "0", j16_a: "0", j16_b: "0", j17_a: "3", j17_b: "0", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "1", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "0", j22_a: "2", j22_b: "1", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "1", 
@@ -239,9 +227,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "1", o2_a: "2", o2_b: "0", o3_a: "2", o3_b: "0", o4_a: "2", o4_b: "1", o5_a: "1", o5_b: "2", o6_a: "3", o6_b: "0", o7_a: "1", o7_b: "1", o8_a: "3", o8_b: "0", o9_a: "2", o9_b: "2", o10_a: "2", o10_b: "0", o11_a: "2", o11_b: "1", o12_a: "1", o12_b: "0", o13_a: "1", o13_b: "0", o14_a: "2", o14_b: "1", o15_a: "3", o15_b: "0", o16_a: "1", o16_b: "1",
         q1_a: "1", q1_b: "2", q2_a: "0", q2_b: "3", q3_a: "2", q3_b: "1", q4_a: "1", q4_b: "2", q5_a: "0", q5_b: "2", q6_a: "0", q6_b: "1", q7_a: "2", q7_b: "0", q8_a: "0", q8_b: "2",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "2", c2_i_b: "0", c3_i_a: "0", c3_i_b: "1", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "0", c2_f_a: "3", c2_f_b: "1", c3_f_a: "1", c3_f_b: "3", c4_f_a: "2", c4_f_b: "0",
-        s1_i_a: "1", s1_i_b: "0", s1_f_a: "1", s1_f_b: "0", s2_i_a: "1", s2_i_b: "2", s2_f_a: "1", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "1", f1_f_a: "2", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "0", c2_f_a: "3", c2_f_b: "1", c3_f_a: "1", c3_f_b: "3", c4_f_a: "2", c4_f_b: "0"
     },
     "Gu": { 
         j1_a: "3", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "1", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "0", j8_a: "0", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "0", j14_a: "1", j14_b: "1", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "1", j17_b: "0", j18_a: "0", j18_b: "5", j19_a: "2", j19_b: "1", j20_a: "3", j20_b: "0", j21_a: "4", j21_b: "1", j22_a: "2", j22_b: "2", j23_a: "2", j23_b: "1", j24_a: "0", j24_b: "5", 
@@ -250,9 +236,7 @@ const dadosPalpites = {
         o1_a: "0", o1_b: "2", o2_a: "3", o2_b: "1", o3_a: "2", o3_b: "0", o4_a: "2", o4_b: "1", o5_a: "1", o5_b: "1", o6_a: "3", o6_b: "0", o7_a: "0", o7_b: "1", o8_a: "2", o8_b: "0", o9_a: "0", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "1", o11_b: "0", o12_a: "2", o12_b: "1", o13_a: "2", o13_b: "0", o14_a: "1", o14_b: "0", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "0", q1_b: "2", q2_a: "0", q2_b: "3", q3_a: "2", q3_b: "0", q4_a: "1", q4_b: "2", q5_a: "0", q5_b: "1", q6_a: "2", q6_b: "0", q7_a: "2", q7_b: "0", q8_a: "0", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "0", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "0", c4_i_b: "1",
-        c1_f_a: "3", c1_f_b: "1", c2_f_a: "1", c2_f_b: "0", c3_f_a: "0", c3_f_b: "1", c4_f_a: "0", c4_f_b: "1",
-        s1_i_a: "3", s1_i_b: "0", s1_f_a: "2", s1_f_b: "1", s2_i_a: "2", s2_i_b: "1", s2_f_a: "2", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "0", f1_f_a: "2", f1_f_b: "0"
+        c1_f_a: "3", c1_f_b: "1", c2_f_a: "1", c2_f_b: "0", c3_f_a: "0", c3_f_b: "1", c4_f_a: "0", c4_f_b: "1"
     },
     "Campeão de 2026 Okc Freitas": { 
         j1_a: "2", j1_b: "0", j2_a: "1", j2_b: "0", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "1", j6_a: "0", j6_b: "3", j7_a: "1", j7_b: "0", j8_a: "1", j8_b: "2", j9_a: "7", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "1", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "0", j14_b: "0", j15_a: "4", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "1", j19_a: "1", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "2", j21_b: "1", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "2", j24_a: "0", j24_b: "1", 
@@ -261,9 +245,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "3", o2_a: "2", o2_b: "1", o3_a: "3", o3_b: "0", o4_a: "2", o4_b: "1", o5_a: "2", o5_b: "3", o6_a: "2", o6_b: "0", o7_a: "2", o7_b: "0", o8_a: "3", o8_b: "0", o9_a: "1", o9_b: "0", o10_a: "2", o10_b: "1", o11_a: "2", o11_b: "0", o12_a: "1", o12_b: "1", o13_a: "2", o13_b: "0", o14_a: "0", o14_b: "1", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "1", q1_b: "2", q2_a: "1", q2_b: "3", q3_a: "2", q3_b: "1", q4_a: "2", q4_b: "2", q5_a: "1", q5_b: "2", q6_a: "1", q6_b: "1", q7_a: "2", q7_b: "0", q8_a: "0", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "0", c2_i_b: "0", c3_i_a: "1", c3_i_b: "1", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "0",
-        s1_i_a: "2", s1_i_b: "0", s1_f_a: "1", s1_f_b: "0", s2_i_a: "1", s2_i_b: "0", s2_f_a: "0", s2_f_b: "0",
-        f1_i_a: "1", f1_i_b: "1", f1_f_a: "1", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "2", c4_f_b: "0"
     },
     "Sid": { 
         j1_a: "1", j1_b: "1", j2_a: "1", j2_b: "2", j3_a: "2", j3_b: "1", j4_a: "0", j4_b: "3", j5_a: "1", j5_b: "2", j6_a: "2", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "3", j9_a: "5", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "2", j11_b: "1", j12_a: "3", j12_b: "1", j13_a: "3", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "3", j17_a: "3", j17_b: "1", j18_a: "1", j18_b: "4", j19_a: "2", j19_b: "0", j20_a: "3", j20_b: "1", j21_a: "4", j21_b: "1", j22_a: "0", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "1", j24_b: "3", 
@@ -272,9 +254,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "2", o2_a: "3", o2_b: "1", o3_a: "4", o3_b: "1", o4_a: "2", o4_b: "2", o5_a: "1", o5_b: "1", o6_a: "2", o6_b: "0", o7_a: "1", o7_b: "0", o8_a: "3", o8_b: "0", o9_a: "2", o9_b: "0", o10_a: "2", o10_b: "0", o11_a: "1", o11_b: "0", o12_a: "2", o12_b: "1", o13_a: "0", o13_b: "1", o14_a: "0", o14_b: "0", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "1",
         q1_a: "1", q1_b: "2", q2_a: "0", q2_b: "4", q3_a: "3", q3_b: "1", q4_a: "3", q4_b: "2", q5_a: "1", q5_b: "2", q6_a: "1", q6_b: "0", q7_a: "2", q7_b: "1", q8_a: "1", q8_b: "2",
         c1_i_a: "0", c1_i_b: "1", c2_i_a: "0", c2_i_b: "1", c3_i_a: "0", c3_i_b: "0", c4_i_a: "2", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "2", c2_f_a: "1", c2_f_b: "1", c3_f_a: "0", c3_f_b: "1", c4_f_a: "2", c4_f_b: "1",
-        s1_i_a: "1", s1_i_b: "1", s1_f_a: "1", s1_f_b: "0", s2_i_a: "2", s2_i_b: "1", s2_f_a: "2", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "2", f1_f_a: "2", f1_f_b: "2"
+        c1_f_a: "2", c1_f_b: "2", c2_f_a: "1", c2_f_b: "1", c3_f_a: "0", c3_f_b: "1", c4_f_a: "2", c4_f_b: "1"
     },
     "Psico": { 
         j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "0", j3_b: "0", j4_a: "1", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "2", j7_a: "1", j7_b: "2", j8_a: "1", j8_b: "2", j9_a: "3", j9_b: "0", j10_a: "1", j10_b: "2", j11_a: "1", j11_b: "3", j12_a: "1", j12_b: "2", j13_a: "0", j13_b: "1", j14_a: "2", j14_b: "0", j15_a: "2", j15_b: "0", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "4", j19_a: "2", j19_b: "1", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", 
@@ -283,9 +263,7 @@ const dadosPalpites = {
         o1_a: "1", o1_b: "0", o2_a: "3", o2_b: "1", o3_a: "2", o3_b: "1", o4_a: "1", o4_b: "2", o5_a: "1", o5_b: "2", o6_a: "3", o6_b: "0", o7_a: "2", o7_b: "0", o8_a: "1", o8_b: "0", o9_a: "1", o9_b: "1", o10_a: "3", o10_b: "1", o11_a: "2", o11_b: "1", o12_a: "1", o12_b: "1", o13_a: "2", o13_b: "1", o14_a: "0", o14_b: "2", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "1", q1_b: "2", q2_a: "0", q2_b: "2", q3_a: "3", q3_b: "1", q4_a: "2", q4_b: "1", q5_a: "1", q5_b: "3", q6_a: "2", q6_b: "1", q7_a: "1", q7_b: "1", q8_a: "1", q8_b: "2",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "1", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "0", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "1", c2_f_a: "3", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "0", c4_f_b: "1",
-        s1_i_a: "1", s1_i_b: "2", s1_f_a: "1", s1_f_b: "1", s2_i_a: "0", s2_i_b: "1", s2_f_a: "0", s2_f_b: "0",
-        f1_i_a: "1", f1_i_b: "0", f1_f_a: "1", f1_f_b: "0"
+        c1_f_a: "2", c1_f_b: "1", c2_f_a: "3", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "0", c4_f_b: "1"
     },
     "Samuel": { 
         j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "0", j3_a: "1", j3_b: "2", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "0", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "0", j8_b: "3", j9_a: "1", j9_b: "0", j10_a: "2", j10_b: "2", j11_a: "1", j11_b: "2", j12_a: "2", j12_b: "0", j13_a: "0", j13_b: "2", j14_a: "1", j14_b: "0", j15_a: "2", j15_b: "1", j16_a: "0", j16_b: "1", j17_a: "1", j17_b: "1", j18_a: "0", j18_b: "3", j19_a: "2", j19_b: "0", j20_a: "1", j20_b: "1", j21_a: "2", j21_b: "1", j22_a: "2", j22_b: "0", j23_a: "2", j23_b: "0", j24_a: "0", j24_b: "1", 
@@ -294,9 +272,7 @@ const dadosPalpites = {
         o1_a: "2", o1_b: "1", o2_a: "2", o2_b: "1", o3_a: "3", o3_b: "0", o4_a: "2", o4_b: "2", o5_a: "1", o5_b: "2", o6_a: "3", o6_b: "1", o7_a: "2", o7_b: "1", o8_a: "2", o8_b: "0", o9_a: "2", o9_b: "1", o10_a: "2", o10_b: "1", o11_a: "3", o11_b: "0", o12_a: "2", o12_b: "1", o13_a: "2", o13_b: "1", o14_a: "1", o14_b: "2", o15_a: "2", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "1", q1_b: "2", q2_a: "0", q2_b: "2", q3_a: "2", q3_b: "1", q4_a: "0", q4_b: "1", q5_a: "1", q5_b: "1", q6_a: "1", q6_b: "2", q7_a: "2", q7_b: "1", q8_a: "2", q8_b: "1",
         c1_i_a: "0", c1_i_b: "0", c2_i_a: "1", c2_i_b: "0", c3_i_a: "1", c3_i_b: "1", c4_i_a: "0", c4_i_b: "0",
-        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "2", c4_f_b: "0",
-        s1_i_a: "2", s1_i_b: "1", s1_f_a: "2", s1_f_b: "0", s2_i_a: "1", s2_i_b: "1", s2_f_a: "1", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "1", f1_f_a: "2", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "2", c4_f_b: "0"
     },
     "Abner": { 
         j1_a: "2", j1_b: "1", j2_a: "1", j2_b: "1", j3_a: "2", j3_b: "0", j4_a: "0", j4_b: "2", j5_a: "2", j5_b: "0", j6_a: "1", j6_b: "3", j7_a: "2", j7_b: "1", j8_a: "1", j8_b: "2", j9_a: "4", j9_b: "0", j10_a: "1", j10_b: "1", j11_a: "2", j11_b: "1", j12_a: "2", j12_b: "0", j13_a: "2", j13_b: "1", j14_a: "1", j14_b: "0", j15_a: "3", j15_b: "0", j16_a: "0", j16_b: "2", j17_a: "2", j17_b: "1", j18_a: "0", j18_b: "2", j19_a: "3", j19_b: "0", j20_a: "2", j20_b: "0", j21_a: "3", j21_b: "0", j22_a: "1", j22_b: "1", j23_a: "2", j23_b: "1", j24_a: "1", j24_b: "3", 
@@ -305,9 +281,7 @@ const dadosPalpites = {
         o1_a: "0", o1_b: "0", o2_a: "3", o2_b: "0", o3_a: "2", o3_b: "1", o4_a: "2", o4_b: "2", o5_a: "2", o5_b: "1", o6_a: "3", o6_b: "0", o7_a: "1", o7_b: "1", o8_a: "2", o8_b: "1", o9_a: "1", o9_b: "2", o10_a: "1", o10_b: "0", o11_a: "3", o11_b: "1", o12_a: "2", o12_b: "0", o13_a: "1", o13_b: "0", o14_a: "0", o14_b: "2", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "2",
         q1_a: "0", q1_b: "2", q2_a: "1", q2_b: "3", q3_a: "2", q3_b: "1", q4_a: "1", q4_b: "0", q5_a: "0", q5_b: "2", q6_a: "1", q6_b: "2", q7_a: "2", q7_b: "0", q8_a: "1", q8_b: "1",
         c1_i_a: "1", c1_i_b: "1", c2_i_a: "2", c2_i_b: "0", c3_i_a: "0", c3_i_b: "0", c4_i_a: "1", c4_i_b: "1",
-        c1_f_a: "2", c1_f_b: "1", c2_f_a: "3", c2_f_b: "1", c3_f_a: "1", c3_f_b: "0", c4_f_a: "3", c4_f_b: "1",
-        s1_i_a: "1", s1_i_b: "2", s1_f_a: "1", s1_f_b: "1", s2_i_a: "2", s2_i_b: "0", s2_f_a: "2", s2_f_b: "0",
-        f1_i_a: "2", f1_i_b: "1", f1_f_a: "2", f1_f_b: "1"
+        c1_f_a: "2", c1_f_b: "1", c2_f_a: "3", c2_f_b: "1", c3_f_a: "1", c3_f_b: "0", c4_f_a: "3", c4_f_b: "1"
     },
     "Wix": { 
         j1_a: "1", j1_b: "1", j2_a: "2", j2_b: "1", j3_a: "0", j3_b: "1", j4_a: "0", j4_b: "2", j5_a: "3", j5_b: "0", j6_a: "0", j6_b: "4", j7_a: "0", j7_b: "2", j8_a: "0", j8_b: "0", j9_a: "1", j9_b: "0", j10_a: "0", j10_b: "2", j11_a: "0", j11_b: "2", j12_a: "0", j12_b: "0", j13_a: "1", j13_b: "2", j14_a: "3", j14_b: "2", j15_a: "1", j15_b: "1", j16_a: "1", j16_b: "2", j17_a: "2", j17_b: "2", j18_a: "0", j18_b: "3", j19_a: "1", j19_b: "1", j20_a: "4", j20_b: "0", j21_a: "2", j21_b: "0", j22_a: "0", j22_b: "1", j23_a: "0", j23_b: "0", j24_a: "0", j24_b: "1", 
@@ -316,17 +290,13 @@ const dadosPalpites = {
         o1_a: "0", o1_b: "2", o2_a: "3", o2_b: "1", o3_a: "3", o3_b: "0", o4_a: "2", o4_b: "2", o5_a: "2", o5_b: "3", o6_a: "3", o6_b: "1", o7_a: "1", o7_b: "2", o8_a: "1", o8_b: "1", o9_a: "0", o9_b: "1", o10_a: "3", o10_b: "1", o11_a: "2", o11_b: "0", o12_a: "1", o12_b: "1", o13_a: "1", o13_b: "0", o14_a: "1", o14_b: "2", o15_a: "0", o15_b: "2", o16_a: "3", o16_b: "0",
         q1_a: "1", q1_b: "2", q2_a: "1", q2_b: "1", q3_a: "2", q3_b: "0", q4_a: "2", q4_b: "2", q5_a: "0", q5_b: "0", q6_a: "2", q6_b: "1", q7_a: "2", q7_b: "8", q8_a: "0", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "1", c2_i_b: "0", c3_i_a: "1", c3_i_b: "0", c4_i_a: "2", c4_i_b: "0",
-        c1_f_a: "1", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "2", c4_f_b: "96",
-        s1_i_a: "1", s1_i_b: "2", s1_f_a: "1", s1_f_b: "1", s2_i_a: "2", s2_i_b: "1", s2_f_a: "2", s2_f_b: "0",
-        f1_i_a: "3", f1_i_b: "2", f1_f_a: "3", f1_f_b: "2"
+        c1_f_a: "1", c1_f_b: "1", c2_f_a: "2", c2_f_b: "1", c3_f_a: "2", c3_f_b: "1", c4_f_a: "2", c4_f_b: "96"
     },
     "Xereca": { 
         o1_a: "0", o1_b: "2", o2_a: "2", o2_b: "0", o3_a: "4", o3_b: "0", o4_a: "1", o4_b: "1", o5_a: "1", o5_b: "3", o6_a: "5", o6_b: "1", o7_a: "0", o7_b: "1", o8_a: "2", o8_b: "0", o9_a: "1", o9_b: "1", o10_a: "2", o10_b: "0", o11_a: "0", o11_b: "1", o12_a: "3", o12_b: "1", o13_a: "1", o13_b: "0", o14_a: "0", o14_b: "0", o15_a: "3", o15_b: "0", o16_a: "2", o16_b: "0",
         q1_a: "0", q1_b: "2", q2_a: "0", q2_b: "3", q3_a: "2", q3_b: "1", q4_a: "1", q4_b: "3", q5_a: "2", q5_b: "1", q6_a: "2", q6_b: "1", q7_a: "3", q7_b: "0", q8_a: "0", q8_b: "1",
         c1_i_a: "1", c1_i_b: "0", c2_i_a: "0", c2_i_b: "0", c3_i_a: "1", c3_i_b: "1", c4_i_a: "1", c4_i_b: "0",
-        c1_f_a: "3", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "3", c4_f_b: "0",
-        s1_i_a: "1", s1_i_b: "0", s1_f_a: "1", s1_f_b: "0", s2_i_a: "0", s2_i_b: "1", s2_f_a: "0", s2_f_b: "1",
-        f1_i_a: "1", f1_i_b: "0", f1_f_a: "1", f1_f_b: "0"
+        c1_f_a: "3", c1_f_b: "1", c2_f_a: "2", c2_f_b: "0", c3_f_a: "1", c3_f_b: "2", c4_f_a: "3", c4_f_b: "0"
     }
 };
 
@@ -371,10 +341,7 @@ const resultadosFinais = {
     c1_f_a:"2", c1_f_b:"0", c2_f_a:"2", c2_f_b:"1", c3_f_a:"1", c3_f_b:"2", c4_f_a:"3", c4_f_b:"1",
     
     // Semifinal (AGUARDANDO RESULTADOS)
-    s1_i_a:"-", s1_i_b:"-", s1_f_a:"-", s1_f_b:"-", s2_i_a:"-", s2_i_b:"-", s2_f_a:"-", s2_f_b:"-",
-    
-    // Final (AGUARDANDO RESULTADOS)
-    f1_i_a:"-", f1_i_b:"-", f1_f_a:"-", f1_f_b:"-"
+    s1_i_a:"-", s1_i_b:"-", s1_f_a:"-", s1_f_b:"-", s2_i_a:"-", s2_i_b:"-", s2_f_a:"-", s2_f_b:"-"
 };
 
 // ==================== JOGOS POR RODADA ====================
@@ -501,9 +468,7 @@ const jogosSemi = [
     {tA:"Inglaterra", bA:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", tB:"Argentina", bB:"🇦🇷", idA:"s2_f_a", idB:"s2_f_b", idI_A:"s2_i_a", idI_B:"s2_i_b"}
 ];
 
-const jogosFinal = [
-    {tA:"França", bA:"🇫🇷", tB:"Inglaterra", bB:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", idA:"f1_f_a", idB:"f1_f_b", idI_A:"f1_i_a", idI_B:"f1_i_b"}
-];
+const jogosFinal = [];
 
 // ==================== VARIÁVEIS GLOBAIS ====================
 let rodadaAtual = 1;
@@ -544,11 +509,10 @@ function getPontuacaoRodada(jogador, rodada) {
     else if (rodada === 5) jogos = jogosOitavasFinais;
     else if (rodada === 6) jogos = jogosQuartas;
     else if (rodada === 7) jogos = jogosSemi;
-    else if (rodada === 8) jogos = jogosFinal;
+    else return 0;
     
     jogos.forEach(j => {
         if (j.idI_A) {
-            // Jogos com intervalo + final (Quartas, Semi e Final)
             const raI = resultadosFinais[j.idI_A] !== undefined ? parseInt(resultadosFinais[j.idI_A]) : NaN;
             const rbI = resultadosFinais[j.idI_B] !== undefined ? parseInt(resultadosFinais[j.idI_B]) : NaN;
             if (!isNaN(raI) && !isNaN(rbI)) {
@@ -581,7 +545,7 @@ function getPontuacaoRodada(jogador, rodada) {
 
 function getHistoricoPontos(jogador) {
     const historico = [];
-    for (let r = 1; r <= 8; r++) {
+    for (let r = 1; r <= 7; r++) {
         historico.push(getPontuacaoRodada(jogador, r));
     }
     return historico;
@@ -598,7 +562,7 @@ function getPontuacaoAcumulada(jogador) {
 
 function atualizarGrafico() {
     const participantes = Object.keys(dadosPalpites);
-    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', '16 avos', 'Oitavas', 'Quartas', 'Semi', 'Final'];
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', '16 avos', 'Oitavas', 'Quartas', 'Semi'];
     
     const datasets = participantes.map((nome, index) => {
         const dados = getPontuacaoAcumulada(nome);
@@ -618,7 +582,7 @@ function atualizarGrafico() {
     
     const pontuacaoFinal = participantes.map(n => ({
         nome: n,
-        pontos: getPontuacaoAcumulada(n)[7] || 0
+        pontos: getPontuacaoAcumulada(n)[6] || 0
     }));
     pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
     const ordem = pontuacaoFinal.map(p => p.nome);
@@ -781,37 +745,6 @@ function getPontosSemi(jogador) {
     return { pontos: pts, acertos: acertos };
 }
 
-function getPontosFinal(jogador) {
-    let pts = 0, acertos = 0;
-    const p = dadosPalpites[jogador];
-    if (!p) return { pontos: 0, acertos: 0 };
-    jogosFinal.forEach(j => {
-        const raI = resultadosFinais[j.idI_A] !== undefined ? resultadosFinais[j.idI_A] : "-";
-        const rbI = resultadosFinais[j.idI_B] !== undefined ? resultadosFinais[j.idI_B] : "-";
-        if (raI !== "-" && rbI !== "-") {
-            const paI = p[j.idI_A] !== undefined ? p[j.idI_A] : "-";
-            const pbI = p[j.idI_B] !== undefined ? p[j.idI_B] : "-";
-            if (paI !== "-" && pbI !== "-") {
-                const ptsI = calcularPontos(raI, rbI, paI, pbI);
-                pts += ptsI;
-                if (ptsI === 10) acertos++;
-            }
-        }
-        const raF = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
-        const rbF = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
-        if (raF !== "-" && rbF !== "-") {
-            const paF = p[j.idA] !== undefined ? p[j.idA] : "-";
-            const pbF = p[j.idB] !== undefined ? p[j.idB] : "-";
-            if (paF !== "-" && pbF !== "-") {
-                const ptsF = calcularPontos(raF, rbF, paF, pbF);
-                pts += ptsF;
-                if (ptsF === 10) acertos++;
-            }
-        }
-    });
-    return { pontos: pts, acertos: acertos };
-}
-
 function todosResultados16Avos() {
     return jogosOitavas.every(j => resultadosFinais[j.idA] !== undefined && resultadosFinais[j.idA] !== "-");
 }
@@ -826,7 +759,7 @@ function todosResultadosQuartas() {
 
 function renderizarPorRodada(n) {
     rodadaAtual = n;
-    const botoes = ['btnR1','btnR2','btnR3','btnOitavas','btnOitavasFinais','btnQuartas','btnSemi','btnFinal'];
+    const botoes = ['btnR1','btnR2','btnR3','btnOitavas','btnOitavasFinais','btnQuartas','btnSemi'];
     botoes.forEach((id,i) => {
         const el = document.getElementById(id);
         if (el) el.className = `tab-btn ${n === i+1 ? 'active' : ''}`;
@@ -841,7 +774,7 @@ function renderizarPorRodada(n) {
     else if (n === 5) jogos = jogosOitavasFinais;
     else if (n === 6) jogos = jogosQuartas;
     else if (n === 7) jogos = jogosSemi;
-    else if (n === 8) jogos = jogosFinal;
+    else return;
     
     let html = "";
     jogos.forEach(t => {
@@ -898,11 +831,11 @@ function abrirPalpites(e, rodada = 1) {
     else if (rodada === 5) jogos = jogosOitavasFinais;
     else if (rodada === 6) jogos = jogosQuartas;
     else if (rodada === 7) jogos = jogosSemi;
-    else if (rodada === 8) jogos = jogosFinal;
+    else return;
     
     let html = `<div class="tab-container" style="justify-content:center">
-        ${[1,2,3,4,5,6,7,8].map(r => {
-            const label = r === 1 ? 'Rodada 1' : r === 2 ? 'Rodada 2' : r === 3 ? 'Rodada 3' : r === 4 ? '16 avos' : r === 5 ? 'Oitavas' : r === 6 ? 'Quartas' : r === 7 ? 'Semi' : 'Final';
+        ${[1,2,3,4,5,6,7].map(r => {
+            const label = r === 1 ? 'Rodada 1' : r === 2 ? 'Rodada 2' : r === 3 ? 'Rodada 3' : r === 4 ? '16 avos' : r === 5 ? 'Oitavas' : r === 6 ? 'Quartas' : 'Semi';
             return `<button class="tab-btn ${r===rodada?'active':''}" onclick="abrirPalpites('${e}',${r})">${label}</button>`;
         }).join('')}
     </div><div class="jogos-lista">`;
@@ -974,7 +907,7 @@ function fecharModalExterno(e) {
 function atualizarClassificacao() {
     let e = [];
     Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsOit = 0, ptsOitFinais = 0, ptsQuartas = 0, ptsSemi = 0, ptsFinal = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0;
+        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsOit = 0, ptsOitFinais = 0, ptsQuartas = 0, ptsSemi = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0;
         const p = dadosPalpites[n];
         const todosJogos = [
             ...jogosR1.map(j => ({...j, tipo: 'r1'})),
@@ -983,8 +916,7 @@ function atualizarClassificacao() {
             ...jogosOitavas.map(j => ({...j, tipo: 'o'})),
             ...jogosOitavasFinais.map(j => ({...j, tipo: 'q'})),
             ...jogosQuartas.map(j => ({...j, tipo: 'c'})),
-            ...jogosSemi.map(j => ({...j, tipo: 's'})),
-            ...jogosFinal.map(j => ({...j, tipo: 'f'}))
+            ...jogosSemi.map(j => ({...j, tipo: 's'}))
         ];
         todosJogos.forEach(j => {
             const raI = resultadosFinais[j.idI_A] !== undefined ? parseInt(resultadosFinais[j.idI_A]) : NaN;
@@ -999,7 +931,6 @@ function atualizarClassificacao() {
                     pts += ptI;
                     if (j.tipo === 'c') ptsQuartas += ptI;
                     else if (j.tipo === 's') ptsSemi += ptI;
-                    else if (j.tipo === 'f') ptsFinal += ptI;
                     if (ptI === 10) cravar++;
                     if (ptI > 0) { seq += ptI; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
                     else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
@@ -1017,14 +948,13 @@ function atualizarClassificacao() {
                     else if (j.tipo === 'q') ptsOitFinais += ptF;
                     else if (j.tipo === 'c') ptsQuartas += ptF;
                     else if (j.tipo === 's') ptsSemi += ptF;
-                    else if (j.tipo === 'f') ptsFinal += ptF;
                     if (ptF === 10) cravar++;
                     if (ptF > 0) { seq += ptF; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
                     else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
                 }
             }
         });
-        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsOit, ptsOitFinais, ptsQuartas, ptsSemi, ptsFinal, cravar, maxSeq, maxZ});
+        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsOit, ptsOitFinais, ptsQuartas, ptsSemi, cravar, maxSeq, maxZ});
     });
     e.sort((a, b) => b.pontos - a.pontos);
     
@@ -1046,7 +976,6 @@ function atualizarClassificacao() {
     const mOitFinais = [...e].sort((a,b) => b.ptsOitFinais - a.ptsOitFinais)[0];
     const mQuartas = [...e].sort((a,b) => b.ptsQuartas - a.ptsQuartas)[0];
     const mSemi = [...e].sort((a,b) => b.ptsSemi - a.ptsSemi)[0];
-    const mFinal = [...e].sort((a,b) => b.ptsFinal - a.ptsFinal)[0];
     const top5 = [...e].sort((a,b) => b.cravar - a.cravar).slice(0, 5);
     const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
     const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
@@ -1060,7 +989,6 @@ function atualizarClassificacao() {
             <tr><td>Maior Pontuador Oitavas</td><td>${mOitFinais ? mOitFinais.nome : '-'}</td><td>${mOitFinais ? mOitFinais.ptsOitFinais + ' pts' : '-'}</td></tr>
             <tr><td>Maior Pontuador Quartas</td><td>${mQuartas ? mQuartas.nome : '-'}</td><td>${mQuartas ? mQuartas.ptsQuartas + ' pts' : '-'}</td></tr>
             <tr><td>Maior Pontuador Semi</td><td>${mSemi ? mSemi.nome : '-'}</td><td>${mSemi ? mSemi.ptsSemi + ' pts' : '-'}</td></tr>
-            <tr><td>Maior Pontuador Final</td><td>${mFinal ? mFinal.nome : '-'}</td><td>${mFinal ? mFinal.ptsFinal + ' pts' : '-'}</td></tr>
             <tr><td>Melhor Sequência</td><td>${maisSeq.nome}</td><td>${maisSeq.maxSeq} pts</td></tr>
             <tr><td>Mais Tempo Sem Pontuar</td><td>${maisZ.nome}</td><td>${maisZ.maxZ} jogos</td></tr>
         </tbody></table></div>
@@ -1238,40 +1166,11 @@ function gerarMataMata(ranking) {
         }
     });
     
-    const final = [
-        { id: "F1", j1Origem: "S1", j2Origem: "S2" }
-    ];
-    
-    final.forEach(f => {
-        const s1 = semi.find(s => s.id === f.j1Origem);
-        const s2 = semi.find(s => s.id === f.j2Origem);
-        f.j1 = s1?.vencedor || null;
-        f.j2 = s2?.vencedor || null;
-        f.finalizado = (s1?.finalizado && s2?.finalizado) || false;
-        f.pontos1 = 0;
-        f.pontos2 = 0;
-        f.vencedor = null;
-        
-        if (f.j1 && f.j2 && f.finalizado) {
-            const d1 = getPontosSemi(f.j1);
-            const d2 = getPontosSemi(f.j2);
-            f.pontos1 = d1.pontos;
-            f.pontos2 = d2.pontos;
-            
-            if (d1.pontos > d2.pontos) f.vencedor = f.j1;
-            else if (d2.pontos > d1.pontos) f.vencedor = f.j2;
-            else {
-                const pos1 = ranking.findIndex(r => r.nome === f.j1);
-                const pos2 = ranking.findIndex(r => r.nome === f.j2);
-                f.vencedor = pos1 < pos2 ? f.j1 : f.j2;
-            }
-        }
-    });
-    
-    renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor);
+    // Sem final, apenas semi
+    renderizarArvore(confrontos16, quartas, semi, melhorPerdedor);
 }
 
-function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
+function renderizarArvore(confrontos16, quartas, semi, melhorPerdedor) {
     const container = document.getElementById('mata-mata-container');
     
     let html = `
@@ -1346,28 +1245,6 @@ function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
                 </div>
                 <div class="status ${s.finalizado ? 'finalizado' : 'aguardando'}">${s.finalizado ? '✅' : '⏳'}</div>
                 ${s.vencedor ? `<div style="font-size:0.5rem;color:#198754;text-align:center;font-weight:600">🏆 ${s.vencedor}</div>` : ''}
-            </div>
-        `;
-    });
-    html += `</div>`;
-    
-    html += `<div class="coluna"><div class="coluna-titulo">🏆 FINAL</div>`;
-    final.forEach(f => {
-        const v1 = f.vencedor === f.j1 ? 'vencedor' : (f.vencedor ? 'eliminado' : '');
-        const v2 = f.vencedor === f.j2 ? 'vencedor' : (f.vencedor ? 'eliminado' : '');
-        html += `
-            <div class="no" style="border-color:var(--primary);border-width:3px;background:rgba(15,81,50,0.05)">
-                <div class="jogador ${v1}" style="font-size:0.9rem">
-                    <span class="jogador-nome">${f.j1 || 'Aguardando...'}</span>
-                    <span class="jogador-pts">${f.j1 ? f.pontos1||0 : ''}</span>
-                </div>
-                <div class="vs" style="font-weight:700;color:var(--primary)">⚔️ VS</div>
-                <div class="jogador ${v2}" style="font-size:0.9rem">
-                    <span class="jogador-nome">${f.j2 || 'Aguardando...'}</span>
-                    <span class="jogador-pts">${f.j2 ? f.pontos2||0 : ''}</span>
-                </div>
-                <div class="status ${f.finalizado ? 'finalizado' : 'aguardando'}" style="font-weight:700;color:var(--primary)">${f.finalizado ? '🏆 CAMPEÃO' : '🏆'}</div>
-                ${f.vencedor ? `<div style="font-size:0.7rem;color:#198754;text-align:center;font-weight:700">👑 ${f.vencedor}</div>` : ''}
             </div>
         `;
     });
