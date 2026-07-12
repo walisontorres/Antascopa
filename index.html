@@ -1166,11 +1166,40 @@ function gerarMataMata(ranking) {
         }
     });
     
-    // Sem final, apenas semi
-    renderizarArvore(confrontos16, quartas, semi, melhorPerdedor);
+    const final = [
+        { id: "F1", j1Origem: "S1", j2Origem: "S2" }
+    ];
+    
+    final.forEach(f => {
+        const s1 = semi.find(s => s.id === f.j1Origem);
+        const s2 = semi.find(s => s.id === f.j2Origem);
+        f.j1 = s1?.vencedor || null;
+        f.j2 = s2?.vencedor || null;
+        f.finalizado = (s1?.finalizado && s2?.finalizado) || false;
+        f.pontos1 = 0;
+        f.pontos2 = 0;
+        f.vencedor = null;
+        
+        if (f.j1 && f.j2 && f.finalizado) {
+            const d1 = getPontosSemi(f.j1);
+            const d2 = getPontosSemi(f.j2);
+            f.pontos1 = d1.pontos;
+            f.pontos2 = d2.pontos;
+            
+            if (d1.pontos > d2.pontos) f.vencedor = f.j1;
+            else if (d2.pontos > d1.pontos) f.vencedor = f.j2;
+            else {
+                const pos1 = ranking.findIndex(r => r.nome === f.j1);
+                const pos2 = ranking.findIndex(r => r.nome === f.j2);
+                f.vencedor = pos1 < pos2 ? f.j1 : f.j2;
+            }
+        }
+    });
+    
+    renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor);
 }
 
-function renderizarArvore(confrontos16, quartas, semi, melhorPerdedor) {
+function renderizarArvore(confrontos16, quartas, semi, final, melhorPerdedor) {
     const container = document.getElementById('mata-mata-container');
     
     let html = `
@@ -1245,6 +1274,28 @@ function renderizarArvore(confrontos16, quartas, semi, melhorPerdedor) {
                 </div>
                 <div class="status ${s.finalizado ? 'finalizado' : 'aguardando'}">${s.finalizado ? '✅' : '⏳'}</div>
                 ${s.vencedor ? `<div style="font-size:0.5rem;color:#198754;text-align:center;font-weight:600">🏆 ${s.vencedor}</div>` : ''}
+            </div>
+        `;
+    });
+    html += `</div>`;
+    
+    html += `<div class="coluna"><div class="coluna-titulo">🏆 FINAL</div>`;
+    final.forEach(f => {
+        const v1 = f.vencedor === f.j1 ? 'vencedor' : (f.vencedor ? 'eliminado' : '');
+        const v2 = f.vencedor === f.j2 ? 'vencedor' : (f.vencedor ? 'eliminado' : '');
+        html += `
+            <div class="no" style="border-color:var(--primary);border-width:3px;background:rgba(15,81,50,0.05)">
+                <div class="jogador ${v1}" style="font-size:0.9rem">
+                    <span class="jogador-nome">${f.j1 || 'Aguardando...'}</span>
+                    <span class="jogador-pts">${f.j1 ? f.pontos1||0 : ''}</span>
+                </div>
+                <div class="vs" style="font-weight:700;color:var(--primary)">⚔️ VS</div>
+                <div class="jogador ${v2}" style="font-size:0.9rem">
+                    <span class="jogador-nome">${f.j2 || 'Aguardando...'}</span>
+                    <span class="jogador-pts">${f.j2 ? f.pontos2||0 : ''}</span>
+                </div>
+                <div class="status ${f.finalizado ? 'finalizado' : 'aguardando'}" style="font-weight:700;color:var(--primary)">${f.finalizado ? '🏆 CAMPEÃO' : '🏆'}</div>
+                ${f.vencedor ? `<div style="font-size:0.7rem;color:#198754;text-align:center;font-weight:700">👑 ${f.vencedor}</div>` : ''}
             </div>
         `;
     });
