@@ -365,7 +365,7 @@ const resultadosFinais = {
     
     // ============================================================
     // RODADA 8 - FINAL (Terceiro Lugar + Final da Copa)
-    // Coloque os resultados aqui quando os jogos acabarem
+    // Coloque os resultados da Final da Copa aqui quando acabar
     // ============================================================
     f1_i_a:"0", f1_i_b:"4", f1_f_a:"4", f1_f_b:"6",
     f2_i_a:"-", f2_i_b:"-", f2_f_a:"-", f2_f_b:"-"
@@ -1250,13 +1250,17 @@ function gerarMataMata(ranking) {
         f.vencedor = null;
         
         if (f.j1 && f.j2 && f.finalizado) {
-            const d1 = getPontosSemi(f.j1);
-            const d2 = getPontosSemi(f.j2);
-            f.pontos1 = d1.pontos;
-            f.pontos2 = d2.pontos;
+            // SOMA dos pontos da SEMI + FINAL (Rodada 8)
+            const d1Semi = getPontosSemi(f.j1);
+            const d2Semi = getPontosSemi(f.j2);
+            const d1Final = getPontosFinal(f.j1);
+            const d2Final = getPontosFinal(f.j2);
             
-            if (d1.pontos > d2.pontos) f.vencedor = f.j1;
-            else if (d2.pontos > d1.pontos) f.vencedor = f.j2;
+            f.pontos1 = d1Semi.pontos + d1Final.pontos;
+            f.pontos2 = d2Semi.pontos + d2Final.pontos;
+            
+            if (f.pontos1 > f.pontos2) f.vencedor = f.j1;
+            else if (f.pontos2 > f.pontos1) f.vencedor = f.j2;
             else {
                 const pos1 = ranking.findIndex(r => r.nome === f.j1);
                 const pos2 = ranking.findIndex(r => r.nome === f.j2);
