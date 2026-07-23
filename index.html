@@ -126,26 +126,26 @@
         /* STATS GRID */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 14px;
             margin-bottom: 24px;
         }
         .stat-card {
             background: rgba(61, 25, 82, 0.04);
-            padding: 18px 14px;
+            padding: 16px 12px;
             border-radius: 14px;
             text-align: center;
             border: 1px solid var(--pl-border);
         }
         .stat-card .value {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             color: var(--pl-purple);
             display: block;
             line-height: 1.2;
         }
         .stat-card .label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             font-weight: 600;
             color: var(--pl-muted);
@@ -160,8 +160,8 @@
         }
         .pl-table th {
             text-align: left;
-            padding: 12px 14px;
-            font-size: 0.7rem;
+            padding: 10px 12px;
+            font-size: 0.65rem;
             text-transform: uppercase;
             font-weight: 700;
             color: var(--pl-muted);
@@ -169,15 +169,15 @@
             border-bottom: 2px solid var(--pl-border);
         }
         .pl-table td {
-            padding: 12px 14px;
+            padding: 10px 12px;
             border-bottom: 1px solid var(--pl-border);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .pl-table tr:last-child td { border-bottom: none; }
         .pl-table .pos {
             font-weight: 700;
             color: var(--pl-purple);
-            width: 50px;
+            width: 40px;
         }
         .pl-table .pos.gold { color: var(--pl-gold); }
         .pl-table .pos.silver { color: #b0b0b0; }
@@ -193,13 +193,13 @@
         .part-lista {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
+            gap: 10px;
         }
         .part-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: rgba(61, 25, 82, 0.03);
             border-radius: 12px;
             border: 1px solid var(--pl-border);
@@ -211,16 +211,16 @@
         }
         .part-item .nome {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         .part-item .btn-palpites {
             background: var(--pl-purple);
             color: #fff;
             border: none;
-            padding: 6px 16px;
+            padding: 5px 14px;
             border-radius: 100px;
             font-weight: 600;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: inherit;
@@ -230,25 +230,56 @@
             color: var(--pl-dark);
             transform: scale(1.03);
         }
+        .part-item .badge-coringa {
+            font-size: 0.6rem;
+            background: #f7c13730;
+            color: #b8860b;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+        .part-item .badge-coringa.usado {
+            background: #dc354520;
+            color: #dc3545;
+        }
 
         /* JOGOS */
         .jogos-lista {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
         .jogo-card {
             display: flex;
             flex-direction: column;
-            padding: 16px 18px;
+            padding: 14px 16px;
             background: rgba(61, 25, 82, 0.02);
             border-radius: 14px;
             border: 1px solid var(--pl-border);
-            gap: 10px;
+            gap: 8px;
             transition: all 0.3s ease;
         }
         .jogo-card:hover {
             background: rgba(61, 25, 82, 0.05);
+        }
+        .jogo-card.destaque {
+            border-color: var(--pl-gold);
+            background: rgba(247, 193, 55, 0.06);
+        }
+        .jogo-card.destaque .badge-dia {
+            display: inline-block !important;
+        }
+        .badge-dia {
+            display: none;
+            font-size: 0.55rem;
+            background: var(--pl-gold);
+            color: var(--pl-dark);
+            padding: 1px 10px;
+            border-radius: 100px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
         }
         .jogo-principal {
             display: flex;
@@ -259,33 +290,33 @@
         .time {
             flex: 1;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .time.casa { justify-content: flex-end; text-align: right; }
         .time.fora { justify-content: flex-start; text-align: left; }
-        .time .escudo { font-size: 1.5rem; }
+        .time .escudo { font-size: 1.3rem; }
         .placar-box {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(61, 25, 82, 0.05);
-            padding: 4px 14px;
+            padding: 3px 12px;
             border-radius: 10px;
             border: 1px solid var(--pl-border);
         }
         .placar-box .gol {
             font-weight: 700;
-            font-size: 1.1rem;
-            min-width: 24px;
+            font-size: 1rem;
+            min-width: 20px;
             text-align: center;
             color: var(--pl-dark);
         }
-        .placar-box .x { color: var(--pl-muted); font-size: 0.8rem; }
+        .placar-box .x { color: var(--pl-muted); font-size: 0.7rem; }
         .jogo-odds {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             color: var(--pl-muted);
             text-align: center;
@@ -300,12 +331,12 @@
             margin-bottom: 16px;
         }
         .tab-btn {
-            padding: 8px 18px;
+            padding: 7px 16px;
             border-radius: 100px;
             border: 1px solid var(--pl-border);
             background: transparent;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--pl-muted);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -337,7 +368,7 @@
         .modal-conteudo {
             background: #fff;
             border-radius: var(--radius);
-            padding: 30px 20px;
+            padding: 28px 20px;
             max-width: 700px;
             width: 100%;
             max-height: 85vh;
@@ -349,7 +380,7 @@
             float: right;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             cursor: pointer;
             color: var(--pl-muted);
             padding: 0 6px;
@@ -369,25 +400,27 @@
         .palpite-cor-vermelho { background: #ef444420 !important; border-color: #ef4444 !important; }
         .palpite-cor-vermelho .gol { background: #ef4444 !important; color: #fff !important; border-radius: 6px; }
         .palpite-cor-branco { background: transparent !important; border-color: var(--pl-border) !important; }
+        .palpite-cor-ouro { background: #f7c13730 !important; border-color: #f7c137 !important; border-width: 2px !important; }
+        .palpite-cor-ouro .gol { background: var(--pl-gold) !important; color: #000 !important; border-radius: 6px; }
 
         /* EVOLUÇÃO */
         .evolucao-linha {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 6px 0;
+            gap: 10px;
+            padding: 5px 0;
         }
         .evolucao-nome {
             font-weight: 600;
-            width: 120px;
-            font-size: 0.85rem;
+            width: 110px;
+            font-size: 0.8rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
         .evolucao-barra-bg {
             flex: 1;
-            height: 12px;
+            height: 10px;
             background: rgba(61, 25, 82, 0.08);
             border-radius: 100px;
             overflow: hidden;
@@ -401,13 +434,13 @@
         .evolucao-pts {
             font-weight: 700;
             color: var(--pl-purple);
-            width: 50px;
+            width: 45px;
             text-align: right;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .evolucao-tendencia {
-            font-size: 0.75rem;
-            width: 40px;
+            font-size: 0.7rem;
+            width: 35px;
             text-align: right;
             font-weight: 600;
         }
@@ -418,36 +451,36 @@
         /* GRAFICO */
         .grafico-container {
             width: 100%;
-            height: 320px;
-            margin: 16px 0;
+            height: 280px;
+            margin: 14px 0;
         }
         .grafico-legenda {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            font-size: 0.7rem;
-            padding: 10px 0;
+            font-size: 0.65rem;
+            padding: 8px 0;
         }
         .grafico-legenda-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
         }
         .grafico-legenda-cor {
-            width: 18px;
-            height: 4px;
+            width: 16px;
+            height: 3px;
             border-radius: 4px;
         }
 
         /* NEWS */
         .news-card {
             border-left: 4px solid var(--pl-gold);
-            padding-left: 16px;
-            margin-bottom: 12px;
+            padding-left: 14px;
+            margin-bottom: 10px;
         }
         .news-tag {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--pl-gold);
@@ -458,13 +491,13 @@
             letter-spacing: 1px;
         }
         .news-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--pl-dark);
-            margin-top: 4px;
+            margin-top: 3px;
         }
         .news-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--pl-muted);
         }
 
@@ -472,20 +505,21 @@
         @media (max-width: 640px) {
             .pl-header h1 { font-size: 2.2rem; }
             .pl-header .lion { font-size: 2rem; }
-            .pl-card { padding: 20px 14px; }
-            .time { font-size: 0.8rem; }
-            .time .escudo { font-size: 1.2rem; }
-            .placar-box { padding: 2px 10px; }
-            .placar-box .gol { font-size: 0.95rem; min-width: 18px; }
+            .pl-card { padding: 18px 12px; }
+            .time { font-size: 0.75rem; }
+            .time .escudo { font-size: 1.1rem; }
+            .placar-box { padding: 2px 8px; }
+            .placar-box .gol { font-size: 0.85rem; min-width: 16px; }
             .part-lista { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .evolucao-nome { width: 80px; font-size: 0.75rem; }
-            .grafico-container { height: 220px; }
+            .evolucao-nome { width: 70px; font-size: 0.7rem; }
+            .grafico-container { height: 200px; }
+            .modal-conteudo { padding: 20px 12px; }
         }
         @media (max-width: 480px) {
             .pl-header h1 { font-size: 1.8rem; }
-            .jogo-principal { flex-wrap: wrap; justify-content: center; gap: 6px; }
-            .time { font-size: 0.75rem; flex: 0 1 auto; }
+            .jogo-principal { flex-wrap: wrap; justify-content: center; gap: 4px; }
+            .time { font-size: 0.7rem; flex: 0 1 auto; }
             .time.casa { order: 1; }
             .placar-box { order: 2; }
             .time.fora { order: 3; }
@@ -548,6 +582,7 @@
         <h2>⚽ Jogos & <span class="gold">Resultados</span></h2>
         <div class="tab-container" id="tab-container">
             <button class="tab-btn active" data-rodada="1" onclick="renderizarPorRodada(1)">Rodada 1</button>
+            <button class="tab-btn" data-rodada="2" onclick="renderizarPorRodada(2)">Rodada 2</button>
         </div>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
     </div>
@@ -570,39 +605,6 @@
 </div>
 
 <script>
-// ==================== DADOS DOS PALPITES ====================
-const dadosPalpites = {
-    "Paulão": {
-        r1_j1_a: "0", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "2", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1"
-    },
-    "Lucas": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "1", r1_j2_b: "2", r1_j3_a: "0", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1"
-    },
-    "Psico": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "2"
-    },
-    "Neneca": {
-        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "0", r1_j4_b: "0"
-    },
-    "Julian": {
-        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "0"
-    },
-    "Sid": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "4", r1_j3_a: "1", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "0"
-    },
-    "Samuel": {
-        r1_j2_a: "0", r1_j2_b: "5", r1_j3_a: "2", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "1"
-    },
-    "Walishow": {
-        r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "0"
-    }
-};
-
-// ==================== RESULTADOS ====================
-const resultadosFinais = {
-    r1_j1_a: "1", r1_j1_b: "3", r1_j2_a: "0", r1_j2_b: "4", r1_j3_a: "1", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "2"
-};
-
 // ==================== JOGOS POR RODADA ====================
 const jogosRodada1 = [
     { id: 1, tA: "Coritiba", eA: "🟢", tB: "Palmeiras", eB: "🟢", idA: "r1_j1_a", idB: "r1_j1_b" },
@@ -611,10 +613,87 @@ const jogosRodada1 = [
     { id: 4, tA: "São Paulo", eA: "🔴", tB: "Athletico-PR", eB: "⚫", idA: "r1_j4_a", idB: "r1_j4_b" }
 ];
 
+const jogosRodada2 = [
+    { id: 5, tA: "Botafogo", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r2_j1_a", idB: "r2_j1_b" },
+    { id: 6, tA: "Corinthians", eA: "⚪", tB: "Remo", eB: "🔵", idA: "r2_j2_a", idB: "r2_j2_b" }
+];
+
+// ==================== DADOS DOS PALPITES ====================
+const dadosPalpites = {
+    "Paulão": {
+        r1_j1_a: "0", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "2", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
+        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Lucas": {
+        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "1", r1_j2_b: "2", r1_j3_a: "0", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
+        r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "3", r2_j2_b: "1",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Psico": {
+        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "2",
+        r2_j1_a: "2", r2_j1_b: "2", r2_j2_a: "1", r2_j2_b: "2",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Neneca": {
+        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "0", r1_j4_b: "0",
+        r2_j1_a: "1", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Julian": {
+        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Sid": {
+        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "4", r1_j3_a: "1", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "0",
+        r2_j1_a: "0", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Samuel": {
+        r1_j2_a: "0", r1_j2_b: "5", r1_j3_a: "2", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "1",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Walishow": {
+        r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "0",
+        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Freitas": {
+        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    },
+    "Fish": {
+        r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
+        palpite_do_dia: null,
+        coringa_usado: false
+    }
+};
+
+// ==================== RESULTADOS ====================
+const resultadosFinais = {
+    // Rodada 1
+    r1_j1_a: "1", r1_j1_b: "3",  // Coritiba 1x3 Palmeiras
+    r1_j2_a: "0", r1_j2_b: "2",  // Chapecoense 0x2 Flamengo
+    r1_j3_a: "1", r1_j3_b: "0",  // Internacional 1x0 Cruzeiro
+    r1_j4_a: "1", r1_j4_b: "2",  // São Paulo 1x2 Athletico-PR
+    // Rodada 2 (aguardando resultados)
+    r2_j1_a: "-", r2_j1_b: "-",
+    r2_j2_a: "-", r2_j2_b: "-"
+};
+
 // ==================== VARIÁVEIS ====================
 let rodadaAtual = 1;
 let chartInstance = null;
-const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#6366f1', '#84cc16', '#06b6d4', '#d946ef'];
+const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6'];
 
 // ==================== FUNÇÕES ====================
 
@@ -629,11 +708,18 @@ function calcularPontos(rA, rB, pA, pB) {
     return 0;
 }
 
+function getJogosPorRodada(rodada) {
+    if (rodada === 1) return jogosRodada1;
+    if (rodada === 2) return jogosRodada2;
+    return [];
+}
+
 function getPontuacaoRodada(jogador, rodada) {
     let pts = 0;
     const p = dadosPalpites[jogador];
     if (!p) return 0;
-    const jogos = rodada === 1 ? jogosRodada1 : [];
+    const jogos = getJogosPorRodada(rodada);
+    
     jogos.forEach(j => {
         const ra = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
         const rb = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
@@ -645,12 +731,34 @@ function getPontuacaoRodada(jogador, rodada) {
             }
         }
     });
+    
+    // ⭐ Bônus do Palpite do Dia
+    const dia = p.palpite_do_dia;
+    if (dia) {
+        const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
+        if (jogo) {
+            const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
+            const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
+            const pa = parseInt(p[dia]) || parseInt(p[jogo.idA]);
+            const pb = parseInt(p[dia === jogo.idA ? jogo.idB : jogo.idA]);
+            if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
+                if (ra === pa && rb === pb) {
+                    pts += 5;
+                }
+            }
+        }
+    }
+    
+    if (p.coringa_usado) {
+        pts = pts * 2;
+    }
+    
     return pts;
 }
 
 function getHistoricoPontos(jogador) {
     const historico = [];
-    for (let r = 1; r <= 1; r++) {
+    for (let r = 1; r <= 2; r++) {
         historico.push(getPontuacaoRodada(jogador, r));
     }
     return historico;
@@ -664,7 +772,7 @@ function getPontuacaoAcumulada(jogador) {
 
 function atualizarGrafico() {
     const participantes = Object.keys(dadosPalpites);
-    const labels = ['Rodada 1'];
+    const labels = ['Rodada 1', 'Rodada 2'];
     
     const datasets = participantes.map((nome, index) => {
         const dados = getPontuacaoAcumulada(nome);
@@ -684,7 +792,7 @@ function atualizarGrafico() {
     
     const pontuacaoFinal = participantes.map(n => ({
         nome: n,
-        pontos: getPontuacaoAcumulada(n)[0] || 0
+        pontos: getPontuacaoAcumulada(n)[1] || 0
     }));
     pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
     const ordem = pontuacaoFinal.map(p => p.nome);
@@ -743,14 +851,20 @@ function renderizarPorRodada(n) {
     });
     
     const container = document.getElementById("lista-jogos-principal");
-    let jogos = n === 1 ? jogosRodada1 : [];
+    const jogos = getJogosPorRodada(n);
     
     let html = "";
     jogos.forEach(j => {
         const resA = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
         const resB = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
+        
+        let isDia = false;
+        Object.values(dadosPalpites).forEach(p => {
+            if (p.palpite_do_dia === j.idA || p.palpite_do_dia === j.idB) isDia = true;
+        });
+        
         html += `
-            <div class="jogo-card">
+            <div class="jogo-card ${isDia ? 'destaque' : ''}">
                 <div class="jogo-principal">
                     <div class="time casa"><span class="escudo">${j.eA}</span> ${j.tA}</div>
                     <div class="placar-box">
@@ -760,14 +874,14 @@ function renderizarPorRodada(n) {
                     </div>
                     <div class="time fora">${j.tB} <span class="escudo">${j.eB}</span></div>
                 </div>
-                <div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j)}</div>
+                <div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j, n)} ${isDia ? '⭐ Palpite do Dia' : ''}</div>
             </div>
         `;
     });
     container.innerHTML = html;
 }
 
-function calcularOddsDinamicas(jogo) {
+function calcularOddsDinamicas(jogo, rodada) {
     let casa = 0, empate = 0, fora = 0, total = 0;
     Object.values(dadosPalpites).forEach(p => {
         let pA = parseInt(p[jogo.idA]), pB = parseInt(p[jogo.idB]);
@@ -783,9 +897,13 @@ function calcularOddsDinamicas(jogo) {
 function abrirPalpites(e, rodada = 1) {
     document.getElementById("modal-titulo").innerText = `Palpites de ${e}`;
     const t = dadosPalpites[e];
-    let jogos = rodada === 1 ? jogosRodada1 : [];
+    const jogos = getJogosPorRodada(rodada);
     
-    let html = `<div class="jogos-lista">`;
+    let html = `<div style="margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;font-size:0.8rem;">
+        <span>⭐ Palpite do Dia: ${t.palpite_do_dia ? '✅ Ativo' : '❌ Não escolheu'}</span>
+        <span>🃏 Coringa: ${t.coringa_usado ? '✅ Usado' : '❌ Disponível'}</span>
+    </div><div class="jogos-lista">`;
+    
     jogos.forEach(j => {
         const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
         const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
@@ -793,21 +911,20 @@ function abrirPalpites(e, rodada = 1) {
         const pb = t && t[j.idB] !== undefined ? parseInt(t[j.idB]) : NaN;
         const pts = (isNaN(ra) || isNaN(rb) || isNaN(pa) || isNaN(pb)) ? 0 : calcularPontos(ra, rb, pa, pb);
         
-        let cor = 'palpite-cor-branco';
-        if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
-            if (pts === 10) cor = 'palpite-cor-verde';
-            else if (pts > 0) cor = 'palpite-cor-amarelo';
-            else cor = 'palpite-cor-vermelho';
-        }
+        const isDia = (t.palpite_do_dia === j.idA || t.palpite_do_dia === j.idB);
+        const cor = isDia ? 'palpite-cor-ouro' : 
+                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && pts === 10) ? 'palpite-cor-verde' :
+                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && pts > 0) ? 'palpite-cor-amarelo' :
+                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
         
         html += `
             <div class="jogo-card ${cor}" style="border:1px solid var(--pl-border);">
                 <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:6px;">
-                    <span style="font-weight:600;font-size:0.85rem;">${j.tA} vs ${j.tB}</span>
-                    <span style="font-weight:700;font-size:1rem;background:rgba(61,25,82,0.05);padding:2px 14px;border-radius:8px;">
+                    <span style="font-weight:600;font-size:0.8rem;">${j.tA} vs ${j.tB}</span>
+                    <span style="font-weight:700;font-size:0.95rem;background:rgba(61,25,82,0.05);padding:2px 12px;border-radius:8px;">
                         ${isNaN(pa)?'-':pa} × ${isNaN(pb)?'-':pb}
                     </span>
-                    <span style="font-size:0.75rem;font-weight:600;color:var(--pl-muted);">${pts} pts</span>
+                    <span style="font-size:0.7rem;font-weight:600;color:var(--pl-muted);">${pts} pts ${isDia ? '⭐' : ''}</span>
                 </div>
             </div>
         `;
@@ -828,10 +945,11 @@ function fecharModalExterno(e) {
 function atualizarClassificacao() {
     let e = [];
     Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0;
+        let pts = 0, ptsR1 = 0, ptsR2 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
         const p = dadosPalpites[n];
-        const todosJogos = [...jogosRodada1.map(j => ({...j, tipo: 'r1'}))];
-        todosJogos.forEach(j => {
+        
+        // Rodada 1
+        jogosRodada1.forEach(j => {
             const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
             const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
             if (!isNaN(ra) && !isNaN(rb)) {
@@ -846,7 +964,47 @@ function atualizarClassificacao() {
                 }
             }
         });
-        e.push({nome: n, pontos: pts, ptsR1, cravar, maxSeq, maxZ});
+        
+        // Rodada 2
+        jogosRodada2.forEach(j => {
+            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+            if (!isNaN(ra) && !isNaN(rb)) {
+                const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+                if (!isNaN(pa) && !isNaN(pb)) {
+                    const pt = calcularPontos(ra, rb, pa, pb);
+                    pts += pt;
+                    ptsR2 += pt;
+                    if (pt === 10) cravar++;
+                    if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
+                    else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
+                }
+            }
+        });
+        
+        // ⭐ Bônus Palpite do Dia (apenas na rodada 1)
+        const dia = p.palpite_do_dia;
+        if (dia) {
+            const jogo = jogosRodada1.find(j => j.idA === dia || j.idB === dia);
+            if (jogo) {
+                const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
+                const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
+                const pa = parseInt(p[dia]) || parseInt(p[jogo.idA]);
+                const pb = parseInt(p[dia === jogo.idA ? jogo.idB : jogo.idA]);
+                if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
+                    bonusDia = 5;
+                    pts += 5;
+                    ptsR1 += 5;
+                }
+            }
+        }
+        
+        if (p.coringa_usado) {
+            pts = pts * 2;
+            ptsR1 = ptsR1 * 2;
+            ptsR2 = ptsR2 * 2;
+        }
+        e.push({nome: n, pontos: pts, ptsR1, ptsR2, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
     });
     e.sort((a, b) => b.pontos - a.pontos);
     
@@ -862,9 +1020,12 @@ function atualizarClassificacao() {
         <div class="stat-card"><span class="value">${e[0]?.pontos || 0}</span><span class="label">Líder</span></div>
         <div class="stat-card"><span class="value">${(totalPts/e.length).toFixed(1)}</span><span class="label">Média</span></div>
         <div class="stat-card"><span class="value">${e.length}</span><span class="label">Antas</span></div>
+        <div class="stat-card"><span class="value">⭐ ${e.reduce((a,c) => a + (c.bonusDia > 0 ? 1 : 0), 0)}</span><span class="label">Dia Acertado</span></div>
+        <div class="stat-card"><span class="value">🃏 ${e.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
     `;
     
     const mR1 = [...e].sort((a,b) => b.ptsR1 - a.ptsR1)[0];
+    const mR2 = [...e].sort((a,b) => b.ptsR2 - a.ptsR2)[0];
     const top5 = [...e].sort((a,b) => b.cravar - a.cravar).slice(0, 5);
     const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
     const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
@@ -875,6 +1036,9 @@ function atualizarClassificacao() {
                 <thead><tr><th>Estatística</th><th>Destaque</th><th>Valor</th></tr></thead>
                 <tbody>
                     <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.ptsR1 || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.ptsR2 || 0} pts</td></tr>
+                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
+                    <tr><td>🃏 Coringa Usado</td><td>${e.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                     <tr><td>Melhor Sequência</td><td>${maisSeq?.nome || '-'}</td><td>${maisSeq?.maxSeq || 0} pts</td></tr>
                     <tr><td>Mais Tempo Sem Pontuar</td><td>${maisZ?.nome || '-'}</td><td>${maisZ?.maxZ || 0} jogos</td></tr>
                 </tbody>
@@ -882,13 +1046,18 @@ function atualizarClassificacao() {
         </div>
         <h3 style="font-size:1rem;color:var(--pl-dark);margin-bottom:12px;">🎯 Mestres do Placar Exato</h3>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            ${top5.map(p => `<span style="background:rgba(61,25,82,0.06);padding:4px 14px;border-radius:100px;font-size:0.8rem;font-weight:600;">${p.nome}: ${p.cravar} acertos</span>`).join('')}
+            ${top5.map(p => `<span style="background:rgba(61,25,82,0.06);padding:4px 14px;border-radius:100px;font-size:0.75rem;font-weight:600;">${p.nome}: ${p.cravar} acertos</span>`).join('')}
         </div>
     `;
     
     let partHtml = "";
     Object.keys(dadosPalpites).forEach(n => {
-        partHtml += `<div class="part-item"><span class="nome">${n}</span><button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver</button></div>`;
+        const p = dadosPalpites[n];
+        const coringaStatus = p.coringa_usado ? 'usado' : '';
+        partHtml += `<div class="part-item">
+            <span class="nome">${n} <span class="badge-coringa ${coringaStatus}">${p.coringa_usado ? '🃏 Usado' : '🃏 Disponível'}</span></span>
+            <button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver</button>
+        </div>`;
     });
     document.getElementById("lista-participantes").innerHTML = partHtml;
     
@@ -896,8 +1065,14 @@ function atualizarClassificacao() {
         <div class="news-card">
             <span class="news-tag">🚀 LÍDER</span>
             <div class="news-title">${e[0]?.nome || '-'} na liderança!</div>
-            <div class="news-text">Com ${e[0]?.pontos || 0} pontos na primeira rodada.</div>
+            <div class="news-text">Com ${e[0]?.pontos || 0} pontos no BrasileirAntas 2026.</div>
         </div>
+        ${e.filter(c => c.bonusDia > 0).length > 0 ? `
+        <div class="news-card" style="border-color:#f7c137;">
+            <span class="news-tag" style="background:#f7c137;color:#000;">⭐ PALPITE DO DIA</span>
+            <div class="news-title">${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ')} acertaram o Palpite do Dia!</div>
+            <div class="news-text">Ganharam +5 pontos extras! 🎯</div>
+        </div>` : ''}
     `;
     
     let ant = JSON.parse(localStorage.getItem("brasileirantas_posicoes") || "{}");
@@ -935,6 +1110,3 @@ atualizarClassificacao();
 </body>
 </html>
 ```
-
----
-
