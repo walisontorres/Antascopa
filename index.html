@@ -126,26 +126,26 @@
         /* STATS GRID */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
             margin-bottom: 24px;
         }
         .stat-card {
             background: rgba(61, 25, 82, 0.04);
-            padding: 16px 12px;
+            padding: 14px 10px;
             border-radius: 14px;
             text-align: center;
             border: 1px solid var(--pl-border);
         }
         .stat-card .value {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--pl-purple);
             display: block;
             line-height: 1.2;
         }
         .stat-card .label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             font-weight: 600;
             color: var(--pl-muted);
@@ -211,7 +211,7 @@
         }
         .part-item .nome {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         .part-item .btn-palpites {
             background: var(--pl-purple);
@@ -231,7 +231,7 @@
             transform: scale(1.03);
         }
         .part-item .badge-coringa {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             background: #f7c13730;
             color: #b8860b;
             padding: 2px 8px;
@@ -248,16 +248,16 @@
         .jogos-lista {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         .jogo-card {
             display: flex;
             flex-direction: column;
-            padding: 14px 16px;
+            padding: 12px 14px;
             background: rgba(61, 25, 82, 0.02);
             border-radius: 14px;
             border: 1px solid var(--pl-border);
-            gap: 8px;
+            gap: 6px;
             transition: all 0.3s ease;
         }
         .jogo-card:hover {
@@ -267,76 +267,72 @@
             border-color: var(--pl-gold);
             background: rgba(247, 193, 55, 0.06);
         }
-        .jogo-card.destaque .badge-dia {
-            display: inline-block !important;
-        }
-        .badge-dia {
-            display: none;
-            font-size: 0.55rem;
-            background: var(--pl-gold);
-            color: var(--pl-dark);
-            padding: 1px 10px;
-            border-radius: 100px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-left: 6px;
-        }
         .jogo-principal {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
+            gap: 8px;
         }
         .time {
             flex: 1;
             font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .time.casa { justify-content: flex-end; text-align: right; }
-        .time.fora { justify-content: flex-start; text-align: left; }
-        .time .escudo { font-size: 1.3rem; }
-        .placar-box {
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+        .time.casa { justify-content: flex-end; text-align: right; }
+        .time.fora { justify-content: flex-start; text-align: left; }
+        .time .escudo { font-size: 1.2rem; }
+        .placar-box {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             background: rgba(61, 25, 82, 0.05);
-            padding: 3px 12px;
+            padding: 2px 10px;
             border-radius: 10px;
             border: 1px solid var(--pl-border);
         }
         .placar-box .gol {
             font-weight: 700;
-            font-size: 1rem;
-            min-width: 20px;
+            font-size: 0.95rem;
+            min-width: 18px;
             text-align: center;
             color: var(--pl-dark);
         }
-        .placar-box .x { color: var(--pl-muted); font-size: 0.7rem; }
+        .placar-box .x { color: var(--pl-muted); font-size: 0.65rem; }
         .jogo-odds {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 600;
             color: var(--pl-muted);
             text-align: center;
             letter-spacing: 0.5px;
         }
+        .badge-dia {
+            font-size: 0.5rem;
+            background: var(--pl-gold);
+            color: var(--pl-dark);
+            padding: 1px 8px;
+            border-radius: 100px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-left: 6px;
+        }
 
         /* TABs */
         .tab-container {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             margin-bottom: 16px;
         }
         .tab-btn {
-            padding: 7px 16px;
+            padding: 6px 14px;
             border-radius: 100px;
             border: 1px solid var(--pl-border);
             background: transparent;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--pl-muted);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -368,7 +364,7 @@
         .modal-conteudo {
             background: #fff;
             border-radius: var(--radius);
-            padding: 28px 20px;
+            padding: 24px 18px;
             max-width: 700px;
             width: 100%;
             max-height: 85vh;
@@ -380,7 +376,7 @@
             float: right;
             background: none;
             border: none;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             cursor: pointer;
             color: var(--pl-muted);
             padding: 0 6px;
@@ -408,12 +404,12 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 5px 0;
+            padding: 4px 0;
         }
         .evolucao-nome {
             font-weight: 600;
-            width: 110px;
-            font-size: 0.8rem;
+            width: 100px;
+            font-size: 0.75rem;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -434,13 +430,13 @@
         .evolucao-pts {
             font-weight: 700;
             color: var(--pl-purple);
-            width: 45px;
+            width: 40px;
             text-align: right;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .evolucao-tendencia {
-            font-size: 0.7rem;
-            width: 35px;
+            font-size: 0.65rem;
+            width: 30px;
             text-align: right;
             font-weight: 600;
         }
@@ -451,24 +447,24 @@
         /* GRAFICO */
         .grafico-container {
             width: 100%;
-            height: 280px;
-            margin: 14px 0;
+            height: 260px;
+            margin: 12px 0;
         }
         .grafico-legenda {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             justify-content: center;
-            font-size: 0.65rem;
-            padding: 8px 0;
+            font-size: 0.6rem;
+            padding: 6px 0;
         }
         .grafico-legenda-item {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         .grafico-legenda-cor {
-            width: 16px;
+            width: 14px;
             height: 3px;
             border-radius: 4px;
         }
@@ -476,50 +472,50 @@
         /* NEWS */
         .news-card {
             border-left: 4px solid var(--pl-gold);
-            padding-left: 14px;
-            margin-bottom: 10px;
+            padding-left: 12px;
+            margin-bottom: 8px;
         }
         .news-tag {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--pl-gold);
             background: var(--pl-dark);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-radius: 100px;
             display: inline-block;
             letter-spacing: 1px;
         }
         .news-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--pl-dark);
-            margin-top: 3px;
+            margin-top: 2px;
         }
         .news-text {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--pl-muted);
         }
 
         /* RESPONSIVE */
         @media (max-width: 640px) {
-            .pl-header h1 { font-size: 2.2rem; }
-            .pl-header .lion { font-size: 2rem; }
-            .pl-card { padding: 18px 12px; }
-            .time { font-size: 0.75rem; }
-            .time .escudo { font-size: 1.1rem; }
-            .placar-box { padding: 2px 8px; }
-            .placar-box .gol { font-size: 0.85rem; min-width: 16px; }
+            .pl-header h1 { font-size: 2rem; }
+            .pl-header .lion { font-size: 1.8rem; }
+            .pl-card { padding: 16px 12px; }
+            .time { font-size: 0.7rem; }
+            .time .escudo { font-size: 1rem; }
+            .placar-box { padding: 2px 6px; }
+            .placar-box .gol { font-size: 0.8rem; min-width: 14px; }
             .part-lista { grid-template-columns: 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
-            .evolucao-nome { width: 70px; font-size: 0.7rem; }
-            .grafico-container { height: 200px; }
-            .modal-conteudo { padding: 20px 12px; }
+            .evolucao-nome { width: 60px; font-size: 0.65rem; }
+            .grafico-container { height: 180px; }
+            .modal-conteudo { padding: 16px 10px; }
         }
         @media (max-width: 480px) {
-            .pl-header h1 { font-size: 1.8rem; }
-            .jogo-principal { flex-wrap: wrap; justify-content: center; gap: 4px; }
-            .time { font-size: 0.7rem; flex: 0 1 auto; }
+            .pl-header h1 { font-size: 1.6rem; }
+            .jogo-principal { flex-wrap: wrap; justify-content: center; gap: 3px; }
+            .time { font-size: 0.65rem; flex: 0 1 auto; }
             .time.casa { order: 1; }
             .placar-box { order: 2; }
             .time.fora { order: 3; }
@@ -583,6 +579,7 @@
         <div class="tab-container" id="tab-container">
             <button class="tab-btn active" data-rodada="1" onclick="renderizarPorRodada(1)">Rodada 1</button>
             <button class="tab-btn" data-rodada="2" onclick="renderizarPorRodada(2)">Rodada 2</button>
+            <button class="tab-btn" data-rodada="3" onclick="renderizarPorRodada(3)">Rodada 3</button>
         </div>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
     </div>
@@ -618,29 +615,58 @@ const jogosRodada2 = [
     { id: 6, tA: "Corinthians", eA: "⚪", tB: "Remo", eB: "🔵", idA: "r2_j2_a", idB: "r2_j2_b" }
 ];
 
+const jogosRodada3 = [
+    { id: 7, tA: "Athletico-PR", eA: "⚫", tB: "Internacional", eB: "🔴", idA: "r3_j1_a", idB: "r3_j1_b" },
+    { id: 8, tA: "Santos", eA: "⚪", tB: "Chapecoense", eB: "🟢", idA: "r3_j2_a", idB: "r3_j2_b" },
+    { id: 9, tA: "Vasco", eA: "⚫", tB: "Mirassol", eB: "🟢", idA: "r3_j3_a", idB: "r3_j3_b" },
+    { id: 10, tA: "Bahia", eA: "🔵", tB: "Corinthians", eB: "⚪", idA: "r3_j4_a", idB: "r3_j4_b" },
+    { id: 11, tA: "Cruzeiro", eA: "🔵", tB: "Botafogo", eB: "⚫", idA: "r3_j5_a", idB: "r3_j5_b" },
+    { id: 12, tA: "Flamengo", eA: "🔴", tB: "São Paulo", eB: "🔴", idA: "r3_j6_a", idB: "r3_j6_b" },
+    { id: 13, tA: "Grêmio", eA: "🔵", tB: "Fluminense", eB: "🔴", idA: "r3_j7_a", idB: "r3_j7_b" },
+    { id: 14, tA: "Red Bull Bragantino", eA: "🔴", tB: "Coritiba", eB: "🟢", idA: "r3_j8_a", idB: "r3_j8_b" },
+    { id: 15, tA: "Palmeiras", eA: "🟢", tB: "Atlético-MG", eB: "⚫", idA: "r3_j9_a", idB: "r3_j9_b" },
+    { id: 16, tA: "Remo", eA: "🔵", tB: "Vitória", eB: "🔴", idA: "r3_j10_a", idB: "r3_j10_b" }
+];
+
 // ==================== DADOS DOS PALPITES ====================
 const dadosPalpites = {
     "Paulão": {
         r1_j1_a: "0", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "2", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
         r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
-        palpite_do_dia: null,
+        r3_j1_a: "1", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1",
+        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "2",
+        r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "1",
+        r3_j10_a: "1", r3_j10_b: "0",
+        palpite_do_dia: "r3_j2",
         coringa_usado: false
     },
     "Lucas": {
         r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "1", r1_j2_b: "2", r1_j3_a: "0", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
         r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "3", r2_j2_b: "1",
-        palpite_do_dia: null,
+        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "1", r3_j3_a: "2", r3_j3_b: "1",
+        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
+        r3_j7_a: "2", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "2", r3_j9_b: "1",
+        r3_j10_a: "0", r3_j10_b: "1",
+        palpite_do_dia: "r3_j6",
         coringa_usado: false
     },
     "Psico": {
         r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "2",
         r2_j1_a: "2", r2_j1_b: "2", r2_j2_a: "1", r2_j2_b: "2",
-        palpite_do_dia: null,
+        r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1",
+        r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
+        r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
+        r3_j10_a: "0", r3_j10_b: "1",
+        palpite_do_dia: "r3_j6",
         coringa_usado: false
     },
     "Neneca": {
         r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "0", r1_j4_b: "0",
         r2_j1_a: "1", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
+        r3_j1_a: "1", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "1",
+        r3_j4_a: "1", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
+        r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "0",
+        r3_j10_a: "1", r3_j10_b: "1",
         palpite_do_dia: null,
         coringa_usado: false
     },
@@ -652,28 +678,52 @@ const dadosPalpites = {
     "Sid": {
         r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "4", r1_j3_a: "1", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "0",
         r2_j1_a: "0", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
-        palpite_do_dia: null,
+        r3_j1_a: "3", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "0",
+        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "0",
+        r3_j7_a: "2", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "2", r3_j9_b: "0",
+        r3_j10_a: "1", r3_j10_b: "2",
+        palpite_do_dia: "r3_j6",
         coringa_usado: false
     },
     "Samuel": {
         r1_j2_a: "0", r1_j2_b: "5", r1_j3_a: "2", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "1",
+        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
         palpite_do_dia: null,
         coringa_usado: false
     },
     "Walishow": {
         r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "0",
         r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
-        palpite_do_dia: null,
+        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "1", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "2",
+        r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "3", r3_j6_b: "1",
+        r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "3", r3_j9_b: "0",
+        r3_j10_a: "0", r3_j10_b: "1",
+        palpite_do_dia: "r3_j1",
         coringa_usado: false
     },
     "Freitas": {
         r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
-        palpite_do_dia: null,
+        r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "1",
+        r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
+        r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
+        r3_j10_a: "0", r3_j10_b: "1",
+        palpite_do_dia: "r3_j2",
         coringa_usado: false
     },
     "Fish": {
         r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
-        palpite_do_dia: null,
+        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "0",
+        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
+        r3_j7_a: "2", r3_j7_b: "0", r3_j8_a: "3", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
+        r3_j10_a: "1", r3_j10_b: "1",
+        palpite_do_dia: "r3_j9",
+        coringa_usado: false
+    },
+    "Splé": {
+        r3_j4_a: "0", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "3", r3_j6_b: "0",
+        r3_j7_a: "2", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "1",
+        r3_j10_a: "0", r3_j10_b: "1",
+        palpite_do_dia: "r3_j7",
         coringa_usado: false
     }
 };
@@ -681,13 +731,18 @@ const dadosPalpites = {
 // ==================== RESULTADOS ====================
 const resultadosFinais = {
     // Rodada 1
-    r1_j1_a: "1", r1_j1_b: "3",  // Coritiba 1x3 Palmeiras
-    r1_j2_a: "0", r1_j2_b: "4",  // Chapecoense 0x2 Flamengo
-    r1_j3_a: "1", r1_j3_b: "2",  // Internacional 1x0 Cruzeiro
-    r1_j4_a: "1", r1_j4_b: "2",  // São Paulo 1x2 Athletico-PR
-    // Rodada 2 (aguardando resultados)
-    r2_j1_a: "0", r2_j1_b: "0",
-    r2_j2_a: "3", r2_j2_b: "0"
+    r1_j1_a: "1", r1_j1_b: "3",
+    r1_j2_a: "0", r1_j2_b: "2",
+    r1_j3_a: "1", r1_j3_b: "0",
+    r1_j4_a: "1", r1_j4_b: "2",
+    // Rodada 2
+    r2_j1_a: "-", r2_j1_b: "-",
+    r2_j2_a: "-", r2_j2_b: "-",
+    // Rodada 3
+    r3_j1_a: "-", r3_j1_b: "-", r3_j2_a: "-", r3_j2_b: "-", r3_j3_a: "-", r3_j3_b: "-",
+    r3_j4_a: "-", r3_j4_b: "-", r3_j5_a: "-", r3_j5_b: "-", r3_j6_a: "-", r3_j6_b: "-",
+    r3_j7_a: "-", r3_j7_b: "-", r3_j8_a: "-", r3_j8_b: "-", r3_j9_a: "-", r3_j9_b: "-",
+    r3_j10_a: "-", r3_j10_b: "-"
 };
 
 // ==================== VARIÁVEIS ====================
@@ -711,6 +766,7 @@ function calcularPontos(rA, rB, pA, pB) {
 function getJogosPorRodada(rodada) {
     if (rodada === 1) return jogosRodada1;
     if (rodada === 2) return jogosRodada2;
+    if (rodada === 3) return jogosRodada3;
     return [];
 }
 
@@ -732,7 +788,6 @@ function getPontuacaoRodada(jogador, rodada) {
         }
     });
     
-    // ⭐ Bônus do Palpite do Dia
     const dia = p.palpite_do_dia;
     if (dia) {
         const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -758,7 +813,7 @@ function getPontuacaoRodada(jogador, rodada) {
 
 function getHistoricoPontos(jogador) {
     const historico = [];
-    for (let r = 1; r <= 2; r++) {
+    for (let r = 1; r <= 3; r++) {
         historico.push(getPontuacaoRodada(jogador, r));
     }
     return historico;
@@ -772,7 +827,7 @@ function getPontuacaoAcumulada(jogador) {
 
 function atualizarGrafico() {
     const participantes = Object.keys(dadosPalpites);
-    const labels = ['Rodada 1', 'Rodada 2'];
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3'];
     
     const datasets = participantes.map((nome, index) => {
         const dados = getPontuacaoAcumulada(nome);
@@ -792,7 +847,7 @@ function atualizarGrafico() {
     
     const pontuacaoFinal = participantes.map(n => ({
         nome: n,
-        pontos: getPontuacaoAcumulada(n)[1] || 0
+        pontos: getPontuacaoAcumulada(n)[2] || 0
     }));
     pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
     const ordem = pontuacaoFinal.map(p => p.nome);
@@ -945,47 +1000,35 @@ function fecharModalExterno(e) {
 function atualizarClassificacao() {
     let e = [];
     Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, ptsR2 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
+        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
         const p = dadosPalpites[n];
         
-        // Rodada 1
-        jogosRodada1.forEach(j => {
-            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
-            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-            if (!isNaN(ra) && !isNaN(rb)) {
-                const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
-                if (!isNaN(pa) && !isNaN(pb)) {
-                    const pt = calcularPontos(ra, rb, pa, pb);
-                    pts += pt;
-                    ptsR1 += pt;
-                    if (pt === 10) cravar++;
-                    if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
-                    else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
+        [jogosRodada1, jogosRodada2, jogosRodada3].forEach((jogos, idx) => {
+            const tipo = idx === 0 ? 'r1' : idx === 1 ? 'r2' : 'r3';
+            jogos.forEach(j => {
+                const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+                const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+                if (!isNaN(ra) && !isNaN(rb)) {
+                    const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
+                    if (!isNaN(pa) && !isNaN(pb)) {
+                        const pt = calcularPontos(ra, rb, pa, pb);
+                        pts += pt;
+                        if (tipo === 'r1') ptsR1 += pt;
+                        else if (tipo === 'r2') ptsR2 += pt;
+                        else if (tipo === 'r3') ptsR3 += pt;
+                        if (pt === 10) cravar++;
+                        if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
+                        else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
+                    }
                 }
-            }
+            });
         });
         
-        // Rodada 2
-        jogosRodada2.forEach(j => {
-            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
-            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-            if (!isNaN(ra) && !isNaN(rb)) {
-                const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
-                if (!isNaN(pa) && !isNaN(pb)) {
-                    const pt = calcularPontos(ra, rb, pa, pb);
-                    pts += pt;
-                    ptsR2 += pt;
-                    if (pt === 10) cravar++;
-                    if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
-                    else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
-                }
-            }
-        });
-        
-        // ⭐ Bônus Palpite do Dia (apenas na rodada 1)
         const dia = p.palpite_do_dia;
         if (dia) {
-            const jogo = jogosRodada1.find(j => j.idA === dia || j.idB === dia);
+            const jogo = jogosRodada1.find(j => j.idA === dia || j.idB === dia) ||
+                         jogosRodada2.find(j => j.idA === dia || j.idB === dia) ||
+                         jogosRodada3.find(j => j.idA === dia || j.idB === dia);
             if (jogo) {
                 const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
                 const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
@@ -994,7 +1037,9 @@ function atualizarClassificacao() {
                 if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
                     bonusDia = 5;
                     pts += 5;
-                    ptsR1 += 5;
+                    if (jogosRodada1.find(j => j.idA === dia || j.idB === dia)) ptsR1 += 5;
+                    else if (jogosRodada2.find(j => j.idA === dia || j.idB === dia)) ptsR2 += 5;
+                    else if (jogosRodada3.find(j => j.idA === dia || j.idB === dia)) ptsR3 += 5;
                 }
             }
         }
@@ -1003,8 +1048,9 @@ function atualizarClassificacao() {
             pts = pts * 2;
             ptsR1 = ptsR1 * 2;
             ptsR2 = ptsR2 * 2;
+            ptsR3 = ptsR3 * 2;
         }
-        e.push({nome: n, pontos: pts, ptsR1, ptsR2, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
+        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
     });
     e.sort((a, b) => b.pontos - a.pontos);
     
@@ -1026,6 +1072,7 @@ function atualizarClassificacao() {
     
     const mR1 = [...e].sort((a,b) => b.ptsR1 - a.ptsR1)[0];
     const mR2 = [...e].sort((a,b) => b.ptsR2 - a.ptsR2)[0];
+    const mR3 = [...e].sort((a,b) => b.ptsR3 - a.ptsR3)[0];
     const top5 = [...e].sort((a,b) => b.cravar - a.cravar).slice(0, 5);
     const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
     const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
@@ -1037,6 +1084,7 @@ function atualizarClassificacao() {
                 <tbody>
                     <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.ptsR1 || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.ptsR2 || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.ptsR3 || 0} pts</td></tr>
                     <tr><td>⭐ Bônus Palpite do Dia</td><td>${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
                     <tr><td>🃏 Coringa Usado</td><td>${e.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                     <tr><td>Melhor Sequência</td><td>${maisSeq?.nome || '-'}</td><td>${maisSeq?.maxSeq || 0} pts</td></tr>
