@@ -596,7 +596,7 @@
 <div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)">
     <div class="modal-conteudo">
         <button class="modal-fechar" onclick="fecharPalpites()">✕</button>
-        <h2 id="modal-titulo" style="color:var(--pl-dark);margin-bottom:16px;">Palpites</h2>
+        <h2 id="modal-titulo" style="color:var(--pl-dark);margin-bottom:16px;">📋 Palpites</h2>
         <div id="modal-container-interno"></div>
     </div>
 </div>
@@ -739,7 +739,7 @@ const resultadosFinais = {
     r2_j1_a: "0", r2_j1_b: "0",
     r2_j2_a: "3", r2_j2_b: "0",
     // Rodada 3
-    r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "-", r3_j3_b: "-",
+    r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
     r3_j4_a: "-", r3_j4_b: "-", r3_j5_a: "-", r3_j5_b: "-", r3_j6_a: "-", r3_j6_b: "-",
     r3_j7_a: "-", r3_j7_b: "-", r3_j8_a: "-", r3_j8_b: "-", r3_j9_a: "-", r3_j9_b: "-",
     r3_j10_a: "-", r3_j10_b: "-"
@@ -949,42 +949,69 @@ function calcularOddsDinamicas(jogo, rodada) {
     return `${(total/(casa||0.1)).toFixed(2)} - ${(total/(empate||0.1)).toFixed(2)} - ${(total/(fora||0.1)).toFixed(2)}`;
 }
 
-function abrirPalpites(e, rodada = 1) {
-    document.getElementById("modal-titulo").innerText = `Palpites de ${e}`;
+function abrirPalpites(e) {
+    document.getElementById("modal-titulo").innerText = `📋 Palpites de ${e}`;
     const t = dadosPalpites[e];
-    const jogos = getJogosPorRodada(rodada);
+    if (!t) {
+        document.getElementById("modal-container-interno").innerHTML = '<p style="text-align:center;color:var(--pl-muted);">Nenhum palpite encontrado.</p>';
+        document.getElementById("modal-palpites").classList.add("ativo");
+        return;
+    }
     
-    let html = `<div style="margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap;font-size:0.8rem;">
-        <span>⭐ Palpite do Dia: ${t.palpite_do_dia ? '✅ Ativo' : '❌ Não escolheu'}</span>
-        <span>🃏 Coringa: ${t.coringa_usado ? '✅ Usado' : '❌ Disponível'}</span>
-    </div><div class="jogos-lista">`;
+    const todasRodadas = [
+        { nome: "Rodada 1", jogos: jogosRodada1 },
+        { nome: "Rodada 2", jogos: jogosRodada2 },
+        { nome: "Rodada 3", jogos: jogosRodada3 }
+    ];
     
-    jogos.forEach(j => {
-        const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
-        const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-        const pa = t && t[j.idA] !== undefined ? parseInt(t[j.idA]) : NaN;
-        const pb = t && t[j.idB] !== undefined ? parseInt(t[j.idB]) : NaN;
-        const pts = (isNaN(ra) || isNaN(rb) || isNaN(pa) || isNaN(pb)) ? 0 : calcularPontos(ra, rb, pa, pb);
+    let html = `
+        <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;font-size:0.85rem;background:rgba(61,25,82,0.04);padding:12px 16px;border-radius:12px;">
+            <span>⭐ Palpite do Dia: ${t.palpite_do_dia ? '✅ Ativo' : '❌ Não escolheu'}</span>
+            <span>🃏 Coringa: ${t.coringa_usado ? '✅ Usado' : '❌ Disponível'}</span>
+        </div>
+    `;
+    
+    todasRodadas.forEach(rodada => {
+        const temPalpites = rodada.jogos.some(j => t[j.idA] !== undefined);
+        if (!temPalpites) return;
         
-        const isDia = (t.palpite_do_dia === j.idA || t.palpite_do_dia === j.idB);
-        const cor = isDia ? 'palpite-cor-ouro' : 
-                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && pts === 10) ? 'palpite-cor-verde' :
-                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && pts > 0) ? 'palpite-cor-amarelo' :
-                    (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
+        html += `<div style="margin-top:16px;margin-bottom:8px;font-weight:700;font-size:0.9rem;color:var(--pl-purple);border-bottom:2px solid var(--pl-border);padding-bottom:6px;">📌 ${rodada.nome}</div>`;
+        html += `<div class="jogos-lista">`;
         
-        html += `
-            <div class="jogo-card ${cor}" style="border:1px solid var(--pl-border);">
-                <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:6px;">
-                    <span style="font-weight:600;font-size:0.8rem;">${j.tA} vs ${j.tB}</span>
-                    <span style="font-weight:700;font-size:0.95rem;background:rgba(61,25,82,0.05);padding:2px 12px;border-radius:8px;">
-                        ${isNaN(pa)?'-':pa} × ${isNaN(pb)?'-':pb}
-                    </span>
-                    <span style="font-size:0.7rem;font-weight:600;color:var(--pl-muted);">${pts} pts ${isDia ? '⭐' : ''}</span>
+        rodada.jogos.forEach(j => {
+            const pa = t[j.idA] !== undefined ? t[j.idA] : "-";
+            const pb = t[j.idB] !== undefined ? t[j.idB] : "-";
+            
+            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
+            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
+            const pts = (!isNaN(ra) && !isNaN(rb) && pa !== "-" && pb !== "-") ? calcularPontos(ra, rb, parseInt(pa), parseInt(pb)) : 0;
+            const temResultado = !isNaN(ra) && !isNaN(rb);
+            
+            const isDia = (t.palpite_do_dia === j.idA || t.palpite_do_dia === j.idB);
+            const cor = isDia ? 'palpite-cor-ouro' : 
+                        (temResultado && pts === 10) ? 'palpite-cor-verde' :
+                        (temResultado && pts > 0) ? 'palpite-cor-amarelo' :
+                        (temResultado) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
+            
+            html += `
+                <div class="jogo-card ${cor}" style="border:1px solid var(--pl-border);padding:8px 12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:4px;">
+                        <span style="font-weight:600;font-size:0.8rem;">${j.tA} vs ${j.tB}</span>
+                        <span style="font-weight:700;font-size:0.95rem;background:rgba(61,25,82,0.05);padding:2px 12px;border-radius:8px;">
+                            ${pa} × ${pb}
+                        </span>
+                        <span style="font-size:0.7rem;font-weight:600;color:var(--pl-muted);">
+                            ${temResultado ? pts + ' pts' : '⏳ Aguardando'}
+                            ${isDia ? ' ⭐' : ''}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        });
+        
+        html += `</div>`;
     });
-    html += '</div>';
+    
     document.getElementById("modal-container-interno").innerHTML = html;
     document.getElementById("modal-palpites").classList.add("ativo");
 }
