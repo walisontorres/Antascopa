@@ -580,6 +580,7 @@
             <button class="tab-btn active" data-rodada="1" onclick="renderizarPorRodada(1)">Rodada 1</button>
             <button class="tab-btn" data-rodada="2" onclick="renderizarPorRodada(2)">Rodada 2</button>
             <button class="tab-btn" data-rodada="3" onclick="renderizarPorRodada(3)">Rodada 3</button>
+            <button class="tab-btn" data-rodada="4" onclick="renderizarPorRodada(4)">Rodada 4</button>
         </div>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
     </div>
@@ -628,6 +629,15 @@ const jogosRodada3 = [
     { id: 16, tA: "Remo", eA: "🔵", tB: "Vitória", eB: "🔴", idA: "r3_j10_a", idB: "r3_j10_b" }
 ];
 
+const jogosRodada4 = [
+    { id: 17, tA: "Internacional", eA: "🔴", tB: "Flamengo", eB: "🔴", idA: "r4_j1_a", idB: "r4_j1_b" },
+    { id: 18, tA: "Mirassol", eA: "🟢", tB: "Remo", eB: "🔵", idA: "r4_j2_a", idB: "r4_j2_b" },
+    { id: 19, tA: "Fluminense", eA: "🔴", tB: "Bahia", eB: "🔵", idA: "r4_j3_a", idB: "r4_j3_b" },
+    { id: 20, tA: "Vitória", eA: "🔴", tB: "Palmeiras", eB: "🟢", idA: "r4_j4_a", idB: "r4_j4_b" },
+    { id: 21, tA: "Corinthians", eA: "⚪", tB: "Athletico-PR", eB: "⚫", idA: "r4_j5_a", idB: "r4_j5_b" },
+    { id: 22, tA: "Coritiba", eA: "🟢", tB: "Cruzeiro", eB: "🔵", idA: "r4_j6_a", idB: "r4_j6_b" }
+];
+
 // ==================== DADOS DOS PALPITES ====================
 const dadosPalpites = {
     "Paulão": {
@@ -637,7 +647,9 @@ const dadosPalpites = {
         r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "2",
         r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "1",
         r3_j10_a: "1", r3_j10_b: "0",
-        palpite_do_dia: "r3_j2",
+        r4_j1_a: "1", r4_j1_b: "3", r4_j2_a: "2", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
+        r4_j4_a: "2", r4_j4_b: "1", r4_j5_a: "1", r4_j5_b: "0", r4_j6_a: "0", r4_j6_b: "1",
+        palpite_do_dia: null,
         coringa_usado: false
     },
     "Lucas": {
@@ -647,7 +659,9 @@ const dadosPalpites = {
         r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
         r3_j7_a: "2", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "2", r3_j9_b: "1",
         r3_j10_a: "0", r3_j10_b: "1",
-        palpite_do_dia: "r3_j6",
+        r4_j1_a: "1", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
+        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "2", r4_j5_b: "1", r4_j6_a: "1", r4_j6_b: "2",
+        palpite_do_dia: "r4_j1",
         coringa_usado: false
     },
     "Psico": {
@@ -657,7 +671,9 @@ const dadosPalpites = {
         r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
         r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
         r3_j10_a: "0", r3_j10_b: "1",
-        palpite_do_dia: "r3_j6",
+        r4_j1_a: "0", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "2", r4_j3_b: "1",
+        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "1", r4_j5_b: "1", r4_j6_a: "1", r4_j6_b: "1",
+        palpite_do_dia: "r4_j1",
         coringa_usado: false
     },
     "Neneca": {
@@ -667,6 +683,8 @@ const dadosPalpites = {
         r3_j4_a: "1", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
         r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "0",
         r3_j10_a: "1", r3_j10_b: "1",
+        r4_j1_a: "0", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "1", r4_j3_a: "2", r4_j3_b: "1",
+        r4_j4_a: "0", r4_j4_b: "1", r4_j5_a: "1", r4_j5_b: "1", r4_j6_a: "0", r4_j6_b: "2",
         palpite_do_dia: null,
         coringa_usado: false
     },
@@ -682,7 +700,9 @@ const dadosPalpites = {
         r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "0",
         r3_j7_a: "2", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "2", r3_j9_b: "0",
         r3_j10_a: "1", r3_j10_b: "2",
-        palpite_do_dia: "r3_j6",
+        r4_j1_a: "0", r4_j1_b: "3", r4_j2_a: "0", r4_j2_b: "1", r4_j3_a: "1", r4_j3_b: "2",
+        r4_j4_a: "1", r4_j4_b: "0", r4_j5_a: "1", r4_j5_b: "2", r4_j6_a: "1", r4_j6_b: "2",
+        palpite_do_dia: "r4_j3",
         coringa_usado: false
     },
     "Samuel": {
@@ -698,7 +718,9 @@ const dadosPalpites = {
         r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "3", r3_j6_b: "1",
         r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "3", r3_j9_b: "0",
         r3_j10_a: "0", r3_j10_b: "1",
-        palpite_do_dia: "r3_j1",
+        r4_j1_a: "0", r4_j1_b: "3", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
+        r4_j4_a: "0", r4_j4_b: "4", r4_j5_a: "2", r4_j5_b: "1", r4_j6_a: "0", r4_j6_b: "1",
+        palpite_do_dia: "r4_j2",
         coringa_usado: false
     },
     "Freitas": {
@@ -707,7 +729,9 @@ const dadosPalpites = {
         r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
         r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
         r3_j10_a: "0", r3_j10_b: "1",
-        palpite_do_dia: "r3_j2",
+        r4_j1_a: "1", r4_j1_b: "2", r4_j2_a: "2", r4_j2_b: "1", r4_j3_a: "1", r4_j3_b: "2",
+        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "2", r4_j5_b: "0", r4_j6_a: "1", r4_j6_b: "2",
+        palpite_do_dia: "r4_j5",
         coringa_usado: false
     },
     "Fish": {
@@ -742,7 +766,10 @@ const resultadosFinais = {
     r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
     r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "1",
     r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "2",
-    r3_j10_a: "2", r3_j10_b: "0"
+    r3_j10_a: "2", r3_j10_b: "0",
+    // Rodada 4
+    r4_j1_a: "-", r4_j1_b: "-", r4_j2_a: "-", r4_j2_b: "-", r4_j3_a: "-", r4_j3_b: "-",
+    r4_j4_a: "-", r4_j4_b: "-", r4_j5_a: "-", r4_j5_b: "-", r4_j6_a: "-", r4_j6_b: "-"
 };
 
 // ==================== VARIÁVEIS ====================
@@ -767,6 +794,7 @@ function getJogosPorRodada(rodada) {
     if (rodada === 1) return jogosRodada1;
     if (rodada === 2) return jogosRodada2;
     if (rodada === 3) return jogosRodada3;
+    if (rodada === 4) return jogosRodada4;
     return [];
 }
 
@@ -813,7 +841,7 @@ function getPontuacaoRodada(jogador, rodada) {
 
 function getHistoricoPontos(jogador) {
     const historico = [];
-    for (let r = 1; r <= 3; r++) {
+    for (let r = 1; r <= 4; r++) {
         historico.push(getPontuacaoRodada(jogador, r));
     }
     return historico;
@@ -827,7 +855,7 @@ function getPontuacaoAcumulada(jogador) {
 
 function atualizarGrafico() {
     const participantes = Object.keys(dadosPalpites);
-    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3'];
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4'];
     
     const datasets = participantes.map((nome, index) => {
         const dados = getPontuacaoAcumulada(nome);
@@ -847,7 +875,7 @@ function atualizarGrafico() {
     
     const pontuacaoFinal = participantes.map(n => ({
         nome: n,
-        pontos: getPontuacaoAcumulada(n)[2] || 0
+        pontos: getPontuacaoAcumulada(n)[3] || 0
     }));
     pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
     const ordem = pontuacaoFinal.map(p => p.nome);
@@ -961,7 +989,8 @@ function abrirPalpites(e) {
     const todasRodadas = [
         { nome: "Rodada 1", jogos: jogosRodada1 },
         { nome: "Rodada 2", jogos: jogosRodada2 },
-        { nome: "Rodada 3", jogos: jogosRodada3 }
+        { nome: "Rodada 3", jogos: jogosRodada3 },
+        { nome: "Rodada 4", jogos: jogosRodada4 }
     ];
     
     let html = `
@@ -1027,11 +1056,14 @@ function fecharModalExterno(e) {
 function atualizarClassificacao() {
     let e = [];
     Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
+        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsR4 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
         const p = dadosPalpites[n];
         
-        [jogosRodada1, jogosRodada2, jogosRodada3].forEach((jogos, idx) => {
-            const tipo = idx === 0 ? 'r1' : idx === 1 ? 'r2' : 'r3';
+        const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4];
+        const tipos = ['r1', 'r2', 'r3', 'r4'];
+        
+        todasRodadas.forEach((jogos, idx) => {
+            const tipo = tipos[idx];
             jogos.forEach(j => {
                 const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
                 const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
@@ -1043,6 +1075,7 @@ function atualizarClassificacao() {
                         if (tipo === 'r1') ptsR1 += pt;
                         else if (tipo === 'r2') ptsR2 += pt;
                         else if (tipo === 'r3') ptsR3 += pt;
+                        else if (tipo === 'r4') ptsR4 += pt;
                         if (pt === 10) cravar++;
                         if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
                         else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
@@ -1053,9 +1086,8 @@ function atualizarClassificacao() {
         
         const dia = p.palpite_do_dia;
         if (dia) {
-            const jogo = jogosRodada1.find(j => j.idA === dia || j.idB === dia) ||
-                         jogosRodada2.find(j => j.idA === dia || j.idB === dia) ||
-                         jogosRodada3.find(j => j.idA === dia || j.idB === dia);
+            const todasRodadasJogos = [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4];
+            const jogo = todasRodadasJogos.find(j => j.idA === dia || j.idB === dia);
             if (jogo) {
                 const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
                 const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
@@ -1064,9 +1096,11 @@ function atualizarClassificacao() {
                 if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
                     bonusDia = 5;
                     pts += 5;
-                    if (jogosRodada1.find(j => j.idA === dia || j.idB === dia)) ptsR1 += 5;
-                    else if (jogosRodada2.find(j => j.idA === dia || j.idB === dia)) ptsR2 += 5;
-                    else if (jogosRodada3.find(j => j.idA === dia || j.idB === dia)) ptsR3 += 5;
+                    const prefixo = jogo.idA.substring(0, 3);
+                    if (prefixo === 'r1') ptsR1 += 5;
+                    else if (prefixo === 'r2') ptsR2 += 5;
+                    else if (prefixo === 'r3') ptsR3 += 5;
+                    else if (prefixo === 'r4') ptsR4 += 5;
                 }
             }
         }
@@ -1076,8 +1110,9 @@ function atualizarClassificacao() {
             ptsR1 = ptsR1 * 2;
             ptsR2 = ptsR2 * 2;
             ptsR3 = ptsR3 * 2;
+            ptsR4 = ptsR4 * 2;
         }
-        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
+        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsR4, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
     });
     e.sort((a, b) => b.pontos - a.pontos);
     
@@ -1100,6 +1135,7 @@ function atualizarClassificacao() {
     const mR1 = [...e].sort((a,b) => b.ptsR1 - a.ptsR1)[0];
     const mR2 = [...e].sort((a,b) => b.ptsR2 - a.ptsR2)[0];
     const mR3 = [...e].sort((a,b) => b.ptsR3 - a.ptsR3)[0];
+    const mR4 = [...e].sort((a,b) => b.ptsR4 - a.ptsR4)[0];
     const top5 = [...e].sort((a,b) => b.cravar - a.cravar).slice(0, 5);
     const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
     const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
@@ -1112,6 +1148,7 @@ function atualizarClassificacao() {
                     <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.ptsR1 || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.ptsR2 || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.ptsR3 || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R4</td><td>${mR4?.nome || '-'}</td><td>${mR4?.ptsR4 || 0} pts</td></tr>
                     <tr><td>⭐ Bônus Palpite do Dia</td><td>${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
                     <tr><td>🃏 Coringa Usado</td><td>${e.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                     <tr><td>Melhor Sequência</td><td>${maisSeq?.nome || '-'}</td><td>${maisSeq?.maxSeq || 0} pts</td></tr>
