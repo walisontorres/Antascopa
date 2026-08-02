@@ -785,7 +785,7 @@ const dadosPalpites = {
     }
 };
 
-// ==================== RESULTADOS ====================
+// ==================== RESULTADOS ATUALIZADOS ====================
 const resultadosFinais = {
     // Rodada 1
     r1_j1_a: "1", r1_j1_b: "3",
@@ -796,17 +796,32 @@ const resultadosFinais = {
     r2_j1_a: "0", r2_j1_b: "0",
     r2_j2_a: "3", r2_j2_b: "0",
     // Rodada 3
-    r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
-    r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "1",
-    r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "2",
+    r3_j1_a: "2", r3_j1_b: "0", 
+    r3_j2_a: "2", r3_j2_b: "2", 
+    r3_j3_a: "1", r3_j3_b: "1",
+    r3_j4_a: "1", r3_j4_b: "1", 
+    r3_j5_a: "0", r3_j5_b: "1", 
+    r3_j6_a: "1", r3_j6_b: "1",
+    r3_j7_a: "1", r3_j7_b: "1", 
+    r3_j8_a: "0", r3_j8_b: "0", 
+    r3_j9_a: "1", r3_j9_b: "2",
     r3_j10_a: "2", r3_j10_b: "0",
     // Rodada 4
-    r4_j1_a: "1", r4_j1_b: "1", r4_j2_a: "2", r4_j2_b: "1", r4_j3_a: "0", r4_j3_b: "0",
-    r4_j4_a: "0", r4_j4_b: "4", r4_j5_a: "0", r4_j5_b: "0", r4_j6_a: "0", r4_j6_b: "1",
+    r4_j1_a: "0", r4_j1_b: "3",
+    r4_j2_a: "1", r4_j2_b: "0",
+    r4_j3_a: "1", r4_j3_b: "0",
+    r4_j4_a: "0", r4_j4_b: "4",
+    r4_j5_a: "2", r4_j5_b: "1",
+    r4_j6_a: "0", r4_j6_b: "1",
     // Rodada 5
-    r5_j1_a: "0", r5_j1_b: "0", r5_j2_a: "0", r5_j2_b: "0", r5_j3_a: "0", r5_j3_b: "0",
-    r5_j4_a: "3", r5_j4_b: "0", r5_j5_a: "-", r5_j5_b: "-", r5_j6_a: "-", r5_j6_b: "-",
-    r5_j7_a: "-", r5_j7_b: "-", r5_j8_a: "-", r5_j8_b: "-"
+    r5_j1_a: "0", r5_j1_b: "1",
+    r5_j2_a: "3", r5_j2_b: "1",
+    r5_j3_a: "1", r5_j3_b: "0",
+    r5_j4_a: "3", r5_j4_b: "0",
+    r5_j5_a: "1", r5_j5_b: "1",
+    r5_j6_a: "0", r5_j6_b: "2",
+    r5_j7_a: "1", r5_j7_b: "2",
+    r5_j8_a: "3", r5_j8_b: "1"
 };
 
 // ==================== VARIÁVEIS ====================
@@ -854,7 +869,7 @@ function getPontuacaoRodada(jogador, rodada) {
         }
     });
     
-    // ⭐ Bônus do Palpite do Dia - CORRIGIDO
+    // ⭐ Bônus do Palpite do Dia
     const dia = p.palpite_do_dia;
     if (dia) {
         const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -866,7 +881,7 @@ function getPontuacaoRodada(jogador, rodada) {
             
             if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
                 if (ra === pa && rb === pb) {
-                    pts += 5; // Bônus do Palpite do Dia
+                    pts += 5;
                 }
             }
         }
@@ -1097,7 +1112,7 @@ function fecharModalExterno(e) {
 function atualizarClassificacao() {
     let e = [];
     Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsR4 = 0, ptsR5 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
+        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsR4 = 0, ptsR5 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0;
         const p = dadosPalpites[n];
         
         const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5];
@@ -1124,35 +1139,28 @@ function atualizarClassificacao() {
                     }
                 }
             });
-        });
-        
-        // ⭐ Bônus do Palpite do Dia - CORRIGIDO
-        const dia = p.palpite_do_dia;
-        if (dia) {
-            let jogo = null;
-            todasRodadas.forEach(jogos => {
-                const j = jogos.find(j => j.idA === dia || j.idB === dia);
-                if (j) jogo = j;
-            });
             
-            if (jogo) {
-                const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
-                const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-                const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
-                const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
-                
-                if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
-                    bonusDia = 5;
-                    pts += 5;
-                    const prefixo = jogo.idA.substring(0, 3);
-                    if (prefixo === 'r1') ptsR1 += 5;
-                    else if (prefixo === 'r2') ptsR2 += 5;
-                    else if (prefixo === 'r3') ptsR3 += 5;
-                    else if (prefixo === 'r4') ptsR4 += 5;
-                    else if (prefixo === 'r5') ptsR5 += 5;
+            // ⭐ Bônus do Palpite do Dia - DENTRO DO LOOP DA RODADA
+            const dia = p.palpite_do_dia;
+            if (dia) {
+                const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
+                if (jogo) {
+                    const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
+                    const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
+                    const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
+                    const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
+                    
+                    if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
+                        pts += 5;
+                        if (tipo === 'r1') ptsR1 += 5;
+                        else if (tipo === 'r2') ptsR2 += 5;
+                        else if (tipo === 'r3') ptsR3 += 5;
+                        else if (tipo === 'r4') ptsR4 += 5;
+                        else if (tipo === 'r5') ptsR5 += 5;
+                    }
                 }
             }
-        }
+        });
         
         if (p.coringa_usado) {
             pts = pts * 2;
@@ -1162,7 +1170,7 @@ function atualizarClassificacao() {
             ptsR4 = ptsR4 * 2;
             ptsR5 = ptsR5 * 2;
         }
-        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsR4, ptsR5, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
+        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsR4, ptsR5, cravar, maxSeq, maxZ, coringa: p.coringa_usado});
     });
     e.sort((a, b) => b.pontos - a.pontos);
     
@@ -1174,11 +1182,34 @@ function atualizarClassificacao() {
     document.getElementById("tabela-ranking").innerHTML = html;
     
     const totalPts = e.reduce((a, c) => a + c.pontos, 0);
+    
+    // Conta quem acertou o palpite do dia
+    let bonusCount = 0;
+    Object.keys(dadosPalpites).forEach(nome => {
+        const p = dadosPalpites[nome];
+        const dia = p.palpite_do_dia;
+        if (dia) {
+            let encontrou = false;
+            [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5].forEach(j => {
+                if (j.idA === dia || j.idB === dia) {
+                    const ra = parseInt(resultadosFinais[j.idA]);
+                    const rb = parseInt(resultadosFinais[j.idB]);
+                    const pa = parseInt(p[j.idA]);
+                    const pb = parseInt(p[j.idB]);
+                    if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
+                        encontrou = true;
+                    }
+                }
+            });
+            if (encontrou) bonusCount++;
+        }
+    });
+    
     document.getElementById("stats-container").innerHTML = `
         <div class="stat-card"><span class="value">${e[0]?.pontos || 0}</span><span class="label">Líder</span></div>
         <div class="stat-card"><span class="value">${(totalPts/e.length).toFixed(1)}</span><span class="label">Média</span></div>
         <div class="stat-card"><span class="value">${e.length}</span><span class="label">Antas</span></div>
-        <div class="stat-card"><span class="value">⭐ ${e.reduce((a,c) => a + (c.bonusDia > 0 ? 1 : 0), 0)}</span><span class="label">Dia Acertado</span></div>
+        <div class="stat-card"><span class="value">⭐ ${bonusCount}</span><span class="label">Dia Acertado</span></div>
         <div class="stat-card"><span class="value">🃏 ${e.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
     `;
     
@@ -1191,6 +1222,28 @@ function atualizarClassificacao() {
     const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
     const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
     
+    // Lista de quem acertou o palpite do dia
+    let acertaramDia = [];
+    Object.keys(dadosPalpites).forEach(nome => {
+        const p = dadosPalpites[nome];
+        const dia = p.palpite_do_dia;
+        if (dia) {
+            let encontrou = false;
+            [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5].forEach(j => {
+                if (j.idA === dia || j.idB === dia) {
+                    const ra = parseInt(resultadosFinais[j.idA]);
+                    const rb = parseInt(resultadosFinais[j.idB]);
+                    const pa = parseInt(p[j.idA]);
+                    const pb = parseInt(p[j.idB]);
+                    if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
+                        encontrou = true;
+                    }
+                }
+            });
+            if (encontrou) acertaramDia.push(nome);
+        }
+    });
+    
     document.getElementById("estatisticas-dinamicas").innerHTML = `
         <div style="overflow-x:auto;margin-bottom:16px;">
             <table class="pl-table">
@@ -1201,7 +1254,7 @@ function atualizarClassificacao() {
                     <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.ptsR3 || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R4</td><td>${mR4?.nome || '-'}</td><td>${mR4?.ptsR4 || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R5</td><td>${mR5?.nome || '-'}</td><td>${mR5?.ptsR5 || 0} pts</td></tr>
-                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
+                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${acertaramDia.length > 0 ? acertaramDia.join(', ') : 'Ninguém'}</td><td>+5 pts</td></tr>
                     <tr><td>🃏 Coringa Usado</td><td>${e.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                     <tr><td>Melhor Sequência</td><td>${maisSeq?.nome || '-'}</td><td>${maisSeq?.maxSeq || 0} pts</td></tr>
                     <tr><td>Mais Tempo Sem Pontuar</td><td>${maisZ?.nome || '-'}</td><td>${maisZ?.maxZ || 0} jogos</td></tr>
@@ -1231,10 +1284,10 @@ function atualizarClassificacao() {
             <div class="news-title">${e[0]?.nome || '-'} na liderança!</div>
             <div class="news-text">Com ${e[0]?.pontos || 0} pontos no BrasileirAntas 2026.</div>
         </div>
-        ${e.filter(c => c.bonusDia > 0).length > 0 ? `
+        ${acertaramDia.length > 0 ? `
         <div class="news-card" style="border-color:#f7c137;">
             <span class="news-tag" style="background:#f7c137;color:#000;">⭐ PALPITE DO DIA</span>
-            <div class="news-title">${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ')} acertaram o Palpite do Dia!</div>
+            <div class="news-title">${acertaramDia.join(', ')} acertaram o Palpite do Dia!</div>
             <div class="news-text">Ganharam +5 pontos extras! 🎯</div>
         </div>` : ''}
     `;
