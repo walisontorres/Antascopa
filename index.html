@@ -753,7 +753,7 @@ const resultadosFinais = {
     r5_j7_a: "-", r5_j7_b: "-", r5_j8_a: "-", r5_j8_b: "-"
 };
 
-// ==================== FUNÇÕES ====================
+// ==================== FUNÇÃO DE PONTUAÇÃO - SIMPLES E DIRETA ====================
 function calcularPontos(rA, rB, pA, pB) {
     if (rA === "-" || rB === "-" || pA === "-" || pB === "-") return 0;
     rA = parseInt(rA); rB = parseInt(rB); pA = parseInt(pA); pB = parseInt(pB);
@@ -765,16 +765,6 @@ function calcularPontos(rA, rB, pA, pB) {
     return 0;
 }
 
-function getJogosPorRodada(rodada) {
-    if (rodada === 1) return jogosRodada1;
-    if (rodada === 2) return jogosRodada2;
-    if (rodada === 3) return jogosRodada3;
-    if (rodada === 4) return jogosRodada4;
-    if (rodada === 5) return jogosRodada5;
-    return [];
-}
-
-// ===== FUNÇÃO PRINCIPAL DE PONTUAÇÃO - SIMPLES E DIRETA =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0], bonus: 0 };
@@ -800,7 +790,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. Verifica se o Palpite do Dia é nesta rodada
+        // 2. Verifica o Palpite do Dia NESTA RODADA
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -826,7 +816,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. Aplica Coringa se usado
+        // 3. Coringa
         if (p.coringa_usado) {
             ptsRodada = ptsRodada * 2;
         }
@@ -836,6 +826,15 @@ function calcularPontuacaoTotal(jogador) {
     });
     
     return { total, porRodada, bonus };
+}
+
+function getJogosPorRodada(rodada) {
+    if (rodada === 1) return jogosRodada1;
+    if (rodada === 2) return jogosRodada2;
+    if (rodada === 3) return jogosRodada3;
+    if (rodada === 4) return jogosRodada4;
+    if (rodada === 5) return jogosRodada5;
+    return [];
 }
 
 let chartInstance = null;
@@ -1092,7 +1091,6 @@ function atualizarClassificacao() {
 function atualizarGrafico(ranking) {
     const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5'];
     
-    // Ordena os participantes por pontuação total para o gráfico
     const ordem = ranking.map(p => p.nome);
     const datasets = ordem.map((nome, index) => {
         const resultado = calcularPontuacaoTotal(nome);
