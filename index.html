@@ -765,7 +765,7 @@ function calcularPontos(rA, rB, pA, pB) {
     return 0;
 }
 
-// ===== FUNÇÃO CORRIGIDA COM VERIFICAÇÃO FORÇADA =====
+// ===== FUNÇÃO CORRIGIDA - Bônus funcionando =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0], bonus: 0 };
@@ -791,7 +791,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. ⭐ Bônus do Palpite do Dia
+        // 2. ⭐ Bônus do Palpite do Dia - verifica na rodada atual
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -824,7 +824,7 @@ function calcularPontuacaoTotal(jogador) {
         total += ptsRodada;
     });
     
-    // 🔥 VERIFICAÇÃO FORÇADA - Garante que o bônus foi aplicado
+    // 🔥 VERIFICAÇÃO FINAL FORÇADA - Garante que o bônus foi aplicado para qualquer jogador
     const dia = p.palpite_do_dia;
     if (dia) {
         let jogoEncontrado = null;
@@ -849,7 +849,7 @@ function calcularPontuacaoTotal(jogador) {
                     const pA = parseInt(pa);
                     const pB = parseInt(pb);
                     if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                        // Verifica se o bônus já foi adicionado na rodada
+                        // Verifica se o bônus já foi adicionado
                         let ptsSemBonus = 0;
                         const rodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5];
                         rodadas[rodadaEncontrada].forEach(j => {
@@ -987,7 +987,6 @@ function abrirPalpites(e) {
                         (temResultado && pts > 0) ? 'palpite-cor-amarelo' :
                         (temResultado) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
             
-            // Tag visual do Palpite do Dia
             const diaTag = isDia ? '<span style="background:#F7C137;color:#17002E;padding:2px 10px;border-radius:100px;font-weight:700;font-size:0.6rem;margin-left:6px;">⭐ DIA</span>' : '';
             
             html += `
@@ -1038,7 +1037,6 @@ function atualizarClassificacao() {
     
     ranking.sort((a, b) => b.pontos - a.pontos);
     
-    // Tabela
     let html = "";
     ranking.forEach((p, i) => {
         const cls = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
@@ -1046,7 +1044,6 @@ function atualizarClassificacao() {
     });
     document.getElementById("tabela-ranking").innerHTML = html;
     
-    // Stats
     const totalPts = ranking.reduce((a, c) => a + c.pontos, 0);
     const bonusCount = ranking.filter(c => c.bonus > 0).length;
     
@@ -1058,7 +1055,6 @@ function atualizarClassificacao() {
         <div class="stat-card"><span class="value">🃏 ${ranking.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
     `;
     
-    // Estatísticas avançadas
     const mR1 = [...ranking].sort((a,b) => b.porRodada[0] - a.porRodada[0])[0];
     const mR2 = [...ranking].sort((a,b) => b.porRodada[1] - a.porRodada[1])[0];
     const mR3 = [...ranking].sort((a,b) => b.porRodada[2] - a.porRodada[2])[0];
@@ -1082,7 +1078,6 @@ function atualizarClassificacao() {
         </div>
     `;
     
-    // Participantes
     let partHtml = "";
     participantes.forEach(n => {
         const p = dadosPalpites[n];
@@ -1094,7 +1089,6 @@ function atualizarClassificacao() {
     });
     document.getElementById("lista-participantes").innerHTML = partHtml;
     
-    // Notícias
     const lider = ranking[0]?.nome || '-';
     const liderPts = ranking[0]?.pontos || 0;
     const acertaramDia = ranking.filter(c => c.bonus > 0).map(c => c.nome);
@@ -1113,7 +1107,6 @@ function atualizarClassificacao() {
         </div>` : ''}
     `;
     
-    // Evolução
     let ant = JSON.parse(localStorage.getItem("brasileirantas_posicoes") || "{}");
     let first = !ant || Object.keys(ant).length === 0;
     let novo = {};
@@ -1139,7 +1132,6 @@ function atualizarClassificacao() {
     localStorage.setItem("brasileirantas_posicoes", JSON.stringify(novo));
     document.getElementById("painel-evolucao").innerHTML = evol;
     
-    // Gráfico
     atualizarGrafico(ranking);
 }
 
