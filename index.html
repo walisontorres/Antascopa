@@ -861,8 +861,6 @@ function getPontuacaoRodada(jogador, rodada) {
         if (jogo) {
             const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
             const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-            
-            // CORREÇÃO: usa o valor direto do palpite, sem fallback problemático
             const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
             const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
             
@@ -1131,15 +1129,17 @@ function atualizarClassificacao() {
         // ⭐ Bônus do Palpite do Dia - CORRIGIDO
         const dia = p.palpite_do_dia;
         if (dia) {
-            const todasRodadasJogos = [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5];
-            const jogo = todasRodadasJogos.find(j => j.idA === dia || j.idB === dia);
+            let jogo = null;
+            todasRodadas.forEach(jogos => {
+                const j = jogos.find(j => j.idA === dia || j.idB === dia);
+                if (j) jogo = j;
+            });
+            
             if (jogo) {
                 const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
                 const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-                
-                // CORREÇÃO: usa o valor direto do palpite
-                const pa = parseInt(p[jogo.idA]);
-                const pb = parseInt(p[jogo.idB]);
+                const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
+                const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
                 
                 if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
                     bonusDia = 5;
