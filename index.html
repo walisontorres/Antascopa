@@ -854,17 +854,21 @@ function getPontuacaoRodada(jogador, rodada) {
         }
     });
     
+    // ⭐ Bônus do Palpite do Dia - CORRIGIDO
     const dia = p.palpite_do_dia;
     if (dia) {
         const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
         if (jogo) {
             const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
             const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-            const pa = parseInt(p[dia]) || parseInt(p[jogo.idA]);
-            const pb = parseInt(p[dia === jogo.idA ? jogo.idB : jogo.idA]);
+            
+            // CORREÇÃO: usa o valor direto do palpite, sem fallback problemático
+            const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
+            const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
+            
             if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
                 if (ra === pa && rb === pb) {
-                    pts += 5;
+                    pts += 5; // Bônus do Palpite do Dia
                 }
             }
         }
@@ -1124,6 +1128,7 @@ function atualizarClassificacao() {
             });
         });
         
+        // ⭐ Bônus do Palpite do Dia - CORRIGIDO
         const dia = p.palpite_do_dia;
         if (dia) {
             const todasRodadasJogos = [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5];
@@ -1131,8 +1136,11 @@ function atualizarClassificacao() {
             if (jogo) {
                 const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
                 const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-                const pa = parseInt(p[dia]) || parseInt(p[jogo.idA]);
-                const pb = parseInt(p[dia === jogo.idA ? jogo.idB : jogo.idA]);
+                
+                // CORREÇÃO: usa o valor direto do palpite
+                const pa = parseInt(p[jogo.idA]);
+                const pb = parseInt(p[jogo.idB]);
+                
                 if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
                     bonusDia = 5;
                     pts += 5;
@@ -1265,4 +1273,4 @@ atualizarClassificacao();
 </script>
 </body>
 </html>
-` Mn``
+```
