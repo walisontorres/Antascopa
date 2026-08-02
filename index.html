@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>BrasileirAntas 2026</title>
     <style>
-        /* ========== TEMA PREMIER LEAGUE ========== */
         :root {
             --pl-purple: #3D1952;
             --pl-gold: #F7C137;
@@ -28,8 +27,6 @@
             padding-bottom: 80px;
             min-height: 100vh;
         }
-
-        /* HEADER */
         .pl-header {
             background: linear-gradient(135deg, var(--pl-dark) 0%, var(--pl-purple) 50%, var(--pl-blue) 100%);
             color: #fff;
@@ -87,7 +84,6 @@
             margin-top: 6px;
             filter: drop-shadow(0 4px 12px rgba(247, 193, 55, 0.3));
         }
-
         .container {
             max-width: 1000px;
             margin: -35px auto 0;
@@ -95,8 +91,6 @@
             position: relative;
             z-index: 10;
         }
-
-        /* CARDS */
         .pl-card {
             background: var(--pl-card);
             border-radius: var(--radius);
@@ -122,8 +116,6 @@
         .pl-card h2 .gold {
             color: var(--pl-gold);
         }
-
-        /* STATS GRID */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -152,8 +144,6 @@
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
-
-        /* TABELA */
         .pl-table {
             width: 100%;
             border-collapse: collapse;
@@ -188,8 +178,6 @@
             color: var(--pl-purple);
             text-align: right;
         }
-
-        /* PARTICIPANTES */
         .part-lista {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -243,8 +231,6 @@
             background: #dc354520;
             color: #dc3545;
         }
-
-        /* JOGOS */
         .jogos-lista {
             display: flex;
             flex-direction: column;
@@ -308,18 +294,6 @@
             text-align: center;
             letter-spacing: 0.5px;
         }
-        .badge-dia {
-            font-size: 0.5rem;
-            background: var(--pl-gold);
-            color: var(--pl-dark);
-            padding: 1px 8px;
-            border-radius: 100px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-left: 6px;
-        }
-
-        /* TABs */
         .tab-container {
             display: flex;
             gap: 6px;
@@ -347,8 +321,6 @@
             color: #fff;
             border-color: var(--pl-purple);
         }
-
-        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -387,8 +359,6 @@
             from { opacity: 0; transform: translateY(30px) scale(0.96); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
-
-        /* CORES DOS PALPITES */
         .palpite-cor-verde { background: #22c55e20 !important; border-color: #22c55e !important; }
         .palpite-cor-verde .gol { background: #22c55e !important; color: #fff !important; border-radius: 6px; }
         .palpite-cor-amarelo { background: #f7c13720 !important; border-color: #f7c137 !important; }
@@ -398,8 +368,6 @@
         .palpite-cor-branco { background: transparent !important; border-color: var(--pl-border) !important; }
         .palpite-cor-ouro { background: #f7c13730 !important; border-color: #f7c137 !important; border-width: 2px !important; }
         .palpite-cor-ouro .gol { background: var(--pl-gold) !important; color: #000 !important; border-radius: 6px; }
-
-        /* EVOLUÇÃO */
         .evolucao-linha {
             display: flex;
             align-items: center;
@@ -443,8 +411,6 @@
         .subiu { color: #22c55e; }
         .desceu { color: #ef4444; }
         .manteve { color: var(--pl-muted); }
-
-        /* GRAFICO */
         .grafico-container {
             width: 100%;
             height: 260px;
@@ -468,8 +434,6 @@
             height: 3px;
             border-radius: 4px;
         }
-
-        /* NEWS */
         .news-card {
             border-left: 4px solid var(--pl-gold);
             padding-left: 12px;
@@ -496,8 +460,6 @@
             font-size: 0.75rem;
             color: var(--pl-muted);
         }
-
-        /* RESPONSIVE */
         @media (max-width: 640px) {
             .pl-header h1 { font-size: 2rem; }
             .pl-header .lion { font-size: 1.8rem; }
@@ -528,7 +490,6 @@
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header class="pl-header">
     <div class="badge">⚽ Temporada 2026</div>
     <h1>🇧🇷 <span>BrasileirAntas</span></h1>
@@ -536,10 +497,7 @@
     <span class="lion">🏆</span>
 </header>
 
-<!-- ===== CONTEÚDO ===== -->
 <div class="container">
-
-    <!-- CLASSIFICAÇÃO -->
     <div class="pl-card">
         <h2>🏆 Classificação <span class="gold">Geral</span></h2>
         <div class="stats-grid" id="stats-container"></div>
@@ -551,13 +509,11 @@
         </div>
     </div>
 
-    <!-- ESTATÍSTICAS -->
     <div class="pl-card">
         <h2>📊 Estatísticas <span class="gold">Avançadas</span></h2>
         <div id="estatisticas-dinamicas"></div>
     </div>
 
-    <!-- EVOLUÇÃO -->
     <div class="pl-card">
         <h2>📈 Evolução do <span class="gold">Grupo</span></h2>
         <div id="painel-evolucao"></div>
@@ -567,13 +523,11 @@
         <div class="grafico-legenda" id="grafico-legenda"></div>
     </div>
 
-    <!-- PARTICIPANTES -->
     <div class="pl-card">
         <h2>👥 Participantes</h2>
         <div class="part-lista" id="lista-participantes"></div>
     </div>
 
-    <!-- JOGOS -->
     <div class="pl-card">
         <h2>⚽ Jogos & <span class="gold">Resultados</span></h2>
         <div class="tab-container" id="tab-container">
@@ -586,15 +540,12 @@
         <div class="jogos-lista" id="lista-jogos-principal"></div>
     </div>
 
-    <!-- NOTÍCIAS -->
     <div class="pl-card">
         <h2>📰 Últimas <span class="gold">Notícias</span></h2>
         <div id="news-container"></div>
     </div>
-
 </div>
 
-<!-- ===== MODAL ===== -->
 <div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)">
     <div class="modal-conteudo">
         <button class="modal-fechar" onclick="fecharPalpites()">✕</button>
@@ -604,7 +555,7 @@
 </div>
 
 <script>
-// ==================== JOGOS POR RODADA ====================
+// ==================== DADOS ====================
 const jogosRodada1 = [
     { id: 1, tA: "Coritiba", eA: "🟢", tB: "Palmeiras", eB: "🟢", idA: "r1_j1_a", idB: "r1_j1_b" },
     { id: 2, tA: "Chapecoense", eA: "🟢", tB: "Flamengo", eB: "🔴", idA: "r1_j2_a", idB: "r1_j2_b" },
@@ -650,7 +601,6 @@ const jogosRodada5 = [
     { id: 30, tA: "Athletico-PR", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r5_j8_a", idB: "r5_j8_b" }
 ];
 
-// ==================== DADOS DOS PALPITES ====================
 const dadosPalpites = {
     "Paulão": {
         r1_j1_a: "0", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "2", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
@@ -785,37 +735,25 @@ const dadosPalpites = {
     }
 };
 
-// ==================== RESULTADOS ====================
 const resultadosFinais = {
-    // Rodada 1
     r1_j1_a: "1", r1_j1_b: "3",
     r1_j2_a: "0", r1_j2_b: "4",
     r1_j3_a: "1", r1_j3_b: "2",
     r1_j4_a: "1", r1_j4_b: "2",
-    // Rodada 2
     r2_j1_a: "0", r2_j1_b: "0",
     r2_j2_a: "3", r2_j2_b: "0",
-    // Rodada 3
     r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
     r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "1",
     r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "2",
     r3_j10_a: "2", r3_j10_b: "0",
-    // Rodada 4
     r4_j1_a: "1", r4_j1_b: "1", r4_j2_a: "2", r4_j2_b: "1", r4_j3_a: "0", r4_j3_b: "0",
     r4_j4_a: "0", r4_j4_b: "4", r4_j5_a: "0", r4_j5_b: "0", r4_j6_a: "0", r4_j6_b: "1",
-    // Rodada 5
     r5_j1_a: "0", r5_j1_b: "0", r5_j2_a: "0", r5_j2_b: "0", r5_j3_a: "0", r5_j3_b: "0",
     r5_j4_a: "3", r5_j4_b: "0", r5_j5_a: "-", r5_j5_b: "-", r5_j6_a: "-", r5_j6_b: "-",
     r5_j7_a: "-", r5_j7_b: "-", r5_j8_a: "-", r5_j8_b: "-"
 };
 
-// ==================== VARIÁVEIS ====================
-let rodadaAtual = 1;
-let chartInstance = null;
-const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6'];
-
 // ==================== FUNÇÕES ====================
-
 function calcularPontos(rA, rB, pA, pB) {
     if (rA === "-" || rB === "-" || pA === "-" || pB === "-") return 0;
     rA = parseInt(rA); rB = parseInt(rB); pA = parseInt(pA); pB = parseInt(pB);
@@ -836,139 +774,74 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
-function getPontuacaoRodada(jogador, rodada) {
-    let pts = 0;
+// ===== FUNÇÃO PRINCIPAL DE PONTUAÇÃO - SIMPLES E DIRETA =====
+function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
-    if (!p) return 0;
-    const jogos = getJogosPorRodada(rodada);
+    if (!p) return { total: 0, porRodada: [0,0,0,0,0], bonus: 0 };
     
-    jogos.forEach(j => {
-        const ra = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
-        const rb = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
-        if (ra !== "-" && rb !== "-") {
-            const pa = p[j.idA] !== undefined ? p[j.idA] : "-";
-            const pb = p[j.idB] !== undefined ? p[j.idB] : "-";
-            if (pa !== "-" && pb !== "-") {
-                pts += calcularPontos(ra, rb, pa, pb);
-            }
-        }
-    });
+    const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5];
+    let total = 0;
+    let bonus = 0;
+    let porRodada = [0, 0, 0, 0, 0];
     
-    // ⭐ Bônus do Palpite do Dia
-    const dia = p.palpite_do_dia;
-    if (dia) {
-        const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
-        if (jogo) {
-            const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
-            const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-            const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
-            const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
-            
-            if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
-                if (ra === pa && rb === pb) {
-                    pts += 5;
+    todasRodadas.forEach((jogos, idx) => {
+        let ptsRodada = 0;
+        
+        // 1. Pontos dos jogos
+        jogos.forEach(j => {
+            const ra = resultadosFinais[j.idA];
+            const rb = resultadosFinais[j.idB];
+            if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
+                const pa = p[j.idA];
+                const pb = p[j.idB];
+                if (pa !== undefined && pb !== undefined) {
+                    ptsRodada += calcularPontos(ra, rb, pa, pb);
                 }
             }
-        }
-    }
-    
-    if (p.coringa_usado) {
-        pts = pts * 2;
-    }
-    
-    return pts;
-}
-
-function getHistoricoPontos(jogador) {
-    const historico = [];
-    for (let r = 1; r <= 5; r++) {
-        historico.push(getPontuacaoRodada(jogador, r));
-    }
-    return historico;
-}
-
-function getPontuacaoAcumulada(jogador) {
-    const hist = getHistoricoPontos(jogador);
-    let acum = 0;
-    return hist.map(v => { acum += v; return acum; });
-}
-
-function atualizarGrafico() {
-    const participantes = Object.keys(dadosPalpites);
-    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5'];
-    
-    const datasets = participantes.map((nome, index) => {
-        const dados = getPontuacaoAcumulada(nome);
-        const cor = cores[index % cores.length];
-        return {
-            label: nome,
-            data: dados,
-            borderColor: cor,
-            backgroundColor: cor + '20',
-            borderWidth: 3,
-            pointRadius: 4,
-            pointBackgroundColor: cor,
-            tension: 0.2,
-            fill: false,
-        };
-    });
-    
-    const pontuacaoFinal = participantes.map(n => ({
-        nome: n,
-        pontos: getPontuacaoAcumulada(n)[4] || 0
-    }));
-    pontuacaoFinal.sort((a, b) => b.pontos - a.pontos);
-    const ordem = pontuacaoFinal.map(p => p.nome);
-    datasets.sort((a, b) => ordem.indexOf(a.label) - ordem.indexOf(b.label));
-    
-    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
-    if (chartInstance) { chartInstance.destroy(); }
-    
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: { labels, datasets },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.parsed.y + ' pts';
+        });
+        
+        // 2. Verifica se o Palpite do Dia é nesta rodada
+        const dia = p.palpite_do_dia;
+        if (dia) {
+            const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
+            if (jogoDia) {
+                const ra = resultadosFinais[jogoDia.idA];
+                const rb = resultadosFinais[jogoDia.idB];
+                if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
+                    const pa = p[jogoDia.idA];
+                    const pb = p[jogoDia.idB];
+                    if (pa !== undefined && pb !== undefined) {
+                        const rA = parseInt(ra);
+                        const rB = parseInt(rb);
+                        const pA = parseInt(pa);
+                        const pB = parseInt(pb);
+                        if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB)) {
+                            if (rA === pA && rB === pB) {
+                                ptsRodada += 5;
+                                bonus += 5;
+                            }
                         }
                     }
                 }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: 'rgba(0,0,0,0.04)' },
-                    title: {
-                        display: true,
-                        text: 'Pontos',
-                        color: '#7a7a8a',
-                        font: { size: 11, weight: '600' }
-                    }
-                },
-                x: {
-                    grid: { display: false },
-                    ticks: { font: { size: 10 } }
-                }
             }
         }
+        
+        // 3. Aplica Coringa se usado
+        if (p.coringa_usado) {
+            ptsRodada = ptsRodada * 2;
+        }
+        
+        porRodada[idx] = ptsRodada;
+        total += ptsRodada;
     });
     
-    document.getElementById('grafico-legenda').innerHTML = datasets.map(d => {
-        return `<div class="grafico-legenda-item">
-            <div class="grafico-legenda-cor" style="background:${d.borderColor}"></div>
-            <span>${d.label}</span>
-        </div>`;
-    }).join('');
+    return { total, porRodada, bonus };
 }
 
+let chartInstance = null;
+const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6'];
+
 function renderizarPorRodada(n) {
-    rodadaAtual = n;
     document.querySelectorAll('.tab-btn').forEach(b => {
         b.classList.toggle('active', parseInt(b.dataset.rodada) === n);
     });
@@ -997,14 +870,14 @@ function renderizarPorRodada(n) {
                     </div>
                     <div class="time fora">${j.tB} <span class="escudo">${j.eB}</span></div>
                 </div>
-                <div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j, n)} ${isDia ? '⭐ Palpite do Dia' : ''}</div>
+                <div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j)} ${isDia ? '⭐ Palpite do Dia' : ''}</div>
             </div>
         `;
     });
     container.innerHTML = html;
 }
 
-function calcularOddsDinamicas(jogo, rodada) {
+function calcularOddsDinamicas(jogo) {
     let casa = 0, empate = 0, fora = 0, total = 0;
     Object.values(dadosPalpites).forEach(p => {
         let pA = parseInt(p[jogo.idA]), pB = parseInt(p[jogo.idB]);
@@ -1095,124 +968,69 @@ function fecharModalExterno(e) {
 }
 
 function atualizarClassificacao() {
-    let e = [];
-    Object.keys(dadosPalpites).forEach(n => {
-        let pts = 0, ptsR1 = 0, ptsR2 = 0, ptsR3 = 0, ptsR4 = 0, ptsR5 = 0, cravar = 0, seq = 0, maxSeq = 0, seqZ = 0, maxZ = 0, bonusDia = 0;
-        const p = dadosPalpites[n];
-        
-        const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5];
-        const tipos = ['r1', 'r2', 'r3', 'r4', 'r5'];
-        
-        todasRodadas.forEach((jogos, idx) => {
-            const tipo = tipos[idx];
-            // Primeiro calcula os pontos dos jogos
-            jogos.forEach(j => {
-                const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
-                const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-                if (!isNaN(ra) && !isNaN(rb)) {
-                    const pa = parseInt(p[j.idA]), pb = parseInt(p[j.idB]);
-                    if (!isNaN(pa) && !isNaN(pb)) {
-                        const pt = calcularPontos(ra, rb, pa, pb);
-                        pts += pt;
-                        if (tipo === 'r1') ptsR1 += pt;
-                        else if (tipo === 'r2') ptsR2 += pt;
-                        else if (tipo === 'r3') ptsR3 += pt;
-                        else if (tipo === 'r4') ptsR4 += pt;
-                        else if (tipo === 'r5') ptsR5 += pt;
-                        if (pt === 10) cravar++;
-                        if (pt > 0) { seq += pt; if (seq > maxSeq) maxSeq = seq; seqZ = 0; }
-                        else { seqZ++; if (seqZ > maxZ) maxZ = seqZ; seq = 0; }
-                    }
-                }
-            });
-            
-            // ⭐ Bônus do Palpite do Dia - DENTRO DO LOOP DA RODADA
-            const dia = p.palpite_do_dia;
-            if (dia) {
-                const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
-                if (jogo) {
-                    const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
-                    const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-                    const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
-                    const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
-                    
-                    if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb) && ra === pa && rb === pb) {
-                        pts += 5;
-                        bonusDia = 5;
-                        if (tipo === 'r1') ptsR1 += 5;
-                        else if (tipo === 'r2') ptsR2 += 5;
-                        else if (tipo === 'r3') ptsR3 += 5;
-                        else if (tipo === 'r4') ptsR4 += 5;
-                        else if (tipo === 'r5') ptsR5 += 5;
-                    }
-                }
-            }
-        });
-        
-        if (p.coringa_usado) {
-            pts = pts * 2;
-            ptsR1 = ptsR1 * 2;
-            ptsR2 = ptsR2 * 2;
-            ptsR3 = ptsR3 * 2;
-            ptsR4 = ptsR4 * 2;
-            ptsR5 = ptsR5 * 2;
-            bonusDia = bonusDia * 2; // Se usou coringa, o bônus também dobra
-        }
-        e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsR4, ptsR5, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
-    });
-    e.sort((a, b) => b.pontos - a.pontos);
+    let ranking = [];
+    const participantes = Object.keys(dadosPalpites);
     
+    participantes.forEach(nome => {
+        const resultado = calcularPontuacaoTotal(nome);
+        ranking.push({
+            nome: nome,
+            pontos: resultado.total,
+            bonus: resultado.bonus,
+            porRodada: resultado.porRodada,
+            coringa: dadosPalpites[nome].coringa_usado
+        });
+    });
+    
+    ranking.sort((a, b) => b.pontos - a.pontos);
+    
+    // Tabela
     let html = "";
-    e.forEach((p, i) => {
+    ranking.forEach((p, i) => {
         const cls = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
         html += `<tr><td class="pos ${cls}">${i+1}º</td><td class="name">${p.nome}</td><td class="pts">${p.pontos}</td></tr>`;
     });
     document.getElementById("tabela-ranking").innerHTML = html;
     
-    const totalPts = e.reduce((a, c) => a + c.pontos, 0);
+    // Stats
+    const totalPts = ranking.reduce((a, c) => a + c.pontos, 0);
+    const bonusCount = ranking.filter(c => c.bonus > 0).length;
     
     document.getElementById("stats-container").innerHTML = `
-        <div class="stat-card"><span class="value">${e[0]?.pontos || 0}</span><span class="label">Líder</span></div>
-        <div class="stat-card"><span class="value">${(totalPts/e.length).toFixed(1)}</span><span class="label">Média</span></div>
-        <div class="stat-card"><span class="value">${e.length}</span><span class="label">Antas</span></div>
-        <div class="stat-card"><span class="value">⭐ ${e.filter(c => c.bonusDia > 0).length}</span><span class="label">Dia Acertado</span></div>
-        <div class="stat-card"><span class="value">🃏 ${e.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
+        <div class="stat-card"><span class="value">${ranking[0]?.pontos || 0}</span><span class="label">Líder</span></div>
+        <div class="stat-card"><span class="value">${(totalPts/ranking.length).toFixed(1)}</span><span class="label">Média</span></div>
+        <div class="stat-card"><span class="value">${ranking.length}</span><span class="label">Antas</span></div>
+        <div class="stat-card"><span class="value">⭐ ${bonusCount}</span><span class="label">Dia Acertado</span></div>
+        <div class="stat-card"><span class="value">🃏 ${ranking.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
     `;
     
-    const mR1 = [...e].sort((a,b) => b.ptsR1 - a.ptsR1)[0];
-    const mR2 = [...e].sort((a,b) => b.ptsR2 - a.ptsR2)[0];
-    const mR3 = [...e].sort((a,b) => b.ptsR3 - a.ptsR3)[0];
-    const mR4 = [...e].sort((a,b) => b.ptsR4 - a.ptsR4)[0];
-    const mR5 = [...e].sort((a,b) => b.ptsR5 - a.ptsR5)[0];
-    const top5 = [...e].sort((a,b) => b.cravar - a.cravar).slice(0, 5);
-    const maisZ = [...e].sort((a,b) => b.maxZ - a.maxZ)[0];
-    const maisSeq = [...e].sort((a,b) => b.maxSeq - a.maxSeq)[0];
+    // Estatísticas avançadas
+    const mR1 = [...ranking].sort((a,b) => b.porRodada[0] - a.porRodada[0])[0];
+    const mR2 = [...ranking].sort((a,b) => b.porRodada[1] - a.porRodada[1])[0];
+    const mR3 = [...ranking].sort((a,b) => b.porRodada[2] - a.porRodada[2])[0];
+    const mR4 = [...ranking].sort((a,b) => b.porRodada[3] - a.porRodada[3])[0];
+    const mR5 = [...ranking].sort((a,b) => b.porRodada[4] - a.porRodada[4])[0];
     
     document.getElementById("estatisticas-dinamicas").innerHTML = `
         <div style="overflow-x:auto;margin-bottom:16px;">
             <table class="pl-table">
                 <thead><tr><th>Estatística</th><th>Destaque</th><th>Valor</th></tr></thead>
                 <tbody>
-                    <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.ptsR1 || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.ptsR2 || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.ptsR3 || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R4</td><td>${mR4?.nome || '-'}</td><td>${mR4?.ptsR4 || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R5</td><td>${mR5?.nome || '-'}</td><td>${mR5?.ptsR5 || 0} pts</td></tr>
-                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${e.filter(c => c.bonusDia > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
-                    <tr><td>🃏 Coringa Usado</td><td>${e.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
-                    <tr><td>Melhor Sequência</td><td>${maisSeq?.nome || '-'}</td><td>${maisSeq?.maxSeq || 0} pts</td></tr>
-                    <tr><td>Mais Tempo Sem Pontuar</td><td>${maisZ?.nome || '-'}</td><td>${maisZ?.maxZ || 0} jogos</td></tr>
+                    <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.porRodada[0] || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.porRodada[1] || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.porRodada[2] || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R4</td><td>${mR4?.nome || '-'}</td><td>${mR4?.porRodada[3] || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R5</td><td>${mR5?.nome || '-'}</td><td>${mR5?.porRodada[4] || 0} pts</td></tr>
+                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${ranking.filter(c => c.bonus > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
+                    <tr><td>🃏 Coringa Usado</td><td>${ranking.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                 </tbody>
             </table>
         </div>
-        <h3 style="font-size:1rem;color:var(--pl-dark);margin-bottom:12px;">🎯 Mestres do Placar Exato</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-            ${top5.map(p => `<span style="background:rgba(61,25,82,0.06);padding:4px 14px;border-radius:100px;font-size:0.75rem;font-weight:600;">${p.nome}: ${p.cravar} acertos</span>`).join('')}
-        </div>
     `;
     
+    // Participantes
     let partHtml = "";
-    Object.keys(dadosPalpites).forEach(n => {
+    participantes.forEach(n => {
         const p = dadosPalpites[n];
         const coringaStatus = p.coringa_usado ? 'usado' : '';
         partHtml += `<div class="part-item">
@@ -1223,9 +1041,9 @@ function atualizarClassificacao() {
     document.getElementById("lista-participantes").innerHTML = partHtml;
     
     // Notícias
-    const lider = e[0]?.nome || '-';
-    const liderPts = e[0]?.pontos || 0;
-    const acertaramDia = e.filter(c => c.bonusDia > 0).map(c => c.nome);
+    const lider = ranking[0]?.nome || '-';
+    const liderPts = ranking[0]?.pontos || 0;
+    const acertaramDia = ranking.filter(c => c.bonus > 0).map(c => c.nome);
     
     document.getElementById("news-container").innerHTML = `
         <div class="news-card">
@@ -1241,12 +1059,13 @@ function atualizarClassificacao() {
         </div>` : ''}
     `;
     
+    // Evolução
     let ant = JSON.parse(localStorage.getItem("brasileirantas_posicoes") || "{}");
     let first = !ant || Object.keys(ant).length === 0;
     let novo = {};
-    let max = e[0]?.pontos || 1;
+    let max = ranking[0]?.pontos || 1;
     let evol = "";
-    e.forEach((p, i) => {
+    ranking.forEach((p, i) => {
         let pos = i + 1;
         novo[p.nome] = pos;
         let s = "-", c = "manteve";
@@ -1266,7 +1085,78 @@ function atualizarClassificacao() {
     localStorage.setItem("brasileirantas_posicoes", JSON.stringify(novo));
     document.getElementById("painel-evolucao").innerHTML = evol;
     
-    setTimeout(() => atualizarGrafico(), 100);
+    // Gráfico
+    atualizarGrafico(ranking);
+}
+
+function atualizarGrafico(ranking) {
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5'];
+    
+    // Ordena os participantes por pontuação total para o gráfico
+    const ordem = ranking.map(p => p.nome);
+    const datasets = ordem.map((nome, index) => {
+        const resultado = calcularPontuacaoTotal(nome);
+        const dados = resultado.porRodada;
+        let acum = 0;
+        const dadosAcumulados = dados.map(v => { acum += v; return acum; });
+        const cor = cores[index % cores.length];
+        return {
+            label: nome,
+            data: dadosAcumulados,
+            borderColor: cor,
+            backgroundColor: cor + '20',
+            borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: cor,
+            tension: 0.2,
+            fill: false,
+        };
+    });
+    
+    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
+    if (chartInstance) { chartInstance.destroy(); }
+    
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y + ' pts';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.04)' },
+                    title: {
+                        display: true,
+                        text: 'Pontos',
+                        color: '#7a7a8a',
+                        font: { size: 11, weight: '600' }
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 10 } }
+                }
+            }
+        }
+    });
+    
+    document.getElementById('grafico-legenda').innerHTML = datasets.map(d => {
+        return `<div class="grafico-legenda-item">
+            <div class="grafico-legenda-cor" style="background:${d.borderColor}"></div>
+            <span>${d.label}</span>
+        </div>`;
+    }).join('');
 }
 
 // ==================== INICIALIZAÇÃO ====================
