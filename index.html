@@ -854,21 +854,19 @@ function getPontuacaoRodada(jogador, rodada) {
         }
     });
     
-    // ⭐ Bônus do Palpite do Dia - CORRIGIDO
+    // ⭐ Bônus do Palpite do Dia
     const dia = p.palpite_do_dia;
     if (dia) {
         const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
         if (jogo) {
             const ra = resultadosFinais[jogo.idA] !== undefined ? parseInt(resultadosFinais[jogo.idA]) : NaN;
             const rb = resultadosFinais[jogo.idB] !== undefined ? parseInt(resultadosFinais[jogo.idB]) : NaN;
-            
-            // CORREÇÃO: usa o valor direto do palpite, sem fallback problemático
             const pa = p[jogo.idA] !== undefined ? parseInt(p[jogo.idA]) : NaN;
             const pb = p[jogo.idB] !== undefined ? parseInt(p[jogo.idB]) : NaN;
             
             if (!isNaN(ra) && !isNaN(rb) && !isNaN(pa) && !isNaN(pb)) {
                 if (ra === pa && rb === pb) {
-                    pts += 5; // Bônus do Palpite do Dia
+                    pts += 5;
                 }
             }
         }
@@ -1158,6 +1156,7 @@ function atualizarClassificacao() {
             ptsR3 = ptsR3 * 2;
             ptsR4 = ptsR4 * 2;
             ptsR5 = ptsR5 * 2;
+            bonusDia = bonusDia * 2; // Se usou coringa, o bônus também dobra
         }
         e.push({nome: n, pontos: pts, ptsR1, ptsR2, ptsR3, ptsR4, ptsR5, cravar, maxSeq, maxZ, bonusDia, coringa: p.coringa_usado});
     });
@@ -1276,3 +1275,4 @@ atualizarClassificacao();
 </script>
 </body>
 </html>
+```
