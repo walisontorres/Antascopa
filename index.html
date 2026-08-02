@@ -785,7 +785,7 @@ const dadosPalpites = {
     }
 };
 
-// ==================== RESULTADOS ATUALIZADOS ====================
+// ==================== RESULTADOS ====================
 const resultadosFinais = {
     // Rodada 1
     r1_j1_a: "1", r1_j1_b: "3",
@@ -1120,6 +1120,7 @@ function atualizarClassificacao() {
         
         todasRodadas.forEach((jogos, idx) => {
             const tipo = tipos[idx];
+            // Primeiro calcula os pontos dos jogos
             jogos.forEach(j => {
                 const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
                 const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
@@ -1140,7 +1141,7 @@ function atualizarClassificacao() {
                 }
             });
             
-            // ⭐ Bônus do Palpite do Dia - DENTRO DO LOOP DA RODADA
+            // ⭐ Bônus do Palpite do Dia - DENTRO DO LOOP
             const dia = p.palpite_do_dia;
             if (dia) {
                 const jogo = jogos.find(j => j.idA === dia || j.idB === dia);
