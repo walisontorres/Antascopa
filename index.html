@@ -735,22 +735,37 @@ const dadosPalpites = {
     }
 };
 
+// ==================== RESULTADOS CORRETOS ====================
 const resultadosFinais = {
+    // Rodada 1
     r1_j1_a: "1", r1_j1_b: "3",
     r1_j2_a: "0", r1_j2_b: "4",
     r1_j3_a: "1", r1_j3_b: "2",
     r1_j4_a: "1", r1_j4_b: "2",
+    // Rodada 2
     r2_j1_a: "0", r2_j1_b: "0",
     r2_j2_a: "3", r2_j2_b: "0",
+    // Rodada 3
     r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
     r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "1",
     r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "2",
     r3_j10_a: "2", r3_j10_b: "0",
-    r4_j1_a: "1", r4_j1_b: "1", r4_j2_a: "2", r4_j2_b: "1", r4_j3_a: "0", r4_j3_b: "0",
-    r4_j4_a: "0", r4_j4_b: "4", r4_j5_a: "0", r4_j5_b: "0", r4_j6_a: "0", r4_j6_b: "1",
-    r5_j1_a: "0", r5_j1_b: "0", r5_j2_a: "0", r5_j2_b: "0", r5_j3_a: "0", r5_j3_b: "0",
-    r5_j4_a: "3", r5_j4_b: "0", r5_j5_a: "-", r5_j5_b: "-", r5_j6_a: "-", r5_j6_b: "-",
-    r5_j7_a: "-", r5_j7_b: "-", r5_j8_a: "-", r5_j8_b: "-"
+    // Rodada 4 (CORRETO - CONFORME SUA IMAGEM)
+    r4_j1_a: "1", r4_j1_b: "1",  // Internacional 1x1 Flamengo
+    r4_j2_a: "2", r4_j2_b: "1",  // Mirassol 2x1 Remo
+    r4_j3_a: "0", r4_j3_b: "0",  // Fluminense 0x0 Bahia
+    r4_j4_a: "0", r4_j4_b: "4",  // Vitória 0x4 Palmeiras
+    r4_j5_a: "0", r4_j5_b: "0",  // Corinthians 0x0 Athletico-PR
+    r4_j6_a: "0", r4_j6_b: "1",  // Coritiba 0x1 Cruzeiro
+    // Rodada 5
+    r5_j1_a: "0", r5_j1_b: "0",  // Vasco 0x0 Fluminense
+    r5_j2_a: "0", r5_j2_b: "0",  // Atlético-MG 0x0 Juventude
+    r5_j3_a: "0", r5_j3_b: "0",  // Santos 0x0 Remo
+    r5_j4_a: "3", r5_j4_b: "0",  // Palmeiras 3x0 Fortaleza
+    r5_j5_a: "-", r5_j5_b: "-",  // Mirassol vs Grêmio
+    r5_j6_a: "-", r5_j6_b: "-",  // Chapecoense vs Cruzeiro
+    r5_j7_a: "-", r5_j7_b: "-",  // Internacional vs Corinthians
+    r5_j8_a: "-", r5_j8_b: "-"   // Athletico-PR vs Vitória
 };
 
 // ==================== FUNÇÃO DE PONTUAÇÃO ====================
@@ -765,7 +780,6 @@ function calcularPontos(rA, rB, pA, pB) {
     return 0;
 }
 
-// ===== FUNÇÃO CORRIGIDA - Bônus funcionando =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0], bonus: 0 };
@@ -824,7 +838,7 @@ function calcularPontuacaoTotal(jogador) {
         total += ptsRodada;
     });
     
-    // 🔥 VERIFICAÇÃO FINAL FORÇADA - Garante que o bônus foi aplicado para qualquer jogador
+    // 🔥 VERIFICAÇÃO FINAL FORÇADA - Garante que o bônus foi aplicado
     const dia = p.palpite_do_dia;
     if (dia) {
         let jogoEncontrado = null;
@@ -866,7 +880,6 @@ function calcularPontuacaoTotal(jogador) {
                         
                         // Se o total da rodada for igual ao ptsSemBonus, o bônus NÃO foi adicionado
                         if (porRodada[rodadaEncontrada] === ptsSemBonus) {
-                            // Força a adição do bônus
                             porRodada[rodadaEncontrada] += 5;
                             total += 5;
                             bonus += 5;
