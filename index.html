@@ -804,10 +804,10 @@ const resultadosFinais = {
     r5_j6_a: "0", r5_j6_b: "0",
     r5_j7_a: "2", r5_j7_b: "0",
     r5_j8_a: "2", r5_j8_b: "0",
-    // Rodada 6 - RESULTADOS QUE VOCÊ COLOCOU
-    r6_j1_a: "0", r6_j1_b: "1",  // Juventude 0x1 Atlético-MG
-    r6_j2_a: "0", r6_j2_b: "1",  // Remo 0x1 Santos
-    r6_j3_a: "2", r6_j3_b: "0",  // Cruzeiro 2x0 Chapecoense
+    // Rodada 6
+    r6_j1_a: "0", r6_j1_b: "1",
+    r6_j2_a: "0", r6_j2_b: "1",
+    r6_j3_a: "2", r6_j3_b: "0",
     r6_j4_a: "-", r6_j4_b: "-",
     r6_j5_a: "-", r6_j5_b: "-",
     r6_j6_a: "-", r6_j6_b: "-",
@@ -837,7 +837,7 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
-// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS - CORRIGIDA =====
+// ===== FUNÇÃO DE PONTUAÇÃO CORRIGIDA - BÔNUS FUNCIONANDO =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0,0], bonus: 0 };
@@ -846,6 +846,7 @@ function calcularPontuacaoTotal(jogador) {
     let total = 0;
     let bonus = 0;
     let porRodada = [0, 0, 0, 0, 0, 0];
+    let bonusPorRodada = [0, 0, 0, 0, 0, 0];
     
     todasRodadas.forEach((jogos, idx) => {
         let ptsRodada = 0;
@@ -864,7 +865,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. ⭐ Bônus do Palpite do Dia
+        // 2. Bônus do Palpite do Dia
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -880,22 +881,66 @@ function calcularPontuacaoTotal(jogador) {
                         const pA = parseInt(pa);
                         const pB = parseInt(pb);
                         if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                            ptsRodada += 5;
-                            bonus += 5;
                             bonusRodada = 5;
+                            bonus += 5;
+                            console.log(`✅ ${jogador} ganhou +5 pts de bônus na rodada ${idx+1} (${jogoDia.tA} ${pA}x${pB} ${jogoDia.tB})`);
                         }
                     }
                 }
             }
         }
         
+        // 3. Coringa
         if (p.coringa_usado) {
             ptsRodada = ptsRodada * 2;
         }
         
+        // 4. Soma o bônus na rodada (depois do coringa)
+        ptsRodada += bonusRodada;
+        bonusPorRodada[idx] = bonusRodada;
         porRodada[idx] = ptsRodada;
         total += ptsRodada;
     });
+    
+    // 🔥 VERIFICAÇÃO FORÇADA - Garante que o bônus foi aplicado para TODOS
+    const dia = p.palpite_do_dia;
+    if (dia) {
+        const todasRodadasJogos = [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5, ...jogosRodada6];
+        const jogo = todasRodadasJogos.find(j => j.idA === dia || j.idB === dia);
+        if (jogo) {
+            const rodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6];
+            let rodadaIndex = -1;
+            rodadas.forEach((r, idx) => {
+                if (r.includes(jogo)) rodadaIndex = idx;
+            });
+            
+            if (rodadaIndex >= 0) {
+                const ra = resultadosFinais[jogo.idA];
+                const rb = resultadosFinais[jogo.idB];
+                if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
+                    const pa = p[jogo.idA];
+                    const pb = p[jogo.idB];
+                    if (pa !== undefined && pb !== undefined) {
+                        const rA = parseInt(ra);
+                        const rB = parseInt(rb);
+                        const pA = parseInt(pa);
+                        const pB = parseInt(pb);
+                        if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
+                            // Verifica se o bônus já foi adicionado
+                            if (bonusPorRodada[rodadaIndex] === 0) {
+                                // Bônus não foi adicionado, força a adição
+                                bonusPorRodada[rodadaIndex] = 5;
+                                porRodada[rodadaIndex] += 5;
+                                total += 5;
+                                bonus += 5;
+                                console.log(`🔄 BÔNUS FORÇADO: ${jogador} +5 pts na rodada ${rodadaIndex+1} (${jogo.tA} ${pA}x${pB} ${jogo.tB})`);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     return { total, porRodada, bonus };
 }
@@ -999,10 +1044,10 @@ function abrirPalpites(e) {
                         (temResultado && pts > 0) ? 'palpite-cor-amarelo' :
                         (temResultado) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
             
-            // ⭐ Tag do Palpite do Dia
+            // Tag do Palpite do Dia
             const diaTag = isDia ? '<span style="background:#F7C137;color:#17002E;padding:2px 10px;border-radius:100px;font-weight:700;font-size:0.6rem;margin-left:6px;">⭐ DIA</span>' : '';
             
-            // 🔥 Verifica se ganhou o bônus
+            // Verifica se ganhou o bônus
             let bonusTexto = '';
             if (isDia && temResultado) {
                 const rA = parseInt(ra);
