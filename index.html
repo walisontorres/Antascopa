@@ -804,10 +804,10 @@ const resultadosFinais = {
     r5_j6_a: "0", r5_j6_b: "0",
     r5_j7_a: "2", r5_j7_b: "0",
     r5_j8_a: "2", r5_j8_b: "0",
-    // Rodada 6 - VOCÊ COLOCA OS RESULTADOS AQUI
-    r6_j1_a: "0", r6_j1_b: "1",
-    r6_j2_a: "0", r6_j2_b: "1",
-    r6_j3_a: "2", r6_j3_b: "0",
+    // Rodada 6 - RESULTADOS QUE VOCÊ COLOCOU
+    r6_j1_a: "0", r6_j1_b: "1",  // Juventude 0x1 Atlético-MG
+    r6_j2_a: "0", r6_j2_b: "1",  // Remo 0x1 Santos
+    r6_j3_a: "2", r6_j3_b: "0",  // Cruzeiro 2x0 Chapecoense
     r6_j4_a: "-", r6_j4_b: "-",
     r6_j5_a: "-", r6_j5_b: "-",
     r6_j6_a: "-", r6_j6_b: "-",
@@ -837,7 +837,7 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
-// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS PARA TODOS =====
+// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS - CORRIGIDA =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0,0], bonus: 0 };
@@ -864,7 +864,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. ⭐ Bônus do Palpite do Dia - PARA TODOS
+        // 2. ⭐ Bônus do Palpite do Dia
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -883,7 +883,6 @@ function calcularPontuacaoTotal(jogador) {
                             ptsRodada += 5;
                             bonus += 5;
                             bonusRodada = 5;
-                            console.log(`✅ ${jogador} ganhou +5 pts de bônus na rodada ${idx+1} (${jogoDia.tA} ${pA}x${pB} ${jogoDia.tB})`);
                         }
                     }
                 }
@@ -1003,16 +1002,15 @@ function abrirPalpites(e) {
             // ⭐ Tag do Palpite do Dia
             const diaTag = isDia ? '<span style="background:#F7C137;color:#17002E;padding:2px 10px;border-radius:100px;font-weight:700;font-size:0.6rem;margin-left:6px;">⭐ DIA</span>' : '';
             
-            // 🔥 Mostra o bônus se for o palpite do dia e tiver resultado
+            // 🔥 Verifica se ganhou o bônus
             let bonusTexto = '';
             if (isDia && temResultado) {
-                // Verifica se o jogador acertou o palpite do dia
                 const rA = parseInt(ra);
                 const rB = parseInt(rb);
                 const pA = parseInt(pa);
                 const pB = parseInt(pb);
                 if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                    bonusTexto = ' +5⭐';
+                    bonusTexto = ' <span style="color:#F7C137;font-weight:800;background:rgba(247,193,55,0.15);padding:2px 8px;border-radius:100px;">+5 BÔNUS ⭐</span>';
                 }
             }
             
