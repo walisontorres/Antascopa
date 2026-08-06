@@ -460,6 +460,49 @@
             font-size: 0.75rem;
             color: var(--pl-muted);
         }
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+        }
+        .bonus-card {
+            background: rgba(61, 25, 82, 0.04);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--pl-border);
+            transition: all 0.3s ease;
+        }
+        .bonus-card:hover {
+            background: rgba(61, 25, 82, 0.07);
+            transform: translateY(-2px);
+        }
+        .bonus-card .nome {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--pl-purple);
+        }
+        .bonus-card .total {
+            font-size: 0.75rem;
+            color: var(--pl-muted);
+            margin-top: 4px;
+        }
+        .bonus-card .total strong {
+            color: #F7C137;
+        }
+        .bonus-card .historico {
+            font-size: 0.65rem;
+            color: var(--pl-muted);
+            margin-top: 4px;
+        }
+        .bonus-card .historico .item {
+            display: inline-block;
+            background: rgba(247, 193, 55, 0.15);
+            color: #b8860b;
+            padding: 1px 8px;
+            border-radius: 100px;
+            margin: 2px 4px 2px 0;
+            font-weight: 600;
+        }
         @media (max-width: 640px) {
             .pl-header h1 { font-size: 2rem; }
             .pl-header .lion { font-size: 1.8rem; }
@@ -473,6 +516,7 @@
             .evolucao-nome { width: 60px; font-size: 0.65rem; }
             .grafico-container { height: 180px; }
             .modal-conteudo { padding: 16px 10px; }
+            .bonus-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             .pl-header h1 { font-size: 1.6rem; }
@@ -526,6 +570,11 @@
     <div class="pl-card">
         <h2>👥 Participantes</h2>
         <div class="part-lista" id="lista-participantes"></div>
+    </div>
+
+    <div class="pl-card">
+        <h2>🏅 Histórico de <span class="gold">Bônus</span></h2>
+        <div id="historico-bonus"></div>
     </div>
 
     <div class="pl-card">
@@ -837,20 +886,21 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
-// ===== FUNÇÃO DE PONTUAÇÃO CORRIGIDA - BÔNUS FUNCIONANDO =====
+// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS AUTOMÁTICO =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
-    if (!p) return { total: 0, porRodada: [0,0,0,0,0,0], bonus: 0 };
+    if (!p) return { total: 0, porRodada: [0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
     
     const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6];
     let total = 0;
     let bonus = 0;
     let porRodada = [0, 0, 0, 0, 0, 0];
-    let bonusPorRodada = [0, 0, 0, 0, 0, 0];
+    let bonusHistorico = [];
     
     todasRodadas.forEach((jogos, idx) => {
         let ptsRodada = 0;
         let bonusRodada = 0;
+        let jogoBonus = null;
         
         // 1. Pontos dos jogos
         jogos.forEach(j => {
@@ -865,7 +915,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. Bônus do Palpite do Dia
+        // 2. ⭐ Bônus do Palpite do Dia - SOMA DIRETO NA RODADA
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -883,66 +933,30 @@ function calcularPontuacaoTotal(jogador) {
                         if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
                             bonusRodada = 5;
                             bonus += 5;
-                            console.log(`✅ ${jogador} ganhou +5 pts de bônus na rodada ${idx+1} (${jogoDia.tA} ${pA}x${pB} ${jogoDia.tB})`);
+                            jogoBonus = {
+                                jogo: `${jogoDia.tA} ${pA}x${pB} ${jogoDia.tB}`,
+                                rodada: idx + 1
+                            };
+                            // 🔥 SOMA O BÔNUS DIRETO NA RODADA
+                            ptsRodada += 5;
                         }
                     }
                 }
             }
         }
         
-        // 3. Coringa
         if (p.coringa_usado) {
             ptsRodada = ptsRodada * 2;
         }
         
-        // 4. Soma o bônus na rodada (depois do coringa)
-        ptsRodada += bonusRodada;
-        bonusPorRodada[idx] = bonusRodada;
         porRodada[idx] = ptsRodada;
         total += ptsRodada;
+        if (jogoBonus) {
+            bonusHistorico.push(jogoBonus);
+        }
     });
     
-    // 🔥 VERIFICAÇÃO FORÇADA - Garante que o bônus foi aplicado para TODOS
-    const dia = p.palpite_do_dia;
-    if (dia) {
-        const todasRodadasJogos = [...jogosRodada1, ...jogosRodada2, ...jogosRodada3, ...jogosRodada4, ...jogosRodada5, ...jogosRodada6];
-        const jogo = todasRodadasJogos.find(j => j.idA === dia || j.idB === dia);
-        if (jogo) {
-            const rodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6];
-            let rodadaIndex = -1;
-            rodadas.forEach((r, idx) => {
-                if (r.includes(jogo)) rodadaIndex = idx;
-            });
-            
-            if (rodadaIndex >= 0) {
-                const ra = resultadosFinais[jogo.idA];
-                const rb = resultadosFinais[jogo.idB];
-                if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
-                    const pa = p[jogo.idA];
-                    const pb = p[jogo.idB];
-                    if (pa !== undefined && pb !== undefined) {
-                        const rA = parseInt(ra);
-                        const rB = parseInt(rb);
-                        const pA = parseInt(pa);
-                        const pB = parseInt(pb);
-                        if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                            // Verifica se o bônus já foi adicionado
-                            if (bonusPorRodada[rodadaIndex] === 0) {
-                                // Bônus não foi adicionado, força a adição
-                                bonusPorRodada[rodadaIndex] = 5;
-                                porRodada[rodadaIndex] += 5;
-                                total += 5;
-                                bonus += 5;
-                                console.log(`🔄 BÔNUS FORÇADO: ${jogador} +5 pts na rodada ${rodadaIndex+1} (${jogo.tA} ${pA}x${pB} ${jogo.tB})`);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    return { total, porRodada, bonus };
+    return { total, porRodada, bonus, bonusHistorico };
 }
 
 let chartInstance = null;
@@ -1089,6 +1103,35 @@ function fecharModalExterno(e) {
     if (e.target.id === "modal-palpites") fecharPalpites();
 }
 
+function atualizarHistoricoBonus() {
+    let html = '<div class="bonus-grid">';
+    const participantes = Object.keys(dadosPalpites);
+    
+    participantes.forEach(nome => {
+        const resultado = calcularPontuacaoTotal(nome);
+        const totalBonus = resultado.bonus;
+        const historico = resultado.bonusHistorico;
+        
+        html += `
+            <div class="bonus-card">
+                <div class="nome">${nome}</div>
+                <div class="total">
+                    🏆 Total de bônus: <strong>${totalBonus} pts</strong>
+                </div>
+                <div class="historico">
+                    ${historico.length > 0 ? 
+                        historico.map(h => `<span class="item">⭐ R${h.rodada}: ${h.jogo}</span>`).join(' ') : 
+                        'Nenhum bônus ainda'
+                    }
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    document.getElementById('historico-bonus').innerHTML = html;
+}
+
 function atualizarClassificacao() {
     let ranking = [];
     const participantes = Object.keys(dadosPalpites);
@@ -1204,6 +1247,7 @@ function atualizarClassificacao() {
     document.getElementById("painel-evolucao").innerHTML = evol;
     
     atualizarGrafico(ranking);
+    atualizarHistoricoBonus();
 }
 
 function atualizarGrafico(ranking) {
