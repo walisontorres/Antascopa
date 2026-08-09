@@ -1,3 +1,4 @@
+
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -939,9 +940,9 @@ const resultadosFinais = {
     r6_j7_a: "2", r6_j7_b: "1",
     r6_j8_a: "4", r6_j8_b: "0",
     // Rodada 7 - RESULTADOS AINDA NÃO INSERIDOS
-    r7_j1_a: "2", r7_j1_b: "1",
-    r7_j2_a: "2", r7_j2_b: "2",
-    r7_j3_a: "2", r7_j3_b: "1",
+    r7_j1_a: "-", r7_j1_b: "-",
+    r7_j2_a: "-", r7_j2_b: "-",
+    r7_j3_a: "-", r7_j3_b: "-",
     r7_j4_a: "-", r7_j4_b: "-",
     r7_j5_a: "-", r7_j5_b: "-",
     r7_j6_a: "-", r7_j6_b: "-",
@@ -974,7 +975,7 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
-// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS E CORINGA =====
+// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS E CORINGA (CORRIGIDA) =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
@@ -1032,8 +1033,8 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. CORINGA - DOBRA OS PONTOS DA RODADA
-        if (p.coringa_usado) {
+        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
+        if (p.coringa_usado && jogador === "Fish" && idx === 6) {
             ptsRodada = ptsRodada * 2;
         }
         
