@@ -981,7 +981,6 @@ function calcularPontuacaoTotal(jogador) {
         let bonusRodada = 0;
         let jogoBonus = null;
         
-        // 1. Pontos dos jogos
         jogos.forEach(j => {
             const ra = resultadosFinais[j.idA];
             const rb = resultadosFinais[j.idB];
@@ -994,7 +993,6 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
-        // 2. Bônus do Palpite do Dia
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -1023,7 +1021,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
+        // CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
         // idx 0 = Rodada 1, idx 1 = Rodada 2, ..., idx 5 = Rodada 6, idx 6 = Rodada 7
         if (p.coringa_usado && jogador === "Fish" && idx === 6) {
             ptsRodada = ptsRodada * 2;
@@ -1036,7 +1034,6 @@ function calcularPontuacaoTotal(jogador) {
         }
     });
     
-    // Adiciona bônus manuais
     if (p._bonus_manual) {
         p._bonus_manual.forEach(b => {
             total += b.pontos;
@@ -1054,8 +1051,6 @@ function calcularPontuacaoTotal(jogador) {
 
 // ===== BÔNUS MANUAL - RODADA 5 E 6 =====
 function aplicarBonusManual() {
-    console.log('🔄 APLICANDO BÔNUS MANUAL...');
-    
     const bonus = [
         { jogador: "Walishow", jogo: "Palmeiras 3x0 Fortaleza", rodada: 5 },
         { jogador: "Walishow", jogo: "Cruzeiro 2x0 Chapecoense", rodada: 6 },
@@ -1073,12 +1068,10 @@ function aplicarBonusManual() {
                 jogo: b.jogo,
                 pontos: 5
             });
-            console.log(`✅ Bônus: ${b.jogador} +5 pts (${b.jogo})`);
         }
     });
 }
 
-// Aplica os bônus
 aplicarBonusManual();
 
 let chartInstance = null;
@@ -1470,4 +1463,3 @@ atualizarClassificacao();
 </script>
 </body>
 </html>
-```
