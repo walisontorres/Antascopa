@@ -864,13 +864,13 @@ const dadosPalpites = {
         r6_j1_a: "0", r6_j1_b: "2", r6_j2_a: "0", r6_j2_b: "1", r6_j3_a: "3", r6_j3_b: "0",
         r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "1", r6_j5_b: "1", r6_j6_a: "0", r6_j6_b: "0",
         r6_j7_a: "2", r6_j7_b: "1", r6_j8_a: "0", r6_j8_b: "1",
-        // RODADA 7
+        // RODADA 7 - CORINGA EXCLUSIVAMENTE AQUI
         r7_j1: "1", r7_j1_b: "0", r7_j2: "0", r7_j2_b: "2", r7_j3: "1", r7_j3_b: "0",
         r7_j4: "2", r7_j4_b: "0", r7_j5: "2", r7_j5_b: "0", r7_j6: "2", r7_j6_b: "0",
         r7_j7: "2", r7_j7_b: "0", r7_j8: "2", r7_j8_b: "1", r7_j9: "1", r7_j9_b: "1",
         r7_j10: "3", r7_j10_b: "0",
         palpite_do_dia: "r7_j10",
-        coringa_usado: true  // 🃏 ATIVADO NA RODADA 7!
+        coringa_usado: true  // 🃏 EXCLUSIVAMENTE NA RODADA 7
     },
     "Splé": {
         r3_j4_a: "0", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "3", r3_j6_b: "0",
@@ -922,16 +922,17 @@ const resultadosFinais = {
     r6_j7_a: "2", r6_j7_b: "1",
     r6_j8_a: "4", r6_j8_b: "0",
     // ==================== RODADA 7 ====================
-    r7_j1: "2", r7_j1_b: "1",   // 
-    r7_j2: "2", r7_j2_b: "2",   // 
-    r7_j3: "2", r7_j3_b: "1",   // 
-    r7_j4: "1", r7_j4_b: "1",   // 
-    r7_j5: "3", r7_j5_b: "1",   // 
-    r7_j6: "_", r7_j6_b: "_",   // 
-    r7_j7: "_", r7_j7_b: "_",   // 
-    r7_j8: "_", r7_j8_b: "_",   // 
-    r7_j9: "_", r7_j9_b: "_",   // 
-    r7_j10: "_", r7_j10_b: "_"  // 
+    // 🟡 COLOQUE OS RESULTADOS REAIS AQUI QUANDO OS JOGOS ACABAREM
+    r7_j1: "-", r7_j1_b: "-",
+    r7_j2: "-", r7_j2_b: "-",
+    r7_j3: "-", r7_j3_b: "-",
+    r7_j4: "-", r7_j4_b: "-",
+    r7_j5: "-", r7_j5_b: "-",
+    r7_j6: "-", r7_j6_b: "-",
+    r7_j7: "-", r7_j7_b: "-",
+    r7_j8: "-", r7_j8_b: "-",
+    r7_j9: "-", r7_j9_b: "-",
+    r7_j10: "-", r7_j10_b: "-"
 };
 
 // ==================== FUNÇÃO DE PONTUAÇÃO ====================
@@ -1015,7 +1016,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. CORINGA - dobra a rodada INTEIRA
+        // 3. CORINGA - dobra a rodada INTEIRA (EXCLUSIVAMENTE NA RODADA 7 PARA O FISH)
         if (p.coringa_usado) {
             ptsRodada = ptsRodada * 2;
         }
