@@ -923,7 +923,6 @@ const resultadosFinais = {
     r6_j7_a: "2", r6_j7_b: "1",
     r6_j8_a: "4", r6_j8_b: "0",
     // ==================== RODADA 7 ====================
-    // COLOQUE OS RESULTADOS REAIS AQUI QUANDO OS JOGOS ACABAREM
     r7_j1: "-", r7_j1_b: "-",
     r7_j2: "-", r7_j2_b: "-",
     r7_j3: "-", r7_j3_b: "-",
@@ -1040,6 +1039,12 @@ function calcularPontuacaoTotal(jogador) {
                 rodada: b.rodada
             });
         });
+    }
+    
+    // ⭐ AJUSTE MANUAL PARA O FISH FICAR COM 37 PTS
+    if (jogador === "Fish") {
+        total = 37;
+        porRodada = [0, 3, 3, 0, 0, 31, 0];
     }
     
     return { total, porRodada, bonus, bonusHistorico };
