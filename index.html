@@ -861,16 +861,17 @@ const dadosPalpites = {
         r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
         r3_j7_a: "2", r3_j7_b: "0", r3_j8_a: "3", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
         r3_j10_a: "1", r3_j10_b: "1",
+        // RODADA 6 - SEM CORINGA
         r6_j1_a: "0", r6_j1_b: "2", r6_j2_a: "0", r6_j2_b: "1", r6_j3_a: "3", r6_j3_b: "0",
         r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "1", r6_j5_b: "1", r6_j6_a: "0", r6_j6_b: "0",
         r6_j7_a: "2", r6_j7_b: "1", r6_j8_a: "0", r6_j8_b: "1",
-        // RODADA 7
+        // RODADA 7 - COM CORINGA EXCLUSIVAMENTE AQUI
         r7_j1: "1", r7_j1_b: "0", r7_j2: "0", r7_j2_b: "2", r7_j3: "1", r7_j3_b: "0",
         r7_j4: "2", r7_j4_b: "0", r7_j5: "2", r7_j5_b: "0", r7_j6: "2", r7_j6_b: "0",
         r7_j7: "2", r7_j7_b: "0", r7_j8: "2", r7_j8_b: "1", r7_j9: "1", r7_j9_b: "1",
         r7_j10: "3", r7_j10_b: "0",
         palpite_do_dia: "r7_j10",
-        coringa_usado: true  // 🃏 EXCLUSIVAMENTE NA RODADA 7
+        coringa_usado: true
     },
     "Splé": {
         r3_j4_a: "0", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "3", r3_j6_b: "0",
@@ -922,7 +923,7 @@ const resultadosFinais = {
     r6_j7_a: "2", r6_j7_b: "1",
     r6_j8_a: "4", r6_j8_b: "0",
     // ==================== RODADA 7 ====================
-    // 🟡 COLOQUE OS RESULTADOS REAIS AQUI QUANDO OS JOGOS ACABAREM
+    // COLOQUE OS RESULTADOS REAIS AQUI QUANDO OS JOGOS ACABAREM
     r7_j1: "-", r7_j1_b: "-",
     r7_j2: "-", r7_j2_b: "-",
     r7_j3: "-", r7_j3_b: "-",
@@ -1016,7 +1017,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. CORINGA - dobra a rodada INTEIRA
+        // 3. CORINGA - dobra a rodada INTEIRA (SÓ NA RODADA 7)
         if (p.coringa_usado) {
             ptsRodada = ptsRodada * 2;
         }
