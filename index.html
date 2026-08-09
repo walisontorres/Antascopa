@@ -920,7 +920,7 @@ const resultadosFinais = {
     r5_j6_a: "0", r5_j6_b: "0",
     r5_j7_a: "2", r5_j7_b: "0",
     r5_j8_a: "2", r5_j8_b: "0",
-    // Rodada 6
+    // Rodada 6 - VOCÊ COLOCOU
     r6_j1_a: "0", r6_j1_b: "1",
     r6_j2_a: "0", r6_j2_b: "1",
     r6_j3_a: "2", r6_j3_b: "0",
@@ -929,12 +929,12 @@ const resultadosFinais = {
     r6_j6_a: "3", r6_j6_b: "2",
     r6_j7_a: "2", r6_j7_b: "1",
     r6_j8_a: "4", r6_j8_b: "0",
-    // Rodada 7 - SOMENTE OS QUE VOCÊ COLOCOU
-    r7_j1_a: "2", r7_j1_b: "1",
-    r7_j2_a: "2", r7_j2_b: "2",
-    r7_j3_a: "2", r7_j3_b: "1",
-    r7_j4_a: "1", r7_j4_b: "1",
-    r7_j5_a: "3", r7_j5_b: "1",
+    // Rodada 7 - TODOS AGUARDANDO
+    r7_j1_a: "-", r7_j1_b: "-",
+    r7_j2_a: "-", r7_j2_b: "-",
+    r7_j3_a: "-", r7_j3_b: "-",
+    r7_j4_a: "-", r7_j4_b: "-",
+    r7_j5_a: "-", r7_j5_b: "-",
     r7_j6_a: "-", r7_j6_b: "-",
     r7_j7_a: "-", r7_j7_b: "-",
     r7_j8_a: "-", r7_j8_b: "-",
@@ -965,6 +965,7 @@ function getJogosPorRodada(rodada) {
     return [];
 }
 
+// ===== FUNÇÃO DE PONTUAÇÃO CORRIGIDA =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
     if (!p) return { total: 0, porRodada: [0,0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
@@ -980,6 +981,7 @@ function calcularPontuacaoTotal(jogador) {
         let bonusRodada = 0;
         let jogoBonus = null;
         
+        // 1. Pontos dos jogos
         jogos.forEach(j => {
             const ra = resultadosFinais[j.idA];
             const rb = resultadosFinais[j.idB];
@@ -992,6 +994,7 @@ function calcularPontuacaoTotal(jogador) {
             }
         });
         
+        // 2. Bônus do Palpite do Dia
         const dia = p.palpite_do_dia;
         if (dia) {
             const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
@@ -1020,7 +1023,8 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
+        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
+        // idx 0 = Rodada 1, idx 1 = Rodada 2, ..., idx 5 = Rodada 6, idx 6 = Rodada 7
         if (p.coringa_usado && jogador === "Fish" && idx === 6) {
             ptsRodada = ptsRodada * 2;
         }
@@ -1032,6 +1036,7 @@ function calcularPontuacaoTotal(jogador) {
         }
     });
     
+    // Adiciona bônus manuais
     if (p._bonus_manual) {
         p._bonus_manual.forEach(b => {
             total += b.pontos;
@@ -1047,7 +1052,10 @@ function calcularPontuacaoTotal(jogador) {
     return { total, porRodada, bonus, bonusHistorico };
 }
 
+// ===== BÔNUS MANUAL - RODADA 5 E 6 =====
 function aplicarBonusManual() {
+    console.log('🔄 APLICANDO BÔNUS MANUAL...');
+    
     const bonus = [
         { jogador: "Walishow", jogo: "Palmeiras 3x0 Fortaleza", rodada: 5 },
         { jogador: "Walishow", jogo: "Cruzeiro 2x0 Chapecoense", rodada: 6 },
@@ -1065,10 +1073,12 @@ function aplicarBonusManual() {
                 jogo: b.jogo,
                 pontos: 5
             });
+            console.log(`✅ Bônus: ${b.jogador} +5 pts (${b.jogo})`);
         }
     });
 }
 
+// Aplica os bônus
 aplicarBonusManual();
 
 let chartInstance = null;
@@ -1460,3 +1470,4 @@ atualizarClassificacao();
 </script>
 </body>
 </html>
+```
