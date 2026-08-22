@@ -605,6 +605,7 @@
             <button class="tab-btn" data-rodada="7" onclick="renderizarPorRodada(7)">Rodada 7</button>
             <button class="tab-btn" data-rodada="8" onclick="renderizarPorRodada(8)">Rodada 8</button>
             <button class="tab-btn" data-rodada="9" onclick="renderizarPorRodada(9)">Rodada 9</button>
+            <button class="tab-btn" data-rodada="10" onclick="renderizarPorRodada(10)">Rodada 10</button>
         </div>
         <div class="jogos-lista" id="lista-jogos-principal"></div>
     </div>
@@ -707,7 +708,6 @@ const jogosRodada8 = [
     { id: 58, tA: "Internacional", eA: "🔴", tB: "Remo", eB: "🔵", idA: "r8_j10_a", idB: "r8_j10_b" }
 ];
 
-// ==================== RODADA 9 ====================
 const jogosRodada9 = [
     { id: 59, tA: "Ind. Rivadavia", eA: "⚪", tB: "Fluminense", eB: "🔴", idA: "r9_j1_a", idB: "r9_j1_b" },
     { id: 60, tA: "Tolima", eA: "🔴", tB: "Ind. del Valle", eB: "🔵", idA: "r9_j2_a", idB: "r9_j2_b" },
@@ -717,6 +717,20 @@ const jogosRodada9 = [
     { id: 64, tA: "Flamengo", eA: "🔴", tB: "Cruzeiro", eB: "🔵", idA: "r9_j6_a", idB: "r9_j6_b" },
     { id: 65, tA: "LDU de Quito", eA: "🔴", tB: "Mirassol", eB: "🟢", idA: "r9_j7_a", idB: "r9_j7_b" },
     { id: 66, tA: "Corinthians", eA: "⚪", tB: "Rosario Central", eB: "🔴", idA: "r9_j8_a", idB: "r9_j8_b" }
+];
+
+// ==================== RODADA 10 ====================
+const jogosRodada10 = [
+    { id: 67, tA: "Fluminense", eA: "🔴", tB: "Remo", eB: "🔵", idA: "r10_j1_a", idB: "r10_j1_b" },
+    { id: 68, tA: "Internacional", eA: "🔴", tB: "Atlético-MG", eB: "⚫", idA: "r10_j2_a", idB: "r10_j2_b" },
+    { id: 69, tA: "Cruzeiro", eA: "🔵", tB: "Flamengo", eB: "🔴", idA: "r10_j3_a", idB: "r10_j3_b" },
+    { id: 70, tA: "Bragantino", eA: "🔴", tB: "Grêmio", eB: "🔵", idA: "r10_j4_a", idB: "r10_j4_b" },
+    { id: 71, tA: "Palmeiras", eA: "🟢", tB: "Vasco", eB: "⚫", idA: "r10_j5_a", idB: "r10_j5_b" },
+    { id: 72, tA: "Vitória", eA: "🔴", tB: "Bahia", eB: "🔵", idA: "r10_j6_a", idB: "r10_j6_b" },
+    { id: 73, tA: "Chapecoense", eA: "🟢", tB: "São Paulo", eB: "🔴", idA: "r10_j7_a", idB: "r10_j7_b" },
+    { id: 74, tA: "Santos", eA: "⚪", tB: "Mirassol", eB: "🟢", idA: "r10_j8_a", idB: "r10_j8_b" },
+    { id: 75, tA: "Coritiba", eA: "🟢", tB: "Corinthians", eB: "⚪", idA: "r10_j9_a", idB: "r10_j9_b" },
+    { id: 76, tA: "Botafogo RJ", eA: "⚫", tB: "Athletico-PR", eB: "⚫", idA: "r10_j10_a", idB: "r10_j10_b" }
 ];
 
 // ==================== DADOS DOS PALPITES ====================
@@ -744,11 +758,15 @@ const dadosPalpites = {
         r8_j4_a: "1", r8_j4_b: "1", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "1", r8_j6_b: "0",
         r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "1", r8_j9_a: "1", r8_j9_b: "1",
         r8_j10_a: "2", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "1", r9_j2_a: "2", r9_j2_b: "1", r9_j3_a: "0", r9_j3_b: "1",
         r9_j4_a: "0", r9_j4_b: "2", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "1", r9_j6_b: "2",
         r9_j7_a: "2", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "1",
-        palpite_do_dia: "r9_j6",
+        // RODADA 10
+        r10_j1_a: "1", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "1", r10_j3_a: "2", r10_j3_b: "1",
+        r10_j4_a: "2", r10_j4_b: "0", r10_j5_a: "3", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "0",
+        r10_j7_a: "0", r10_j7_b: "2", r10_j8_a: "0", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "0",
+        r10_j10_a: "1", r10_j10_b: "0",
+        palpite_do_dia: "r10_j8",
         coringa_usado: false
     },
     "Lucas": {
@@ -774,11 +792,15 @@ const dadosPalpites = {
         r8_j4_a: "1", r8_j4_b: "0", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "2", r8_j6_b: "1",
         r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "0", r8_j9_a: "0", r8_j9_b: "0",
         r8_j10_a: "1", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "0", r9_j1_b: "1", r9_j2_a: "0", r9_j2_b: "0", r9_j3_a: "0", r9_j3_b: "0",
         r9_j4_a: "0", r9_j4_b: "1", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "4", r9_j6_b: "1",
         r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "0", r9_j8_b: "0",
-        palpite_do_dia: "r9_j6",
+        // RODADA 10
+        r10_j1_a: "1", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "1",
+        r10_j4_a: "1", r10_j4_b: "0", r10_j5_a: "1", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "0",
+        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "0",
+        r10_j10_a: "0", r10_j10_b: "1",
+        palpite_do_dia: "r10_j10",
         coringa_usado: false
     },
     "Psico": {
@@ -804,11 +826,15 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "0", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "1",
         r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "0", r8_j9_b: "0",
         r8_j10_a: "2", r8_j10_b: "1",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "1", r9_j3_b: "1",
         r9_j4_a: "2", r9_j4_b: "1", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "3", r9_j6_b: "1",
         r9_j7_a: "3", r9_j7_b: "1", r9_j8_a: "1", r9_j8_b: "0",
-        palpite_do_dia: "r9_j4",
+        // RODADA 10
+        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "2",
+        r10_j4_a: "1", r10_j4_b: "0", r10_j5_a: "2", r10_j5_b: "1", r10_j6_a: "2", r10_j6_b: "2",
+        r10_j7_a: "1", r10_j7_b: "3", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "2", r10_j9_b: "1",
+        r10_j10_a: "1", r10_j10_b: "2",
+        palpite_do_dia: "r10_j3",
         coringa_usado: false
     },
     "Neneca": {
@@ -834,11 +860,15 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "2", r8_j6_b: "0",
         r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "0", r8_j8_b: "0", r8_j9_a: "0", r8_j9_b: "1",
         r8_j10_a: "0", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "1", r9_j3_b: "0",
         r9_j4_a: "0", r9_j4_b: "2", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "2", r9_j6_b: "1",
         r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "2", r9_j8_b: "0",
-        palpite_do_dia: "r9_j4",
+        // RODADA 10
+        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "0", r10_j3_a: "1", r10_j3_b: "1",
+        r10_j4_a: "0", r10_j4_b: "0", r10_j5_a: "1", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "1",
+        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "0", r10_j8_b: "1", r10_j9_a: "0", r10_j9_b: "2",
+        r10_j10_a: "1", r10_j10_b: "1",
+        palpite_do_dia: "r10_j7",
         coringa_usado: false
     },
     "Julian": {
@@ -869,11 +899,15 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "1", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "0",
         r8_j7_a: "0", r8_j7_b: "3", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "1", r8_j9_b: "1",
         r8_j10_a: "2", r8_j10_b: "1",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "1", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "2", r9_j3_b: "1",
         r9_j4_a: "2", r9_j4_b: "1", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "2", r9_j6_b: "1",
         r9_j7_a: "2", r9_j7_b: "0", r9_j8_a: "2", r9_j8_b: "1",
-        palpite_do_dia: "r9_j7",
+        // RODADA 10
+        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "1", r10_j3_a: "0", r10_j3_b: "2",
+        r10_j4_a: "2", r10_j4_b: "1", r10_j5_a: "3", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "2",
+        r10_j7_a: "1", r10_j7_b: "2", r10_j8_a: "2", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "1",
+        r10_j10_a: "1", r10_j10_b: "1",
+        palpite_do_dia: "r10_j3",
         coringa_usado: false
     },
     "Samuel": {
@@ -887,11 +921,15 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "1", r8_j6_b: "1",
         r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "1", r8_j9_b: "1",
         r8_j10_a: "2", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "2", r9_j3_b: "1",
         r9_j4_a: "1", r9_j4_b: "1", r9_j5_a: "1", r9_j5_b: "1", r9_j6_a: "2", r9_j6_b: "1",
         r9_j7_a: "2", r9_j7_b: "1", r9_j8_a: "2", r9_j8_b: "0",
-        palpite_do_dia: "r9_j4",
+        // RODADA 10
+        r10_j1_a: "2", r10_j1_b: "1", r10_j2_a: "2", r10_j2_b: "1", r10_j3_a: "0", r10_j3_b: "2",
+        r10_j4_a: "1", r10_j4_b: "1", r10_j5_a: "2", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "2",
+        r10_j7_a: "0", r10_j7_b: "2", r10_j8_a: "1", r10_j8_b: "2", r10_j9_a: "1", r10_j9_b: "2",
+        r10_j10_a: "1", r10_j10_b: "2",
+        palpite_do_dia: "r10_j1",
         coringa_usado: false
     },
     "Walishow": {
@@ -917,12 +955,16 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "1", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "2",
         r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "0", r8_j9_a: "1", r8_j9_b: "2",
         r8_j10_a: "1", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "0", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "0", r9_j3_b: "0",
         r9_j4_a: "1", r9_j4_b: "3", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "2", r9_j6_b: "0",
         r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "0",
-        palpite_do_dia: "r9_j6",
-        coringa_usado: false
+        // RODADA 10 - COM CORINGA ATIVADO!
+        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "2",
+        r10_j4_a: "3", r10_j4_b: "1", r10_j5_a: "3", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "0",
+        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "1", r10_j9_b: "1",
+        r10_j10_a: "1", r10_j10_b: "2",
+        palpite_do_dia: "r10_j5",
+        coringa_usado: true  // 🃏 CORINGA ATIVADO NA RODADA 10!
     },
     "Freitas": {
         r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
@@ -946,11 +988,15 @@ const dadosPalpites = {
         r8_j4_a: "0", r8_j4_b: "1", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "1", r8_j6_b: "1",
         r8_j7_a: "1", r8_j7_b: "1", r8_j8_a: "0", r8_j8_b: "1", r8_j9_a: "1", r8_j9_b: "1",
         r8_j10_a: "2", r8_j10_b: "0",
-        // RODADA 9
         r9_j1_a: "1", r9_j1_b: "0", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "2", r9_j3_b: "1",
         r9_j4_a: "1", r9_j4_b: "0", r9_j5_a: "0", r9_j5_b: "1", r9_j6_a: "2", r9_j6_b: "1",
         r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "0",
-        palpite_do_dia: "r9_j6",
+        // RODADA 10
+        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "0", r10_j2_b: "1", r10_j3_a: "1", r10_j3_b: "1",
+        r10_j4_a: "1", r10_j4_b: "2", r10_j5_a: "2", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "1",
+        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "1", r10_j9_b: "1",
+        r10_j10_a: "0", r10_j10_b: "1",
+        palpite_do_dia: "r10_j9",
         coringa_usado: false
     },
     "Fish": {
@@ -962,7 +1008,6 @@ const dadosPalpites = {
         r6_j1_a: "0", r6_j1_b: "2", r6_j2_a: "0", r6_j2_b: "1", r6_j3_a: "3", r6_j3_b: "0",
         r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "1", r6_j5_b: "1", r6_j6_a: "0", r6_j6_b: "0",
         r6_j7_a: "2", r6_j7_b: "1", r6_j8_a: "0", r6_j8_b: "1",
-        // RODADA 7 - CORINGA ATIVADO!
         r7_j1_a: "1", r7_j1_b: "0", r7_j2_a: "0", r7_j2_b: "2", r7_j3_a: "1", r7_j3_b: "0",
         r7_j4_a: "2", r7_j4_b: "0", r7_j5_a: "2", r7_j5_b: "0", r7_j6_a: "2", r7_j6_b: "0",
         r7_j7_a: "2", r7_j7_b: "0", r7_j8_a: "2", r7_j8_b: "1", r7_j9_a: "1", r7_j9_b: "1",
@@ -972,7 +1017,7 @@ const dadosPalpites = {
         r8_j7_a: "0", r8_j7_b: "0", r8_j8_a: "0", r8_j8_b: "0", r8_j9_a: "1", r8_j9_b: "0",
         r8_j10_a: "0", r8_j10_b: "1",
         palpite_do_dia: null,
-        coringa_usado: true
+        coringa_usado: true  // 🃏 CORINGA JÁ USADO NA RODADA 7
     },
     "Splé": {
         r3_j4_a: "0", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "3", r3_j6_b: "0",
@@ -1045,7 +1090,7 @@ const resultadosFinais = {
     r8_j8_a: "1", r8_j8_b: "0",
     r8_j9_a: "1", r8_j9_b: "2",
     r8_j10_a: "1", r8_j10_b: "1",
-    // ==================== RODADA 9 ====================
+    // Rodada 9
     r9_j1_a: "1", r9_j1_b: "1",
     r9_j2_a: "0", r9_j2_b: "1",
     r9_j3_a: "0", r9_j3_b: "3",
@@ -1053,7 +1098,18 @@ const resultadosFinais = {
     r9_j5_a: "0", r9_j5_b: "0",
     r9_j6_a: "2", r9_j6_b: "1",
     r9_j7_a: "0", r9_j7_b: "0",
-    r9_j8_a: "1", r9_j8_b: "0"
+    r9_j8_a: "1", r9_j8_b: "0",
+    // ==================== RODADA 10 ====================
+    r10_j1_a: "-", r10_j1_b: "-",
+    r10_j2_a: "-", r10_j2_b: "-",
+    r10_j3_a: "-", r10_j3_b: "-",
+    r10_j4_a: "-", r10_j4_b: "-",
+    r10_j5_a: "-", r10_j5_b: "-",
+    r10_j6_a: "-", r10_j6_b: "-",
+    r10_j7_a: "-", r10_j7_b: "-",
+    r10_j8_a: "-", r10_j8_b: "-",
+    r10_j9_a: "-", r10_j9_b: "-",
+    r10_j10_a: "-", r10_j10_b: "-"
 };
 
 // ==================== FUNÇÃO DE PONTUAÇÃO ====================
@@ -1078,18 +1134,19 @@ function getJogosPorRodada(rodada) {
     if (rodada === 7) return jogosRodada7;
     if (rodada === 8) return jogosRodada8;
     if (rodada === 9) return jogosRodada9;
+    if (rodada === 10) return jogosRodada10;
     return [];
 }
 
 // ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS E CORINGA =====
 function calcularPontuacaoTotal(jogador) {
     const p = dadosPalpites[jogador];
-    if (!p) return { total: 0, porRodada: [0,0,0,0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
+    if (!p) return { total: 0, porRodada: [0,0,0,0,0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
     
-    const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6, jogosRodada7, jogosRodada8, jogosRodada9];
+    const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6, jogosRodada7, jogosRodada8, jogosRodada9, jogosRodada10];
     let total = 0;
     let bonus = 0;
-    let porRodada = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let porRodada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let bonusHistorico = [];
     
     todasRodadas.forEach((jogos, idx) => {
@@ -1139,9 +1196,16 @@ function calcularPontuacaoTotal(jogador) {
             }
         }
         
-        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH
-        if (p.coringa_usado && jogador === "Fish" && idx === 6) {
-            ptsRodada = ptsRodada * 2;
+        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH OU RODADA 10 PARA WALISHOW
+        if (p.coringa_usado) {
+            // Fish usou na rodada 7 (idx 6)
+            if (jogador === "Fish" && idx === 6) {
+                ptsRodada = ptsRodada * 2;
+            }
+            // Walishow usou na rodada 10 (idx 9)
+            if (jogador === "Walishow" && idx === 9) {
+                ptsRodada = ptsRodada * 2;
+            }
         }
         
         porRodada[idx] = ptsRodada;
@@ -1268,7 +1332,8 @@ function abrirPalpites(e) {
         { nome: "Rodada 6", jogos: jogosRodada6 },
         { nome: "Rodada 7", jogos: jogosRodada7 },
         { nome: "Rodada 8", jogos: jogosRodada8 },
-        { nome: "Rodada 9", jogos: jogosRodada9 }
+        { nome: "Rodada 9", jogos: jogosRodada9 },
+        { nome: "Rodada 10", jogos: jogosRodada10 }
     ];
     
     const coringaAtivo = t.coringa_usado;
@@ -1286,7 +1351,7 @@ function abrirPalpites(e) {
         if (!temPalpites) return;
         
         const rodadaNum = todasRodadas.indexOf(rodada) + 1;
-        const temCoringa = coringaAtivo && rodadaNum === 7;
+        const temCoringa = coringaAtivo && (rodadaNum === 7 || rodadaNum === 10);
         
         html += `<div style="margin-top:16px;margin-bottom:8px;font-weight:700;font-size:0.9rem;color:var(--pl-purple);border-bottom:2px solid var(--pl-border);padding-bottom:6px;">
             📌 ${rodada.nome} ${temCoringa ? '<span style="color:#ef4444;font-size:0.7rem;">🃏 CORINGA ATIVO!</span>' : ''}
@@ -1322,7 +1387,7 @@ function abrirPalpites(e) {
             }
             
             let ptsDisplay = pts;
-            if (coringaAtivo && temResultado && rodadaNum === 7) {
+            if (coringaAtivo && temResultado && (rodadaNum === 7 || rodadaNum === 10)) {
                 ptsDisplay = pts * 2;
                 if (isDia && bonusTexto) {
                     bonusTexto = ' <span style="color:#ef4444;font-weight:800;background:rgba(239,68,68,0.15);padding:2px 8px;border-radius:100px;">🃏 DOBRADO!</span>';
@@ -1437,6 +1502,7 @@ function atualizarClassificacao() {
     const mR7 = [...ranking].sort((a,b) => b.porRodada[6] - a.porRodada[6])[0];
     const mR8 = [...ranking].sort((a,b) => b.porRodada[7] - a.porRodada[7])[0];
     const mR9 = [...ranking].sort((a,b) => b.porRodada[8] - a.porRodada[8])[0];
+    const mR10 = [...ranking].sort((a,b) => b.porRodada[9] - a.porRodada[9])[0];
     
     document.getElementById("estatisticas-dinamicas").innerHTML = `
         <div style="overflow-x:auto;margin-bottom:16px;">
@@ -1452,6 +1518,7 @@ function atualizarClassificacao() {
                     <tr><td>Maior Pontuador R7</td><td>${mR7?.nome || '-'}</td><td>${mR7?.porRodada[6] || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R8</td><td>${mR8?.nome || '-'}</td><td>${mR8?.porRodada[7] || 0} pts</td></tr>
                     <tr><td>Maior Pontuador R9</td><td>${mR9?.nome || '-'}</td><td>${mR9?.porRodada[8] || 0} pts</td></tr>
+                    <tr><td>Maior Pontuador R10</td><td>${mR10?.nome || '-'}</td><td>${mR10?.porRodada[9] || 0} pts</td></tr>
                     <tr><td>⭐ Bônus Palpite do Dia</td><td>${ranking.filter(c => c.bonus > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
                     <tr><td>🃏 Coringa Usado</td><td>${ranking.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
                 </tbody>
@@ -1519,7 +1586,7 @@ function atualizarClassificacao() {
 }
 
 function atualizarGrafico(ranking) {
-    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5', 'Rodada 6', 'Rodada 7', 'Rodada 8', 'Rodada 9'];
+    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5', 'Rodada 6', 'Rodada 7', 'Rodada 8', 'Rodada 9', 'Rodada 10'];
     
     const ordem = ranking.map(p => p.nome);
     const datasets = ordem.map((nome, index) => {
