@@ -1139,8 +1139,8 @@ const resultadosFinais = {
     r10_j10_a: "2", r10_j10_b: "3",
     // ==================== RODADA 11 ====================
     r11_j1_a: "1", r11_j1_b: "1",
-    r11_j2_a: "1", r11_j2_b: "0",
-    r11_j3_a: "3", r11_j3_b: "0",
+    r11_j2_a: "-", r11_j2_b: "-",
+    r11_j3_a: "-", r11_j3_b: "-",
     r11_j4_a: "-", r11_j4_b: "-"
 };
 
@@ -1259,6 +1259,14 @@ function calcularPontuacaoTotal(jogador) {
                 rodada: b.rodada
             });
         });
+    }
+    
+    // ⭐ AJUSTE MANUAL - DOBRA OS PONTOS DA RODADA 10 DO WALISHOW
+    if (jogador === "Walishow") {
+        // Pega os pontos da Rodada 10 (índice 9) e dobra
+        porRodada[9] = porRodada[9] * 2;
+        // Recalcula o total
+        total = porRodada.reduce((a, b) => a + b, 0);
     }
     
     return { total, porRodada, bonus, bonusHistorico };
