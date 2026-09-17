@@ -1,4 +1,4 @@
-```html
+``html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1021,7 +1021,7 @@ const dadosPalpites = {
         // RODADA 17
         r17_j1_a: "1", r17_j1_b: "1", r17_j2_a: "2", r17_j2_b: "0", r17_j3_a: "1", r17_j3_b: "0",
         r17_j4_a: "0", r17_j4_b: "1", r17_j5_a: "0", r17_j5_b: "2",
-        palpite_do_dia: "r17_j1",
+        palpite_do_dia: null,
         coringa_usado: false
     },
     "Dj": {
@@ -1131,8 +1131,8 @@ const dadosPalpites = {
         r16_j7_a: "1", r16_j7_b: "1", r16_j8_a: "1", r16_j8_b: "2", r16_j9_a: "2", r16_j9_b: "1",
         r16_j10_a: "2", r16_j10_b: "0",
         // RODADA 17
-        r17_j1_a: "1", r17_j1_b: "2", r17_j2_a: "2", r17_j2_b: "1", r17_j3_a: "2", r17_j3_b: "1",
-        r17_j4_a: "2", r17_j4_b: "1", r17_j5_a: "2", r17_j5_b: "1",
+        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "1", r17_j2_b: "2", r17_j3_a: "2", r17_j3_b: "1",
+        r17_j4_a: "1", r17_j4_b: "2", r17_j5_a: "1", r17_j5_b: "2",
         palpite_do_dia: "r17_j5",
         coringa_usado: false
     },
@@ -1404,10 +1404,10 @@ const resultadosFinais = {
     r16_j9_a: "2", r16_j9_b: "1",
     r16_j10_a: "2", r16_j10_b: "1",
     // RODADA 17 - RESULTADOS EM BRANCO
-    r17_j1_a: "1", r17_j1_b: "2",
-    r17_j2_a: "2", r17_j2_b: "3",
-    r17_j3_a: "3", r17_j3_b: "2",
-    r17_j4_a: "1", r17_j4_b: "0",
+    r17_j1_a: "-", r17_j1_b: "-",
+    r17_j2_a: "-", r17_j2_b: "-",
+    r17_j3_a: "-", r17_j3_b: "-",
+    r17_j4_a: "-", r17_j4_b: "-",
     r17_j5_a: "-", r17_j5_b: "-"
 };
 
@@ -1573,7 +1573,7 @@ function aplicarBonusManual() {
 aplicarBonusManual();
 
 let chartInstance = null;
-const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f472b6', '#a78bfa', '#34d399', '#f97316', '#eab308', '#06b6d4', '#84cc16'];
+const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f472b6', '#a78bfa', '#34d399', '#f97316', '#eab308', '#06b6d4'];
 
 function renderizarPorRodada(n) {
     document.querySelectorAll('.tab-btn').forEach(b => {
