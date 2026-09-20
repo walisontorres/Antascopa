@@ -1,2063 +1,1212 @@
-```html
+``html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>BrasileirAntas 2026</title>
-    <style>
-        :root {
-            --pl-purple: #3D1952;
-            --pl-gold: #F7C137;
-            --pl-dark: #17002E;
-            --pl-blue: #26117D;
-            --pl-light: #F8F4F9;
-            --pl-card: #FFFFFF;
-            --pl-text: #1a1a2e;
-            --pl-muted: #7a7a8a;
-            --pl-border: rgba(61, 25, 82, 0.12);
-            --radius: 20px;
-            --shadow: 0 20px 50px rgba(61, 25, 82, 0.10);
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-            background: var(--pl-light);
-            color: var(--pl-text);
-            padding-bottom: 80px;
-            min-height: 100vh;
-        }
-        .pl-header {
-            background: linear-gradient(135deg, var(--pl-dark) 0%, var(--pl-purple) 50%, var(--pl-blue) 100%);
-            color: #fff;
-            text-align: center;
-            padding: 50px 20px 70px 20px;
-            border-radius: 0 0 var(--radius) var(--radius);
-            position: relative;
-            overflow: hidden;
-        }
-        .pl-header::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(247, 193, 55, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        .pl-header .badge {
-            display: inline-block;
-            background: var(--pl-gold);
-            color: var(--pl-dark);
-            font-weight: 700;
-            font-size: 0.7rem;
-            padding: 4px 16px;
-            border-radius: 100px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-        }
-        .pl-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            position: relative;
-            z-index: 2;
-        }
-        .pl-header h1 span {
-            background: linear-gradient(135deg, var(--pl-gold), #f5a623);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .pl-header p {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 6px;
-            font-weight: 500;
-            position: relative;
-            z-index: 2;
-        }
-        .pl-header .lion {
-            font-size: 2.5rem;
-            display: block;
-            margin-top: 6px;
-            filter: drop-shadow(0 4px 12px rgba(247, 193, 55, 0.3));
-        }
-        .container {
-            max-width: 1000px;
-            margin: -35px auto 0;
-            padding: 0 16px;
-            position: relative;
-            z-index: 10;
-        }
-        .pl-card {
-            background: var(--pl-card);
-            border-radius: var(--radius);
-            padding: 28px 24px;
-            box-shadow: var(--shadow);
-            margin-bottom: 28px;
-            border: 1px solid var(--pl-border);
-            transition: all 0.3s ease;
-        }
-        .pl-card:hover {
-            box-shadow: 0 25px 55px rgba(61, 25, 82, 0.13);
-        }
-        .pl-card h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--pl-dark);
-            margin-bottom: 22px;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .pl-card h2 .gold {
-            color: var(--pl-gold);
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .stat-card {
-            background: rgba(61, 25, 82, 0.04);
-            padding: 14px 10px;
-            border-radius: 14px;
-            text-align: center;
-            border: 1px solid var(--pl-border);
-        }
-        .stat-card .value {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--pl-purple);
-            display: block;
-            line-height: 1.2;
-        }
-        .stat-card .label {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--pl-muted);
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-        .pl-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .pl-table th {
-            text-align: left;
-            padding: 10px 12px;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--pl-muted);
-            letter-spacing: 0.8px;
-            border-bottom: 2px solid var(--pl-border);
-        }
-        .pl-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--pl-border);
-            font-size: 0.9rem;
-        }
-        .pl-table tr:last-child td { border-bottom: none; }
-        .pl-table .pos {
-            font-weight: 700;
-            color: var(--pl-purple);
-            width: 40px;
-        }
-        .pl-table .pos.gold { color: var(--pl-gold); }
-        .pl-table .pos.silver { color: #b0b0b0; }
-        .pl-table .pos.bronze { color: #cd7f32; }
-        .pl-table .name { font-weight: 600; }
-        .pl-table .pts {
-            font-weight: 700;
-            color: var(--pl-purple);
-            text-align: right;
-        }
-        .part-lista {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-        }
-        .part-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 16px;
-            background: rgba(61, 25, 82, 0.03);
-            border-radius: 12px;
-            border: 1px solid var(--pl-border);
-            transition: all 0.3s ease;
-        }
-        .part-item:hover {
-            background: rgba(61, 25, 82, 0.06);
-            transform: translateY(-2px);
-        }
-        .part-item .nome {
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-        .part-item .btn-palpites {
-            background: var(--pl-purple);
-            color: #fff;
-            border: none;
-            padding: 5px 14px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.65rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-        .part-item .btn-palpites:hover {
-            background: var(--pl-gold);
-            color: var(--pl-dark);
-            transform: scale(1.03);
-        }
-        .part-item .badge-coringa {
-            font-size: 0.55rem;
-            background: #f7c13730;
-            color: #b8860b;
-            padding: 2px 8px;
-            border-radius: 100px;
-            font-weight: 600;
-            margin-left: 6px;
-        }
-        .part-item .badge-coringa.usado {
-            background: #dc354520;
-            color: #dc3545;
-        }
-        .badge-coringa-ativo {
-            display: inline-block;
-            background: #ef4444;
-            color: #fff;
-            padding: 2px 10px;
-            border-radius: 100px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            margin-left: 6px;
-            animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .jogos-lista {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .jogo-card {
-            display: flex;
-            flex-direction: column;
-            padding: 12px 14px;
-            background: rgba(61, 25, 82, 0.02);
-            border-radius: 14px;
-            border: 1px solid var(--pl-border);
-            gap: 6px;
-            transition: all 0.3s ease;
-        }
-        .jogo-card:hover {
-            background: rgba(61, 25, 82, 0.05);
-        }
-        .jogo-card.destaque {
-            border-color: var(--pl-gold);
-            background: rgba(247, 193, 55, 0.06);
-        }
-        .jogo-principal {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-        }
-        .time {
-            flex: 1;
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .time.casa { justify-content: flex-end; text-align: right; }
-        .time.fora { justify-content: flex-start; text-align: left; }
-        .time .escudo { font-size: 1.2rem; }
-        .placar-box {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: rgba(61, 25, 82, 0.05);
-            padding: 2px 10px;
-            border-radius: 10px;
-            border: 1px solid var(--pl-border);
-        }
-        .placar-box .gol {
-            font-weight: 700;
-            font-size: 0.95rem;
-            min-width: 18px;
-            text-align: center;
-            color: var(--pl-dark);
-        }
-        .placar-box .x { color: var(--pl-muted); font-size: 0.65rem; }
-        .jogo-odds {
-            font-size: 0.5rem;
-            font-weight: 600;
-            color: var(--pl-muted);
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-        .tab-container {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-        .tab-btn {
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid var(--pl-border);
-            background: transparent;
-            font-weight: 600;
-            font-size: 0.7rem;
-            color: var(--pl-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-        .tab-btn:hover {
-            border-color: var(--pl-purple);
-            color: var(--pl-purple);
-        }
-        .tab-btn.active {
-            background: var(--pl-purple);
-            color: #fff;
-            border-color: var(--pl-purple);
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(23, 0, 46, 0.5);
-            backdrop-filter: blur(8px);
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-        }
-        .modal.ativo { display: flex; }
-        .modal-conteudo {
-            background: #fff;
-            border-radius: var(--radius);
-            padding: 24px 18px;
-            max-width: 700px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
-            animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .modal-fechar {
-            float: right;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--pl-muted);
-            padding: 0 6px;
-            transition: all 0.2s;
-        }
-        .modal-fechar:hover { transform: rotate(90deg); color: var(--pl-dark); }
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(30px) scale(0.96); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .palpite-cor-verde { background: #22c55e20 !important; border-color: #22c55e !important; }
-        .palpite-cor-verde .gol { background: #22c55e !important; color: #fff !important; border-radius: 6px; }
-        .palpite-cor-amarelo { background: #f7c13720 !important; border-color: #f7c137 !important; }
-        .palpite-cor-amarelo .gol { background: #f7c137 !important; color: #000 !important; border-radius: 6px; }
-        .palpite-cor-vermelho { background: #ef444420 !important; border-color: #ef4444 !important; }
-        .palpite-cor-vermelho .gol { background: #ef4444 !important; color: #fff !important; border-radius: 6px; }
-        .palpite-cor-branco { background: transparent !important; border-color: var(--pl-border) !important; }
-        .palpite-cor-ouro { background: #f7c13730 !important; border-color: #f7c137 !important; border-width: 2px !important; }
-        .palpite-cor-ouro .gol { background: var(--pl-gold) !important; color: #000 !important; border-radius: 6px; }
-        .evolucao-linha {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 4px 0;
-        }
-        .evolucao-nome {
-            font-weight: 600;
-            width: 100px;
-            font-size: 0.75rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .evolucao-barra-bg {
-            flex: 1;
-            height: 10px;
-            background: rgba(61, 25, 82, 0.08);
-            border-radius: 100px;
-            overflow: hidden;
-        }
-        .evolucao-barra-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--pl-purple), var(--pl-gold));
-            border-radius: 100px;
-            transition: width 0.5s ease;
-        }
-        .evolucao-pts {
-            font-weight: 700;
-            color: var(--pl-purple);
-            width: 40px;
-            text-align: right;
-            font-size: 0.75rem;
-        }
-        .evolucao-tendencia {
-            font-size: 0.65rem;
-            width: 30px;
-            text-align: right;
-            font-weight: 600;
-        }
-        .subiu { color: #22c55e; }
-        .desceu { color: #ef4444; }
-        .manteve { color: var(--pl-muted); }
-        .grafico-container {
-            width: 100%;
-            height: 260px;
-            margin: 12px 0;
-        }
-        .grafico-legenda {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: center;
-            font-size: 0.6rem;
-            padding: 6px 0;
-        }
-        .grafico-legenda-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .grafico-legenda-cor {
-            width: 14px;
-            height: 3px;
-            border-radius: 4px;
-        }
-        .news-card {
-            border-left: 4px solid var(--pl-gold);
-            padding-left: 12px;
-            margin-bottom: 8px;
-        }
-        .news-tag {
-            font-size: 0.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--pl-gold);
-            background: var(--pl-dark);
-            padding: 2px 8px;
-            border-radius: 100px;
-            display: inline-block;
-            letter-spacing: 1px;
-        }
-        .news-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--pl-dark);
-            margin-top: 2px;
-        }
-        .news-text {
-            font-size: 0.75rem;
-            color: var(--pl-muted);
-        }
-        .bonus-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-        }
-        .bonus-card {
-            background: rgba(61, 25, 82, 0.04);
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--pl-border);
-            transition: all 0.3s ease;
-        }
-        .bonus-card:hover {
-            background: rgba(61, 25, 82, 0.07);
-            transform: translateY(-2px);
-        }
-        .bonus-card .nome {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--pl-purple);
-        }
-        .bonus-card .total {
-            font-size: 0.75rem;
-            color: var(--pl-muted);
-            margin-top: 4px;
-        }
-        .bonus-card .total strong {
-            color: #F7C137;
-        }
-        .bonus-card .historico {
-            font-size: 0.65rem;
-            color: var(--pl-muted);
-            margin-top: 4px;
-        }
-        .bonus-card .historico .item {
-            display: inline-block;
-            background: rgba(247, 193, 55, 0.15);
-            color: #b8860b;
-            padding: 1px 8px;
-            border-radius: 100px;
-            margin: 2px 4px 2px 0;
-            font-weight: 600;
-        }
-        @media (max-width: 640px) {
-            .pl-header h1 { font-size: 2rem; }
-            .pl-header .lion { font-size: 1.8rem; }
-            .pl-card { padding: 16px 12px; }
-            .time { font-size: 0.7rem; }
-            .time .escudo { font-size: 1rem; }
-            .placar-box { padding: 2px 6px; }
-            .placar-box .gol { font-size: 0.8rem; min-width: 14px; }
-            .part-lista { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .evolucao-nome { width: 60px; font-size: 0.65rem; }
-            .grafico-container { height: 180px; }
-            .modal-conteudo { padding: 16px 10px; }
-            .bonus-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 480px) {
-            .pl-header h1 { font-size: 1.6rem; }
-            .jogo-principal { flex-wrap: wrap; justify-content: center; gap: 3px; }
-            .time { font-size: 0.65rem; flex: 0 1 auto; }
-            .time.casa { order: 1; }
-            .placar-box { order: 2; }
-            .time.fora { order: 3; }
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BrasileirAntas 2026</title>
+<style>
+:root{--pp:#3D1952;--pg:#F7C137;--pd:#17002E;--pb:#26117D;--pl:#F8F4F9;--pc:#FFF;--pt:#1a1a2e;--pm:#7a7a8a;--pb2:rgba(61,25,82,.12);--r:20px;--s:0 20px 50px rgba(61,25,82,.10)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--pl);color:var(--pt);padding-bottom:80px;min-height:100vh}
+.pl-header{background:linear-gradient(135deg,var(--pd) 0%,var(--pp) 50%,var(--pb) 100%);color:#fff;text-align:center;padding:50px 20px 70px;border-radius:0 0 var(--r) var(--r);position:relative;overflow:hidden}
+.pl-header::after{content:'';position:absolute;top:-50%;right:-20%;width:400px;height:400px;background:radial-gradient(circle,rgba(247,193,55,.08) 0%,transparent 70%);border-radius:50%}
+.pl-header .badge{display:inline-block;background:var(--pg);color:var(--pd);font-weight:700;font-size:.7rem;padding:4px 16px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.pl-header h1{font-size:3rem;font-weight:800;letter-spacing:-1.5px;position:relative;z-index:2}
+.pl-header h1 span{background:linear-gradient(135deg,var(--pg),#f5a623);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pl-header p{font-size:1rem;opacity:.8;margin-top:6px;font-weight:500;position:relative;z-index:2}
+.pl-header .lion{font-size:2.5rem;display:block;margin-top:6px;filter:drop-shadow(0 4px 12px rgba(247,193,55,.3))}
+.container{max-width:1000px;margin:-35px auto 0;padding:0 16px;position:relative;z-index:10}
+.pl-card{background:var(--pc);border-radius:var(--r);padding:28px 24px;box-shadow:var(--s);margin-bottom:28px;border:1px solid var(--pb2);transition:all .3s ease}
+.pl-card:hover{box-shadow:0 25px 55px rgba(61,25,82,.13)}
+.pl-card h2{font-size:1.5rem;font-weight:700;color:var(--pd);margin-bottom:22px;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.pl-card h2 .gold{color:var(--pg)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.stat-card{background:rgba(61,25,82,.04);padding:14px 10px;border-radius:14px;text-align:center;border:1px solid var(--pb2)}
+.stat-card .value{font-size:1.4rem;font-weight:800;color:var(--pp);display:block;line-height:1.2}
+.stat-card .label{font-size:.6rem;text-transform:uppercase;font-weight:600;color:var(--pm);letter-spacing:.5px;margin-top:2px}
+.pl-table{width:100%;border-collapse:collapse}
+.pl-table th{text-align:left;padding:10px 12px;font-size:.65rem;text-transform:uppercase;font-weight:700;color:var(--pm);letter-spacing:.8px;border-bottom:2px solid var(--pb2)}
+.pl-table td{padding:10px 12px;border-bottom:1px solid var(--pb2);font-size:.9rem}
+.pl-table tr:last-child td{border-bottom:none}
+.pl-table .pos{font-weight:700;color:var(--pp);width:40px}
+.pl-table .pos.gold{color:var(--pg)}
+.pl-table .pos.silver{color:#b0b0b0}
+.pl-table .pos.bronze{color:#cd7f32}
+.pl-table .name{font-weight:600}
+.pl-table .pts{font-weight:700;color:var(--pp);text-align:right}
+.part-lista{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.part-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(61,25,82,.03);border-radius:12px;border:1px solid var(--pb2);transition:all .3s ease}
+.part-item:hover{background:rgba(61,25,82,.06);transform:translateY(-2px)}
+.part-item .nome{font-weight:600;font-size:.85rem}
+.part-item .btn-palpites{background:var(--pp);color:#fff;border:none;padding:5px 14px;border-radius:100px;font-weight:600;font-size:.65rem;cursor:pointer;transition:all .3s ease;font-family:inherit}
+.part-item .btn-palpites:hover{background:var(--pg);color:var(--pd);transform:scale(1.03)}
+.part-item .badge-coringa{font-size:.55rem;background:#f7c13730;color:#b8860b;padding:2px 8px;border-radius:100px;font-weight:600;margin-left:6px}
+.part-item .badge-coringa.usado{background:#dc354520;color:#dc3545}
+.badge-coringa-ativo{display:inline-block;background:#ef4444;color:#fff;padding:2px 10px;border-radius:100px;font-size:.55rem;font-weight:700;margin-left:6px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.jogos-lista{display:flex;flex-direction:column;gap:10px}
+.jogo-card{display:flex;flex-direction:column;padding:12px 14px;background:rgba(61,25,82,.02);border-radius:14px;border:1px solid var(--pb2);gap:6px;transition:all .3s ease}
+.jogo-card:hover{background:rgba(61,25,82,.05)}
+.jogo-card.destaque{border-color:var(--pg);background:rgba(247,193,55,.06)}
+.jogo-principal{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.time{flex:1;font-weight:600;font-size:.85rem;display:flex;align-items:center;gap:6px}
+.time.casa{justify-content:flex-end;text-align:right}
+.time.fora{justify-content:flex-start;text-align:left}
+.time .escudo{font-size:1.2rem}
+.placar-box{display:flex;align-items:center;gap:5px;background:rgba(61,25,82,.05);padding:2px 10px;border-radius:10px;border:1px solid var(--pb2)}
+.placar-box .gol{font-weight:700;font-size:.95rem;min-width:18px;text-align:center;color:var(--pd)}
+.placar-box .x{color:var(--pm);font-size:.65rem}
+.jogo-odds{font-size:.5rem;font-weight:600;color:var(--pm);text-align:center;letter-spacing:.5px}
+.tab-container{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab-btn{padding:6px 14px;border-radius:100px;border:1px solid var(--pb2);background:transparent;font-weight:600;font-size:.7rem;color:var(--pm);cursor:pointer;transition:all .3s ease;font-family:inherit}
+.tab-btn:hover{border-color:var(--pp);color:var(--pp)}
+.tab-btn.active{background:var(--pp);color:#fff;border-color:var(--pp)}
+.modal{display:none;position:fixed;inset:0;background:rgba(23,0,46,.5);backdrop-filter:blur(8px);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal.ativo{display:flex}
+.modal-conteudo{background:#fff;border-radius:var(--r);padding:24px 18px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.2);animation:modalIn .4s cubic-bezier(.34,1.56,.64,1)}
+.modal-fechar{float:right;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--pm);padding:0 6px;transition:all .2s}
+.modal-fechar:hover{transform:rotate(90deg);color:var(--pd)}
+@keyframes modalIn{from{opacity:0;transform:translateY(30px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.palpite-cor-verde{background:#22c55e20!important;border-color:#22c55e!important}
+.palpite-cor-verde .gol{background:#22c55e!important;color:#fff!important;border-radius:6px}
+.palpite-cor-amarelo{background:#f7c13720!important;border-color:#f7c137!important}
+.palpite-cor-amarelo .gol{background:#f7c137!important;color:#000!important;border-radius:6px}
+.palpite-cor-vermelho{background:#ef444420!important;border-color:#ef4444!important}
+.palpite-cor-vermelho .gol{background:#ef4444!important;color:#fff!important;border-radius:6px}
+.palpite-cor-branco{background:transparent!important;border-color:var(--pb2)!important}
+.palpite-cor-ouro{background:#f7c13730!important;border-color:#f7c137!important;border-width:2px!important}
+.palpite-cor-ouro .gol{background:var(--pg)!important;color:#000!important;border-radius:6px}
+.evolucao-linha{display:flex;align-items:center;gap:10px;padding:4px 0}
+.evolucao-nome{font-weight:600;width:100px;font-size:.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.evolucao-barra-bg{flex:1;height:10px;background:rgba(61,25,82,.08);border-radius:100px;overflow:hidden}
+.evolucao-barra-fill{height:100%;background:linear-gradient(90deg,var(--pp),var(--pg));border-radius:100px;transition:width .5s ease}
+.evolucao-pts{font-weight:700;color:var(--pp);width:40px;text-align:right;font-size:.75rem}
+.evolucao-tendencia{font-size:.65rem;width:30px;text-align:right;font-weight:600}
+.subiu{color:#22c55e}.desceu{color:#ef4444}.manteve{color:var(--pm)}
+.grafico-container{width:100%;height:260px;margin:12px 0}
+.grafico-legenda{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;font-size:.6rem;padding:6px 0}
+.grafico-legenda-item{display:flex;align-items:center;gap:4px}
+.grafico-legenda-cor{width:14px;height:3px;border-radius:4px}
+.news-card{border-left:4px solid var(--pg);padding-left:12px;margin-bottom:8px}
+.news-tag{font-size:.5rem;font-weight:700;text-transform:uppercase;color:var(--pg);background:var(--pd);padding:2px 8px;border-radius:100px;display:inline-block;letter-spacing:1px}
+.news-title{font-size:.95rem;font-weight:700;color:var(--pd);margin-top:2px}
+.news-text{font-size:.75rem;color:var(--pm)}
+.bonus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.bonus-card{background:rgba(61,25,82,.04);padding:12px 16px;border-radius:12px;border:1px solid var(--pb2);transition:all .3s ease}
+.bonus-card:hover{background:rgba(61,25,82,.07);transform:translateY(-2px)}
+.bonus-card .nome{font-weight:700;font-size:.9rem;color:var(--pp)}
+.bonus-card .total{font-size:.75rem;color:var(--pm);margin-top:4px}
+.bonus-card .total strong{color:#F7C137}
+.bonus-card .historico{font-size:.65rem;color:var(--pm);margin-top:4px}
+.bonus-card .historico .item{display:inline-block;background:rgba(247,193,55,.15);color:#b8860b;padding:1px 8px;border-radius:100px;margin:2px 4px 2px 0;font-weight:600}
+@media(max-width:640px){
+.pl-header h1{font-size:2rem}.pl-header .lion{font-size:1.8rem}.pl-card{padding:16px 12px}
+.time{font-size:.7rem}.time .escudo{font-size:1rem}.placar-box{padding:2px 6px}.placar-box .gol{font-size:.8rem;min-width:14px}
+.part-lista{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.evolucao-nome{width:60px;font-size:.65rem}
+.grafico-container{height:180px}.modal-conteudo{padding:16px 10px}.bonus-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+.pl-header h1{font-size:1.6rem}.jogo-principal{flex-wrap:wrap;justify-content:center;gap:3px}
+.time{font-size:.65rem;flex:0 1 auto}.time.casa{order:1}.placar-box{order:2}.time.fora{order:3}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
 <header class="pl-header">
-    <div class="badge">⚽ Temporada 2026</div>
-    <h1>🇧🇷 <span>BrasileirAntas</span></h1>
-    <p>🐗 O bolão mais raiz do pedaço</p>
-    <span class="lion">🏆</span>
+<div class="badge">⚽ Temporada 2026</div>
+<h1>🇧🇷 <span>BrasileirAntas</span></h1>
+<p>🐗 O bolão mais raiz do pedaço</p>
+<span class="lion">🏆</span>
 </header>
 
 <div class="container">
-    <div class="pl-card">
-        <h2>🏆 Classificação <span class="gold">Geral</span></h2>
-        <div class="stats-grid" id="stats-container"></div>
-        <div style="overflow-x:auto;">
-            <table class="pl-table">
-                <thead><tr><th>#</th><th>Participante</th><th style="text-align:right">Pts</th></tr></thead>
-                <tbody id="tabela-ranking"></tbody>
-            </table>
-        </div>
-    </div>
+<div class="pl-card">
+<h2>🏆 Classificação <span class="gold">Geral</span></h2>
+<div class="stats-grid" id="stats-container"></div>
+<div style="overflow-x:auto;">
+<table class="pl-table">
+<thead><tr><th>#</th><th>Participante</th><th style="text-align:right">Pts</th></tr></thead>
+<tbody id="tabela-ranking"></tbody>
+</table>
+</div>
+</div>
 
-    <div class="pl-card">
-        <h2>📊 Estatísticas <span class="gold">Avançadas</span></h2>
-        <div id="estatisticas-dinamicas"></div>
-    </div>
+<div class="pl-card">
+<h2>📊 Estatísticas <span class="gold">Avançadas</span></h2>
+<div id="estatisticas-dinamicas"></div>
+</div>
 
-    <div class="pl-card">
-        <h2>📈 Evolução do <span class="gold">Grupo</span></h2>
-        <div id="painel-evolucao"></div>
-        <div class="grafico-container">
-            <canvas id="graficoEvolucao"></canvas>
-        </div>
-        <div class="grafico-legenda" id="grafico-legenda"></div>
-    </div>
+<div class="pl-card">
+<h2>📈 Evolução do <span class="gold">Grupo</span></h2>
+<div id="painel-evolucao"></div>
+<div class="grafico-container"><canvas id="graficoEvolucao"></canvas></div>
+<div class="grafico-legenda" id="grafico-legenda"></div>
+</div>
 
-    <div class="pl-card">
-        <h2>👥 Participantes</h2>
-        <div class="part-lista" id="lista-participantes"></div>
-    </div>
+<div class="pl-card">
+<h2>👥 Participantes</h2>
+<div class="part-lista" id="lista-participantes"></div>
+</div>
 
-    <div class="pl-card">
-        <h2>🏅 Histórico de <span class="gold">Bônus</span></h2>
-        <div id="historico-bonus"></div>
-    </div>
+<div class="pl-card">
+<h2>🏅 Histórico de <span class="gold">Bônus</span></h2>
+<div id="historico-bonus"></div>
+</div>
 
-    <div class="pl-card">
-        <h2>⚽ Jogos & <span class="gold">Resultados</span></h2>
-        <div class="tab-container" id="tab-container">
-            <button class="tab-btn" data-rodada="1" onclick="renderizarPorRodada(1)">Rodada 1</button>
-            <button class="tab-btn" data-rodada="2" onclick="renderizarPorRodada(2)">Rodada 2</button>
-            <button class="tab-btn" data-rodada="3" onclick="renderizarPorRodada(3)">Rodada 3</button>
-            <button class="tab-btn" data-rodada="4" onclick="renderizarPorRodada(4)">Rodada 4</button>
-            <button class="tab-btn" data-rodada="5" onclick="renderizarPorRodada(5)">Rodada 5</button>
-            <button class="tab-btn" data-rodada="6" onclick="renderizarPorRodada(6)">Rodada 6</button>
-            <button class="tab-btn" data-rodada="7" onclick="renderizarPorRodada(7)">Rodada 7</button>
-            <button class="tab-btn" data-rodada="8" onclick="renderizarPorRodada(8)">Rodada 8</button>
-            <button class="tab-btn" data-rodada="9" onclick="renderizarPorRodada(9)">Rodada 9</button>
-            <button class="tab-btn" data-rodada="10" onclick="renderizarPorRodada(10)">Rodada 10</button>
-            <button class="tab-btn" data-rodada="11" onclick="renderizarPorRodada(11)">Rodada 11</button>
-            <button class="tab-btn" data-rodada="12" onclick="renderizarPorRodada(12)">Rodada 12</button>
-            <button class="tab-btn" data-rodada="13" onclick="renderizarPorRodada(13)">Rodada 13</button>
-            <button class="tab-btn" data-rodada="14" onclick="renderizarPorRodada(14)">Rodada 14</button>
-            <button class="tab-btn" data-rodada="15" onclick="renderizarPorRodada(15)">Rodada 15</button>
-            <button class="tab-btn" data-rodada="16" onclick="renderizarPorRodada(16)">Rodada 16</button>
-            <button class="tab-btn" data-rodada="17" onclick="renderizarPorRodada(17)">Rodada 17</button>
-            <button class="tab-btn active" data-rodada="18" onclick="renderizarPorRodada(18)">Rodada 18</button>
-        </div>
-        <div class="jogos-lista" id="lista-jogos-principal"></div>
-    </div>
+<div class="pl-card">
+<h2>⚽ Jogos & <span class="gold">Resultados</span></h2>
+<div class="tab-container" id="tab-container"></div>
+<div class="jogos-lista" id="lista-jogos-principal"></div>
+</div>
 
-    <div class="pl-card">
-        <h2>📰 Últimas <span class="gold">Notícias</span></h2>
-        <div id="news-container"></div>
-    </div>
+<div class="pl-card">
+<h2>📰 Últimas <span class="gold">Notícias</span></h2>
+<div id="news-container"></div>
+</div>
 </div>
 
 <div id="modal-palpites" class="modal" onclick="fecharModalExterno(event)">
-    <div class="modal-conteudo">
-        <button class="modal-fechar" onclick="fecharPalpites()">✕</button>
-        <h2 id="modal-titulo" style="color:var(--pl-dark);margin-bottom:16px;">📋 Palpites</h2>
-        <div id="modal-container-interno"></div>
-    </div>
+<div class="modal-conteudo">
+<button class="modal-fechar" onclick="fecharPalpites()">✕</button>
+<h2 id="modal-titulo" style="color:var(--pd);margin-bottom:16px;">📋 Palpites</h2>
+<div id="modal-container-interno"></div>
+</div>
 </div>
 
 <script>
 // ==================== JOGOS POR RODADA ====================
-const jogosRodada1 = [
-    { id: 1, tA: "Coritiba", eA: "🟢", tB: "Palmeiras", eB: "🟢", idA: "r1_j1_a", idB: "r1_j1_b" },
-    { id: 2, tA: "Chapecoense", eA: "🟢", tB: "Flamengo", eB: "🔴", idA: "r1_j2_a", idB: "r1_j2_b" },
-    { id: 3, tA: "Internacional", eA: "🔴", tB: "Cruzeiro", eB: "🔵", idA: "r1_j3_a", idB: "r1_j3_b" },
-    { id: 4, tA: "São Paulo", eA: "🔴", tB: "Athletico-PR", eB: "⚫", idA: "r1_j4_a", idB: "r1_j4_b" }
+const jogosRodada1=[
+{id:1,tA:"Coritiba",eA:"🟢",tB:"Palmeiras",eB:"🟢",idA:"r1_j1_a",idB:"r1_j1_b"},
+{id:2,tA:"Chapecoense",eA:"🟢",tB:"Flamengo",eB:"🔴",idA:"r1_j2_a",idB:"r1_j2_b"},
+{id:3,tA:"Internacional",eA:"🔴",tB:"Cruzeiro",eB:"🔵",idA:"r1_j3_a",idB:"r1_j3_b"},
+{id:4,tA:"São Paulo",eA:"🔴",tB:"Athletico-PR",eB:"⚫",idA:"r1_j4_a",idB:"r1_j4_b"}
 ];
-
-const jogosRodada2 = [
-    { id: 5, tA: "Botafogo", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r2_j1_a", idB: "r2_j1_b" },
-    { id: 6, tA: "Corinthians", eA: "⚪", tB: "Remo", eB: "🔵", idA: "r2_j2_a", idB: "r2_j2_b" }
+const jogosRodada2=[
+{id:5,tA:"Botafogo",eA:"⚫",tB:"Vitória",eB:"🔴",idA:"r2_j1_a",idB:"r2_j1_b"},
+{id:6,tA:"Corinthians",eA:"⚪",tB:"Remo",eB:"🔵",idA:"r2_j2_a",idB:"r2_j2_b"}
 ];
-
-const jogosRodada3 = [
-    { id: 7, tA: "Athletico-PR", eA: "⚫", tB: "Internacional", eB: "🔴", idA: "r3_j1_a", idB: "r3_j1_b" },
-    { id: 8, tA: "Santos", eA: "⚪", tB: "Chapecoense", eB: "🟢", idA: "r3_j2_a", idB: "r3_j2_b" },
-    { id: 9, tA: "Vasco", eA: "⚫", tB: "Mirassol", eB: "🟢", idA: "r3_j3_a", idB: "r3_j3_b" },
-    { id: 10, tA: "Bahia", eA: "🔵", tB: "Corinthians", eB: "⚪", idA: "r3_j4_a", idB: "r3_j4_b" },
-    { id: 11, tA: "Cruzeiro", eA: "🔵", tB: "Botafogo", eB: "⚫", idA: "r3_j5_a", idB: "r3_j5_b" },
-    { id: 12, tA: "Flamengo", eA: "🔴", tB: "São Paulo", eB: "🔴", idA: "r3_j6_a", idB: "r3_j6_b" },
-    { id: 13, tA: "Grêmio", eA: "🔵", tB: "Fluminense", eB: "🔴", idA: "r3_j7_a", idB: "r3_j7_b" },
-    { id: 14, tA: "Red Bull Bragantino", eA: "🔴", tB: "Coritiba", eB: "🟢", idA: "r3_j8_a", idB: "r3_j8_b" },
-    { id: 15, tA: "Palmeiras", eA: "🟢", tB: "Atlético-MG", eB: "⚫", idA: "r3_j9_a", idB: "r3_j9_b" },
-    { id: 16, tA: "Remo", eA: "🔵", tB: "Vitória", eB: "🔴", idA: "r3_j10_a", idB: "r3_j10_b" }
+const jogosRodada3=[
+{id:7,tA:"Athletico-PR",eA:"⚫",tB:"Internacional",eB:"🔴",idA:"r3_j1_a",idB:"r3_j1_b"},
+{id:8,tA:"Santos",eA:"⚪",tB:"Chapecoense",eB:"🟢",idA:"r3_j2_a",idB:"r3_j2_b"},
+{id:9,tA:"Vasco",eA:"⚫",tB:"Mirassol",eB:"🟢",idA:"r3_j3_a",idB:"r3_j3_b"},
+{id:10,tA:"Bahia",eA:"🔵",tB:"Corinthians",eB:"⚪",idA:"r3_j4_a",idB:"r3_j4_b"},
+{id:11,tA:"Cruzeiro",eA:"🔵",tB:"Botafogo",eB:"⚫",idA:"r3_j5_a",idB:"r3_j5_b"},
+{id:12,tA:"Flamengo",eA:"🔴",tB:"São Paulo",eB:"🔴",idA:"r3_j6_a",idB:"r3_j6_b"},
+{id:13,tA:"Grêmio",eA:"🔵",tB:"Fluminense",eB:"🔴",idA:"r3_j7_a",idB:"r3_j7_b"},
+{id:14,tA:"Red Bull Bragantino",eA:"🔴",tB:"Coritiba",eB:"🟢",idA:"r3_j8_a",idB:"r3_j8_b"},
+{id:15,tA:"Palmeiras",eA:"🟢",tB:"Atlético-MG",eB:"⚫",idA:"r3_j9_a",idB:"r3_j9_b"},
+{id:16,tA:"Remo",eA:"🔵",tB:"Vitória",eB:"🔴",idA:"r3_j10_a",idB:"r3_j10_b"}
 ];
-
-const jogosRodada4 = [
-    { id: 17, tA: "Internacional", eA: "🔴", tB: "Flamengo", eB: "🔴", idA: "r4_j1_a", idB: "r4_j1_b" },
-    { id: 18, tA: "Mirassol", eA: "🟢", tB: "Remo", eB: "🔵", idA: "r4_j2_a", idB: "r4_j2_b" },
-    { id: 19, tA: "Fluminense", eA: "🔴", tB: "Bahia", eB: "🔵", idA: "r4_j3_a", idB: "r4_j3_b" },
-    { id: 20, tA: "Vitória", eA: "🔴", tB: "Palmeiras", eB: "🟢", idA: "r4_j4_a", idB: "r4_j4_b" },
-    { id: 21, tA: "Corinthians", eA: "⚪", tB: "Athletico-PR", eB: "⚫", idA: "r4_j5_a", idB: "r4_j5_b" },
-    { id: 22, tA: "Coritiba", eA: "🟢", tB: "Cruzeiro", eB: "🔵", idA: "r4_j6_a", idB: "r4_j6_b" }
+const jogosRodada4=[
+{id:17,tA:"Internacional",eA:"🔴",tB:"Flamengo",eB:"🔴",idA:"r4_j1_a",idB:"r4_j1_b"},
+{id:18,tA:"Mirassol",eA:"🟢",tB:"Remo",eB:"🔵",idA:"r4_j2_a",idB:"r4_j2_b"},
+{id:19,tA:"Fluminense",eA:"🔴",tB:"Bahia",eB:"🔵",idA:"r4_j3_a",idB:"r4_j3_b"},
+{id:20,tA:"Vitória",eA:"🔴",tB:"Palmeiras",eB:"🟢",idA:"r4_j4_a",idB:"r4_j4_b"},
+{id:21,tA:"Corinthians",eA:"⚪",tB:"Athletico-PR",eB:"⚫",idA:"r4_j5_a",idB:"r4_j5_b"},
+{id:22,tA:"Coritiba",eA:"🟢",tB:"Cruzeiro",eB:"🔵",idA:"r4_j6_a",idB:"r4_j6_b"}
 ];
-
-const jogosRodada5 = [
-    { id: 23, tA: "Vasco da Gama", eA: "⚫", tB: "Fluminense", eB: "🔴", idA: "r5_j1_a", idB: "r5_j1_b" },
-    { id: 24, tA: "Atlético-MG", eA: "⚫", tB: "Juventude", eB: "🟢", idA: "r5_j2_a", idB: "r5_j2_b" },
-    { id: 25, tA: "Santos", eA: "⚪", tB: "Remo", eB: "🔵", idA: "r5_j3_a", idB: "r5_j3_b" },
-    { id: 26, tA: "Palmeiras", eA: "🟢", tB: "Fortaleza", eB: "🔴", idA: "r5_j4_a", idB: "r5_j4_b" },
-    { id: 27, tA: "Mirassol", eA: "🟢", tB: "Grêmio", eB: "🔵", idA: "r5_j5_a", idB: "r5_j5_b" },
-    { id: 28, tA: "Chapecoense", eA: "🟢", tB: "Cruzeiro", eB: "🔵", idA: "r5_j6_a", idB: "r5_j6_b" },
-    { id: 29, tA: "Internacional", eA: "🔴", tB: "Corinthians", eB: "⚪", idA: "r5_j7_a", idB: "r5_j7_b" },
-    { id: 30, tA: "Athletico-PR", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r5_j8_a", idB: "r5_j8_b" }
+const jogosRodada5=[
+{id:23,tA:"Vasco da Gama",eA:"⚫",tB:"Fluminense",eB:"🔴",idA:"r5_j1_a",idB:"r5_j1_b"},
+{id:24,tA:"Atlético-MG",eA:"⚫",tB:"Juventude",eB:"🟢",idA:"r5_j2_a",idB:"r5_j2_b"},
+{id:25,tA:"Santos",eA:"⚪",tB:"Remo",eB:"🔵",idA:"r5_j3_a",idB:"r5_j3_b"},
+{id:26,tA:"Palmeiras",eA:"🟢",tB:"Fortaleza",eB:"🔴",idA:"r5_j4_a",idB:"r5_j4_b"},
+{id:27,tA:"Mirassol",eA:"🟢",tB:"Grêmio",eB:"🔵",idA:"r5_j5_a",idB:"r5_j5_b"},
+{id:28,tA:"Chapecoense",eA:"🟢",tB:"Cruzeiro",eB:"🔵",idA:"r5_j6_a",idB:"r5_j6_b"},
+{id:29,tA:"Internacional",eA:"🔴",tB:"Corinthians",eB:"⚪",idA:"r5_j7_a",idB:"r5_j7_b"},
+{id:30,tA:"Athletico-PR",eA:"⚫",tB:"Vitória",eB:"🔴",idA:"r5_j8_a",idB:"r5_j8_b"}
 ];
-
-const jogosRodada6 = [
-    { id: 31, tA: "Juventude", eA: "🟢", tB: "Atlético-MG", eB: "⚫", idA: "r6_j1_a", idB: "r6_j1_b" },
-    { id: 32, tA: "Remo", eA: "🔵", tB: "Santos", eB: "⚪", idA: "r6_j2_a", idB: "r6_j2_b" },
-    { id: 33, tA: "Cruzeiro", eA: "🔵", tB: "Chapecoense", eB: "🟢", idA: "r6_j3_a", idB: "r6_j3_b" },
-    { id: 34, tA: "Grêmio", eA: "🔵", tB: "Mirassol", eB: "🟢", idA: "r6_j4_a", idB: "r6_j4_b" },
-    { id: 35, tA: "Fluminense", eA: "🔴", tB: "Vasco da Gama", eB: "⚫", idA: "r6_j5_a", idB: "r6_j5_b" },
-    { id: 36, tA: "Fortaleza", eA: "🔴", tB: "Palmeiras", eB: "🟢", idA: "r6_j6_a", idB: "r6_j6_b" },
-    { id: 37, tA: "Corinthians", eA: "⚪", tB: "Internacional", eB: "🔴", idA: "r6_j7_a", idB: "r6_j7_b" },
-    { id: 38, tA: "Vitória", eA: "🔴", tB: "Athletico-PR", eB: "⚫", idA: "r6_j8_a", idB: "r6_j8_b" }
+const jogosRodada6=[
+{id:31,tA:"Juventude",eA:"🟢",tB:"Atlético-MG",eB:"⚫",idA:"r6_j1_a",idB:"r6_j1_b"},
+{id:32,tA:"Remo",eA:"🔵",tB:"Santos",eB:"⚪",idA:"r6_j2_a",idB:"r6_j2_b"},
+{id:33,tA:"Cruzeiro",eA:"🔵",tB:"Chapecoense",eB:"🟢",idA:"r6_j3_a",idB:"r6_j3_b"},
+{id:34,tA:"Grêmio",eA:"🔵",tB:"Mirassol",eB:"🟢",idA:"r6_j4_a",idB:"r6_j4_b"},
+{id:35,tA:"Fluminense",eA:"🔴",tB:"Vasco da Gama",eB:"⚫",idA:"r6_j5_a",idB:"r6_j5_b"},
+{id:36,tA:"Fortaleza",eA:"🔴",tB:"Palmeiras",eB:"🟢",idA:"r6_j6_a",idB:"r6_j6_b"},
+{id:37,tA:"Corinthians",eA:"⚪",tB:"Internacional",eB:"🔴",idA:"r6_j7_a",idB:"r6_j7_b"},
+{id:38,tA:"Vitória",eA:"🔴",tB:"Athletico-PR",eB:"⚫",idA:"r6_j8_a",idB:"r6_j8_b"}
 ];
-
-const jogosRodada7 = [
-    { id: 39, tA: "Grêmio", eA: "🔵", tB: "São Paulo", eB: "🔴", idA: "r7_j1_a", idB: "r7_j1_b" },
-    { id: 40, tA: "Remo", eA: "🔵", tB: "Atlético-MG", eB: "⚫", idA: "r7_j2_a", idB: "r7_j2_b" },
-    { id: 41, tA: "Coritiba", eA: "🟢", tB: "Chapecoense", eB: "🟢", idA: "r7_j3_a", idB: "r7_j3_b" },
-    { id: 42, tA: "Botafogo-RJ", eA: "⚫", tB: "Fluminense", eB: "🔴", idA: "r7_j4_a", idB: "r7_j4_b" },
-    { id: 43, tA: "Cruzeiro", eA: "🔵", tB: "Mirassol", eB: "🟢", idA: "r7_j5_a", idB: "r7_j5_b" },
-    { id: 44, tA: "Bahia", eA: "🔵", tB: "Vasco da Gama", eB: "⚫", idA: "r7_j6_a", idB: "r7_j6_b" },
-    { id: 45, tA: "Palmeiras", eA: "🟢", tB: "Internacional", eB: "🔴", idA: "r7_j7_a", idB: "r7_j7_b" },
-    { id: 46, tA: "Red Bull Bragantino", eA: "🔴", tB: "Corinthians", eB: "⚪", idA: "r7_j8_a", idB: "r7_j8_b" },
-    { id: 47, tA: "Santos", eA: "⚪", tB: "Athletico-PR", eB: "⚫", idA: "r7_j9_a", idB: "r7_j9_b" },
-    { id: 48, tA: "Flamengo", eA: "🔴", tB: "Vitória", eB: "🔴", idA: "r7_j10_a", idB: "r7_j10_b" }
+const jogosRodada7=[
+{id:39,tA:"Grêmio",eA:"🔵",tB:"São Paulo",eB:"🔴",idA:"r7_j1_a",idB:"r7_j1_b"},
+{id:40,tA:"Remo",eA:"🔵",tB:"Atlético-MG",eB:"⚫",idA:"r7_j2_a",idB:"r7_j2_b"},
+{id:41,tA:"Coritiba",eA:"🟢",tB:"Chapecoense",eB:"🟢",idA:"r7_j3_a",idB:"r7_j3_b"},
+{id:42,tA:"Botafogo-RJ",eA:"⚫",tB:"Fluminense",eB:"🔴",idA:"r7_j4_a",idB:"r7_j4_b"},
+{id:43,tA:"Cruzeiro",eA:"🔵",tB:"Mirassol",eB:"🟢",idA:"r7_j5_a",idB:"r7_j5_b"},
+{id:44,tA:"Bahia",eA:"🔵",tB:"Vasco da Gama",eB:"⚫",idA:"r7_j6_a",idB:"r7_j6_b"},
+{id:45,tA:"Palmeiras",eA:"🟢",tB:"Internacional",eB:"🔴",idA:"r7_j7_a",idB:"r7_j7_b"},
+{id:46,tA:"Red Bull Bragantino",eA:"🔴",tB:"Corinthians",eB:"⚪",idA:"r7_j8_a",idB:"r7_j8_b"},
+{id:47,tA:"Santos",eA:"⚪",tB:"Athletico-PR",eB:"⚫",idA:"r7_j9_a",idB:"r7_j9_b"},
+{id:48,tA:"Flamengo",eA:"🔴",tB:"Vitória",eB:"🔴",idA:"r7_j10_a",idB:"r7_j10_b"}
 ];
-
-const jogosRodada8 = [
-    { id: 49, tA: "Fluminense", eA: "🔴", tB: "Palmeiras", eB: "🟢", idA: "r8_j1_a", idB: "r8_j1_b" },
-    { id: 50, tA: "Athletico-PR", eA: "⚫", tB: "RB Bragantino", eB: "🔴", idA: "r8_j2_a", idB: "r8_j2_b" },
-    { id: 51, tA: "São Paulo", eA: "🔴", tB: "Coritiba", eB: "🟢", idA: "r8_j3_a", idB: "r8_j3_b" },
-    { id: 52, tA: "Chapecoense", eA: "🟢", tB: "Bahia", eB: "🔵", idA: "r8_j4_a", idB: "r8_j4_b" },
-    { id: 53, tA: "Atlético-MG", eA: "⚫", tB: "Grêmio", eB: "🔵", idA: "r8_j5_a", idB: "r8_j5_b" },
-    { id: 54, tA: "Vasco da Gama", eA: "⚫", tB: "Santos", eB: "⚪", idA: "r8_j6_a", idB: "r8_j6_b" },
-    { id: 55, tA: "Mirassol", eA: "🟢", tB: "Flamengo", eB: "🔴", idA: "r8_j7_a", idB: "r8_j7_b" },
-    { id: 56, tA: "Vitória", eA: "🔴", tB: "Botafogo RJ", eB: "⚫", idA: "r8_j8_a", idB: "r8_j8_b" },
-    { id: 57, tA: "Corinthians", eA: "⚪", tB: "Cruzeiro", eB: "🔵", idA: "r8_j9_a", idB: "r8_j9_b" },
-    { id: 58, tA: "Internacional", eA: "🔴", tB: "Remo", eB: "🔵", idA: "r8_j10_a", idB: "r8_j10_b" }
+const jogosRodada8=[
+{id:49,tA:"Fluminense",eA:"🔴",tB:"Palmeiras",eB:"🟢",idA:"r8_j1_a",idB:"r8_j1_b"},
+{id:50,tA:"Athletico-PR",eA:"⚫",tB:"RB Bragantino",eB:"🔴",idA:"r8_j2_a",idB:"r8_j2_b"},
+{id:51,tA:"São Paulo",eA:"🔴",tB:"Coritiba",eB:"🟢",idA:"r8_j3_a",idB:"r8_j3_b"},
+{id:52,tA:"Chapecoense",eA:"🟢",tB:"Bahia",eB:"🔵",idA:"r8_j4_a",idB:"r8_j4_b"},
+{id:53,tA:"Atlético-MG",eA:"⚫",tB:"Grêmio",eB:"🔵",idA:"r8_j5_a",idB:"r8_j5_b"},
+{id:54,tA:"Vasco da Gama",eA:"⚫",tB:"Santos",eB:"⚪",idA:"r8_j6_a",idB:"r8_j6_b"},
+{id:55,tA:"Mirassol",eA:"🟢",tB:"Flamengo",eB:"🔴",idA:"r8_j7_a",idB:"r8_j7_b"},
+{id:56,tA:"Vitória",eA:"🔴",tB:"Botafogo RJ",eB:"⚫",idA:"r8_j8_a",idB:"r8_j8_b"},
+{id:57,tA:"Corinthians",eA:"⚪",tB:"Cruzeiro",eB:"🔵",idA:"r8_j9_a",idB:"r8_j9_b"},
+{id:58,tA:"Internacional",eA:"🔴",tB:"Remo",eB:"🔵",idA:"r8_j10_a",idB:"r8_j10_b"}
 ];
-
-const jogosRodada9 = [
-    { id: 59, tA: "Ind. Rivadavia", eA: "⚪", tB: "Fluminense", eB: "🔴", idA: "r9_j1_a", idB: "r9_j1_b" },
-    { id: 60, tA: "Tolima", eA: "🔴", tB: "Ind. del Valle", eB: "🔵", idA: "r9_j2_a", idB: "r9_j2_b" },
-    { id: 61, tA: "Universidad Catolica", eA: "🔴", tB: "Estudiantes", eB: "🔴", idA: "r9_j3_a", idB: "r9_j3_b" },
-    { id: 62, tA: "Cerro Porteno", eA: "🔴", tB: "Palmeiras", eB: "🟢", idA: "r9_j4_a", idB: "r9_j4_b" },
-    { id: 63, tA: "Coquimbo Unido", eA: "🟢", tB: "Platense", eB: "⚪", idA: "r9_j5_a", idB: "r9_j5_b" },
-    { id: 64, tA: "Flamengo", eA: "🔴", tB: "Cruzeiro", eB: "🔵", idA: "r9_j6_a", idB: "r9_j6_b" },
-    { id: 65, tA: "LDU de Quito", eA: "🔴", tB: "Mirassol", eB: "🟢", idA: "r9_j7_a", idB: "r9_j7_b" },
-    { id: 66, tA: "Corinthians", eA: "⚪", tB: "Rosario Central", eB: "🔴", idA: "r9_j8_a", idB: "r9_j8_b" }
+const jogosRodada9=[
+{id:59,tA:"Ind. Rivadavia",eA:"⚪",tB:"Fluminense",eB:"🔴",idA:"r9_j1_a",idB:"r9_j1_b"},
+{id:60,tA:"Tolima",eA:"🔴",tB:"Ind. del Valle",eB:"🔵",idA:"r9_j2_a",idB:"r9_j2_b"},
+{id:61,tA:"Universidad Catolica",eA:"🔴",tB:"Estudiantes",eB:"🔴",idA:"r9_j3_a",idB:"r9_j3_b"},
+{id:62,tA:"Cerro Porteno",eA:"🔴",tB:"Palmeiras",eB:"🟢",idA:"r9_j4_a",idB:"r9_j4_b"},
+{id:63,tA:"Coquimbo Unido",eA:"🟢",tB:"Platense",eB:"⚪",idA:"r9_j5_a",idB:"r9_j5_b"},
+{id:64,tA:"Flamengo",eA:"🔴",tB:"Cruzeiro",eB:"🔵",idA:"r9_j6_a",idB:"r9_j6_b"},
+{id:65,tA:"LDU de Quito",eA:"🔴",tB:"Mirassol",eB:"🟢",idA:"r9_j7_a",idB:"r9_j7_b"},
+{id:66,tA:"Corinthians",eA:"⚪",tB:"Rosario Central",eB:"🔴",idA:"r9_j8_a",idB:"r9_j8_b"}
 ];
-
-const jogosRodada10 = [
-    { id: 67, tA: "Fluminense", eA: "🔴", tB: "Remo", eB: "🔵", idA: "r10_j1_a", idB: "r10_j1_b" },
-    { id: 68, tA: "Internacional", eA: "🔴", tB: "Atlético-MG", eB: "⚫", idA: "r10_j2_a", idB: "r10_j2_b" },
-    { id: 69, tA: "Cruzeiro", eA: "🔵", tB: "Flamengo", eB: "🔴", idA: "r10_j3_a", idB: "r10_j3_b" },
-    { id: 70, tA: "Bragantino", eA: "🔴", tB: "Grêmio", eB: "🔵", idA: "r10_j4_a", idB: "r10_j4_b" },
-    { id: 71, tA: "Palmeiras", eA: "🟢", tB: "Vasco", eB: "⚫", idA: "r10_j5_a", idB: "r10_j5_b" },
-    { id: 72, tA: "Vitória", eA: "🔴", tB: "Bahia", eB: "🔵", idA: "r10_j6_a", idB: "r10_j6_b" },
-    { id: 73, tA: "Chapecoense", eA: "🟢", tB: "São Paulo", eB: "🔴", idA: "r10_j7_a", idB: "r10_j7_b" },
-    { id: 74, tA: "Santos", eA: "⚪", tB: "Mirassol", eB: "🟢", idA: "r10_j8_a", idB: "r10_j8_b" },
-    { id: 75, tA: "Coritiba", eA: "🟢", tB: "Corinthians", eB: "⚪", idA: "r10_j9_a", idB: "r10_j9_b" },
-    { id: 76, tA: "Botafogo RJ", eA: "⚫", tB: "Athletico-PR", eB: "⚫", idA: "r10_j10_a", idB: "r10_j10_b" }
+const jogosRodada10=[
+{id:67,tA:"Fluminense",eA:"🔴",tB:"Remo",eB:"🔵",idA:"r10_j1_a",idB:"r10_j1_b"},
+{id:68,tA:"Internacional",eA:"🔴",tB:"Atlético-MG",eB:"⚫",idA:"r10_j2_a",idB:"r10_j2_b"},
+{id:69,tA:"Cruzeiro",eA:"🔵",tB:"Flamengo",eB:"🔴",idA:"r10_j3_a",idB:"r10_j3_b"},
+{id:70,tA:"Bragantino",eA:"🔴",tB:"Grêmio",eB:"🔵",idA:"r10_j4_a",idB:"r10_j4_b"},
+{id:71,tA:"Palmeiras",eA:"🟢",tB:"Vasco",eB:"⚫",idA:"r10_j5_a",idB:"r10_j5_b"},
+{id:72,tA:"Vitória",eA:"🔴",tB:"Bahia",eB:"🔵",idA:"r10_j6_a",idB:"r10_j6_b"},
+{id:73,tA:"Chapecoense",eA:"🟢",tB:"São Paulo",eB:"🔴",idA:"r10_j7_a",idB:"r10_j7_b"},
+{id:74,tA:"Santos",eA:"⚪",tB:"Mirassol",eB:"🟢",idA:"r10_j8_a",idB:"r10_j8_b"},
+{id:75,tA:"Coritiba",eA:"🟢",tB:"Corinthians",eB:"⚪",idA:"r10_j9_a",idB:"r10_j9_b"},
+{id:76,tA:"Botafogo RJ",eA:"⚫",tB:"Athletico-PR",eB:"⚫",idA:"r10_j10_a",idB:"r10_j10_b"}
 ];
-
-const jogosRodada11 = [
-    { id: 77, tA: "Cruzeiro", eA: "🔵", tB: "Atlético-MG", eB: "⚫", idA: "r11_j1_a", idB: "r11_j1_b" },
-    { id: 78, tA: "Vasco da Gama", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r11_j2_a", idB: "r11_j2_b" },
-    { id: 79, tA: "Palmeiras", eA: "🟢", tB: "Santos", eB: "⚪", idA: "r11_j3_a", idB: "r11_j3_b" },
-    { id: 80, tA: "Internacional", eA: "🔴", tB: "Grêmio", eB: "🔵", idA: "r11_j4_a", idB: "r11_j4_b" }
+const jogosRodada11=[
+{id:77,tA:"Cruzeiro",eA:"🔵",tB:"Atlético-MG",eB:"⚫",idA:"r11_j1_a",idB:"r11_j1_b"},
+{id:78,tA:"Vasco da Gama",eA:"⚫",tB:"Vitória",eB:"🔴",idA:"r11_j2_a",idB:"r11_j2_b"},
+{id:79,tA:"Palmeiras",eA:"🟢",tB:"Santos",eB:"⚪",idA:"r11_j3_a",idB:"r11_j3_b"},
+{id:80,tA:"Internacional",eA:"🔴",tB:"Grêmio",eB:"🔵",idA:"r11_j4_a",idB:"r11_j4_b"}
 ];
-
-const jogosRodada12 = [
-    { id: 81, tA: "Atlético-MG", eA: "⚫", tB: "Vitória", eB: "🔴", idA: "r12_j1_a", idB: "r12_j1_b" },
-    { id: 82, tA: "São Paulo", eA: "🔴", tB: "RB Bragantino", eB: "🔴", idA: "r12_j2_a", idB: "r12_j2_b" },
-    { id: 83, tA: "Vasco da Gama", eA: "⚫", tB: "Cruzeiro", eB: "🔵", idA: "r12_j3_a", idB: "r12_j3_b" },
-    { id: 84, tA: "Athletico-PR", eA: "⚫", tB: "Fluminense", eB: "🔴", idA: "r12_j4_a", idB: "r12_j4_b" },
-    { id: 85, tA: "Flamengo", eA: "🔴", tB: "Botafogo", eB: "⚫", idA: "r12_j5_a", idB: "r12_j5_b" },
-    { id: 86, tA: "Corinthians", eA: "⚪", tB: "Santos", eB: "⚪", idA: "r12_j6_a", idB: "r12_j6_b" },
-    { id: 87, tA: "Grêmio", eA: "🔵", tB: "Chapecoense", eB: "🟢", idA: "r12_j7_a", idB: "r12_j7_b" },
-    { id: 88, tA: "Mirassol", eA: "🟢", tB: "Palmeiras", eB: "🟢", idA: "r12_j8_a", idB: "r12_j8_b" },
-    { id: 89, tA: "Bahia", eA: "🔵", tB: "Internacional", eB: "🔴", idA: "r12_j9_a", idB: "r12_j9_b" },
-    { id: 90, tA: "Remo", eA: "🔵", tB: "Coritiba", eB: "🟢", idA: "r12_j10_a", idB: "r12_j10_b" }
+const jogosRodada12=[
+{id:81,tA:"Atlético-MG",eA:"⚫",tB:"Vitória",eB:"🔴",idA:"r12_j1_a",idB:"r12_j1_b"},
+{id:82,tA:"São Paulo",eA:"🔴",tB:"RB Bragantino",eB:"🔴",idA:"r12_j2_a",idB:"r12_j2_b"},
+{id:83,tA:"Vasco da Gama",eA:"⚫",tB:"Cruzeiro",eB:"🔵",idA:"r12_j3_a",idB:"r12_j3_b"},
+{id:84,tA:"Athletico-PR",eA:"⚫",tB:"Fluminense",eB:"🔴",idA:"r12_j4_a",idB:"r12_j4_b"},
+{id:85,tA:"Flamengo",eA:"🔴",tB:"Botafogo",eB:"⚫",idA:"r12_j5_a",idB:"r12_j5_b"},
+{id:86,tA:"Corinthians",eA:"⚪",tB:"Santos",eB:"⚪",idA:"r12_j6_a",idB:"r12_j6_b"},
+{id:87,tA:"Grêmio",eA:"🔵",tB:"Chapecoense",eB:"🟢",idA:"r12_j7_a",idB:"r12_j7_b"},
+{id:88,tA:"Mirassol",eA:"🟢",tB:"Palmeiras",eB:"🟢",idA:"r12_j8_a",idB:"r12_j8_b"},
+{id:89,tA:"Bahia",eA:"🔵",tB:"Internacional",eB:"🔴",idA:"r12_j9_a",idB:"r12_j9_b"},
+{id:90,tA:"Remo",eA:"🔵",tB:"Coritiba",eB:"🟢",idA:"r12_j10_a",idB:"r12_j10_b"}
 ];
-
-const jogosRodada13 = [
-    { id: 91, tA: "Atlético-MG", eA: "⚫", tB: "Cruzeiro", eB: "🔵", idA: "r13_j1_a", idB: "r13_j1_b" },
-    { id: 92, tA: "Flamengo", eA: "🔴", tB: "Mirassol", eB: "🟢", idA: "r13_j2_a", idB: "r13_j2_b" },
-    { id: 93, tA: "Vitória", eA: "🔴", tB: "Vasco da Gama", eB: "⚫", idA: "r13_j3_a", idB: "r13_j3_b" },
-    { id: 94, tA: "Santos", eA: "⚪", tB: "Palmeiras", eB: "🟢", idA: "r13_j4_a", idB: "r13_j4_b" },
-    { id: 95, tA: "Grêmio", eA: "🔵", tB: "Internacional", eB: "🔴", idA: "r13_j5_a", idB: "r13_j5_b" }
+const jogosRodada13=[
+{id:91,tA:"Atlético-MG",eA:"⚫",tB:"Cruzeiro",eB:"🔵",idA:"r13_j1_a",idB:"r13_j1_b"},
+{id:92,tA:"Flamengo",eA:"🔴",tB:"Mirassol",eB:"🟢",idA:"r13_j2_a",idB:"r13_j2_b"},
+{id:93,tA:"Vitória",eA:"🔴",tB:"Vasco da Gama",eB:"⚫",idA:"r13_j3_a",idB:"r13_j3_b"},
+{id:94,tA:"Santos",eA:"⚪",tB:"Palmeiras",eB:"🟢",idA:"r13_j4_a",idB:"r13_j4_b"},
+{id:95,tA:"Grêmio",eA:"🔵",tB:"Internacional",eB:"🔴",idA:"r13_j5_a",idB:"r13_j5_b"}
 ];
-
-const jogosRodada14 = [
-    { id: 96, tA: "RB Bragantino", eA: "🔴", tB: "Bahia", eB: "🔵", idA: "r14_j1_a", idB: "r14_j1_b" },
-    { id: 97, tA: "São Paulo", eA: "🔴", tB: "Atlético-MG", eB: "⚫", idA: "r14_j2_a", idB: "r14_j2_b" },
-    { id: 98, tA: "Fluminense", eA: "🔴", tB: "Vasco da Gama", eB: "⚫", idA: "r14_j3_a", idB: "r14_j3_b" },
-    { id: 99, tA: "Coritiba", eA: "🟢", tB: "Mirassol", eB: "🟢", idA: "r14_j4_a", idB: "r14_j4_b" },
-    { id: 100, tA: "Remo", eA: "🔵", tB: "Flamengo", eB: "🔴", idA: "r14_j5_a", idB: "r14_j5_b" },
-    { id: 101, tA: "Internacional", eA: "🔴", tB: "Santos", eB: "⚪", idA: "r14_j6_a", idB: "r14_j6_b" },
-    { id: 102, tA: "Cruzeiro", eA: "🔵", tB: "Athletico-PR", eB: "⚫", idA: "r14_j7_a", idB: "r14_j7_b" },
-    { id: 103, tA: "Botafogo", eA: "⚫", tB: "Palmeiras", eB: "🟢", idA: "r14_j8_a", idB: "r14_j8_b" },
-    { id: 104, tA: "Corinthians", eA: "⚪", tB: "Chapecoense", eB: "🟢", idA: "r14_j9_a", idB: "r14_j9_b" },
-    { id: 105, tA: "Vitória", eA: "🔴", tB: "Grêmio", eB: "🔵", idA: "r14_j10_a", idB: "r14_j10_b" }
+const jogosRodada14=[
+{id:96,tA:"RB Bragantino",eA:"🔴",tB:"Bahia",eB:"🔵",idA:"r14_j1_a",idB:"r14_j1_b"},
+{id:97,tA:"São Paulo",eA:"🔴",tB:"Atlético-MG",eB:"⚫",idA:"r14_j2_a",idB:"r14_j2_b"},
+{id:98,tA:"Fluminense",eA:"🔴",tB:"Vasco da Gama",eB:"⚫",idA:"r14_j3_a",idB:"r14_j3_b"},
+{id:99,tA:"Coritiba",eA:"🟢",tB:"Mirassol",eB:"🟢",idA:"r14_j4_a",idB:"r14_j4_b"},
+{id:100,tA:"Remo",eA:"🔵",tB:"Flamengo",eB:"🔴",idA:"r14_j5_a",idB:"r14_j5_b"},
+{id:101,tA:"Internacional",eA:"🔴",tB:"Santos",eB:"⚪",idA:"r14_j6_a",idB:"r14_j6_b"},
+{id:102,tA:"Cruzeiro",eA:"🔵",tB:"Athletico-PR",eB:"⚫",idA:"r14_j7_a",idB:"r14_j7_b"},
+{id:103,tA:"Botafogo",eA:"⚫",tB:"Palmeiras",eB:"🟢",idA:"r14_j8_a",idB:"r14_j8_b"},
+{id:104,tA:"Corinthians",eA:"⚪",tB:"Chapecoense",eB:"🟢",idA:"r14_j9_a",idB:"r14_j9_b"},
+{id:105,tA:"Vitória",eA:"🔴",tB:"Grêmio",eB:"🔵",idA:"r14_j10_a",idB:"r14_j10_b"}
 ];
-
-const jogosRodada15 = [
-    { id: 106, tA: "Fluminense", eA: "🔴", tB: "Platense", eB: "⚪", idA: "r15_j1_a", idB: "r15_j1_b" },
-    { id: 107, tA: "Palmeiras", eA: "🟢", tB: "LDU", eB: "🔴", idA: "r15_j2_a", idB: "r15_j2_b" },
-    { id: 108, tA: "Estudiantes de La Plata", eA: "🔴", tB: "Corinthians", eB: "⚪", idA: "r15_j3_a", idB: "r15_j3_b" },
-    { id: 109, tA: "Independiente del Valle", eA: "🔵", tB: "Flamengo", eB: "🔴", idA: "r15_j4_a", idB: "r15_j4_b" }
+const jogosRodada15=[
+{id:106,tA:"Fluminense",eA:"🔴",tB:"Platense",eB:"⚪",idA:"r15_j1_a",idB:"r15_j1_b"},
+{id:107,tA:"Palmeiras",eA:"🟢",tB:"LDU",eB:"🔴",idA:"r15_j2_a",idB:"r15_j2_b"},
+{id:108,tA:"Estudiantes de La Plata",eA:"🔴",tB:"Corinthians",eB:"⚪",idA:"r15_j3_a",idB:"r15_j3_b"},
+{id:109,tA:"Independiente del Valle",eA:"🔵",tB:"Flamengo",eB:"🔴",idA:"r15_j4_a",idB:"r15_j4_b"}
 ];
-
-const jogosRodada16 = [
-    { id: 110, tA: "Coritiba", eA: "🟢", tB: "Athletico-PR", eB: "⚫", idA: "r16_j1_a", idB: "r16_j1_b" },
-    { id: 111, tA: "Grêmio", eA: "🔵", tB: "Vasco da Gama", eB: "⚫", idA: "r16_j2_a", idB: "r16_j2_b" },
-    { id: 112, tA: "Atlético-MG", eA: "⚫", tB: "Fluminense", eB: "🔴", idA: "r16_j3_a", idB: "r16_j3_b" },
-    { id: 113, tA: "Chapecoense", eA: "🟢", tB: "Internacional", eB: "🔴", idA: "r16_j4_a", idB: "r16_j4_b" },
-    { id: 114, tA: "Palmeiras", eA: "🟢", tB: "São Paulo", eB: "🔴", idA: "r16_j5_a", idB: "r16_j5_b" },
-    { id: 115, tA: "Botafogo", eA: "⚫", tB: "RB Bragantino", eB: "🔴", idA: "r16_j6_a", idB: "r16_j6_b" },
-    { id: 116, tA: "Santos", eA: "⚪", tB: "Cruzeiro", eB: "🔵", idA: "r16_j7_a", idB: "r16_j7_b" },
-    { id: 117, tA: "Mirassol", eA: "🟢", tB: "Vitória", eB: "🔴", idA: "r16_j8_a", idB: "r16_j8_b" },
-    { id: 118, tA: "Flamengo", eA: "🔴", tB: "Corinthians", eB: "⚪", idA: "r16_j9_a", idB: "r16_j9_b" },
-    { id: 119, tA: "Bahia", eA: "🔵", tB: "Remo", eB: "🔵", idA: "r16_j10_a", idB: "r16_j10_b" }
+const jogosRodada16=[
+{id:110,tA:"Coritiba",eA:"🟢",tB:"Athletico-PR",eB:"⚫",idA:"r16_j1_a",idB:"r16_j1_b"},
+{id:111,tA:"Grêmio",eA:"🔵",tB:"Vasco da Gama",eB:"⚫",idA:"r16_j2_a",idB:"r16_j2_b"},
+{id:112,tA:"Atlético-MG",eA:"⚫",tB:"Fluminense",eB:"🔴",idA:"r16_j3_a",idB:"r16_j3_b"},
+{id:113,tA:"Chapecoense",eA:"🟢",tB:"Internacional",eB:"🔴",idA:"r16_j4_a",idB:"r16_j4_b"},
+{id:114,tA:"Palmeiras",eA:"🟢",tB:"São Paulo",eB:"🔴",idA:"r16_j5_a",idB:"r16_j5_b"},
+{id:115,tA:"Botafogo",eA:"⚫",tB:"RB Bragantino",eB:"🔴",idA:"r16_j6_a",idB:"r16_j6_b"},
+{id:116,tA:"Santos",eA:"⚪",tB:"Cruzeiro",eB:"🔵",idA:"r16_j7_a",idB:"r16_j7_b"},
+{id:117,tA:"Mirassol",eA:"🟢",tB:"Vitória",eB:"🔴",idA:"r16_j8_a",idB:"r16_j8_b"},
+{id:118,tA:"Flamengo",eA:"🔴",tB:"Corinthians",eB:"⚪",idA:"r16_j9_a",idB:"r16_j9_b"},
+{id:119,tA:"Bahia",eA:"🔵",tB:"Remo",eB:"🔵",idA:"r16_j10_a",idB:"r16_j10_b"}
 ];
-
-const jogosRodada17 = [
-    { id: 120, tA: "Fluminense", eA: "🔴", tB: "Platense", eB: "⚪", idA: "r17_j1_a", idB: "r17_j1_b" },
-    { id: 121, tA: "Palmeiras", eA: "🟢", tB: "LDU", eB: "🔴", idA: "r17_j2_a", idB: "r17_j2_b" },
-    { id: 122, tA: "Botafogo", eA: "⚫", tB: "Grêmio", eB: "🔵", idA: "r17_j3_a", idB: "r17_j3_b" },
-    { id: 123, tA: "Estudiantes", eA: "🔴", tB: "Corinthians", eB: "⚪", idA: "r17_j4_a", idB: "r17_j4_b" },
-    { id: 124, tA: "Independiente del Valle", eA: "🔵", tB: "Flamengo", eB: "🔴", idA: "r17_j5_a", idB: "r17_j5_b" }
+const jogosRodada17=[
+{id:120,tA:"Fluminense",eA:"🔴",tB:"Platense",eB:"⚪",idA:"r17_j1_a",idB:"r17_j1_b"},
+{id:121,tA:"Palmeiras",eA:"🟢",tB:"LDU",eB:"🔴",idA:"r17_j2_a",idB:"r17_j2_b"},
+{id:122,tA:"Botafogo",eA:"⚫",tB:"Grêmio",eB:"🔵",idA:"r17_j3_a",idB:"r17_j3_b"},
+{id:123,tA:"Estudiantes",eA:"🔴",tB:"Corinthians",eB:"⚪",idA:"r17_j4_a",idB:"r17_j4_b"},
+{id:124,tA:"Independiente del Valle",eA:"🔵",tB:"Flamengo",eB:"🔴",idA:"r17_j5_a",idB:"r17_j5_b"}
 ];
-
-// ==================== RODADA 18 ====================
-const jogosRodada18 = [
-    { id: 125, tA: "Atlético-MG", eA: "⚫", tB: "Chapecoense", eB: "🟢", idA: "r18_j1_a", idB: "r18_j1_b" },
-    { id: 126, tA: "Mirassol", eA: "🟢", tB: "Botafogo", eB: "⚫", idA: "r18_j2_a", idB: "r18_j2_b" },
-    { id: 127, tA: "Remo", eA: "🔵", tB: "Santos", eB: "⚪", idA: "r18_j3_a", idB: "r18_j3_b" },
-    { id: 128, tA: "Vasco da Gama", eA: "⚫", tB: "Coritiba", eB: "🟢", idA: "r18_j4_a", idB: "r18_j4_b" },
-    { id: 129, tA: "São Paulo", eA: "🔴", tB: "Internacional", eB: "🔴", idA: "r18_j5_a", idB: "r18_j5_b" },
-    { id: 130, tA: "Grêmio", eA: "🔵", tB: "Palmeiras", eB: "🟢", idA: "r18_j6_a", idB: "r18_j6_b" },
-    { id: 131, tA: "Vitória", eA: "🔴", tB: "Cruzeiro", eB: "🔵", idA: "r18_j7_a", idB: "r18_j7_b" },
-    { id: 132, tA: "Corinthians", eA: "⚪", tB: "Fluminense", eB: "🔴", idA: "r18_j8_a", idB: "r18_j8_b" },
-    { id: 133, tA: "Flamengo", eA: "🔴", tB: "RB Bragantino", eB: "🔴", idA: "r18_j9_a", idB: "r18_j9_b" },
-    { id: 134, tA: "Athletico-PR", eA: "⚫", tB: "Bahia", eB: "🔵", idA: "r18_j10_a", idB: "r18_j10_b" }
+const jogosRodada18=[
+{id:125,tA:"Atlético-MG",eA:"⚫",tB:"Chapecoense",eB:"🟢",idA:"r18_j1_a",idB:"r18_j1_b"},
+{id:126,tA:"Mirassol",eA:"🟢",tB:"Botafogo",eB:"⚫",idA:"r18_j2_a",idB:"r18_j2_b"},
+{id:127,tA:"Remo",eA:"🔵",tB:"Santos",eB:"⚪",idA:"r18_j3_a",idB:"r18_j3_b"},
+{id:128,tA:"Vasco da Gama",eA:"⚫",tB:"Coritiba",eB:"🟢",idA:"r18_j4_a",idB:"r18_j4_b"},
+{id:129,tA:"São Paulo",eA:"🔴",tB:"Internacional",eB:"🔴",idA:"r18_j5_a",idB:"r18_j5_b"},
+{id:130,tA:"Grêmio",eA:"🔵",tB:"Palmeiras",eB:"🟢",idA:"r18_j6_a",idB:"r18_j6_b"},
+{id:131,tA:"Vitória",eA:"🔴",tB:"Cruzeiro",eB:"🔵",idA:"r18_j7_a",idB:"r18_j7_b"},
+{id:132,tA:"Corinthians",eA:"⚪",tB:"Fluminense",eB:"🔴",idA:"r18_j8_a",idB:"r18_j8_b"},
+{id:133,tA:"Flamengo",eA:"🔴",tB:"RB Bragantino",eB:"🔴",idA:"r18_j9_a",idB:"r18_j9_b"},
+{id:134,tA:"Athletico-PR",eA:"⚫",tB:"Bahia",eB:"🔵",idA:"r18_j10_a",idB:"r18_j10_b"}
 ];
 
 // ==================== DADOS DOS PALPITES ====================
 const dadosPalpites = {
-    "Paulão": {
-        r1_j1_a: "0", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "2", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
-        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
-        r3_j1_a: "1", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1",
-        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "2",
-        r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "1",
-        r3_j10_a: "1", r3_j10_b: "0",
-        r4_j1_a: "1", r4_j1_b: "3", r4_j2_a: "2", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
-        r4_j4_a: "2", r4_j4_b: "1", r4_j5_a: "1", r4_j5_b: "0", r4_j6_a: "0", r4_j6_b: "1",
-        r5_j1_a: "1", r5_j1_b: "1", r5_j2_a: "2", r5_j2_b: "1", r5_j3_a: "2", r5_j3_b: "0",
-        r5_j4_a: "3", r5_j4_b: "1", r5_j5_a: "2", r5_j5_b: "0", r5_j6_a: "0", r5_j6_b: "1",
-        r5_j7_a: "1", r5_j7_b: "1", r5_j8_a: "1", r5_j8_b: "1",
-        r6_j1_a: "1", r6_j1_b: "1", r6_j2_a: "1", r6_j2_b: "0", r6_j3_a: "2", r6_j3_b: "0",
-        r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "1", r6_j5_b: "0", r6_j6_a: "1", r6_j6_b: "2",
-        r6_j7_a: "2", r6_j7_b: "1", r6_j8_a: "1", r6_j8_b: "0",
-        r7_j1_a: "1", r7_j1_b: "2", r7_j2_a: "0", r7_j2_b: "1", r7_j3_a: "2", r7_j3_b: "1",
-        r7_j4_a: "2", r7_j4_b: "0", r7_j5_a: "2", r7_j5_b: "1", r7_j6_a: "1", r7_j6_b: "1",
-        r7_j7_a: "1", r7_j7_b: "1", r7_j8_a: "1", r7_j8_b: "0", r7_j9_a: "0", r7_j9_b: "0",
-        r7_j10_a: "2", r7_j10_b: "0",
-        r8_j1_a: "1", r8_j1_b: "2", r8_j2_a: "2", r8_j2_b: "0", r8_j3_a: "2", r8_j3_b: "0",
-        r8_j4_a: "1", r8_j4_b: "1", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "1", r8_j6_b: "0",
-        r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "1", r8_j9_a: "1", r8_j9_b: "1",
-        r8_j10_a: "2", r8_j10_b: "0",
-        r9_j1_a: "1", r9_j1_b: "1", r9_j2_a: "2", r9_j2_b: "1", r9_j3_a: "0", r9_j3_b: "1",
-        r9_j4_a: "0", r9_j4_b: "2", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "1", r9_j6_b: "2",
-        r9_j7_a: "2", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "1",
-        r10_j1_a: "1", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "1", r10_j3_a: "2", r10_j3_b: "1",
-        r10_j4_a: "2", r10_j4_b: "0", r10_j5_a: "3", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "0",
-        r10_j7_a: "0", r10_j7_b: "2", r10_j8_a: "0", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "0",
-        r10_j10_a: "1", r10_j10_b: "0",
-        r11_j1_a: "2", r11_j1_b: "0", r11_j2_a: "1", r11_j2_b: "0", r11_j3_a: "2", r11_j3_b: "0",
-        r11_j4_a: "1", r11_j4_b: "1",
-        r12_j1_a: "2", r12_j1_b: "0", r12_j2_a: "0", r12_j2_b: "10", r12_j3_a: "1", r12_j3_b: "2",
-        r12_j4_a: "1", r12_j4_b: "0", r12_j5_a: "3", r12_j5_b: "1", r12_j6_a: "2", r12_j6_b: "1",
-        r12_j7_a: "1", r12_j7_b: "0", r12_j8_a: "0", r12_j8_b: "1", r12_j9_a: "1", r12_j9_b: "1",
-        r12_j10_a: "0", r12_j10_b: "0",
-        r13_j1_a: "1", r13_j1_b: "1", r13_j2_a: "2", r13_j2_b: "0", r13_j3_a: "1", r13_j3_b: "0",
-        r13_j4_a: "1", r13_j4_b: "1", r13_j5_a: "2", r13_j5_b: "1",
-        r14_j1_a: "1", r14_j1_b: "1", r14_j2_a: "0", r14_j2_b: "10", r14_j3_a: "2", r14_j3_b: "2",
-        r14_j4_a: "1", r14_j4_b: "0", r14_j5_a: "0", r14_j5_b: "2", r14_j6_a: "1", r14_j6_b: "0",
-        r14_j7_a: "2", r14_j7_b: "1", r14_j8_a: "2", r14_j8_b: "1", r14_j9_a: "2", r14_j9_b: "0",
-        r14_j10_a: "1", r14_j10_b: "0",
-        r15_j1_a: "1", r15_j1_b: "0", r15_j2_a: "2", r15_j2_b: "0", r15_j3_a: "2", r15_j3_b: "1",
-        r15_j4_a: "1", r15_j4_b: "1",
-        r16_j1_a: "1", r16_j1_b: "0", r16_j2_a: "1", r16_j2_b: "1", r16_j3_a: "2", r16_j3_b: "2",
-        r16_j4_a: "1", r16_j4_b: "1", r16_j5_a: "10", r16_j5_b: "0", r16_j6_a: "2", r16_j6_b: "0",
-        r16_j7_a: "1", r16_j7_b: "3", r16_j8_a: "2", r16_j8_b: "0", r16_j9_a: "2", r16_j9_b: "0",
-        r16_j10_a: "3", r16_j10_b: "1",
-        r17_j1_a: "1", r17_j1_b: "1", r17_j2_a: "2", r17_j2_b: "0", r17_j3_a: "1", r17_j3_b: "0",
-        r17_j4_a: "1", r17_j4_b: "2", r17_j5_a: "0", r17_j5_b: "2",
-        // RODADA 18
-        r18_j1_a: "2", r18_j1_b: "0", r18_j2_a: "1", r18_j2_b: "1", r18_j3_a: "0", r18_j3_b: "0",
-        r18_j4_a: "2", r18_j4_b: "1", r18_j5_a: "2", r18_j5_b: "0", r18_j6_a: "1", r18_j6_b: "3",
-        r18_j7_a: "1", r18_j7_b: "2", r18_j8_a: "1", r18_j8_b: "1", r18_j9_a: "2", r18_j9_b: "0",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j9",
-        coringa_usado: false
-    },
-    "Lucas": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "1", r1_j2_b: "2", r1_j3_a: "0", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "1",
-        r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "3", r2_j2_b: "1",
-        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "3", r3_j2_b: "1", r3_j3_a: "2", r3_j3_b: "1",
-        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
-        r3_j7_a: "2", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "2", r3_j9_b: "1",
-        r3_j10_a: "0", r3_j10_b: "1",
-        r4_j1_a: "1", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
-        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "2", r4_j5_b: "1", r4_j6_a: "1", r4_j6_b: "2",
-        r5_j1_a: "1", r5_j1_b: "1", r5_j2_a: "1", r5_j2_b: "0", r5_j3_a: "2", r5_j3_b: "1",
-        r5_j4_a: "4", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "0", r5_j6_a: "0", r5_j6_b: "3",
-        r5_j7_a: "1", r5_j7_b: "1", r5_j8_a: "2", r5_j8_b: "0",
-        r6_j1_a: "0", r6_j1_b: "0", r6_j2_a: "0", r6_j2_b: "1", r6_j3_a: "1", r6_j3_b: "0",
-        r6_j4_a: "0", r6_j4_b: "0", r6_j5_a: "1", r6_j5_b: "0", r6_j6_a: "0", r6_j6_b: "1",
-        r6_j7_a: "0", r6_j7_b: "0", r6_j8_a: "0", r6_j8_b: "0",
-        r7_j1_a: "1", r7_j1_b: "0", r7_j2_a: "0", r7_j2_b: "1", r7_j3_a: "1", r7_j3_b: "0",
-        r7_j4_a: "1", r7_j4_b: "0", r7_j5_a: "1", r7_j5_b: "0", r7_j6_a: "1", r7_j6_b: "0",
-        r7_j7_a: "1", r7_j7_b: "0", r7_j8_a: "0", r7_j8_b: "0", r7_j9_a: "1", r7_j9_b: "0",
-        r7_j10_a: "1", r7_j10_b: "0",
-        r8_j1_a: "0", r8_j1_b: "0", r8_j2_a: "2", r8_j2_b: "0", r8_j3_a: "1", r8_j3_b: "0",
-        r8_j4_a: "1", r8_j4_b: "0", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "2", r8_j6_b: "1",
-        r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "0", r8_j9_a: "0", r8_j9_b: "0",
-        r8_j10_a: "1", r8_j10_b: "0",
-        r9_j1_a: "0", r9_j1_b: "1", r9_j2_a: "0", r9_j2_b: "0", r9_j3_a: "0", r9_j3_b: "0",
-        r9_j4_a: "0", r9_j4_b: "1", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "4", r9_j6_b: "1",
-        r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "0", r9_j8_b: "0",
-        r10_j1_a: "1", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "1",
-        r10_j4_a: "1", r10_j4_b: "0", r10_j5_a: "1", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "0",
-        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "0",
-        r10_j10_a: "0", r10_j10_b: "1",
-        r11_j1_a: "0", r11_j1_b: "0", r11_j2_a: "0", r11_j2_b: "0", r11_j3_a: "1", r11_j3_b: "0",
-        r11_j4_a: "0", r11_j4_b: "0",
-        r12_j1_a: "2", r12_j1_b: "0", r12_j2_a: "1", r12_j2_b: "0", r12_j3_a: "1", r12_j3_b: "2",
-        r12_j4_a: "1", r12_j4_b: "1", r12_j5_a: "2", r12_j5_b: "1", r12_j6_a: "1", r12_j6_b: "0",
-        r12_j7_a: "1", r12_j7_b: "1", r12_j8_a: "0", r12_j8_b: "2", r12_j9_a: "1", r12_j9_b: "0",
-        r12_j10_a: "1", r12_j10_b: "0",
-        r13_j1_a: "2", r13_j1_b: "1", r13_j2_a: "3", r13_j2_b: "1", r13_j3_a: "2", r13_j3_b: "1",
-        r13_j4_a: "1", r13_j4_b: "1", r13_j5_a: "2", r13_j5_b: "1",
-        r14_j1_a: "1", r14_j1_b: "0", r14_j2_a: "0", r14_j2_b: "1", r14_j3_a: "2", r14_j3_b: "1",
-        r14_j4_a: "1", r14_j4_b: "0", r14_j5_a: "1", r14_j5_b: "4", r14_j6_a: "0", r14_j6_b: "0",
-        r14_j7_a: "1", r14_j7_b: "1", r14_j8_a: "1", r14_j8_b: "2", r14_j9_a: "2", r14_j9_b: "1",
-        r14_j10_a: "0", r14_j10_b: "1",
-        r15_j1_a: "1", r15_j1_b: "0", r15_j2_a: "1", r15_j2_b: "0", r15_j3_a: "1", r15_j3_b: "0",
-        r15_j4_a: "0", r15_j4_b: "1",
-        r16_j1_a: "2", r16_j1_b: "1", r16_j2_a: "2", r16_j2_b: "0", r16_j3_a: "1", r16_j3_b: "2",
-        r16_j4_a: "2", r16_j4_b: "1", r16_j5_a: "2", r16_j5_b: "0", r16_j6_a: "1", r16_j6_b: "0",
-        r16_j7_a: "1", r16_j7_b: "1", r16_j8_a: "1", r16_j8_b: "0", r16_j9_a: "4", r16_j9_b: "1",
-        r16_j10_a: "2", r16_j10_b: "0",
-        // RODADA 17
-        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "0", r17_j2_b: "0", r17_j3_a: "2", r17_j3_b: "1",
-        r17_j4_a: "1", r17_j4_b: "1", r17_j5_a: "2", r17_j5_b: "0",
-        palpite_do_dia: "r17_j5",
-        coringa_usado: false,
-        // RODADA 18
-        r18_j1_a: "3", r18_j1_b: "1", r18_j2_a: "1", r18_j2_b: "0", r18_j3_a: "1", r18_j3_b: "2",
-        r18_j4_a: "2", r18_j4_b: "0", r18_j5_a: "2", r18_j5_b: "1", r18_j6_a: "0", r18_j6_b: "2",
-        r18_j7_a: "1", r18_j7_b: "0", r18_j8_a: "1", r18_j8_b: "1", r18_j9_a: "2", r18_j9_b: "0",
-        r18_j10_a: "1", r18_j10_b: "2",
-        palpite_do_dia_r18: "r18_j9"
-    },
-    "Psico": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "2",
-        r2_j1_a: "2", r2_j1_b: "2", r2_j2_a: "1", r2_j2_b: "2",
-        r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "1",
-        r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
-        r3_j7_a: "1", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
-        r3_j10_a: "0", r3_j10_b: "1",
-        r4_j1_a: "0", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "2", r4_j3_b: "1",
-        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "1", r4_j5_b: "1", r4_j6_a: "1", r4_j6_b: "1",
-        r5_j1_a: "1", r5_j1_b: "1", r5_j2_a: "2", r5_j2_b: "1", r5_j3_a: "2", r5_j3_b: "1",
-        r5_j4_a: "2", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "0", r5_j6_a: "0", r5_j6_b: "2",
-        r5_j7_a: "0", r5_j7_b: "1", r5_j8_a: "3", r5_j8_b: "1",
-        r6_j1_a: "1", r6_j1_b: "2", r6_j2_a: "1", r6_j2_b: "0", r6_j3_a: "2", r6_j3_b: "0",
-        r6_j4_a: "1", r6_j4_b: "0", r6_j5_a: "1", r6_j5_b: "1", r6_j6_a: "1", r6_j6_b: "2",
-        r6_j7_a: "1", r6_j7_b: "0", r6_j8_a: "0", r6_j8_b: "1",
-        r7_j1_a: "1", r7_j1_b: "1", r7_j2_a: "1", r7_j2_b: "1", r7_j3_a: "2", r7_j3_b: "0",
-        r7_j4_a: "2", r7_j4_b: "1", r7_j5_a: "2", r7_j5_b: "0", r7_j6_a: "2", r7_j6_b: "1",
-        r7_j7_a: "2", r7_j7_b: "1", r7_j8_a: "1", r7_j8_b: "1", r7_j9_a: "0", r7_j9_b: "1",
-        r7_j10_a: "2", r7_j10_b: "1",
-        r8_j1_a: "0", r8_j1_b: "0", r8_j2_a: "2", r8_j2_b: "0", r8_j3_a: "1", r8_j3_b: "1",
-        r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "0", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "1",
-        r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "0", r8_j9_b: "0",
-        r8_j10_a: "2", r8_j10_b: "1",
-        r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "1", r9_j3_b: "1",
-        r9_j4_a: "2", r9_j4_b: "1", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "3", r9_j6_b: "1",
-        r9_j7_a: "3", r9_j7_b: "1", r9_j8_a: "1", r9_j8_b: "0",
-        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "2",
-        r10_j4_a: "1", r10_j4_b: "0", r10_j5_a: "2", r10_j5_b: "1", r10_j6_a: "2", r10_j6_b: "2",
-        r10_j7_a: "1", r10_j7_b: "3", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "2", r10_j9_b: "1",
-        r10_j10_a: "1", r10_j10_b: "2",
-        r11_j1_a: "2", r11_j1_b: "1", r11_j2_a: "1", r11_j2_b: "1", r11_j3_a: "3", r11_j3_b: "1",
-        r11_j4_a: "1", r11_j4_b: "1",
-        r12_j1_a: "1", r12_j1_b: "0", r12_j2_a: "1", r12_j2_b: "1", r12_j3_a: "0", r12_j3_b: "1",
-        r12_j4_a: "2", r12_j4_b: "1", r12_j5_a: "2", r12_j5_b: "0", r12_j6_a: "2", r12_j6_b: "1",
-        r12_j7_a: "1", r12_j7_b: "0", r12_j8_a: "1", r12_j8_b: "2", r12_j9_a: "2", r12_j9_b: "0",
-        r12_j10_a: "1", r12_j10_b: "2",
-        r13_j1_a: "1", r13_j1_b: "1", r13_j2_a: "3", r13_j2_b: "0", r13_j3_a: "2", r13_j3_b: "1",
-        r13_j4_a: "1", r13_j4_b: "2", r13_j5_a: "1", r13_j5_b: "1",
-        r14_j1_a: "2", r14_j1_b: "2", r14_j2_a: "1", r14_j2_b: "2", r14_j3_a: "2", r14_j3_b: "2",
-        r14_j4_a: "2", r14_j4_b: "1", r14_j5_a: "0", r14_j5_b: "3", r14_j6_a: "1", r14_j6_b: "0",
-        r14_j7_a: "3", r14_j7_b: "2", r14_j8_a: "2", r14_j8_b: "1", r14_j9_a: "2", r14_j9_b: "1",
-        r14_j10_a: "2", r14_j10_b: "2",
-        r15_j1_a: "2", r15_j1_b: "1", r15_j2_a: "2", r15_j2_b: "0", r15_j3_a: "2", r15_j3_b: "1",
-        r15_j4_a: "1", r15_j4_b: "1",
-        r16_j1_a: "2", r16_j1_b: "2", r16_j2_a: "1", r16_j2_b: "2", r16_j3_a: "1", r16_j3_b: "1",
-        r16_j4_a: "1", r16_j4_b: "2", r16_j5_a: "1", r16_j5_b: "1", r16_j6_a: "1", r16_j6_b: "0",
-        r16_j7_a: "1", r16_j7_b: "2", r16_j8_a: "2", r16_j8_b: "1", r16_j9_a: "3", r16_j9_b: "0",
-        r16_j10_a: "3", r16_j10_b: "1",
-        r17_j1_a: "1", r17_j1_b: "1", r17_j2_a: "1", r17_j2_b: "1", r17_j3_a: "1", r17_j3_b: "1",
-        r17_j4_a: "0", r17_j4_b: "0", r17_j5_a: "0", r17_j5_b: "2",
-        // RODADA 18
-        r18_j1_a: "3", r18_j1_b: "0", r18_j2_a: "1", r18_j2_b: "2", r18_j3_a: "1", r18_j3_b: "3",
-        r18_j4_a: "2", r18_j4_b: "1", r18_j5_a: "1", r18_j5_b: "1", r18_j6_a: "1", r18_j6_b: "1",
-        r18_j7_a: "2", r18_j7_b: "1", r18_j8_a: "0", r18_j8_b: "2", r18_j9_a: "2", r18_j9_b: "1",
-        r18_j10_a: "2", r18_j10_b: "0",
-        palpite_do_dia: "r18_j4",
-        coringa_usado: false
-    },
-    "Neneca": {
-        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "0", r1_j4_b: "0",
-        r2_j1_a: "1", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
-        r3_j1_a: "1", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "1",
-        r3_j4_a: "1", r3_j4_b: "0", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
-        r3_j7_a: "0", r3_j7_b: "1", r3_j8_a: "2", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "0",
-        r3_j10_a: "1", r3_j10_b: "1",
-        r4_j1_a: "0", r4_j1_b: "2", r4_j2_a: "1", r4_j2_b: "1", r4_j3_a: "2", r4_j3_b: "1",
-        r4_j4_a: "0", r4_j4_b: "1", r4_j5_a: "1", r4_j5_b: "1", r4_j6_a: "0", r4_j6_b: "2",
-        r5_j1_a: "0", r5_j1_b: "2", r5_j2_a: "2", r5_j2_b: "1", r5_j3_a: "1", r5_j3_b: "1",
-        r5_j4_a: "2", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "1", r5_j6_a: "0", r5_j6_b: "2",
-        r5_j7_a: "1", r5_j7_b: "2", r5_j8_a: "1", r5_j8_b: "0",
-        r6_j1_a: "1", r6_j1_b: "1", r6_j2_a: "0", r6_j2_b: "2", r6_j3_a: "1", r6_j3_b: "0",
-        r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "2", r6_j5_b: "0", r6_j6_a: "1", r6_j6_b: "1",
-        r6_j7_a: "2", r6_j7_b: "0", r6_j8_a: "1", r6_j8_b: "1",
-        r7_j1_a: "0", r7_j1_b: "1", r7_j2_a: "0", r7_j2_b: "1", r7_j3_a: "2", r7_j3_b: "0",
-        r7_j4_a: "1", r7_j4_b: "1", r7_j5_a: "2", r7_j5_b: "1", r7_j6_a: "2", r7_j6_b: "0",
-        r7_j7_a: "1", r7_j7_b: "0", r7_j8_a: "0", r7_j8_b: "2", r7_j9_a: "0", r7_j9_b: "1",
-        r7_j10_a: "3", r7_j10_b: "1",
-        r8_j1_a: "0", r8_j1_b: "2", r8_j2_a: "1", r8_j2_b: "1", r8_j3_a: "1", r8_j3_b: "0",
-        r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "1", r8_j5_b: "0", r8_j6_a: "2", r8_j6_b: "0",
-        r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "0", r8_j8_b: "0", r8_j9_a: "0", r8_j9_b: "1",
-        r8_j10_a: "0", r8_j10_b: "0",
-        r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "1", r9_j3_b: "0",
-        r9_j4_a: "0", r9_j4_b: "2", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "2", r9_j6_b: "1",
-        r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "2", r9_j8_b: "0",
-        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "0", r10_j3_a: "1", r10_j3_b: "1",
-        r10_j4_a: "0", r10_j4_b: "0", r10_j5_a: "1", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "1",
-        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "0", r10_j8_b: "1", r10_j9_a: "0", r10_j9_b: "2",
-        r10_j10_a: "1", r10_j10_b: "1",
-        r11_j1_a: "1", r11_j1_b: "0", r11_j2_a: "2", r11_j2_b: "0", r11_j3_a: "2", r11_j3_b: "0",
-        r11_j4_a: "1", r11_j4_b: "0",
-        r12_j1_a: "1", r12_j1_b: "1", r12_j2_a: "0", r12_j2_b: "1", r12_j3_a: "2", r12_j3_b: "1",
-        r12_j4_a: "1", r12_j4_b: "2", r12_j5_a: "2", r12_j5_b: "0", r12_j6_a: "2", r12_j6_b: "0",
-        r12_j7_a: "1", r12_j7_b: "0", r12_j8_a: "0", r12_j8_b: "1", r12_j9_a: "1", r12_j9_b: "0",
-        r12_j10_a: "0", r12_j10_b: "0",
-        r13_j1_a: "0", r13_j1_b: "1", r13_j2_a: "2", r13_j2_b: "0", r13_j3_a: "2", r13_j3_b: "1",
-        r13_j4_a: "1", r13_j4_b: "3", r13_j5_a: "2", r13_j5_b: "0",
-        r14_j1_a: "1", r14_j1_b: "1", r14_j2_a: "0", r14_j2_b: "1", r14_j3_a: "1", r14_j3_b: "1",
-        r14_j4_a: "1", r14_j4_b: "0", r14_j5_a: "1", r14_j5_b: "3", r14_j6_a: "1", r14_j6_b: "1",
-        r14_j7_a: "1", r14_j7_b: "0", r14_j8_a: "1", r14_j8_b: "2", r14_j9_a: "1", r14_j9_b: "0",
-        r14_j10_a: "2", r14_j10_b: "1",
-        r15_j1_a: "2", r15_j1_b: "0", r15_j2_a: "1", r15_j2_b: "0", r15_j3_a: "0", r15_j3_b: "0",
-        r15_j4_a: "1", r15_j4_b: "2",
-        r16_j1_a: "1", r16_j1_b: "1", r16_j2_a: "0", r16_j2_b: "1", r16_j3_a: "1", r16_j3_b: "1",
-        r16_j4_a: "0", r16_j4_b: "2", r16_j5_a: "1", r16_j5_b: "0", r16_j6_a: "0", r16_j6_b: "1",
-        r16_j7_a: "0", r16_j7_b: "2", r16_j8_a: "0", r16_j8_b: "0", r16_j9_a: "1", r16_j9_b: "1",
-        r16_j10_a: "1", r16_j10_b: "0",
-        r17_j1_a: "1", r17_j1_b: "1", r17_j2_a: "2", r17_j2_b: "0", r17_j3_a: "1", r17_j3_b: "0",
-        r17_j4_a: "0", r17_j4_b: "1", r17_j5_a: "0", r17_j5_b: "2",
-        // RODADA 18
-        r18_j1_a: "2", r18_j1_b: "1", r18_j2_a: "1", r18_j2_b: "1", r18_j3_a: "0", r18_j3_b: "2",
-        r18_j4_a: "1", r18_j4_b: "0", r18_j5_a: "0", r18_j5_b: "1", r18_j6_a: "0", r18_j6_b: "2",
-        r18_j7_a: "1", r18_j7_b: "1", r18_j8_a: "0", r18_j8_b: "1", r18_j9_a: "2", r18_j9_b: "0",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j6",
-        coringa_usado: false
-    },
-    "Dj": {
-        r16_j1_a: "1", r16_j1_b: "2", r16_j2_a: "1", r16_j2_b: "2", r16_j3_a: "0", r16_j3_b: "1",
-        r16_j4_a: "1", r16_j4_b: "0", r16_j5_a: "1", r16_j5_b: "1", r16_j6_a: "2", r16_j6_b: "0",
-        r16_j7_a: "2", r16_j7_b: "0", r16_j8_a: "1", r16_j8_b: "1", r16_j9_a: "3", r16_j9_b: "1",
-        r16_j10_a: "2", r16_j10_b: "0",
-        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "1", r17_j2_b: "2", r17_j3_a: "1", r17_j3_b: "0",
-        r17_j4_a: "1", r17_j4_b: "1", r17_j5_a: "1", r17_j5_b: "1",
-        // RODADA 18
-        r18_j1_a: "3", r18_j1_b: "0", r18_j2_a: "1", r18_j2_b: "2", r18_j3_a: "1", r18_j3_b: "2",
-        r18_j4_a: "2", r18_j4_b: "0", r18_j5_a: "2", r18_j5_b: "0", r18_j6_a: "2", r18_j6_b: "1",
-        r18_j7_a: "1", r18_j7_b: "1", r18_j8_a: "1", r18_j8_b: "2", r18_j9_a: "2", r18_j9_b: "0",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j3",
-        coringa_usado: false
-    },
-    "Julian": {
-        r1_j1_a: "1", r1_j1_b: "2", r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "2", r1_j4_b: "0",
-        palpite_do_dia: null,
-        coringa_usado: false
-    },
-    "Sid": {
-        r1_j1_a: "1", r1_j1_b: "1", r1_j2_a: "0", r1_j2_b: "4", r1_j3_a: "1", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "0",
-        r2_j1_a: "0", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
-        r3_j1_a: "3", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "1", r3_j3_b: "0",
-        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "0", r3_j6_a: "2", r3_j6_b: "0",
-        r3_j7_a: "2", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "2", r3_j9_b: "0",
-        r3_j10_a: "1", r3_j10_b: "2",
-        r4_j1_a: "0", r4_j1_b: "3", r4_j2_a: "0", r4_j2_b: "1", r4_j3_a: "1", r4_j3_b: "2",
-        r4_j4_a: "1", r4_j4_b: "0", r4_j5_a: "1", r4_j5_b: "2", r4_j6_a: "1", r4_j6_b: "2",
-        r5_j1_a: "1", r5_j1_b: "2", r5_j2_a: "3", r5_j2_b: "1", r5_j3_a: "0", r5_j3_b: "0",
-        r5_j4_a: "2", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "1", r5_j6_a: "0", r5_j6_b: "2",
-        r5_j7_a: "1", r5_j7_b: "1", r5_j8_a: "2", r5_j8_b: "0",
-        r6_j1_a: "1", r6_j1_b: "2", r6_j2_a: "1", r6_j2_b: "1", r6_j3_a: "3", r6_j3_b: "1",
-        r6_j4_a: "2", r6_j4_b: "1", r6_j5_a: "2", r6_j5_b: "1", r6_j6_a: "1", r6_j6_b: "3",
-        r6_j7_a: "1", r6_j7_b: "0", r6_j8_a: "0", r6_j8_b: "2",
-        r7_j1_a: "1", r7_j1_b: "1", r7_j2_a: "1", r7_j2_b: "2", r7_j3_a: "2", r7_j3_b: "0",
-        r7_j4_a: "2", r7_j4_b: "2", r7_j5_a: "2", r7_j5_b: "0", r7_j6_a: "2", r7_j6_b: "1",
-        r7_j7_a: "3", r7_j7_b: "0", r7_j8_a: "2", r7_j8_b: "1", r7_j9_a: "1", r7_j9_b: "2",
-        r7_j10_a: "4", r7_j10_b: "0",
-        r8_j1_a: "1", r8_j1_b: "1", r8_j2_a: "2", r8_j2_b: "0", r8_j3_a: "2", r8_j3_b: "1",
-        r8_j4_a: "0", r8_j4_b: "1", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "0",
-        r8_j7_a: "0", r8_j7_b: "3", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "1", r8_j9_b: "1",
-        r8_j10_a: "2", r8_j10_b: "1",
-        r9_j1_a: "1", r9_j1_b: "1", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "2", r9_j3_b: "1",
-        r9_j4_a: "2", r9_j4_b: "1", r9_j5_a: "0", r9_j5_b: "0", r9_j6_a: "2", r9_j6_b: "1",
-        r9_j7_a: "2", r9_j7_b: "0", r9_j8_a: "2", r9_j8_b: "1",
-        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "1", r10_j3_a: "0", r10_j3_b: "2",
-        r10_j4_a: "2", r10_j4_b: "1", r10_j5_a: "3", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "2",
-        r10_j7_a: "1", r10_j7_b: "2", r10_j8_a: "2", r10_j8_b: "0", r10_j9_a: "0", r10_j9_b: "1",
-        r10_j10_a: "1", r10_j10_b: "1",
-        r11_j1_a: "2", r11_j1_b: "1", r11_j2_a: "2", r11_j2_b: "1", r11_j3_a: "2", r11_j3_b: "0",
-        r11_j4_a: "2", r11_j4_b: "0",
-        r12_j1_a: "2", r12_j1_b: "0", r12_j2_a: "1", r12_j2_b: "2", r12_j3_a: "1", r12_j3_b: "0",
-        r12_j4_a: "2", r12_j4_b: "1", r12_j5_a: "4", r12_j5_b: "0", r12_j6_a: "0", r12_j6_b: "0",
-        r12_j7_a: "2", r12_j7_b: "0", r12_j8_a: "1", r12_j8_b: "2", r12_j9_a: "2", r12_j9_b: "0",
-        r12_j10_a: "1", r12_j10_b: "1",
-        r13_j1_a: "1", r13_j1_b: "1", r13_j2_a: "4", r13_j2_b: "0", r13_j3_a: "1", r13_j3_b: "2",
-        r13_j4_a: "2", r13_j4_b: "1", r13_j5_a: "2", r13_j5_b: "2",
-        r14_j1_a: "1", r14_j1_b: "1", r14_j2_a: "2", r14_j2_b: "1", r14_j3_a: "2", r14_j3_b: "0",
-        r14_j4_a: "1", r14_j4_b: "0", r14_j5_a: "0", r14_j5_b: "2", r14_j6_a: "1", r14_j6_b: "0",
-        r14_j7_a: "2", r14_j7_b: "1", r14_j8_a: "1", r14_j8_b: "2", r14_j9_a: "2", r14_j9_b: "0",
-        r14_j10_a: "1", r14_j10_b: "1",
-        r15_j1_a: "2", r15_j1_b: "1", r15_j2_a: "2", r15_j2_b: "1", r15_j3_a: "3", r15_j3_b: "1",
-        r15_j4_a: "1", r15_j4_b: "2",
-        r16_j1_a: "1", r16_j1_b: "1", r16_j2_a: "1", r16_j2_b: "2", r16_j3_a: "2", r16_j3_b: "1",
-        r16_j4_a: "1", r16_j4_b: "2", r16_j5_a: "2", r16_j5_b: "0", r16_j6_a: "2", r16_j6_b: "2",
-        r16_j7_a: "2", r16_j7_b: "2", r16_j8_a: "1", r16_j8_b: "1", r16_j9_a: "3", r16_j9_b: "1",
-        r16_j10_a: "3", r16_j10_b: "1",
-        r17_j1_a: "2", r17_j1_b: "2", r17_j2_a: "1", r17_j2_b: "2", r17_j3_a: "0", r17_j3_b: "1",
-        r17_j4_a: "1", r17_j4_b: "2", r17_j5_a: "0", r17_j5_b: "4",
-        // RODADA 18
-        r18_j1_a: "2", r18_j1_b: "0", r18_j2_a: "1", r18_j2_b: "2", r18_j3_a: "2", r18_j3_b: "1",
-        r18_j4_a: "2", r18_j4_b: "1", r18_j5_a: "2", r18_j5_b: "0", r18_j6_a: "2", r18_j6_b: "2",
-        r18_j7_a: "1", r18_j7_b: "1", r18_j8_a: "1", r18_j8_b: "1", r18_j9_a: "3", r18_j9_b: "1",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j4",
-        coringa_usado: false
-    },
-    "Samuel": {
-        r1_j2_a: "0", r1_j2_b: "5", r1_j3_a: "2", r1_j3_b: "2", r1_j4_a: "1", r1_j4_b: "1",
-        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
-        r7_j1_a: "2", r7_j1_b: "1", r7_j2_a: "1", r7_j2_b: "2", r7_j3_a: "3", r7_j3_b: "0",
-        r7_j4_a: "1", r7_j4_b: "1", r7_j5_a: "2", r7_j5_b: "0", r7_j6_a: "2", r7_j6_b: "0",
-        r7_j7_a: "3", r7_j7_b: "1", r7_j8_a: "2", r7_j8_b: "1", r7_j9_a: "1", r7_j9_b: "2",
-        r7_j10_a: "3", r7_j10_b: "1",
-        r8_j1_a: "1", r8_j1_b: "2", r8_j2_a: "2", r8_j2_b: "1", r8_j3_a: "2", r8_j3_b: "1",
-        r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "1", r8_j6_b: "1",
-        r8_j7_a: "0", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "2", r8_j9_a: "1", r8_j9_b: "1",
-        r8_j10_a: "2", r8_j10_b: "0",
-        r9_j1_a: "1", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "2", r9_j3_b: "1",
-        r9_j4_a: "1", r9_j4_b: "1", r9_j5_a: "1", r9_j5_b: "1", r9_j6_a: "2", r9_j6_b: "1",
-        r9_j7_a: "2", r9_j7_b: "1", r9_j8_a: "2", r9_j8_b: "0",
-        r10_j1_a: "2", r10_j1_b: "1", r10_j2_a: "2", r10_j2_b: "1", r10_j3_a: "0", r10_j3_b: "2",
-        r10_j4_a: "1", r10_j4_b: "1", r10_j5_a: "2", r10_j5_b: "1", r10_j6_a: "1", r10_j6_b: "2",
-        r10_j7_a: "0", r10_j7_b: "2", r10_j8_a: "1", r10_j8_b: "2", r10_j9_a: "1", r10_j9_b: "2",
-        r10_j10_a: "1", r10_j10_b: "2",
-        r11_j1_a: "2", r11_j1_b: "1", r11_j2_a: "1", r11_j2_b: "0", r11_j3_a: "2", r11_j3_b: "1",
-        r11_j4_a: "2", r11_j4_b: "1",
-        r12_j1_a: "1", r12_j1_b: "1", r12_j2_a: "2", r12_j2_b: "1", r12_j3_a: "1", r12_j3_b: "1",
-        r12_j4_a: "2", r12_j4_b: "1", r12_j5_a: "2", r12_j5_b: "1", r12_j6_a: "2", r12_j6_b: "1",
-        r12_j7_a: "2", r12_j7_b: "0", r12_j8_a: "1", r12_j8_b: "2", r12_j9_a: "2", r12_j9_b: "1",
-        r12_j10_a: "1", r12_j10_b: "2",
-        r13_j1_a: "2", r13_j1_b: "1", r13_j2_a: "3", r13_j2_b: "1", r13_j3_a: "2", r13_j3_b: "1",
-        r13_j4_a: "1", r13_j4_b: "1", r13_j5_a: "2", r13_j5_b: "1",
-        r14_j1_a: "1", r14_j1_b: "2", r14_j2_a: "1", r14_j2_b: "2", r14_j3_a: "2", r14_j3_b: "1",
-        r14_j4_a: "2", r14_j4_b: "1", r14_j5_a: "1", r14_j5_b: "3", r14_j6_a: "1", r14_j6_b: "2",
-        r14_j7_a: "2", r14_j7_b: "1", r14_j8_a: "1", r14_j8_b: "1", r14_j9_a: "2", r14_j9_b: "0",
-        r14_j10_a: "1", r14_j10_b: "2",
-        r15_j1_a: "2", r15_j1_b: "0", r15_j2_a: "2", r15_j2_b: "1", r15_j3_a: "1", r15_j3_b: "1",
-        r15_j4_a: "1", r15_j4_b: "1",
-        r16_j1_a: "1", r16_j1_b: "1", r16_j2_a: "2", r16_j2_b: "1", r16_j3_a: "1", r16_j3_b: "2",
-        r16_j4_a: "1", r16_j4_b: "2", r16_j5_a: "2", r16_j5_b: "1", r16_j6_a: "1", r16_j6_b: "1",
-        r16_j7_a: "1", r16_j7_b: "1", r16_j8_a: "1", r16_j8_b: "2", r16_j9_a: "2", r16_j9_b: "1",
-        r16_j10_a: "2", r16_j10_b: "0",
-        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "1", r17_j2_b: "2", r17_j3_a: "2", r17_j3_b: "1",
-        r17_j4_a: "1", r17_j4_b: "2", r17_j5_a: "1", r17_j5_b: "2",
-        // RODADA 18
-        r18_j1_a: "3", r18_j1_b: "0", r18_j2_a: "1", r18_j2_b: "2", r18_j3_a: "1", r18_j3_b: "2",
-        r18_j4_a: "2", r18_j4_b: "1", r18_j5_a: "1", r18_j5_b: "1", r18_j6_a: "1", r18_j6_b: "1",
-        r18_j7_a: "2", r18_j7_b: "1", r18_j8_a: "1", r18_j8_b: "2", r18_j9_a: "2", r18_j9_b: "1",
-        r18_j10_a: "3", r18_j10_b: "2",
-        palpite_do_dia: "r18_j1",
-        coringa_usado: false
-    },
-    "Walishow": {
-        r1_j2_a: "0", r1_j2_b: "3", r1_j3_a: "1", r1_j3_b: "1", r1_j4_a: "1", r1_j4_b: "0",
-        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "2", r2_j2_b: "0",
-        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "1", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "2",
-        r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "3", r3_j5_b: "1", r3_j6_a: "3", r3_j6_b: "1",
-        r3_j7_a: "0", r3_j7_b: "2", r3_j8_a: "1", r3_j8_b: "0", r3_j9_a: "3", r3_j9_b: "0",
-        r3_j10_a: "0", r3_j10_b: "1",
-        r4_j1_a: "0", r4_j1_b: "3", r4_j2_a: "1", r4_j2_b: "0", r4_j3_a: "1", r4_j3_b: "0",
-        r4_j4_a: "0", r4_j4_b: "4", r4_j5_a: "2", r4_j5_b: "1", r4_j6_a: "0", r4_j6_b: "1",
-        r5_j1_a: "0", r5_j1_b: "1", r5_j2_a: "3", r5_j2_b: "1", r5_j3_a: "1", r5_j3_b: "0",
-        r5_j4_a: "3", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "1", r5_j6_a: "0", r5_j6_b: "2",
-        r5_j7_a: "1", r5_j7_b: "2", r5_j8_a: "3", r5_j8_b: "1",
-        r6_j1_a: "0", r6_j1_b: "1", r6_j2_a: "2", r6_j2_b: "2", r6_j3_a: "2", r6_j3_b: "0",
-        r6_j4_a: "0", r6_j4_b: "0", r6_j5_a: "1", r6_j5_b: "0", r6_j6_a: "0", r6_j6_b: "3",
-        r6_j7_a: "1", r6_j7_b: "0", r6_j8_a: "1", r6_j8_b: "1",
-        r7_j1_a: "1", r7_j1_b: "2", r7_j2_a: "0", r7_j2_b: "2", r7_j3_a: "1", r7_j3_b: "0",
-        r7_j4_a: "1", r7_j4_b: "2", r7_j5_a: "3", r7_j5_b: "1", r7_j6_a: "2", r7_j6_b: "0",
-        r7_j7_a: "3", r7_j7_b: "0", r7_j8_a: "1", r7_j8_b: "0", r7_j9_a: "0", r7_j9_b: "2",
-        r7_j10_a: "5", r7_j10_b: "0",
-        r8_j1_a: "0", r8_j1_b: "0", r8_j2_a: "3", r8_j2_b: "1", r8_j3_a: "1", r8_j3_b: "0",
-        r8_j4_a: "0", r8_j4_b: "2", r8_j5_a: "1", r8_j5_b: "1", r8_j6_a: "2", r8_j6_b: "2",
-        r8_j7_a: "1", r8_j7_b: "2", r8_j8_a: "1", r8_j8_b: "0", r8_j9_a: "1", r8_j9_b: "2",
-        r8_j10_a: "1", r8_j10_b: "0",
-        r9_j1_a: "0", r9_j1_b: "2", r9_j2_a: "1", r9_j2_b: "2", r9_j3_a: "0", r9_j3_b: "0",
-        r9_j4_a: "1", r9_j4_b: "3", r9_j5_a: "1", r9_j5_b: "2", r9_j6_a: "2", r9_j6_b: "0",
-        r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "0",
-        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "1", r10_j2_b: "2", r10_j3_a: "0", r10_j3_b: "2",
-        r10_j4_a: "3", r10_j4_b: "1", r10_j5_a: "3", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "0",
-        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "1", r10_j9_b: "1",
-        r10_j10_a: "1", r10_j10_b: "2",
-        r11_j1_a: "1", r11_j1_b: "0", r11_j2_a: "1", r11_j2_b: "0", r11_j3_a: "2", r11_j3_b: "1",
-        r11_j4_a: "1", r11_j4_b: "1",
-        r12_j1_a: "2", r12_j1_b: "1", r12_j2_a: "1", r12_j2_b: "1", r12_j3_a: "0", r12_j3_b: "2",
-        r12_j4_a: "1", r12_j4_b: "1", r12_j5_a: "3", r12_j5_b: "1", r12_j6_a: "2", r12_j6_b: "0",
-        r12_j7_a: "2", r12_j7_b: "1", r12_j8_a: "1", r12_j8_b: "3", r12_j9_a: "1", r12_j9_b: "0",
-        r12_j10_a: "1", r12_j10_b: "2",
-        r13_j1_a: "0", r13_j1_b: "0", r13_j2_a: "3", r13_j2_b: "0", r13_j3_a: "2", r13_j3_b: "1",
-        r13_j4_a: "0", r13_j4_b: "2", r13_j5_a: "1", r13_j5_b: "0",
-        r14_j1_a: "1", r14_j1_b: "1", r14_j2_a: "1", r14_j2_b: "2", r14_j3_a: "3", r14_j3_b: "0",
-        r14_j4_a: "1", r14_j4_b: "0", r14_j5_a: "0", r14_j5_b: "3", r14_j6_a: "1", r14_j6_b: "0",
-        r14_j7_a: "0", r14_j7_b: "2", r14_j8_a: "1", r14_j8_b: "2", r14_j9_a: "1", r14_j9_b: "0",
-        r14_j10_a: "2", r14_j10_b: "3",
-        r15_j1_a: "1", r15_j1_b: "0", r15_j2_a: "1", r15_j2_b: "1", r15_j3_a: "2", r15_j3_b: "0",
-        r15_j4_a: "1", r15_j4_b: "2",
-        r16_j1_a: "1", r16_j1_b: "2", r16_j2_a: "3", r16_j2_b: "1", r16_j3_a: "0", r16_j3_b: "2",
-        r16_j4_a: "1", r16_j4_b: "2", r16_j5_a: "2", r16_j5_b: "1", r16_j6_a: "1", r16_j6_b: "0",
-        r16_j7_a: "1", r16_j7_b: "3", r16_j8_a: "2", r16_j8_b: "0", r16_j9_a: "1", r16_j9_b: "0",
-        r16_j10_a: "2", r16_j10_b: "2",
-        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "3", r17_j2_b: "0", r17_j3_a: "1", r17_j3_b: "1",
-        r17_j4_a: "0", r17_j4_b: "1", r17_j5_a: "0", r17_j5_b: "2",
-        // RODADA 18
-        r18_j1_a: "3", r18_j1_b: "0", r18_j2_a: "0", r18_j2_b: "2", r18_j3_a: "1", r18_j3_b: "2",
-        r18_j4_a: "1", r18_j4_b: "2", r18_j5_a: "1", r18_j5_b: "0", r18_j6_a: "1", r18_j6_b: "2",
-        r18_j7_a: "1", r18_j7_b: "1", r18_j8_a: "1", r18_j8_b: "3", r18_j9_a: "3", r18_j9_b: "1",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j6",
-        coringa_usado: false
-    },
-    "Freitas": {
-        r2_j1_a: "2", r2_j1_b: "1", r2_j2_a: "1", r2_j2_b: "0",
-        r3_j1_a: "1", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "1", r3_j3_a: "0", r3_j3_b: "1",
-        r3_j4_a: "1", r3_j4_b: "2", r3_j5_a: "2", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "0",
-        r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "1", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
-        r3_j10_a: "0", r3_j10_b: "1",
-        r4_j1_a: "1", r4_j1_b: "2", r4_j2_a: "2", r4_j2_b: "1", r4_j3_a: "1", r4_j3_b: "2",
-        r4_j4_a: "1", r4_j4_b: "2", r4_j5_a: "2", r4_j5_b: "0", r4_j6_a: "1", r4_j6_b: "2",
-        r5_j1_a: "1", r5_j1_b: "1", r5_j2_a: "2", r5_j2_b: "0", r5_j3_a: "2", r5_j3_b: "1",
-        r5_j4_a: "2", r5_j4_b: "0", r5_j5_a: "1", r5_j5_b: "0", r5_j6_a: "1", r5_j6_b: "1",
-        r5_j7_a: "1", r5_j7_b: "1", r5_j8_a: "2", r5_j8_b: "1",
-        r6_j1_a: "1", r6_j1_b: "2", r6_j2_a: "1", r6_j2_b: "1", r6_j3_a: "2", r6_j3_b: "0",
-        r6_j4_a: "0", r6_j4_b: "1", r6_j5_a: "0", r6_j5_b: "1", r6_j6_a: "2", r6_j6_b: "1",
-        r6_j7_a: "2", r6_j7_b: "0", r6_j8_a: "1", r6_j8_b: "1",
-        r7_j1_a: "1", r7_j1_b: "1", r7_j2_a: "0", r7_j2_b: "1", r7_j3_a: "0", r7_j3_b: "0",
-        r7_j4_a: "2", r7_j4_b: "1", r7_j5_a: "0", r7_j5_b: "1", r7_j6_a: "1", r7_j6_b: "0",
-        r7_j7_a: "2", r7_j7_b: "0", r7_j8_a: "1", r7_j8_b: "1", r7_j9_a: "2", r7_j9_b: "1",
-        r7_j10_a: "3", r7_j10_b: "0",
-        r8_j1_a: "1", r8_j1_b: "1", r8_j2_a: "1", r8_j2_b: "1", r8_j3_a: "1", r8_j3_b: "0",
-        r8_j4_a: "0", r8_j4_b: "1", r8_j5_a: "2", r8_j5_b: "1", r8_j6_a: "1", r8_j6_b: "1",
-        r8_j7_a: "1", r8_j7_b: "1", r8_j8_a: "0", r8_j8_b: "1", r8_j9_a: "1", r8_j9_b: "1",
-        r8_j10_a: "2", r8_j10_b: "0",
-        r9_j1_a: "1", r9_j1_b: "0", r9_j2_a: "1", r9_j2_b: "1", r9_j3_a: "2", r9_j3_b: "1",
-        r9_j4_a: "1", r9_j4_b: "0", r9_j5_a: "0", r9_j5_b: "1", r9_j6_a: "2", r9_j6_b: "1",
-        r9_j7_a: "1", r9_j7_b: "0", r9_j8_a: "1", r9_j8_b: "0",
-        r10_j1_a: "2", r10_j1_b: "0", r10_j2_a: "0", r10_j2_b: "1", r10_j3_a: "1", r10_j3_b: "1",
-        r10_j4_a: "1", r10_j4_b: "2", r10_j5_a: "2", r10_j5_b: "0", r10_j6_a: "1", r10_j6_b: "1",
-        r10_j7_a: "0", r10_j7_b: "1", r10_j8_a: "2", r10_j8_b: "1", r10_j9_a: "1", r10_j9_b: "1",
-        r10_j10_a: "0", r10_j10_b: "1",
-        r11_j1_a: "1", r11_j1_b: "1", r11_j2_a: "1", r11_j2_b: "1", r11_j3_a: "1", r11_j3_b: "1",
-        r11_j4_a: "0", r11_j4_b: "1",
-        r12_j1_a: "2", r12_j1_b: "1", r12_j2_a: "1", r12_j2_b: "1", r12_j3_a: "1", r12_j3_b: "2",
-        r12_j4_a: "1", r12_j4_b: "1", r12_j5_a: "2", r12_j5_b: "0", r12_j6_a: "2", r12_j6_b: "1",
-        r12_j7_a: "2", r12_j7_b: "0", r12_j8_a: "0", r12_j8_b: "2", r12_j9_a: "3", r12_j9_b: "1",
-        r12_j10_a: "1", r12_j10_b: "1",
-        r13_j1_a: "1", r13_j1_b: "0", r13_j2_a: "2", r13_j2_b: "1", r13_j3_a: "1", r13_j3_b: "2",
-        r13_j4_a: "2", r13_j4_b: "1", r13_j5_a: "1", r13_j5_b: "0",
-        r14_j1_a: "1", r14_j1_b: "2", r14_j2_a: "1", r14_j2_b: "1", r14_j3_a: "1", r14_j3_b: "1",
-        r14_j4_a: "1", r14_j4_b: "1", r14_j5_a: "1", r14_j5_b: "2", r14_j6_a: "1", r14_j6_b: "0",
-        r14_j7_a: "2", r14_j7_b: "1", r14_j8_a: "0", r14_j8_b: "2", r14_j9_a: "2", r14_j9_b: "0",
-        r14_j10_a: "1", r14_j10_b: "2",
-        r15_j1_a: "2", r15_j1_b: "1", r15_j2_a: "2", r15_j2_b: "0", r15_j3_a: "1", r15_j3_b: "1",
-        r15_j4_a: "0", r15_j4_b: "1",
-        r16_j1_a: "0", r16_j1_b: "1", r16_j2_a: "1", r16_j2_b: "1", r16_j3_a: "1", r16_j3_b: "2",
-        r16_j4_a: "1", r16_j4_b: "0", r16_j5_a: "2", r16_j5_b: "1", r16_j6_a: "1", r16_j6_b: "1",
-        r16_j7_a: "2", r16_j7_b: "1", r16_j8_a: "2", r16_j8_b: "1", r16_j9_a: "1", r16_j9_b: "1",
-        r16_j10_a: "-", r16_j10_b: "-",
-        r17_j1_a: "2", r17_j1_b: "1", r17_j2_a: "2", r17_j2_b: "1", r17_j3_a: "1", r17_j3_b: "1",
-        r17_j4_a: "0", r17_j4_b: "1", r17_j5_a: "1", r17_j5_b: "1",
-        // RODADA 18
-        r18_j1_a: "2", r18_j1_b: "0", r18_j2_a: "2", r18_j2_b: "1", r18_j3_a: "0", r18_j3_b: "2",
-        r18_j4_a: "2", r18_j4_b: "1", r18_j5_a: "2", r18_j5_b: "1", r18_j6_a: "1", r18_j6_b: "2",
-        r18_j7_a: "0", r18_j7_b: "1", r18_j8_a: "1", r18_j8_b: "1", r18_j9_a: "1", r18_j9_b: "1",
-        r18_j10_a: "2", r18_j10_b: "1",
-        palpite_do_dia: "r18_j7",
-        coringa_usado: false
-    },
-    "Fish": {
-        r2_j1_a: "1", r2_j1_b: "0", r2_j2_a: "2", r2_j2_b: "0",
-        r3_j1_a: "2", r3_j1_b: "1", r3_j2_a: "2", r3_j2_b: "0", r3_j3_a: "1", r3_j3_b: "0",
-        r3_j4_a: "2", r3_j4_b: "1", r3_j5_a: "1", r3_j5_b: "1", r3_j6_a: "2", r3_j6_b: "1",
-        r3_j7_a: "2", r3_j7_b: "0", r3_j8_a: "3", r3_j8_b: "1", r3_j9_a: "1", r3_j9_b: "0",
-        r3_j10_a: "1", r3_j10_b: "1",
-        r6_j1_a: "0", r6_j1_b: "2", r6_j2_a: "0", r6_j2_b: "1", r6_j3_a: "3", r6_j3_b: "0",
-        r6_j4_a: "1", r6_j4_b: "1", r6_j5_a: "1", r6_j5_b: "1", r6_j6_a: "0", r6_j6_b: "0",
-        r6_j7_a: "2", r6_j7_b: "1", r6_j8_a: "0", r6_j8_b: "1",
-        r7_j1_a: "1", r7_j1_b: "0", r7_j2_a: "0", r7_j2_b: "2", r7_j3_a: "1", r7_j3_b: "0",
-        r7_j4_a: "2", r7_j4_b: "0", r7_j5_a: "2", r7_j5_b: "0", r7_j6_a: "2", r7_j6_b: "0",
-        r7_j7_a: "2", r7_j7_b: "0", r7_j8_a: "2", r7_j8_b: "1", r7_j9_a: "1", r7_j9_b: "1",
-        r7_j10_a: "3", r7_j10_b: "0",
-        r8_j1_a: "0", r8_j1_b: "0", r8_j2_a: "2", r8_j2_b: "0", r8_j3_a: "1", r8_j3_b: "0",
-        r8_j4_a: "0", r8_j4_b: "1", r8_j5_a: "1", r8_j5_b: "1", r8_j6_a: "1", r8_j6_b: "1",
-        r8_j7_a: "0", r8_j7_b: "0", r8_j8_a: "0", r8_j8_b: "0", r8_j9_a: "1", r8_j9_b: "0",
-        r8_j10_a: "0", r8_j10_b: "1",
-        palpite_do_dia: null,
-        coringa_usado: true
-    },
-    "Splé": {
-        r3_j4_a: "0", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "2", r3_j6_a: "3", r3_j6_b: "0",
-        r3_j7_a: "2", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "1",
-        r3_j10_a: "0", r3_j10_b: "1",
-        palpite_do_dia: "r3_j7",
-        coringa_usado: false
-    }
+"Paulão":{
+r1_j1_a:"0",r1_j1_b:"1",r1_j2_a:"0",r1_j2_b:"2",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"2",r1_j4_b:"1",
+r2_j1_a:"2",r2_j1_b:"1",r2_j2_a:"1",r2_j2_b:"0",
+r3_j1_a:"1",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"1",r3_j3_a:"1",r3_j3_b:"1",
+r3_j4_a:"2",r3_j4_b:"1",r3_j5_a:"1",r3_j5_b:"0",r3_j6_a:"2",r3_j6_b:"2",
+r3_j7_a:"1",r3_j7_b:"1",r3_j8_a:"2",r3_j8_b:"1",r3_j9_a:"1",r3_j9_b:"1",
+r3_j10_a:"1",r3_j10_b:"0",
+r4_j1_a:"1",r4_j1_b:"3",r4_j2_a:"2",r4_j2_b:"0",r4_j3_a:"1",r4_j3_b:"0",
+r4_j4_a:"2",r4_j4_b:"1",r4_j5_a:"1",r4_j5_b:"0",r4_j6_a:"0",r4_j6_b:"1",
+r5_j1_a:"1",r5_j1_b:"1",r5_j2_a:"2",r5_j2_b:"1",r5_j3_a:"2",r5_j3_b:"0",
+r5_j4_a:"3",r5_j4_b:"1",r5_j5_a:"2",r5_j5_b:"0",r5_j6_a:"0",r5_j6_b:"1",
+r5_j7_a:"1",r5_j7_b:"1",r5_j8_a:"1",r5_j8_b:"1",
+r6_j1_a:"1",r6_j1_b:"1",r6_j2_a:"1",r6_j2_b:"0",r6_j3_a:"2",r6_j3_b:"0",
+r6_j4_a:"1",r6_j4_b:"1",r6_j5_a:"1",r6_j5_b:"0",r6_j6_a:"1",r6_j6_b:"2",
+r6_j7_a:"2",r6_j7_b:"1",r6_j8_a:"1",r6_j8_b:"0",
+r7_j1_a:"1",r7_j1_b:"2",r7_j2_a:"0",r7_j2_b:"1",r7_j3_a:"2",r7_j3_b:"1",
+r7_j4_a:"2",r7_j4_b:"0",r7_j5_a:"2",r7_j5_b:"1",r7_j6_a:"1",r7_j6_b:"1",
+r7_j7_a:"1",r7_j7_b:"1",r7_j8_a:"1",r7_j8_b:"0",r7_j9_a:"0",r7_j9_b:"0",
+r7_j10_a:"2",r7_j10_b:"0",
+r8_j1_a:"1",r8_j1_b:"2",r8_j2_a:"2",r8_j2_b:"0",r8_j3_a:"2",r8_j3_b:"0",
+r8_j4_a:"1",r8_j4_b:"1",r8_j5_a:"1",r8_j5_b:"0",r8_j6_a:"1",r8_j6_b:"0",
+r8_j7_a:"1",r8_j7_b:"2",r8_j8_a:"1",r8_j8_b:"1",r8_j9_a:"1",r8_j9_b:"1",
+r8_j10_a:"2",r8_j10_b:"0",
+r9_j1_a:"1",r9_j1_b:"1",r9_j2_a:"2",r9_j2_b:"1",r9_j3_a:"0",r9_j3_b:"1",
+r9_j4_a:"0",r9_j4_b:"2",r9_j5_a:"1",r9_j5_b:"2",r9_j6_a:"1",r9_j6_b:"2",
+r9_j7_a:"2",r9_j7_b:"0",r9_j8_a:"1",r9_j8_b:"1",
+r10_j1_a:"1",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"1",r10_j3_a:"2",r10_j3_b:"1",
+r10_j4_a:"2",r10_j4_b:"0",r10_j5_a:"3",r10_j5_b:"1",r10_j6_a:"1",r10_j6_b:"0",
+r10_j7_a:"0",r10_j7_b:"2",r10_j8_a:"0",r10_j8_b:"0",r10_j9_a:"0",r10_j9_b:"0",
+r10_j10_a:"1",r10_j10_b:"0",
+r11_j1_a:"2",r11_j1_b:"0",r11_j2_a:"1",r11_j2_b:"0",r11_j3_a:"2",r11_j3_b:"0",
+r11_j4_a:"1",r11_j4_b:"1",
+r12_j1_a:"2",r12_j1_b:"0",r12_j2_a:"0",r12_j2_b:"10",r12_j3_a:"1",r12_j3_b:"2",
+r12_j4_a:"1",r12_j4_b:"0",r12_j5_a:"3",r12_j5_b:"1",r12_j6_a:"2",r12_j6_b:"1",
+r12_j7_a:"1",r12_j7_b:"0",r12_j8_a:"0",r12_j8_b:"1",r12_j9_a:"1",r12_j9_b:"1",
+r12_j10_a:"0",r12_j10_b:"0",
+r13_j1_a:"1",r13_j1_b:"1",r13_j2_a:"2",r13_j2_b:"0",r13_j3_a:"1",r13_j3_b:"0",
+r13_j4_a:"1",r13_j4_b:"1",r13_j5_a:"2",r13_j5_b:"1",
+r14_j1_a:"1",r14_j1_b:"1",r14_j2_a:"0",r14_j2_b:"10",r14_j3_a:"2",r14_j3_b:"2",
+r14_j4_a:"1",r14_j4_b:"0",r14_j5_a:"0",r14_j5_b:"2",r14_j6_a:"1",r14_j6_b:"0",
+r14_j7_a:"2",r14_j7_b:"1",r14_j8_a:"2",r14_j8_b:"1",r14_j9_a:"2",r14_j9_b:"0",
+r14_j10_a:"1",r14_j10_b:"0",
+r15_j1_a:"1",r15_j1_b:"0",r15_j2_a:"2",r15_j2_b:"0",r15_j3_a:"2",r15_j3_b:"1",
+r15_j4_a:"1",r15_j4_b:"1",
+r16_j1_a:"1",r16_j1_b:"0",r16_j2_a:"1",r16_j2_b:"1",r16_j3_a:"2",r16_j3_b:"2",
+r16_j4_a:"1",r16_j4_b:"1",r16_j5_a:"10",r16_j5_b:"0",r16_j6_a:"2",r16_j6_b:"0",
+r16_j7_a:"1",r16_j7_b:"3",r16_j8_a:"2",r16_j8_b:"0",r16_j9_a:"2",r16_j9_b:"0",
+r16_j10_a:"3",r16_j10_b:"1",
+r17_j1_a:"1",r17_j1_b:"1",r17_j2_a:"2",r17_j2_b:"0",r17_j3_a:"1",r17_j3_b:"0",
+r17_j4_a:"1",r17_j4_b:"2",r17_j5_a:"0",r17_j5_b:"2",
+r18_j1_a:"2",r18_j1_b:"0",r18_j2_a:"1",r18_j2_b:"1",r18_j3_a:"0",r18_j3_b:"0",
+r18_j4_a:"2",r18_j4_b:"1",r18_j5_a:"2",r18_j5_b:"0",r18_j6_a:"1",r18_j6_b:"3",
+r18_j7_a:"1",r18_j7_b:"2",r18_j8_a:"1",r18_j8_b:"1",r18_j9_a:"2",r18_j9_b:"0",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j9",coringa_usado:false
+},
+"Lucas":{
+r1_j1_a:"1",r1_j1_b:"1",r1_j2_a:"1",r1_j2_b:"2",r1_j3_a:"0",r1_j3_b:"1",r1_j4_a:"2",r1_j4_b:"1",
+r2_j1_a:"1",r2_j1_b:"0",r2_j2_a:"3",r2_j2_b:"1",
+r3_j1_a:"2",r3_j1_b:"1",r3_j2_a:"3",r3_j2_b:"1",r3_j3_a:"2",r3_j3_b:"1",
+r3_j4_a:"2",r3_j4_b:"1",r3_j5_a:"2",r3_j5_b:"1",r3_j6_a:"2",r3_j6_b:"1",
+r3_j7_a:"2",r3_j7_b:"1",r3_j8_a:"1",r3_j8_b:"1",r3_j9_a:"2",r3_j9_b:"1",
+r3_j10_a:"0",r3_j10_b:"1",
+r4_j1_a:"1",r4_j1_b:"2",r4_j2_a:"1",r4_j2_b:"0",r4_j3_a:"1",r4_j3_b:"0",
+r4_j4_a:"1",r4_j4_b:"2",r4_j5_a:"2",r4_j5_b:"1",r4_j6_a:"1",r4_j6_b:"2",
+r5_j1_a:"1",r5_j1_b:"1",r5_j2_a:"1",r5_j2_b:"0",r5_j3_a:"2",r5_j3_b:"1",
+r5_j4_a:"4",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"0",r5_j6_a:"0",r5_j6_b:"3",
+r5_j7_a:"1",r5_j7_b:"1",r5_j8_a:"2",r5_j8_b:"0",
+r6_j1_a:"0",r6_j1_b:"0",r6_j2_a:"0",r6_j2_b:"1",r6_j3_a:"1",r6_j3_b:"0",
+r6_j4_a:"0",r6_j4_b:"0",r6_j5_a:"1",r6_j5_b:"0",r6_j6_a:"0",r6_j6_b:"1",
+r6_j7_a:"0",r6_j7_b:"0",r6_j8_a:"0",r6_j8_b:"0",
+r7_j1_a:"1",r7_j1_b:"0",r7_j2_a:"0",r7_j2_b:"1",r7_j3_a:"1",r7_j3_b:"0",
+r7_j4_a:"1",r7_j4_b:"0",r7_j5_a:"1",r7_j5_b:"0",r7_j6_a:"1",r7_j6_b:"0",
+r7_j7_a:"1",r7_j7_b:"0",r7_j8_a:"0",r7_j8_b:"0",r7_j9_a:"1",r7_j9_b:"0",
+r7_j10_a:"1",r7_j10_b:"0",
+r8_j1_a:"0",r8_j1_b:"0",r8_j2_a:"2",r8_j2_b:"0",r8_j3_a:"1",r8_j3_b:"0",
+r8_j4_a:"1",r8_j4_b:"0",r8_j5_a:"1",r8_j5_b:"0",r8_j6_a:"2",r8_j6_b:"1",
+r8_j7_a:"1",r8_j7_b:"2",r8_j8_a:"1",r8_j8_b:"0",r8_j9_a:"0",r8_j9_b:"0",
+r8_j10_a:"1",r8_j10_b:"0",
+r9_j1_a:"0",r9_j1_b:"1",r9_j2_a:"0",r9_j2_b:"0",r9_j3_a:"0",r9_j3_b:"0",
+r9_j4_a:"0",r9_j4_b:"1",r9_j5_a:"0",r9_j5_b:"0",r9_j6_a:"4",r9_j6_b:"1",
+r9_j7_a:"1",r9_j7_b:"0",r9_j8_a:"0",r9_j8_b:"0",
+r10_j1_a:"1",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"2",r10_j3_a:"0",r10_j3_b:"1",
+r10_j4_a:"1",r10_j4_b:"0",r10_j5_a:"1",r10_j5_b:"0",r10_j6_a:"1",r10_j6_b:"0",
+r10_j7_a:"0",r10_j7_b:"1",r10_j8_a:"2",r10_j8_b:"0",r10_j9_a:"0",r10_j9_b:"0",
+r10_j10_a:"0",r10_j10_b:"1",
+r11_j1_a:"0",r11_j1_b:"0",r11_j2_a:"0",r11_j2_b:"0",r11_j3_a:"1",r11_j3_b:"0",
+r11_j4_a:"0",r11_j4_b:"0",
+r12_j1_a:"2",r12_j1_b:"0",r12_j2_a:"1",r12_j2_b:"0",r12_j3_a:"1",r12_j3_b:"2",
+r12_j4_a:"1",r12_j4_b:"1",r12_j5_a:"2",r12_j5_b:"1",r12_j6_a:"1",r12_j6_b:"0",
+r12_j7_a:"1",r12_j7_b:"1",r12_j8_a:"0",r12_j8_b:"2",r12_j9_a:"1",r12_j9_b:"0",
+r12_j10_a:"1",r12_j10_b:"0",
+r13_j1_a:"2",r13_j1_b:"1",r13_j2_a:"3",r13_j2_b:"1",r13_j3_a:"2",r13_j3_b:"1",
+r13_j4_a:"1",r13_j4_b:"1",r13_j5_a:"2",r13_j5_b:"1",
+r14_j1_a:"1",r14_j1_b:"0",r14_j2_a:"0",r14_j2_b:"1",r14_j3_a:"2",r14_j3_b:"1",
+r14_j4_a:"1",r14_j4_b:"0",r14_j5_a:"1",r14_j5_b:"4",r14_j6_a:"0",r14_j6_b:"0",
+r14_j7_a:"1",r14_j7_b:"1",r14_j8_a:"1",r14_j8_b:"2",r14_j9_a:"2",r14_j9_b:"1",
+r14_j10_a:"0",r14_j10_b:"1",
+r15_j1_a:"1",r15_j1_b:"0",r15_j2_a:"1",r15_j2_b:"0",r15_j3_a:"1",r15_j3_b:"0",
+r15_j4_a:"0",r15_j4_b:"1",
+r16_j1_a:"2",r16_j1_b:"1",r16_j2_a:"2",r16_j2_b:"0",r16_j3_a:"1",r16_j3_b:"2",
+r16_j4_a:"2",r16_j4_b:"1",r16_j5_a:"2",r16_j5_b:"0",r16_j6_a:"1",r16_j6_b:"0",
+r16_j7_a:"1",r16_j7_b:"1",r16_j8_a:"1",r16_j8_b:"0",r16_j9_a:"4",r16_j9_b:"1",
+r16_j10_a:"2",r16_j10_b:"0",
+r17_j1_a:"2",r17_j1_b:"1",r17_j2_a:"0",r17_j2_b:"0",r17_j3_a:"2",r17_j3_b:"1",
+r17_j4_a:"1",r17_j4_b:"1",r17_j5_a:"2",r17_j5_b:"0",
+r18_j1_a:"3",r18_j1_b:"1",r18_j2_a:"1",r18_j2_b:"0",r18_j3_a:"1",r18_j3_b:"2",
+r18_j4_a:"2",r18_j4_b:"0",r18_j5_a:"2",r18_j5_b:"1",r18_j6_a:"0",r18_j6_b:"2",
+r18_j7_a:"1",r18_j7_b:"0",r18_j8_a:"1",r18_j8_b:"1",r18_j9_a:"2",r18_j9_b:"0",
+r18_j10_a:"1",r18_j10_b:"2",
+palpite_do_dia:"r18_j9",coringa_usado:false
+},
+"Psico":{
+r1_j1_a:"1",r1_j1_b:"1",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"1",r1_j4_b:"2",
+r2_j1_a:"2",r2_j1_b:"2",r2_j2_a:"1",r2_j2_b:"2",
+r3_j1_a:"2",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"1",r3_j3_a:"1",r3_j3_b:"1",
+r3_j4_a:"1",r3_j4_b:"1",r3_j5_a:"3",r3_j5_b:"1",r3_j6_a:"2",r3_j6_b:"0",
+r3_j7_a:"1",r3_j7_b:"2",r3_j8_a:"1",r3_j8_b:"1",r3_j9_a:"1",r3_j9_b:"0",
+r3_j10_a:"0",r3_j10_b:"1",
+r4_j1_a:"0",r4_j1_b:"2",r4_j2_a:"1",r4_j2_b:"0",r4_j3_a:"2",r4_j3_b:"1",
+r4_j4_a:"1",r4_j4_b:"2",r4_j5_a:"1",r4_j5_b:"1",r4_j6_a:"1",r4_j6_b:"1",
+r5_j1_a:"1",r5_j1_b:"1",r5_j2_a:"2",r5_j2_b:"1",r5_j3_a:"2",r5_j3_b:"1",
+r5_j4_a:"2",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"0",r5_j6_a:"0",r5_j6_b:"2",
+r5_j7_a:"0",r5_j7_b:"1",r5_j8_a:"3",r5_j8_b:"1",
+r6_j1_a:"1",r6_j1_b:"2",r6_j2_a:"1",r6_j2_b:"0",r6_j3_a:"2",r6_j3_b:"0",
+r6_j4_a:"1",r6_j4_b:"0",r6_j5_a:"1",r6_j5_b:"1",r6_j6_a:"1",r6_j6_b:"2",
+r6_j7_a:"1",r6_j7_b:"0",r6_j8_a:"0",r6_j8_b:"1",
+r7_j1_a:"1",r7_j1_b:"1",r7_j2_a:"1",r7_j2_b:"1",r7_j3_a:"2",r7_j3_b:"0",
+r7_j4_a:"2",r7_j4_b:"1",r7_j5_a:"2",r7_j5_b:"0",r7_j6_a:"2",r7_j6_b:"1",
+r7_j7_a:"2",r7_j7_b:"1",r7_j8_a:"1",r7_j8_b:"1",r7_j9_a:"0",r7_j9_b:"1",
+r7_j10_a:"2",r7_j10_b:"1",
+r8_j1_a:"0",r8_j1_b:"0",r8_j2_a:"2",r8_j2_b:"0",r8_j3_a:"1",r8_j3_b:"1",
+r8_j4_a:"0",r8_j4_b:"2",r8_j5_a:"0",r8_j5_b:"1",r8_j6_a:"2",r8_j6_b:"1",
+r8_j7_a:"0",r8_j7_b:"2",r8_j8_a:"1",r8_j8_b:"2",r8_j9_a:"0",r8_j9_b:"0",
+r8_j10_a:"2",r8_j10_b:"1",
+r9_j1_a:"1",r9_j1_b:"2",r9_j2_a:"1",r9_j2_b:"2",r9_j3_a:"1",r9_j3_b:"1",
+r9_j4_a:"2",r9_j4_b:"1",r9_j5_a:"1",r9_j5_b:"2",r9_j6_a:"3",r9_j6_b:"1",
+r9_j7_a:"3",r9_j7_b:"1",r9_j8_a:"1",r9_j8_b:"0",
+r10_j1_a:"2",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"2",r10_j3_a:"0",r10_j3_b:"2",
+r10_j4_a:"1",r10_j4_b:"0",r10_j5_a:"2",r10_j5_b:"1",r10_j6_a:"2",r10_j6_b:"2",
+r10_j7_a:"1",r10_j7_b:"3",r10_j8_a:"2",r10_j8_b:"1",r10_j9_a:"2",r10_j9_b:"1",
+r10_j10_a:"1",r10_j10_b:"2",
+r11_j1_a:"2",r11_j1_b:"1",r11_j2_a:"1",r11_j2_b:"1",r11_j3_a:"3",r11_j3_b:"1",
+r11_j4_a:"1",r11_j4_b:"1",
+r12_j1_a:"1",r12_j1_b:"0",r12_j2_a:"1",r12_j2_b:"1",r12_j3_a:"0",r12_j3_b:"1",
+r12_j4_a:"2",r12_j4_b:"1",r12_j5_a:"2",r12_j5_b:"0",r12_j6_a:"2",r12_j6_b:"1",
+r12_j7_a:"1",r12_j7_b:"0",r12_j8_a:"1",r12_j8_b:"2",r12_j9_a:"2",r12_j9_b:"0",
+r12_j10_a:"1",r12_j10_b:"2",
+r13_j1_a:"1",r13_j1_b:"1",r13_j2_a:"3",r13_j2_b:"0",r13_j3_a:"2",r13_j3_b:"1",
+r13_j4_a:"1",r13_j4_b:"2",r13_j5_a:"1",r13_j5_b:"1",
+r14_j1_a:"2",r14_j1_b:"2",r14_j2_a:"1",r14_j2_b:"2",r14_j3_a:"2",r14_j3_b:"2",
+r14_j4_a:"2",r14_j4_b:"1",r14_j5_a:"0",r14_j5_b:"3",r14_j6_a:"1",r14_j6_b:"0",
+r14_j7_a:"3",r14_j7_b:"2",r14_j8_a:"2",r14_j8_b:"1",r14_j9_a:"2",r14_j9_b:"1",
+r14_j10_a:"2",r14_j10_b:"2",
+r15_j1_a:"2",r15_j1_b:"1",r15_j2_a:"2",r15_j2_b:"0",r15_j3_a:"2",r15_j3_b:"1",
+r15_j4_a:"1",r15_j4_b:"1",
+r16_j1_a:"2",r16_j1_b:"2",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"1",r16_j3_b:"1",
+r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"1",r16_j5_b:"1",r16_j6_a:"1",r16_j6_b:"0",
+r16_j7_a:"1",r16_j7_b:"2",r16_j8_a:"2",r16_j8_b:"1",r16_j9_a:"3",r16_j9_b:"0",
+r16_j10_a:"3",r16_j10_b:"1",
+r17_j1_a:"1",r17_j1_b:"1",r17_j2_a:"1",r17_j2_b:"1",r17_j3_a:"1",r17_j3_b:"1",
+r17_j4_a:"0",r17_j4_b:"0",r17_j5_a:"0",r17_j5_b:"2",
+r18_j1_a:"3",r18_j1_b:"0",r18_j2_a:"1",r18_j2_b:"2",r18_j3_a:"1",r18_j3_b:"3",
+r18_j4_a:"2",r18_j4_b:"1",r18_j5_a:"1",r18_j5_b:"1",r18_j6_a:"1",r18_j6_b:"1",
+r18_j7_a:"2",r18_j7_b:"1",r18_j8_a:"0",r18_j8_b:"2",r18_j9_a:"2",r18_j9_b:"1",
+r18_j10_a:"2",r18_j10_b:"0",
+palpite_do_dia:"r18_j4",coringa_usado:false
+},
+"Neneca":{
+r1_j1_a:"1",r1_j1_b:"2",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"0",r1_j4_b:"0",
+r2_j1_a:"1",r2_j1_b:"1",r2_j2_a:"2",r2_j2_b:"0",
+r3_j1_a:"1",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"0",r3_j3_a:"1",r3_j3_b:"1",
+r3_j4_a:"1",r3_j4_b:"0",r3_j5_a:"1",r3_j5_b:"1",r3_j6_a:"2",r3_j6_b:"0",
+r3_j7_a:"0",r3_j7_b:"1",r3_j8_a:"2",r3_j8_b:"0",r3_j9_a:"1",r3_j9_b:"0",
+r3_j10_a:"1",r3_j10_b:"1",
+r4_j1_a:"0",r4_j1_b:"2",r4_j2_a:"1",r4_j2_b:"1",r4_j3_a:"2",r4_j3_b:"1",
+r4_j4_a:"0",r4_j4_b:"1",r4_j5_a:"1",r4_j5_b:"1",r4_j6_a:"0",r4_j6_b:"2",
+r5_j1_a:"0",r5_j1_b:"2",r5_j2_a:"2",r5_j2_b:"1",r5_j3_a:"1",r5_j3_b:"1",
+r5_j4_a:"2",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"1",r5_j6_a:"0",r5_j6_b:"2",
+r5_j7_a:"1",r5_j7_b:"2",r5_j8_a:"1",r5_j8_b:"0",
+r6_j1_a:"1",r6_j1_b:"1",r6_j2_a:"0",r6_j2_b:"2",r6_j3_a:"1",r6_j3_b:"0",
+r6_j4_a:"1",r6_j4_b:"1",r6_j5_a:"2",r6_j5_b:"0",r6_j6_a:"1",r6_j6_b:"1",
+r6_j7_a:"2",r6_j7_b:"0",r6_j8_a:"1",r6_j8_b:"1",
+r7_j1_a:"0",r7_j1_b:"1",r7_j2_a:"0",r7_j2_b:"1",r7_j3_a:"2",r7_j3_b:"0",
+r7_j4_a:"1",r7_j4_b:"1",r7_j5_a:"2",r7_j5_b:"1",r7_j6_a:"2",r7_j6_b:"0",
+r7_j7_a:"1",r7_j7_b:"0",r7_j8_a:"0",r7_j8_b:"2",r7_j9_a:"0",r7_j9_b:"1",
+r7_j10_a:"3",r7_j10_b:"1",
+r8_j1_a:"0",r8_j1_b:"2",r8_j2_a:"1",r8_j2_b:"1",r8_j3_a:"1",r8_j3_b:"0",
+r8_j4_a:"0",r8_j4_b:"2",r8_j5_a:"1",r8_j5_b:"0",r8_j6_a:"2",r8_j6_b:"0",
+r8_j7_a:"0",r8_j7_b:"2",r8_j8_a:"0",r8_j8_b:"0",r8_j9_a:"0",r8_j9_b:"1",
+r8_j10_a:"0",r8_j10_b:"0",
+r9_j1_a:"1",r9_j1_b:"2",r9_j2_a:"1",r9_j2_b:"1",r9_j3_a:"1",r9_j3_b:"0",
+r9_j4_a:"0",r9_j4_b:"2",r9_j5_a:"0",r9_j5_b:"0",r9_j6_a:"2",r9_j6_b:"1",
+r9_j7_a:"1",r9_j7_b:"0",r9_j8_a:"2",r9_j8_b:"0",
+r10_j1_a:"2",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"0",r10_j3_a:"1",r10_j3_b:"1",
+r10_j4_a:"0",r10_j4_b:"0",r10_j5_a:"1",r10_j5_b:"0",r10_j6_a:"1",r10_j6_b:"1",
+r10_j7_a:"0",r10_j7_b:"1",r10_j8_a:"0",r10_j8_b:"1",r10_j9_a:"0",r10_j9_b:"2",
+r10_j10_a:"1",r10_j10_b:"1",
+r11_j1_a:"1",r11_j1_b:"0",r11_j2_a:"2",r11_j2_b:"0",r11_j3_a:"2",r11_j3_b:"0",
+r11_j4_a:"1",r11_j4_b:"0",
+r12_j1_a:"1",r12_j1_b:"1",r12_j2_a:"0",r12_j2_b:"1",r12_j3_a:"2",r12_j3_b:"1",
+r12_j4_a:"1",r12_j4_b:"2",r12_j5_a:"2",r12_j5_b:"0",r12_j6_a:"2",r12_j6_b:"0",
+r12_j7_a:"1",r12_j7_b:"0",r12_j8_a:"0",r12_j8_b:"1",r12_j9_a:"1",r12_j9_b:"0",
+r12_j10_a:"0",r12_j10_b:"0",
+r13_j1_a:"0",r13_j1_b:"1",r13_j2_a:"2",r13_j2_b:"0",r13_j3_a:"2",r13_j3_b:"1",
+r13_j4_a:"1",r13_j4_b:"3",r13_j5_a:"2",r13_j5_b:"0",
+r14_j1_a:"1",r14_j1_b:"1",r14_j2_a:"0",r14_j2_b:"1",r14_j3_a:"1",r14_j3_b:"1",
+r14_j4_a:"1",r14_j4_b:"0",r14_j5_a:"1",r14_j5_b:"3",r14_j6_a:"1",r14_j6_b:"1",
+r14_j7_a:"1",r14_j7_b:"0",r14_j8_a:"1",r14_j8_b:"2",r14_j9_a:"1",r14_j9_b:"0",
+r14_j10_a:"2",r14_j10_b:"1",
+r15_j1_a:"2",r15_j1_b:"0",r15_j2_a:"1",r15_j2_b:"0",r15_j3_a:"0",r15_j3_b:"0",
+r15_j4_a:"1",r15_j4_b:"2",
+r16_j1_a:"1",r16_j1_b:"1",r16_j2_a:"0",r16_j2_b:"1",r16_j3_a:"1",r16_j3_b:"1",
+r16_j4_a:"0",r16_j4_b:"2",r16_j5_a:"1",r16_j5_b:"0",r16_j6_a:"0",r16_j6_b:"1",
+r16_j7_a:"0",r16_j7_b:"2",r16_j8_a:"0",r16_j8_b:"0",r16_j9_a:"1",r16_j9_b:"1",
+r16_j10_a:"1",r16_j10_b:"0",
+r17_j1_a:"1",r17_j1_b:"1",r17_j2_a:"2",r17_j2_b:"0",r17_j3_a:"1",r17_j3_b:"0",
+r17_j4_a:"0",r17_j4_b:"1",r17_j5_a:"0",r17_j5_b:"2",
+r18_j1_a:"2",r18_j1_b:"1",r18_j2_a:"1",r18_j2_b:"1",r18_j3_a:"0",r18_j3_b:"2",
+r18_j4_a:"1",r18_j4_b:"0",r18_j5_a:"0",r18_j5_b:"1",r18_j6_a:"0",r18_j6_b:"2",
+r18_j7_a:"1",r18_j7_b:"1",r18_j8_a:"0",r18_j8_b:"1",r18_j9_a:"2",r18_j9_b:"0",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j6",coringa_usado:false
+},
+"Dj":{
+r16_j1_a:"1",r16_j1_b:"2",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"0",r16_j3_b:"1",
+r16_j4_a:"1",r16_j4_b:"0",r16_j5_a:"1",r16_j5_b:"1",r16_j6_a:"2",r16_j6_b:"0",
+r16_j7_a:"2",r16_j7_b:"0",r16_j8_a:"1",r16_j8_b:"1",r16_j9_a:"3",r16_j9_b:"1",
+r16_j10_a:"2",r16_j10_b:"0",
+r17_j1_a:"2",r17_j1_b:"1",r17_j2_a:"1",r17_j2_b:"2",r17_j3_a:"1",r17_j3_b:"0",
+r17_j4_a:"1",r17_j4_b:"1",r17_j5_a:"1",r17_j5_b:"1",
+r18_j1_a:"3",r18_j1_b:"0",r18_j2_a:"1",r18_j2_b:"2",r18_j3_a:"1",r18_j3_b:"2",
+r18_j4_a:"2",r18_j4_b:"0",r18_j5_a:"2",r18_j5_b:"0",r18_j6_a:"2",r18_j6_b:"1",
+r18_j7_a:"1",r18_j7_b:"1",r18_j8_a:"1",r18_j8_b:"2",r18_j9_a:"2",r18_j9_b:"0",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j3",coringa_usado:false
+},
+"Julian":{
+r1_j1_a:"1",r1_j1_b:"2",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"2",r1_j4_b:"0",
+palpite_do_dia:null,coringa_usado:false
+},
+"Sid":{
+r1_j1_a:"1",r1_j1_b:"1",r1_j2_a:"0",r1_j2_b:"4",r1_j3_a:"1",r1_j3_b:"2",r1_j4_a:"1",r1_j4_b:"0",
+r2_j1_a:"0",r2_j1_b:"0",r2_j2_a:"2",r2_j2_b:"0",
+r3_j1_a:"3",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"1",r3_j3_a:"1",r3_j3_b:"0",
+r3_j4_a:"2",r3_j4_b:"1",r3_j5_a:"1",r3_j5_b:"0",r3_j6_a:"2",r3_j6_b:"0",
+r3_j7_a:"2",r3_j7_b:"2",r3_j8_a:"1",r3_j8_b:"0",r3_j9_a:"2",r3_j9_b:"0",
+r3_j10_a:"1",r3_j10_b:"2",
+r4_j1_a:"0",r4_j1_b:"3",r4_j2_a:"0",r4_j2_b:"1",r4_j3_a:"1",r4_j3_b:"2",
+r4_j4_a:"1",r4_j4_b:"0",r4_j5_a:"1",r4_j5_b:"2",r4_j6_a:"1",r4_j6_b:"2",
+r5_j1_a:"1",r5_j1_b:"2",r5_j2_a:"3",r5_j2_b:"1",r5_j3_a:"0",r5_j3_b:"0",
+r5_j4_a:"2",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"1",r5_j6_a:"0",r5_j6_b:"2",
+r5_j7_a:"1",r5_j7_b:"1",r5_j8_a:"2",r5_j8_b:"0",
+r6_j1_a:"1",r6_j1_b:"2",r6_j2_a:"1",r6_j2_b:"1",r6_j3_a:"3",r6_j3_b:"1",
+r6_j4_a:"2",r6_j4_b:"1",r6_j5_a:"2",r6_j5_b:"1",r6_j6_a:"1",r6_j6_b:"3",
+r6_j7_a:"1",r6_j7_b:"0",r6_j8_a:"0",r6_j8_b:"2",
+r7_j1_a:"1",r7_j1_b:"1",r7_j2_a:"1",r7_j2_b:"2",r7_j3_a:"2",r7_j3_b:"0",
+r7_j4_a:"2",r7_j4_b:"2",r7_j5_a:"2",r7_j5_b:"0",r7_j6_a:"2",r7_j6_b:"1",
+r7_j7_a:"3",r7_j7_b:"0",r7_j8_a:"2",r7_j8_b:"1",r7_j9_a:"1",r7_j9_b:"2",
+r7_j10_a:"4",r7_j10_b:"0",
+r8_j1_a:"1",r8_j1_b:"1",r8_j2_a:"2",r8_j2_b:"0",r8_j3_a:"2",r8_j3_b:"1",
+r8_j4_a:"0",r8_j4_b:"1",r8_j5_a:"2",r8_j5_b:"1",r8_j6_a:"2",r8_j6_b:"0",
+r8_j7_a:"0",r8_j7_b:"3",r8_j8_a:"1",r8_j8_b:"2",r8_j9_a:"1",r8_j9_b:"1",
+r8_j10_a:"2",r8_j10_b:"1",
+r9_j1_a:"1",r9_j1_b:"1",r9_j2_a:"1",r9_j2_b:"1",r9_j3_a:"2",r9_j3_b:"1",
+r9_j4_a:"2",r9_j4_b:"1",r9_j5_a:"0",r9_j5_b:"0",r9_j6_a:"2",r9_j6_b:"1",
+r9_j7_a:"2",r9_j7_b:"0",r9_j8_a:"2",r9_j8_b:"1",
+r10_j1_a:"2",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"1",r10_j3_a:"0",r10_j3_b:"2",
+r10_j4_a:"2",r10_j4_b:"1",r10_j5_a:"3",r10_j5_b:"1",r10_j6_a:"1",r10_j6_b:"2",
+r10_j7_a:"1",r10_j7_b:"2",r10_j8_a:"2",r10_j8_b:"0",r10_j9_a:"0",r10_j9_b:"1",
+r10_j10_a:"1",r10_j10_b:"1",
+r11_j1_a:"2",r11_j1_b:"1",r11_j2_a:"2",r11_j2_b:"1",r11_j3_a:"2",r11_j3_b:"0",
+r11_j4_a:"2",r11_j4_b:"0",
+r12_j1_a:"2",r12_j1_b:"0",r12_j2_a:"1",r12_j2_b:"2",r12_j3_a:"1",r12_j3_b:"0",
+r12_j4_a:"2",r12_j4_b:"1",r12_j5_a:"4",r12_j5_b:"0",r12_j6_a:"0",r12_j6_b:"0",
+r12_j7_a:"2",r12_j7_b:"0",r12_j8_a:"1",r12_j8_b:"2",r12_j9_a:"2",r12_j9_b:"0",
+r12_j10_a:"1",r12_j10_b:"1",
+r13_j1_a:"1",r13_j1_b:"1",r13_j2_a:"4",r13_j2_b:"0",r13_j3_a:"1",r13_j3_b:"2",
+r13_j4_a:"2",r13_j4_b:"1",r13_j5_a:"2",r13_j5_b:"2",
+r14_j1_a:"1",r14_j1_b:"1",r14_j2_a:"2",r14_j2_b:"1",r14_j3_a:"2",r14_j3_b:"0",
+r14_j4_a:"1",r14_j4_b:"0",r14_j5_a:"0",r14_j5_b:"2",r14_j6_a:"1",r14_j6_b:"0",
+r14_j7_a:"2",r14_j7_b:"1",r14_j8_a:"1",r14_j8_b:"2",r14_j9_a:"2",r14_j9_b:"0",
+r14_j10_a:"1",r14_j10_b:"1",
+r15_j1_a:"2",r15_j1_b:"1",r15_j2_a:"2",r15_j2_b:"1",r15_j3_a:"3",r15_j3_b:"1",
+r15_j4_a:"1",r15_j4_b:"2",
+r16_j1_a:"1",r16_j1_b:"1",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"2",r16_j3_b:"1",
+r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"2",r16_j5_b:"0",r16_j6_a:"2",r16_j6_b:"2",
+r16_j7_a:"2",r16_j7_b:"2",r16_j8_a:"1",r16_j8_b:"1",r16_j9_a:"3",r16_j9_b:"1",
+r16_j10_a:"3",r16_j10_b:"1",
+r17_j1_a:"2",r17_j1_b:"2",r17_j2_a:"1",r17_j2_b:"2",r17_j3_a:"0",r17_j3_b:"1",
+r17_j4_a:"1",r17_j4_b:"2",r17_j5_a:"0",r17_j5_b:"4",
+r18_j1_a:"2",r18_j1_b:"0",r18_j2_a:"1",r18_j2_b:"2",r18_j3_a:"2",r18_j3_b:"1",
+r18_j4_a:"2",r18_j4_b:"1",r18_j5_a:"2",r18_j5_b:"0",r18_j6_a:"2",r18_j6_b:"2",
+r18_j7_a:"1",r18_j7_b:"1",r18_j8_a:"1",r18_j8_b:"1",r18_j9_a:"3",r18_j9_b:"1",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j4",coringa_usado:false
+},
+"Samuel":{
+r1_j2_a:"0",r1_j2_b:"5",r1_j3_a:"2",r1_j3_b:"2",r1_j4_a:"1",r1_j4_b:"1",
+r2_j1_a:"2",r2_j1_b:"1",r2_j2_a:"1",r2_j2_b:"0",
+r7_j1_a:"2",r7_j1_b:"1",r7_j2_a:"1",r7_j2_b:"2",r7_j3_a:"3",r7_j3_b:"0",
+r7_j4_a:"1",r7_j4_b:"1",r7_j5_a:"2",r7_j5_b:"0",r7_j6_a:"2",r7_j6_b:"0",
+r7_j7_a:"3",r7_j7_b:"1",r7_j8_a:"2",r7_j8_b:"1",r7_j9_a:"1",r7_j9_b:"2",
+r7_j10_a:"3",r7_j10_b:"1",
+r8_j1_a:"1",r8_j1_b:"2",r8_j2_a:"2",r8_j2_b:"1",r8_j3_a:"2",r8_j3_b:"1",
+r8_j4_a:"0",r8_j4_b:"2",r8_j5_a:"2",r8_j5_b:"1",r8_j6_a:"1",r8_j6_b:"1",
+r8_j7_a:"0",r8_j7_b:"2",r8_j8_a:"1",r8_j8_b:"2",r8_j9_a:"1",r8_j9_b:"1",
+r8_j10_a:"2",r8_j10_b:"0",
+r9_j1_a:"1",r9_j1_b:"2",r9_j2_a:"1",r9_j2_b:"2",r9_j3_a:"2",r9_j3_b:"1",
+r9_j4_a:"1",r9_j4_b:"1",r9_j5_a:"1",r9_j5_b:"1",r9_j6_a:"2",r9_j6_b:"1",
+r9_j7_a:"2",r9_j7_b:"1",r9_j8_a:"2",r9_j8_b:"0",
+r10_j1_a:"2",r10_j1_b:"1",r10_j2_a:"2",r10_j2_b:"1",r10_j3_a:"0",r10_j3_b:"2",
+r10_j4_a:"1",r10_j4_b:"1",r10_j5_a:"2",r10_j5_b:"1",r10_j6_a:"1",r10_j6_b:"2",
+r10_j7_a:"0",r10_j7_b:"2",r10_j8_a:"1",r10_j8_b:"2",r10_j9_a:"1",r10_j9_b:"2",
+r10_j10_a:"1",r10_j10_b:"2",
+r11_j1_a:"2",r11_j1_b:"1",r11_j2_a:"1",r11_j2_b:"0",r11_j3_a:"2",r11_j3_b:"1",
+r11_j4_a:"2",r11_j4_b:"1",
+r12_j1_a:"1",r12_j1_b:"1",r12_j2_a:"2",r12_j2_b:"1",r12_j3_a:"1",r12_j3_b:"1",
+r12_j4_a:"2",r12_j4_b:"1",r12_j5_a:"2",r12_j5_b:"1",r12_j6_a:"2",r12_j6_b:"1",
+r12_j7_a:"2",r12_j7_b:"0",r12_j8_a:"1",r12_j8_b:"2",r12_j9_a:"2",r12_j9_b:"1",
+r12_j10_a:"1",r12_j10_b:"2",
+r13_j1_a:"2",r13_j1_b:"1",r13_j2_a:"3",r13_j2_b:"1",r13_j3_a:"2",r13_j3_b:"1",
+r13_j4_a:"1",r13_j4_b:"1",r13_j5_a:"2",r13_j5_b:"1",
+r14_j1_a:"1",r14_j1_b:"2",r14_j2_a:"1",r14_j2_b:"2",r14_j3_a:"2",r14_j3_b:"1",
+r14_j4_a:"2",r14_j4_b:"1",r14_j5_a:"1",r14_j5_b:"3",r14_j6_a:"1",r14_j6_b:"2",
+r14_j7_a:"2",r14_j7_b:"1",r14_j8_a:"1",r14_j8_b:"1",r14_j9_a:"2",r14_j9_b:"0",
+r14_j10_a:"1",r14_j10_b:"2",
+r15_j1_a:"2",r15_j1_b:"0",r15_j2_a:"2",r15_j2_b:"1",r15_j3_a:"1",r15_j3_b:"1",
+r15_j4_a:"1",r15_j4_b:"1",
+r16_j1_a:"1",r16_j1_b:"1",r16_j2_a:"2",r16_j2_b:"1",r16_j3_a:"1",r16_j3_b:"2",
+r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"2",r16_j5_b:"1",r16_j6_a:"1",r16_j6_b:"1",
+r16_j7_a:"1",r16_j7_b:"1",r16_j8_a:"1",r16_j8_b:"2",r16_j9_a:"2",r16_j9_b:"1",
+r16_j10_a:"2",r16_j10_b:"0",
+r17_j1_a:"2",r17_j1_b:"1",r17_j2_a:"1",r17_j2_b:"2",r17_j3_a:"2",r17_j3_b:"1",
+r17_j4_a:"1",r17_j4_b:"2",r17_j5_a:"1",r17_j5_b:"2",
+r18_j1_a:"3",r18_j1_b:"0",r18_j2_a:"1",r18_j2_b:"2",r18_j3_a:"1",r18_j3_b:"2",
+r18_j4_a:"2",r18_j4_b:"1",r18_j5_a:"1",r18_j5_b:"1",r18_j6_a:"1",r18_j6_b:"1",
+r18_j7_a:"2",r18_j7_b:"1",r18_j8_a:"1",r18_j8_b:"2",r18_j9_a:"2",r18_j9_b:"1",
+r18_j10_a:"3",r18_j10_b:"2",
+palpite_do_dia:"r18_j1",coringa_usado:false
+},
+"Walishow":{
+r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"1",r1_j4_b:"0",
+r2_j1_a:"2",r2_j1_b:"1",r2_j2_a:"2",r2_j2_b:"0",
+r3_j1_a:"2",r3_j1_b:"1",r3_j2_a:"1",r3_j2_b:"0",r3_j3_a:"1",r3_j3_b:"2",
+r3_j4_a:"1",r3_j4_b:"2",r3_j5_a:"3",r3_j5_b:"1",r3_j6_a:"3",r3_j6_b:"1",
+r3_j7_a:"0",r3_j7_b:"2",r3_j8_a:"1",r3_j8_b:"0",r3_j9_a:"3",r3_j9_b:"0",
+r3_j10_a:"0",r3_j10_b:"1",
+r4_j1_a:"0",r4_j1_b:"3",r4_j2_a:"1",r4_j2_b:"0",r4_j3_a:"1",r4_j3_b:"0",
+r4_j4_a:"0",r4_j4_b:"4",r4_j5_a:"2",r4_j5_b:"1",r4_j6_a:"0",r4_j6_b:"1",
+r5_j1_a:"0",r5_j1_b:"1",r5_j2_a:"3",r5_j2_b:"1",r5_j3_a:"1",r5_j3_b:"0",
+r5_j4_a:"3",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"1",r5_j6_a:"0",r5_j6_b:"2",
+r5_j7_a:"1",r5_j7_b:"2",r5_j8_a:"3",r5_j8_b:"1",
+r6_j1_a:"0",r6_j1_b:"1",r6_j2_a:"2",r6_j2_b:"2",r6_j3_a:"2",r6_j3_b:"0",
+r6_j4_a:"0",r6_j4_b:"0",r6_j5_a:"1",r6_j5_b:"0",r6_j6_a:"0",r6_j6_b:"3",
+r6_j7_a:"1",r6_j7_b:"0",r6_j8_a:"1",r6_j8_b:"1",
+r7_j1_a:"1",r7_j1_b:"2",r7_j2_a:"0",r7_j2_b:"2",r7_j3_a:"1",r7_j3_b:"0",
+r7_j4_a:"1",r7_j4_b:"2",r7_j5_a:"3",r7_j5_b:"1",r7_j6_a:"2",r7_j6_b:"0",
+r7_j7_a:"3",r7_j7_b:"0",r7_j8_a:"1",r7_j8_b:"0",r7_j9_a:"0",r7_j9_b:"2",
+r7_j10_a:"5",r7_j10_b:"0",
+r8_j1_a:"0",r8_j1_b:"0",r8_j2_a:"3",r8_j2_b:"1",r8_j3_a:"1",r8_j3_b:"0",
+r8_j4_a:"0",r8_j4_b:"2",r8_j5_a:"1",r8_j5_b:"1",r8_j6_a:"2",r8_j6_b:"2",
+r8_j7_a:"1",r8_j7_b:"2",r8_j8_a:"1",r8_j8_b:"0",r8_j9_a:"1",r8_j9_b:"2",
+r8_j10_a:"1",r8_j10_b:"0",
+r9_j1_a:"0",r9_j1_b:"2",r9_j2_a:"1",r9_j2_b:"2",r9_j3_a:"0",r9_j3_b:"0",
+r9_j4_a:"1",r9_j4_b:"3",r9_j5_a:"1",r9_j5_b:"2",r9_j6_a:"2",r9_j6_b:"0",
+r9_j7_a:"1",r9_j7_b:"0",r9_j8_a:"1",r9_j8_b:"0",
+r10_j1_a:"2",r10_j1_b:"0",r10_j2_a:"1",r10_j2_b:"2",r10_j3_a:"0",r10_j3_b:"2",
+r10_j4_a:"3",r10_j4_b:"1",r10_j5_a:"3",r10_j5_b:"0",r10_j6_a:"1",r10_j6_b:"0",
+r10_j7_a:"0",r10_j7_b:"1",r10_j8_a:"2",r10_j8_b:"1",r10_j9_a:"1",r10_j9_b:"1",
+r10_j10_a:"1",r10_j10_b:"2",
+r11_j1_a:"1",r11_j1_b:"0",r11_j2_a:"1",r11_j2_b:"0",r11_j3_a:"2",r11_j3_b:"1",
+r11_j4_a:"1",r11_j4_b:"1",
+r12_j1_a:"2",r12_j1_b:"1",r12_j2_a:"1",r12_j2_b:"1",r12_j3_a:"0",r12_j3_b:"2",
+r12_j4_a:"1",r12_j4_b:"1",r12_j5_a:"3",r12_j5_b:"1",r12_j6_a:"2",r12_j6_b:"0",
+r12_j7_a:"2",r12_j7_b:"1",r12_j8_a:"1",r12_j8_b:"3",r12_j9_a:"1",r12_j9_b:"0",
+r12_j10_a:"1",r12_j10_b:"2",
+r13_j1_a:"0",r13_j1_b:"0",r13_j2_a:"3",r13_j2_b:"0",r13_j3_a:"2",r13_j3_b:"1",
+r13_j4_a:"0",r13_j4_b:"2",r13_j5_a:"1",r13_j5_b:"0",
+r14_j1_a:"1",r14_j1_b:"1",r14_j2_a:"1",r14_j2_b:"2",r14_j3_a:"3",r14_j3_b:"0",
+r14_j4_a:"1",r14_j4_b:"0",r14_j5_a:"0",r14_j5_b:"3",r14_j6_a:"1",r14_j6_b:"0",
+r14_j7_a:"0",r14_j7_b:"2",r14_j8_a:"1",r14_j8_b:"2",r14_j9_a:"1",r14_j9_b:"0",
+r14_j10_a:"2",r14_j10_b:"3",
+r15_j1_a:"1",r15_j1_b:"0",r15_j2_a:"1",r15_j2_b:"1",r15_j3_a:"2",r15_j3_b:"0",
+r15_j4_a:"1",r15_j4_b:"2",
+r16_j1_a:"1",r16_j1_b:"2",r16_j2_a:"3",r16_j2_b:"1",r16_j3_a:"0",r16_j3_b:"2",
+r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"2",r16_j5_b:"1",r16_j6_a:"1",r16_j6_b:"0",
+r16_j7_a:"1",r16_j7_b:"3",r16_j8_a:"2",r16_j8_b:"0",r16_j9_a:"1",r16_j9_b:"0",
+r16_j10_a:"2",r16_j10_b:"2",
+r17_j1_a:"2",r17_j1_b:"1",r17_j2_a:"3",r17_j2_b:"0",r17_j3_a:"1",r17_j3_b:"1",
+r17_j4_a:"0",r17_j4_b:"1",r17_j5_a:"0",r17_j5_b:"2",
+r18_j1_a:"3",r18_j1_b:"0",r18_j2_a:"0",r18_j2_b:"2",r18_j3_a:"1",r18_j3_b:"2",
+r18_j4_a:"1",r18_j4_b:"2",r18_j5_a:"1",r18_j5_b:"0",r18_j6_a:"1",r18_j6_b:"2",
+r18_j7_a:"1",r18_j7_b:"1",r18_j8_a:"1",r18_j8_b:"3",r18_j9_a:"3",r18_j9_b:"1",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j6",coringa_usado:false
+},
+"Freitas":{
+r2_j1_a:"2",r2_j1_b:"1",r2_j2_a:"1",r2_j2_b:"0",
+r3_j1_a:"1",r3_j1_b:"1",r3_j2_a:"2",r3_j2_b:"1",r3_j3_a:"0",r3_j3_b:"1",
+r3_j4_a:"1",r3_j4_b:"2",r3_j5_a:"2",r3_j5_b:"1",r3_j6_a:"2",r3_j6_b:"0",
+r3_j7_a:"1",r3_j7_b:"1",r3_j8_a:"1",r3_j8_b:"1",r3_j9_a:"1",r3_j9_b:"0",
+r3_j10_a:"0",r3_j10_b:"1",
+r4_j1_a:"1",r4_j1_b:"2",r4_j2_a:"2",r4_j2_b:"1",r4_j3_a:"1",r4_j3_b:"2",
+r4_j4_a:"1",r4_j4_b:"2",r4_j5_a:"2",r4_j5_b:"0",r4_j6_a:"1",r4_j6_b:"2",
+r5_j1_a:"1",r5_j1_b:"1",r5_j2_a:"2",r5_j2_b:"0",r5_j3_a:"2",r5_j3_b:"1",
+r5_j4_a:"2",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"0",r5_j6_a:"1",r5_j6_b:"1",
+r5_j7_a:"1",r5_j7_b:"1",r5_j8_a:"2",r5_j8_b:"1",
+r6_j1_a:"1",r6_j1_b:"2",r6_j2_a:"1",r6_j2_b:"1",r6_j3_a:"2",r6_j3_b:"0",
+r6_j4_a:"0",r6_j4_b:"1",r6_j5_a:"0",r6_j5_b:"1",r6_j6_a:"2",r6_j6_b:"1",
+r6_j7_a:"2",r6_j7_b:"0",r6_j8_a:"1",r6_j8_b:"1",
+r7_j1_a:"1",r7_j1_b:"1",r7_j2_a:"0",r7_j2_b:"1",r7_j3_a:"0",r7_j3_b:"0",
+r7_j4_a:"2",r7_j4_b:"1",r7_j5_a:"0",r7_j5_b:"1",r7_j6_a:"1",r7_j6_b:"0",
+r7_j7_a:"2",r7_j7_b:"0",r7_j8_a:"1",r7_j8_b:"1",r7_j9_a:"2",r7_j9_b:"1",
+r7_j10_a:"3",r7_j10_b:"0",
+r8_j1_a:"1",r8_j1_b:"1",r8_j2_a:"1",r8_j2_b:"1",r8_j3_a:"1",r8_j3_b:"0",
+r8_j4_a:"0",r8_j4_b:"1",r8_j5_a:"2",r8_j5_b:"1",r8_j6_a:"1",r8_j6_b:"1",
+r8_j7_a:"1",r8_j7_b:"1",r8_j8_a:"0",r8_j8_b:"1",r8_j9_a:"1",r8_j9_b:"1",
+r8_j10_a:"2",r8_j10_b:"0",
+r9_j1_a:"1",r9_j1_b:"0",r9_j2_a:"1",r9_j2_b:"1",r9_j3_a:"2",r9_j3_b:"1",
+r9_j4_a:"1",r9_j4_b:"0",r9_j5_a:"0",r9_j5_b:"1",r9_j6_a:"2",r9_j6_b:"1",
+r9_j7_a:"1",r9_j7_b:"0",r9_j8_a:"1",r9_j8_b:"0",
+r10_j1_a:"2",r10_j1_b:"0",r10_j2_a:"0",r10_j2_b:"1",r10_j3_a:"1",r10_j3_b:"1",
+r10_j4_a:"1",r10_j4_b:"2",r10_j5_a:"2",r10_j5_b:"0",r10_j6_a:"1",r10_j6_b:"1",
+r10_j7_a:"0",r10_j7_b:"1",r10_j8_a:"2",r10_j8_b:"1",r10_j9_a:"1",r10_j9_b:"1",
+r10_j10_a:"0",r10_j10_b:"1",
+r11_j1_a:"1",r11_j1_b:"1",r11_j2_a:"1",r11_j2_b:"1",r11_j3_a:"1",r11_j3_b:"1",
+r11_j4_a:"0",r11_j4_b:"1",
+r12_j1_a:"2",r12_j1_b:"1",r12_j2_a:"1",r12_j2_b:"1",r12_j3_a:"1",r12_j3_b:"2",
+r12_j4_a:"1",r12_j4_b:"1",r12_j5_a:"2",r12_j5_b:"0",r12_j6_a:"2",r12_j6_b:"1",
+r12_j7_a:"2",r12_j7_b:"0",r12_j8_a:"0",r12_j8_b:"2",r12_j9_a:"3",r12_j9_b:"1",
+r12_j10_a:"1",r12_j10_b:"1",
+r13_j1_a:"1",r13_j1_b:"0",r13_j2_a:"2",r13_j2_b:"1",r13_j3_a:"1",r13_j3_b:"2",
+r13_j4_a:"2",r13_j4_b:"1",r13_j5_a:"1",r13_j5_b:"0",
+r14_j1_a:"1",r14_j1_b:"2",r14_j2_a:"1",r14_j2_b:"1",r14_j3_a:"1",r14_j3_b:"1",
+r14_j4_a:"1",r14_j4_b:"1",r14_j5_a:"1",r14_j5_b:"2",r14_j6_a:"1",r14_j6_b:"0",
+r14_j7_a:"2",r14_j7_b:"1",r14_j8_a:"0",r14_j8_b:"2",r14_j9_a:"2",r14_j9_b:"0",
+r14_j10_a:"1",r14_j10_b:"2",
+r15_j1_a:"2",r15_j1_b:"1",r15_j2_a:"2",r15_j2_b:"0",r15_j3_a:"1",r15_j3_b:"1",
+r15_j4_a:"0",r15_j4_b:"1",
+r16_j1_a:"0",r16_j1_b:"1",r16_j2_a:"1",r16_j2_b:"1",r16_j3_a:"1",r16_j3_b:"2",
+r16_j4_a:"1",r16_j4_b:"0",r16_j5_a:"2",r16_j5_b:"1",r16_j6_a:"1",r16_j6_b:"1",
+r16_j7_a:"2",r16_j7_b:"1",r16_j8_a:"2",r16_j8_b:"1",r16_j9_a:"1",r16_j9_b:"1",
+r16_j10_a:"-",r16_j10_b:"-",
+r17_j1_a:"2",r17_j1_b:"1",r17_j2_a:"2",r17_j2_b:"1",r17_j3_a:"1",r17_j3_b:"1",
+r17_j4_a:"0",r17_j4_b:"1",r17_j5_a:"1",r17_j5_b:"1",
+r18_j1_a:"2",r18_j1_b:"0",r18_j2_a:"2",r18_j2_b:"1",r18_j3_a:"0",r18_j3_b:"2",
+r18_j4_a:"2",r18_j4_b:"1",r18_j5_a:"2",r18_j5_b:"1",r18_j6_a:"1",r18_j6_b:"2",
+r18_j7_a:"0",r18_j7_b:"1",r18_j8_a:"1",r18_j8_b:"1",r18_j9_a:"1",r18_j9_b:"1",
+r18_j10_a:"2",r18_j10_b:"1",
+palpite_do_dia:"r18_j7",coringa_usado:false
+},
+"Fish":{
+r2_j1_a:"1",r2_j1_b:"0",r2_j2_a:"2",r2_j2_b:"0",
+r3_j1_a:"2",r3_j1_b:"1",r3_j2_a:"2",r3_j2_b:"0",r3_j3_a:"1",r3_j3_b:"0",
+r3_j4_a:"2",r3_j4_b:"1",r3_j5_a:"1",r3_j5_b:"1",r3_j6_a:"2",r3_j6_b:"1",
+r3_j7_a:"2",r3_j7_b:"0",r3_j8_a:"3",r3_j8_b:"1",r3_j9_a:"1",r3_j9_b:"0",
+r3_j10_a:"1",r3_j10_b:"1",
+r6_j1_a:"0",r6_j1_b:"2",r6_j2_a:"0",r6_j2_b:"1",r6_j3_a:"3",r6_j3_b:"0",
+r6_j4_a:"1",r6_j4_b:"1",r6_j5_a:"1",r6_j5_b:"1",r6_j6_a:"0",r6_j6_b:"0",
+r6_j7_a:"2",r6_j7_b:"1",r6_j8_a:"0",r6_j8_b:"1",
+r7_j1_a:"1",r7_j1_b:"0",r7_j2_a:"0",r7_j2_b:"2",r7_j3_a:"1",r7_j3_b:"0",
+r7_j4_a:"2",r7_j4_b:"0",r7_j5_a:"2",r7_j5_b:"0",r7_j6_a:"2",r7_j6_b:"0",
+r7_j7_a:"2",r7_j7_b:"0",r7_j8_a:"2",r7_j8_b:"1",r7_j9_a:"1",r7_j9_b:"1",
+r7_j10_a:"3",r7_j10_b:"0",
+r8_j1_a:"0",r8_j1_b:"0",r8_j2_a:"2",r8_j2_b:"0",r8_j3_a:"1",r8_j3_b:"0",
+r8_j4_a:"0",r8_j4_b:"1",r8_j5_a:"1",r8_j5_b:"1",r8_j6_a:"1",r8_j6_b:"1",
+r8_j7_a:"0",r8_j7_b:"0",r8_j8_a:"0",r8_j8_b:"0",r8_j9_a:"1",r8_j9_b:"0",
+r8_j10_a:"0",r8_j10_b:"1",
+palpite_do_dia:null,coringa_usado:true
+},
+"Splé":{
+r3_j4_a:"0",r3_j4_b:"1",r3_j5_a:"0",r3_j5_b:"2",r3_j6_a:"3",r3_j6_b:"0",
+r3_j7_a:"2",r3_j7_b:"1",r3_j8_a:"0",r3_j8_b:"0",r3_j9_a:"1",r3_j9_b:"1",
+r3_j10_a:"0",r3_j10_b:"1",
+palpite_do_dia:"r3_j7",coringa_usado:false
+}
 };
 
 // ==================== RESULTADOS ====================
-const resultadosFinais = {
-    // Rodada 1
-    r1_j1_a: "1", r1_j1_b: "3",
-    r1_j2_a: "0", r1_j2_b: "4",
-    r1_j3_a: "1", r1_j3_b: "2",
-    r1_j4_a: "1", r1_j4_b: "2",
-    // Rodada 2
-    r2_j1_a: "0", r2_j1_b: "0",
-    r2_j2_a: "3", r2_j2_b: "0",
-    // Rodada 3
-    r3_j1_a: "2", r3_j1_b: "0", r3_j2_a: "2", r3_j2_b: "2", r3_j3_a: "1", r3_j3_b: "1",
-    r3_j4_a: "1", r3_j4_b: "1", r3_j5_a: "0", r3_j5_b: "1", r3_j6_a: "1", r3_j6_b: "1",
-    r3_j7_a: "1", r3_j7_b: "1", r3_j8_a: "0", r3_j8_b: "0", r3_j9_a: "1", r3_j9_b: "2",
-    r3_j10_a: "2", r3_j10_b: "0",
-    // Rodada 4
-    r4_j1_a: "1", r4_j1_b: "1",
-    r4_j2_a: "2", r4_j2_b: "1",
-    r4_j3_a: "0", r4_j3_b: "0",
-    r4_j4_a: "0", r4_j4_b: "4",
-    r4_j5_a: "0", r4_j5_b: "0",
-    r4_j6_a: "0", r4_j6_b: "1",
-    // Rodada 5
-    r5_j1_a: "0", r5_j1_b: "0",
-    r5_j2_a: "0", r5_j2_b: "0",
-    r5_j3_a: "0", r5_j3_b: "0",
-    r5_j4_a: "3", r5_j4_b: "0",
-    r5_j5_a: "1", r5_j5_b: "1",
-    r5_j6_a: "0", r5_j6_b: "0",
-    r5_j7_a: "2", r5_j7_b: "0",
-    r5_j8_a: "2", r5_j8_b: "0",
-    // Rodada 6
-    r6_j1_a: "0", r6_j1_b: "1",
-    r6_j2_a: "0", r6_j2_b: "1",
-    r6_j3_a: "2", r6_j3_b: "0",
-    r6_j4_a: "1", r6_j4_b: "0",
-    r6_j5_a: "1", r6_j5_b: "3",
-    r6_j6_a: "3", r6_j6_b: "2",
-    r6_j7_a: "2", r6_j7_b: "1",
-    r6_j8_a: "4", r6_j8_b: "0",
-    // Rodada 7
-    r7_j1_a: "2", r7_j1_b: "1",
-    r7_j2_a: "2", r7_j2_b: "2", 
-    r7_j3_a: "2", r7_j3_b: "1",
-    r7_j4_a: "1", r7_j4_b: "1",
-    r7_j5_a: "3", r7_j5_b: "1",
-    r7_j6_a: "0", r7_j6_b: "0",
-    r7_j7_a: "0", r7_j7_b: "0",
-    r7_j8_a: "0", r7_j8_b: "2",
-    r7_j9_a: "0", r7_j9_b: "2",
-    r7_j10_a: "2", r7_j10_b: "0",
-    // Rodada 8
-    r8_j1_a: "3", r8_j1_b: "2",
-    r8_j2_a: "1", r8_j2_b: "1",
-    r8_j3_a: "1", r8_j3_b: "1",
-    r8_j4_a: "3", r8_j4_b: "3",
-    r8_j5_a: "3", r8_j5_b: "0",
-    r8_j6_a: "0", r8_j6_b: "3",
-    r8_j7_a: "1", r8_j7_b: "5",
-    r8_j8_a: "1", r8_j8_b: "0",
-    r8_j9_a: "1", r8_j9_b: "2",
-    r8_j10_a: "1", r8_j10_b: "1",
-    // Rodada 9
-    r9_j1_a: "1", r9_j1_b: "1",
-    r9_j2_a: "0", r9_j2_b: "1",
-    r9_j3_a: "0", r9_j3_b: "3",
-    r9_j4_a: "0", r9_j4_b: "1",
-    r9_j5_a: "0", r9_j5_b: "0",
-    r9_j6_a: "2", r9_j6_b: "1",
-    r9_j7_a: "0", r9_j7_b: "0",
-    r9_j8_a: "1", r9_j8_b: "0",
-    // Rodada 10
-    r10_j1_a: "2", r10_j1_b: "1",
-    r10_j2_a: "0", r10_j2_b: "0",
-    r10_j3_a: "2", r10_j3_b: "1",
-    r10_j4_a: "1", r10_j4_b: "0",
-    r10_j5_a: "4", r10_j5_b: "1",
-    r10_j6_a: "0", r10_j6_b: "2",
-    r10_j7_a: "1", r10_j7_b: "0",
-    r10_j8_a: "1", r10_j8_b: "1",
-    r10_j9_a: "2", r10_j9_b: "1",
-    r10_j10_a: "2", r10_j10_b: "3",
-    // Rodada 11
-    r11_j1_a: "1", r11_j1_b: "1",
-    r11_j2_a: "1", r11_j2_b: "0",
-    r11_j3_a: "3", r11_j3_b: "0",
-    r11_j4_a: "0", r11_j4_b: "0",
-    // Rodada 12
-    r12_j1_a: "2", r12_j1_b: "1",
-    r12_j2_a: "2", r12_j2_b: "1",
-    r12_j3_a: "3", r12_j3_b: "0",
-    r12_j4_a: "3", r12_j4_b: "3",
-    r12_j5_a: "3", r12_j5_b: "0",
-    r12_j6_a: "0", r12_j6_b: "1",
-    r12_j7_a: "3", r12_j7_b: "1",
-    r12_j8_a: "1", r12_j8_b: "1",
-    r12_j9_a: "3", r12_j9_b: "2",
-    r12_j10_a: "2", r12_j10_b: "3",
-    // Rodada 13
-    r13_j1_a: "2", r13_j1_b: "1",
-    r13_j2_a: "2", r13_j2_b: "0",
-    r13_j3_a: "0", r13_j3_b: "2",
-    r13_j4_a: "0", r13_j4_b: "0",
-    r13_j5_a: "3", r13_j5_b: "1",
-    // Rodada 14
-    r14_j1_a: "2", r14_j1_b: "3",
-    r14_j2_a: "2", r14_j2_b: "0",
-    r14_j3_a: "1", r14_j3_b: "0",
-    r14_j4_a: "1", r14_j4_b: "2",
-    r14_j5_a: "0", r14_j5_b: "1",
-    r14_j6_a: "2", r14_j6_b: "3",
-    r14_j7_a: "3", r14_j7_b: "1",
-    r14_j8_a: "0", r14_j8_b: "0",
-    r14_j9_a: "1", r14_j9_b: "2",
-    r14_j10_a: "1", r14_j10_b: "0",
-    // Rodada 15
-    r15_j1_a: "2", r15_j1_b: "0",
-    r15_j2_a: "1", r15_j2_b: "0",
-    r15_j3_a: "1", r15_j3_b: "1",
-    r15_j4_a: "0", r15_j4_b: "2",
-    // Rodada 16
-    r16_j1_a: "3", r16_j1_b: "3",
-    r16_j2_a: "1", r16_j2_b: "2",
-    r16_j3_a: "3", r16_j3_b: "1",
-    r16_j4_a: "1", r16_j4_b: "2",
-    r16_j5_a: "2", r16_j5_b: "0",
-    r16_j6_a: "1", r16_j6_b: "1",
-    r16_j7_a: "2", r16_j7_b: "1",
-    r16_j8_a: "2", r16_j8_b: "2",
-    r16_j9_a: "2", r16_j9_b: "1",
-    r16_j10_a: "2", r16_j10_b: "1",
-    // Rodada 17
-    r17_j1_a: "1", r17_j1_b: "2",
-    r17_j2_a: "2", r17_j2_b: "3",
-    r17_j3_a: "3", r17_j3_b: "2",
-    r17_j4_a: "1", r17_j4_b: "0",
-    r17_j5_a: "1", r17_j5_b: "1",
-    // RODADA 18 - RESULTADOS EM BRANCO
-    r18_j1_a: "1", r18_j1_b: "1",
-    r18_j2_a: "2", r18_j2_b: "0",
-    r18_j3_a: "1", r18_j3_b: "2",
-    r18_j4_a: "-", r18_j4_b: "-",
-    r18_j5_a: "-", r18_j5_b: "-",
-    r18_j6_a: "-", r18_j6_b: "-",
-    r18_j7_a: "-", r18_j7_b: "-",
-    r18_j8_a: "-", r18_j8_b: "-",
-    r18_j9_a: "-", r18_j9_b: "-",
-    r18_j10_a: "-", r18_j10_b: "-"
+const resultadosFinais={
+// Rodada 1
+r1_j1_a:"1",r1_j1_b:"3",r1_j2_a:"0",r1_j2_b:"4",r1_j3_a:"1",r1_j3_b:"2",r1_j4_a:"1",r1_j4_b:"2",
+// Rodada 2
+r2_j1_a:"0",r2_j1_b:"0",r2_j2_a:"3",r2_j2_b:"0",
+// Rodada 3
+r3_j1_a:"2",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"2",r3_j3_a:"1",r3_j3_b:"1",
+r3_j4_a:"1",r3_j4_b:"1",r3_j5_a:"0",r3_j5_b:"1",r3_j6_a:"1",r3_j6_b:"1",
+r3_j7_a:"1",r3_j7_b:"1",r3_j8_a:"0",r3_j8_b:"0",r3_j9_a:"1",r3_j9_b:"2",
+r3_j10_a:"2",r3_j10_b:"0",
+// Rodada 4
+r4_j1_a:"1",r4_j1_b:"1",r4_j2_a:"2",r4_j2_b:"1",r4_j3_a:"0",r4_j3_b:"0",
+r4_j4_a:"0",r4_j4_b:"4",r4_j5_a:"0",r4_j5_b:"0",r4_j6_a:"0",r4_j6_b:"1",
+// Rodada 5
+r5_j1_a:"0",r5_j1_b:"0",r5_j2_a:"0",r5_j2_b:"0",r5_j3_a:"0",r5_j3_b:"0",
+r5_j4_a:"3",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"1",r5_j6_a:"0",r5_j6_b:"0",
+r5_j7_a:"2",r5_j7_b:"0",r5_j8_a:"2",r5_j8_b:"0",
+// Rodada 6
+r6_j1_a:"0",r6_j1_b:"1",r6_j2_a:"0",r6_j2_b:"1",r6_j3_a:"2",r6_j3_b:"0",
+r6_j4_a:"1",r6_j4_b:"0",r6_j5_a:"1",r6_j5_b:"3",r6_j6_a:"3",r6_j6_b:"2",
+r6_j7_a:"2",r6_j7_b:"1",r6_j8_a:"4",r6_j8_b:"0",
+// Rodada 7
+r7_j1_a:"2",r7_j1_b:"1",r7_j2_a:"2",r7_j2_b:"2",r7_j3_a:"2",r7_j3_b:"1",
+r7_j4_a:"1",r7_j4_b:"1",r7_j5_a:"3",r7_j5_b:"1",r7_j6_a:"0",r7_j6_b:"0",
+r7_j7_a:"0",r7_j7_b:"0",r7_j8_a:"0",r7_j8_b:"2",r7_j9_a:"0",r7_j9_b:"2",
+r7_j10_a:"2",r7_j10_b:"0",
+// Rodada 8
+r8_j1_a:"3",r8_j1_b:"2",r8_j2_a:"1",r8_j2_b:"1",r8_j3_a:"1",r8_j3_b:"1",
+r8_j4_a:"3",r8_j4_b:"3",r8_j5_a:"3",r8_j5_b:"0",r8_j6_a:"0",r8_j6_b:"3",
+r8_j7_a:"1",r8_j7_b:"5",r8_j8_a:"1",r8_j8_b:"0",r8_j9_a:"1",r8_j9_b:"2",
+r8_j10_a:"1",r8_j10_b:"1",
+// Rodada 9
+r9_j1_a:"1",r9_j1_b:"1",r9_j2_a:"0",r9_j2_b:"1",r9_j3_a:"0",r9_j3_b:"3",
+r9_j4_a:"0",r9_j4_b:"1",r9_j5_a:"0",r9_j5_b:"0",r9_j6_a:"2",r9_j6_b:"1",
+r9_j7_a:"0",r9_j7_b:"0",r9_j8_a:"1",r9_j8_b:"0",
+// Rodada 10
+r10_j1_a:"2",r10_j1_b:"1",r10_j2_a:"0",r10_j2_b:"0",r10_j3_a:"2",r10_j3_b:"1",
+r10_j4_a:"1",r10_j4_b:"0",r10_j5_a:"4",r10_j5_b:"1",r10_j6_a:"0",r10_j6_b:"2",
+r10_j7_a:"1",r10_j7_b:"0",r10_j8_a:"1",r10_j8_b:"1",r10_j9_a:"2",r10_j9_b:"1",
+r10_j10_a:"2",r10_j10_b:"3",
+// Rodada 11
+r11_j1_a:"1",r11_j1_b:"1",r11_j2_a:"1",r11_j2_b:"0",r11_j3_a:"3",r11_j3_b:"0",
+r11_j4_a:"0",r11_j4_b:"0",
+// Rodada 12
+r12_j1_a:"2",r12_j1_b:"1",r12_j2_a:"2",r12_j2_b:"1",r12_j3_a:"3",r12_j3_b:"0",
+r12_j4_a:"3",r12_j4_b:"3",r12_j5_a:"3",r12_j5_b:"0",r12_j6_a:"0",r12_j6_b:"1",
+r12_j7_a:"3",r12_j7_b:"1",r12_j8_a:"1",r12_j8_b:"1",r12_j9_a:"3",r12_j9_b:"2",
+r12_j10_a:"2",r12_j10_b:"3",
+// Rodada 13
+r13_j1_a:"2",r13_j1_b:"1",r13_j2_a:"2",r13_j2_b:"0",r13_j3_a:"0",r13_j3_b:"2",
+r13_j4_a:"0",r13_j4_b:"0",r13_j5_a:"3",r13_j5_b:"1",
+// Rodada 14
+r14_j1_a:"2",r14_j1_b:"3",r14_j2_a:"2",r14_j2_b:"0",r14_j3_a:"1",r14_j3_b:"0",
+r14_j4_a:"1",r14_j4_b:"2",r14_j5_a:"0",r14_j5_b:"1",r14_j6_a:"2",r14_j6_b:"3",
+r14_j7_a:"3",r14_j7_b:"1",r14_j8_a:"0",r14_j8_b:"0",r14_j9_a:"1",r14_j9_b:"2",
+r14_j10_a:"1",r14_j10_b:"0",
+// Rodada 15
+r15_j1_a:"2",r15_j1_b:"0",r15_j2_a:"1",r15_j2_b:"0",r15_j3_a:"1",r15_j3_b:"1",
+r15_j4_a:"0",r15_j4_b:"2",
+// Rodada 16
+r16_j1_a:"3",r16_j1_b:"3",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"3",r16_j3_b:"1",
+r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"2",r16_j5_b:"0",r16_j6_a:"1",r16_j6_b:"1",
+r16_j7_a:"2",r16_j7_b:"1",r16_j8_a:"2",r16_j8_b:"2",r16_j9_a:"2",r16_j9_b:"1",
+r16_j10_a:"2",r16_j10_b:"1",
+// Rodada 17
+r17_j1_a:"1",r17_j1_b:"2",r17_j2_a:"2",r17_j2_b:"3",r17_j3_a:"3",r17_j3_b:"2",
+r17_j4_a:"1",r17_j4_b:"0",r17_j5_a:"1",r17_j5_b:"1",
+// RODADA 18 - RESULTADOS EM BRANCO
+r18_j1_a:"-",r18_j1_b:"-",r18_j2_a:"-",r18_j2_b:"-",r18_j3_a:"-",r18_j3_b:"-",
+r18_j4_a:"-",r18_j4_b:"-",r18_j5_a:"-",r18_j5_b:"-",r18_j6_a:"-",r18_j6_b:"-",
+r18_j7_a:"-",r18_j7_b:"-",r18_j8_a:"-",r18_j8_b:"-",r18_j9_a:"-",r18_j9_b:"-",
+r18_j10_a:"-",r18_j10_b:"-"
 };
 
-// ==================== FUNÇÃO DE PONTUAÇÃO ====================
-function calcularPontos(rA, rB, pA, pB) {
-    if (rA === "-" || rB === "-" || pA === "-" || pB === "-") return 0;
-    rA = parseInt(rA); rB = parseInt(rB); pA = parseInt(pA); pB = parseInt(pB);
-    if (isNaN(rA) || isNaN(rB) || isNaN(pA) || isNaN(pB)) return 0;
-    if (rA === pA && rB === pB) return 10;
-    if ((rA - rB) === (pA - pB) && ((rA > rB && pA > pB) || (rB > rA && pB > pA))) return 6;
-    if ((rA - rB) === 0 && (pA - pB) === 0) return 5;
-    if ((rA > rB && pA > pB) || (rB > rA && pB > pA)) return 3;
-    return 0;
+// ==================== FUNÇÕES ====================
+function calcularPontos(rA,rB,pA,pB){
+if(rA==="-"||rB==="-"||pA==="-"||pB==="-")return 0;
+rA=parseInt(rA);rB=parseInt(rB);pA=parseInt(pA);pB=parseInt(pB);
+if(isNaN(rA)||isNaN(rB)||isNaN(pA)||isNaN(pB))return 0;
+if(rA===pA&&rB===pB)return 10;
+if((rA-rB)===(pA-pB)&&((rA>rB&&pA>pB)||(rB>rA&&pB>pA)))return 6;
+if((rA-rB)===0&&(pA-pB)===0)return 5;
+if((rA>rB&&pA>pB)||(rB>rA&&pB>pA))return 3;
+return 0;
 }
 
-function getJogosPorRodada(rodada) {
-    if (rodada === 1) return jogosRodada1;
-    if (rodada === 2) return jogosRodada2;
-    if (rodada === 3) return jogosRodada3;
-    if (rodada === 4) return jogosRodada4;
-    if (rodada === 5) return jogosRodada5;
-    if (rodada === 6) return jogosRodada6;
-    if (rodada === 7) return jogosRodada7;
-    if (rodada === 8) return jogosRodada8;
-    if (rodada === 9) return jogosRodada9;
-    if (rodada === 10) return jogosRodada10;
-    if (rodada === 11) return jogosRodada11;
-    if (rodada === 12) return jogosRodada12;
-    if (rodada === 13) return jogosRodada13;
-    if (rodada === 14) return jogosRodada14;
-    if (rodada === 15) return jogosRodada15;
-    if (rodada === 16) return jogosRodada16;
-    if (rodada === 17) return jogosRodada17;
-    if (rodada === 18) return jogosRodada18;
-    return [];
+function getJogosPorRodada(r){
+const t=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18];
+return t[r-1]||[];
 }
 
-// ===== FUNÇÃO DE PONTUAÇÃO COM BÔNUS E CORINGA =====
-function calcularPontuacaoTotal(jogador) {
-    const p = dadosPalpites[jogador];
-    if (!p) return { total: 0, porRodada: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], bonus: 0, bonusHistorico: [] };
-    
-    const todasRodadas = [jogosRodada1, jogosRodada2, jogosRodada3, jogosRodada4, jogosRodada5, jogosRodada6, jogosRodada7, jogosRodada8, jogosRodada9, jogosRodada10, jogosRodada11, jogosRodada12, jogosRodada13, jogosRodada14, jogosRodada15, jogosRodada16, jogosRodada17, jogosRodada18];
-    let total = 0;
-    let bonus = 0;
-    let porRodada = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    let bonusHistorico = [];
-    
-    todasRodadas.forEach((jogos, idx) => {
-        let ptsRodada = 0;
-        let jogoBonus = null;
-        
-        // 1. Pontos dos jogos
-        jogos.forEach(j => {
-            const ra = resultadosFinais[j.idA];
-            const rb = resultadosFinais[j.idB];
-            if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
-                const pa = p[j.idA];
-                const pb = p[j.idB];
-                if (pa !== undefined && pb !== undefined) {
-                    ptsRodada += calcularPontos(ra, rb, pa, pb);
-                }
-            }
-        });
-        
-        // 2. Bônus do Palpite do Dia
-        const dia = (idx === 17 && p.palpite_do_dia_r18) ? p.palpite_do_dia_r18 : p.palpite_do_dia;
-        if (dia) {
-            const jogoDia = jogos.find(j => j.idA === dia || j.idB === dia);
-            if (jogoDia) {
-                const ra = resultadosFinais[jogoDia.idA];
-                const rb = resultadosFinais[jogoDia.idB];
-                if (ra !== undefined && rb !== undefined && ra !== "-" && rb !== "-") {
-                    const pa = p[jogoDia.idA];
-                    const pb = p[jogoDia.idB];
-                    if (pa !== undefined && pb !== undefined) {
-                        const rA = parseInt(ra);
-                        const rB = parseInt(rb);
-                        const pA = parseInt(pa);
-                        const pB = parseInt(pb);
-                        if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                            bonus += 5;
-                            jogoBonus = {
-                                jogo: `${jogoDia.tA} ${pA}x${pB} ${jogoDia.tB}`,
-                                rodada: idx + 1
-                            };
-                            ptsRodada += 5;
-                        }
-                    }
-                }
-            }
-        }
-        
-        // 3. CORINGA - SÓ APLICA NA RODADA 7 PARA O FISH OU RODADA 10 PARA WALISHOW
-        if (p.coringa_usado) {
-            if (jogador === "Fish" && idx === 6) {
-                ptsRodada = ptsRodada * 2;
-            }
-            if (jogador === "Walishow" && idx === 9) {
-                ptsRodada = ptsRodada * 2;
-            }
-        }
-        
-        porRodada[idx] = ptsRodada;
-        total += ptsRodada;
-        if (jogoBonus) {
-            bonusHistorico.push(jogoBonus);
-        }
-    });
-    
-    // Adiciona bônus manuais
-    if (p._bonus_manual) {
-        p._bonus_manual.forEach(b => {
-            total += b.pontos;
-            bonus += b.pontos;
-            porRodada[b.rodada - 1] += b.pontos;
-            bonusHistorico.push({
-                jogo: b.jogo,
-                rodada: b.rodada
-            });
-        });
-    }
-    
-    // ⭐ AJUSTE MANUAL - DOBRA OS PONTOS DA RODADA 10 DO WALISHOW
-    if (jogador === "Walishow") {
-        porRodada[9] = porRodada[9] * 2;
-        total = porRodada.reduce((a, b) => a + b, 0);
-    }
-    
-    return { total, porRodada, bonus, bonusHistorico };
+function calcularPontuacaoTotal(jogador){
+const p=dadosPalpites[jogador];
+if(!p)return{total:0,porRodada:Array(18).fill(0),bonus:0,bonusHistorico:[]};
+const todasRodadas=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18];
+let total=0,bonus=0,porRodada=Array(18).fill(0),bonusHistorico=[];
+
+todasRodadas.forEach((jogos,idx)=>{
+let pts=0,jogoBonus=null;
+jogos.forEach(j=>{
+const ra=resultadosFinais[j.idA],rb=resultadosFinais[j.idB];
+if(ra!==undefined&&rb!==undefined&&ra!=="-"&&rb!=="-"){
+const pa=p[j.idA],pb=p[j.idB];
+if(pa!==undefined&&pb!==undefined)pts+=calcularPontos(ra,rb,pa,pb);
+}
+});
+const dia=p.palpite_do_dia;
+if(dia){
+const jd=jogos.find(j=>j.idA===dia||j.idB===dia);
+if(jd){
+const ra=resultadosFinais[jd.idA],rb=resultadosFinais[jd.idB];
+if(ra!==undefined&&rb!==undefined&&ra!=="-"&&rb!=="-"){
+const pa=p[jd.idA],pb=p[jd.idB];
+if(pa!==undefined&&pb!==undefined){
+const rA=parseInt(ra),rB=parseInt(rb),pA=parseInt(pa),pB=parseInt(pb);
+if(!isNaN(rA)&&!isNaN(rB)&&!isNaN(pA)&&!isNaN(pB)&&rA===pA&&rB===pB){
+bonus+=5;
+jogoBonus={jogo:`${jd.tA} ${pA}x${pB} ${jd.tB}`,rodada:idx+1};
+pts+=5;
+}
+}
+}
+}
+}
+if(p.coringa_usado){
+if(jogador==="Fish"&&idx===6)pts*=2;
+if(jogador==="Walishow"&&idx===9)pts*=2;
+}
+porRodada[idx]=pts;
+total+=pts;
+if(jogoBonus)bonusHistorico.push(jogoBonus);
+});
+
+if(p._bonus_manual){
+p._bonus_manual.forEach(b=>{
+total+=b.pontos;
+bonus+=b.pontos;
+porRodada[b.rodada-1]+=b.pontos;
+bonusHistorico.push({jogo:b.jogo,rodada:b.rodada});
+});
 }
 
-// ===== BÔNUS MANUAL =====
-function aplicarBonusManual() {
-    console.log('🔄 APLICANDO BÔNUS MANUAL...');
-    
-    const bonus = [
-        { jogador: "Walishow", jogo: "Palmeiras 3x0 Fortaleza", rodada: 5 },
-        { jogador: "Walishow", jogo: "Cruzeiro 2x0 Chapecoense", rodada: 6 },
-        { jogador: "Paulão", jogo: "Cruzeiro 2x0 Chapecoense", rodada: 6 },
-        { jogador: "Psico", jogo: "Cruzeiro 2x0 Chapecoense", rodada: 6 },
-        { jogador: "Fish", jogo: "Remo 0x1 Santos", rodada: 6 },
-        { jogador: "Freitas", jogo: "Flamengo 2x1 Cruzeiro", rodada: 9 },
-        { jogador: "Samuel", jogo: "Fluminense 2x1 Remo", rodada: 10 },
-        { jogador: "Paulão", jogo: "Flamengo 2x0 Mirassol", rodada: 13 },
-        { jogador: "Samuel", jogo: "Fluminense 2x0 Platense", rodada: 15 },
-        { jogador: "Sid", jogo: "Palmeiras 2x0 São Paulo", rodada: 16 }
-    ];
-    
-    bonus.forEach(b => {
-        const p = dadosPalpites[b.jogador];
-        if (p) {
-            if (!p._bonus_manual) p._bonus_manual = [];
-            p._bonus_manual.push({
-                rodada: b.rodada,
-                jogo: b.jogo,
-                pontos: 5
-            });
-            console.log(`✅ Bônus: ${b.jogador} +5 pts (${b.jogo})`);
-        }
-    });
+if(jogador==="Walishow"){
+porRodada[9]*=2;
+total=porRodada.reduce((a,b)=>a+b,0);
+}
+return{total,porRodada,bonus,bonusHistorico};
 }
 
+function aplicarBonusManual(){
+const bonus=[
+{jogador:"Walishow",jogo:"Palmeiras 3x0 Fortaleza",rodada:5},
+{jogador:"Walishow",jogo:"Cruzeiro 2x0 Chapecoense",rodada:6},
+{jogador:"Paulão",jogo:"Cruzeiro 2x0 Chapecoense",rodada:6},
+{jogador:"Psico",jogo:"Cruzeiro 2x0 Chapecoense",rodada:6},
+{jogador:"Fish",jogo:"Remo 0x1 Santos",rodada:6},
+{jogador:"Freitas",jogo:"Flamengo 2x1 Cruzeiro",rodada:9},
+{jogador:"Samuel",jogo:"Fluminense 2x1 Remo",rodada:10},
+{jogador:"Paulão",jogo:"Flamengo 2x0 Mirassol",rodada:13},
+{jogador:"Samuel",jogo:"Fluminense 2x0 Platense",rodada:15},
+{jogador:"Sid",jogo:"Palmeiras 2x0 São Paulo",rodada:16},
+{jogador:"Dj",jogo:"Remo 1x2 Santos",rodada:18}
+];
+bonus.forEach(b=>{
+const p=dadosPalpites[b.jogador];
+if(p){
+if(!p._bonus_manual)p._bonus_manual=[];
+p._bonus_manual.push({rodada:b.rodada,jogo:b.jogo,pontos:5});
+}
+});
+}
 aplicarBonusManual();
 
-let chartInstance = null;
-const cores = ['#3D1952', '#F7C137', '#26117D', '#22c55e', '#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f472b6', '#a78bfa', '#34d399', '#f97316', '#eab308', '#06b6d4'];
+let chartInstance=null;
+const cores=['#3D1952','#F7C137','#26117D','#22c55e','#ef4444','#f59e0b','#3b82f6','#8b5cf6','#ec4899','#14b8a6','#f472b6','#a78bfa','#34d399','#f97316','#eab308','#06b6d4'];
 
-function renderizarPorRodada(n) {
-    document.querySelectorAll('.tab-btn').forEach(b => {
-        b.classList.toggle('active', parseInt(b.dataset.rodada) === n);
-    });
-    
-    const container = document.getElementById("lista-jogos-principal");
-    const jogos = getJogosPorRodada(n);
-    
-    let html = "";
-    jogos.forEach(j => {
-        const resA = resultadosFinais[j.idA] !== undefined ? resultadosFinais[j.idA] : "-";
-        const resB = resultadosFinais[j.idB] !== undefined ? resultadosFinais[j.idB] : "-";
-        
-        let isDia = false;
-        Object.values(dadosPalpites).forEach(p => {
-            if (p.palpite_do_dia === j.idA || p.palpite_do_dia === j.idB) isDia = true;
-            if (p.palpite_do_dia_r18 === j.idA || p.palpite_do_dia_r18 === j.idB) isDia = true;
-        });
-        
-        html += `
-            <div class="jogo-card ${isDia ? 'destaque' : ''}">
-                <div class="jogo-principal">
-                    <div class="time casa"><span class="escudo">${j.eA}</span> ${j.tA}</div>
-                    <div class="placar-box">
-                        <span class="gol">${resA}</span>
-                        <span class="x">×</span>
-                        <span class="gol">${resB}</span>
-                    </div>
-                    <div class="time fora">${j.tB} <span class="escudo">${j.eB}</span></div>
-                </div>
-                <div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j)} ${isDia ? '⭐ Palpite do Dia' : ''}</div>
-            </div>
-        `;
-    });
-    container.innerHTML = html;
+// ==================== RENDERIZAÇÃO ====================
+function initTabs(){
+const tc=document.getElementById("tab-container");
+let h="";
+for(let i=1;i<=18;i++){
+h+=`<button class="tab-btn ${i===18?'active':''}" data-rodada="${i}" onclick="renderizarPorRodada(${i})">Rodada ${i}</button>`;
+}
+tc.innerHTML=h;
 }
 
-function calcularOddsDinamicas(jogo) {
-    let casa = 0, empate = 0, fora = 0, total = 0;
-    Object.values(dadosPalpites).forEach(p => {
-        let pA = parseInt(p[jogo.idA]), pB = parseInt(p[jogo.idB]);
-        if (!isNaN(pA) && !isNaN(pB)) {
-            if (pA > pB) casa++; else if (pB > pA) fora++; else empate++;
-            total++;
-        }
-    });
-    if (total === 0) return "2.00 - 3.20 - 3.80";
-    return `${(total/(casa||0.1)).toFixed(2)} - ${(total/(empate||0.1)).toFixed(2)} - ${(total/(fora||0.1)).toFixed(2)}`;
+function renderizarPorRodada(n){
+document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.rodada)===n));
+const container=document.getElementById("lista-jogos-principal");
+const jogos=getJogosPorRodada(n);
+let html="";
+jogos.forEach(j=>{
+const resA=resultadosFinais[j.idA]!==undefined?resultadosFinais[j.idA]:"-";
+const resB=resultadosFinais[j.idB]!==undefined?resultadosFinais[j.idB]:"-";
+let isDia=false;
+Object.values(dadosPalpites).forEach(p=>{if(p.palpite_do_dia===j.idA||p.palpite_do_dia===j.idB)isDia=true;});
+html+=`<div class="jogo-card ${isDia?'destaque':''}"><div class="jogo-principal"><div class="time casa"><span class="escudo">${j.eA}</span> ${j.tA}</div><div class="placar-box"><span class="gol">${resA}</span><span class="x">×</span><span class="gol">${resB}</span></div><div class="time fora">${j.tB} <span class="escudo">${j.eB}</span></div></div><div class="jogo-odds">⚡ PROB: ${calcularOddsDinamicas(j)} ${isDia?'⭐ Palpite do Dia':''}</div></div>`;
+});
+container.innerHTML=html;
 }
 
-function abrirPalpites(e) {
-    document.getElementById("modal-titulo").innerText = `📋 Palpites de ${e}`;
-    const t = dadosPalpites[e];
-    if (!t) {
-        document.getElementById("modal-container-interno").innerHTML = '<p style="text-align:center;color:var(--pl-muted);">Nenhum palpite encontrado.</p>';
-        document.getElementById("modal-palpites").classList.add("ativo");
-        return;
-    }
-    
-    const todasRodadas = [
-        { nome: "Rodada 1", jogos: jogosRodada1 },
-        { nome: "Rodada 2", jogos: jogosRodada2 },
-        { nome: "Rodada 3", jogos: jogosRodada3 },
-        { nome: "Rodada 4", jogos: jogosRodada4 },
-        { nome: "Rodada 5", jogos: jogosRodada5 },
-        { nome: "Rodada 6", jogos: jogosRodada6 },
-        { nome: "Rodada 7", jogos: jogosRodada7 },
-        { nome: "Rodada 8", jogos: jogosRodada8 },
-        { nome: "Rodada 9", jogos: jogosRodada9 },
-        { nome: "Rodada 10", jogos: jogosRodada10 },
-        { nome: "Rodada 11", jogos: jogosRodada11 },
-        { nome: "Rodada 12", jogos: jogosRodada12 },
-        { nome: "Rodada 13", jogos: jogosRodada13 },
-        { nome: "Rodada 14", jogos: jogosRodada14 },
-        { nome: "Rodada 15", jogos: jogosRodada15 },
-        { nome: "Rodada 16", jogos: jogosRodada16 },
-        { nome: "Rodada 17", jogos: jogosRodada17 },
-        { nome: "Rodada 18", jogos: jogosRodada18 }
-    ];
-    
-    const coringaAtivo = t.coringa_usado;
-    
-    let html = `
-        <div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;font-size:0.85rem;background:rgba(61,25,82,0.04);padding:12px 16px;border-radius:12px;">
-            <span>⭐ Palpite do Dia: ${t.palpite_do_dia || t.palpite_do_dia_r18 ? '✅ Ativo' : '❌ Não escolheu'}</span>
-            <span>🃏 Coringa: ${coringaAtivo ? '✅ Usado' : '❌ Disponível'}</span>
-            ${coringaAtivo ? `<span style="color:#ef4444;font-weight:700;">🔥 CORINGA ATIVO! TODOS OS PONTOS DOBRADOS!</span>` : ''}
-        </div>
-    `;
-    
-    todasRodadas.forEach(rodada => {
-        const temPalpites = rodada.jogos.some(j => t[j.idA] !== undefined);
-        if (!temPalpites) return;
-        
-        const rodadaNum = todasRodadas.indexOf(rodada) + 1;
-        const temCoringa = coringaAtivo && (rodadaNum === 7 || rodadaNum === 10);
-        
-        html += `<div style="margin-top:16px;margin-bottom:8px;font-weight:700;font-size:0.9rem;color:var(--pl-purple);border-bottom:2px solid var(--pl-border);padding-bottom:6px;">
-            📌 ${rodada.nome} ${temCoringa ? '<span style="color:#ef4444;font-size:0.7rem;">🃏 CORINGA ATIVO!</span>' : ''}
-        </div>`;
-        html += `<div class="jogos-lista">`;
-        
-        rodada.jogos.forEach(j => {
-            const pa = t[j.idA] !== undefined ? t[j.idA] : "-";
-            const pb = t[j.idB] !== undefined ? t[j.idB] : "-";
-            
-            const ra = resultadosFinais[j.idA] !== undefined ? parseInt(resultadosFinais[j.idA]) : NaN;
-            const rb = resultadosFinais[j.idB] !== undefined ? parseInt(resultadosFinais[j.idB]) : NaN;
-            const pts = (!isNaN(ra) && !isNaN(rb) && pa !== "-" && pb !== "-") ? calcularPontos(ra, rb, parseInt(pa), parseInt(pb)) : 0;
-            const temResultado = !isNaN(ra) && !isNaN(rb);
-            
-            const diaAtual = (rodadaNum === 18 && t.palpite_do_dia_r18) ? t.palpite_do_dia_r18 : t.palpite_do_dia;
-            const isDia = (diaAtual === j.idA || diaAtual === j.idB);
-            const cor = isDia ? 'palpite-cor-ouro' : 
-                        (temResultado && pts === 10) ? 'palpite-cor-verde' :
-                        (temResultado && pts > 0) ? 'palpite-cor-amarelo' :
-                        (temResultado) ? 'palpite-cor-vermelho' : 'palpite-cor-branco';
-            
-            const diaTag = isDia ? '<span style="background:#F7C137;color:#17002E;padding:2px 10px;border-radius:100px;font-weight:700;font-size:0.6rem;margin-left:6px;">⭐ DIA</span>' : '';
-            
-            let bonusTexto = '';
-            if (isDia && temResultado) {
-                const rA = parseInt(ra);
-                const rB = parseInt(rb);
-                const pA = parseInt(pa);
-                const pB = parseInt(pb);
-                if (!isNaN(rA) && !isNaN(rB) && !isNaN(pA) && !isNaN(pB) && rA === pA && rB === pB) {
-                    bonusTexto = ' <span style="color:#F7C137;font-weight:800;background:rgba(247,193,55,0.15);padding:2px 8px;border-radius:100px;">+5 BÔNUS ⭐</span>';
-                }
-            }
-            
-            let ptsDisplay = pts;
-            if (coringaAtivo && temResultado && (rodadaNum === 7 || rodadaNum === 10)) {
-                ptsDisplay = pts * 2;
-                if (isDia && bonusTexto) {
-                    bonusTexto = ' <span style="color:#ef4444;font-weight:800;background:rgba(239,68,68,0.15);padding:2px 8px;border-radius:100px;">🃏 DOBRADO!</span>';
-                }
-            }
-            
-            html += `
-                <div class="jogo-card ${cor}" style="border:1px solid var(--pl-border);padding:8px 12px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:4px;">
-                        <span style="font-weight:600;font-size:0.8rem;">${j.tA} vs ${j.tB} ${diaTag}</span>
-                        <span style="font-weight:700;font-size:0.95rem;background:rgba(61,25,82,0.05);padding:2px 12px;border-radius:8px;">
-                            ${pa} × ${pb}
-                        </span>
-                        <span style="font-size:0.7rem;font-weight:600;color:var(--pl-muted);">
-                            ${temResultado ? ptsDisplay + ' pts' + bonusTexto : '⏳ Aguardando'}
-                        </span>
-                    </div>
-                </div>
-            `;
-        });
-        
-        html += `</div>`;
-    });
-    
-    document.getElementById("modal-container-interno").innerHTML = html;
-    document.getElementById("modal-palpites").classList.add("ativo");
+function calcularOddsDinamicas(jogo){
+let casa=0,empate=0,fora=0,total=0;
+Object.values(dadosPalpites).forEach(p=>{
+let pA=parseInt(p[jogo.idA]),pB=parseInt(p[jogo.idB]);
+if(!isNaN(pA)&&!isNaN(pB)){if(pA>pB)casa++;else if(pB>pA)fora++;else empate++;total++;}
+});
+if(total===0)return"2.00 - 3.20 - 3.80";
+return`${(total/(casa||0.1)).toFixed(2)} - ${(total/(empate||0.1)).toFixed(2)} - ${(total/(fora||0.1)).toFixed(2)}`;
 }
 
-function fecharPalpites() {
-    document.getElementById("modal-palpites").classList.remove("ativo");
+function abrirPalpites(e){
+document.getElementById("modal-titulo").innerText=`📋 Palpites de ${e}`;
+const t=dadosPalpites[e];
+if(!t){
+document.getElementById("modal-container-interno").innerHTML='<p style="text-align:center;color:var(--pm);">Nenhum palpite encontrado.</p>';
+document.getElementById("modal-palpites").classList.add("ativo");
+return;
+}
+const todasRodadas=[
+{nome:"Rodada 1",jogos:jogosRodada1},{nome:"Rodada 2",jogos:jogosRodada2},{nome:"Rodada 3",jogos:jogosRodada3},
+{nome:"Rodada 4",jogos:jogosRodada4},{nome:"Rodada 5",jogos:jogosRodada5},{nome:"Rodada 6",jogos:jogosRodada6},
+{nome:"Rodada 7",jogos:jogosRodada7},{nome:"Rodada 8",jogos:jogosRodada8},{nome:"Rodada 9",jogos:jogosRodada9},
+{nome:"Rodada 10",jogos:jogosRodada10},{nome:"Rodada 11",jogos:jogosRodada11},{nome:"Rodada 12",jogos:jogosRodada12},
+{nome:"Rodada 13",jogos:jogosRodada13},{nome:"Rodada 14",jogos:jogosRodada14},{nome:"Rodada 15",jogos:jogosRodada15},
+{nome:"Rodada 16",jogos:jogosRodada16},{nome:"Rodada 17",jogos:jogosRodada17},{nome:"Rodada 18",jogos:jogosRodada18}
+];
+const coringaAtivo=t.coringa_usado;
+let html=`<div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;font-size:.85rem;background:rgba(61,25,82,.04);padding:12px 16px;border-radius:12px;"><span>⭐ Palpite do Dia: ${t.palpite_do_dia?'✅ Ativo':'❌ Não escolheu'}</span><span>🃏 Coringa: ${coringaAtivo?'✅ Usado':'❌ Disponível'}</span>${coringaAtivo?'<span style="color:#ef4444;font-weight:700;">🔥 CORINGA ATIVO!</span>':''}</div>`;
+
+todasRodadas.forEach(rodada=>{
+const temPalpites=rodada.jogos.some(j=>t[j.idA]!==undefined);
+if(!temPalpites)return;
+const rodadaNum=todasRodadas.indexOf(rodada)+1;
+const temCoringa=coringaAtivo&&(rodadaNum===7||rodadaNum===10);
+html+=`<div style="margin-top:16px;margin-bottom:8px;font-weight:700;font-size:.9rem;color:var(--pp);border-bottom:2px solid var(--pb2);padding-bottom:6px;">📌 ${rodada.nome} ${temCoringa?'<span style="color:#ef4444;font-size:.7rem;">🃏 CORINGA ATIVO!</span>':''}</div><div class="jogos-lista">`;
+
+rodada.jogos.forEach(j=>{
+const pa=t[j.idA]!==undefined?t[j.idA]:"-";
+const pb=t[j.idB]!==undefined?t[j.idB]:"-";
+const ra=resultadosFinais[j.idA]!==undefined?parseInt(resultadosFinais[j.idA]):NaN;
+const rb=resultadosFinais[j.idB]!==undefined?parseInt(resultadosFinais[j.idB]):NaN;
+const pts=(!isNaN(ra)&&!isNaN(rb)&&pa!=="-"&&pb!=="-")?calcularPontos(ra,rb,parseInt(pa),parseInt(pb)):0;
+const temResultado=!isNaN(ra)&&!isNaN(rb);
+const isDia=(t.palpite_do_dia===j.idA||t.palpite_do_dia===j.idB);
+const cor=isDia?'palpite-cor-ouro':(temResultado&&pts===10)?'palpite-cor-verde':(temResultado&&pts>0)?'palpite-cor-amarelo':(temResultado)?'palpite-cor-vermelho':'palpite-cor-branco';
+const diaTag=isDia?'<span style="background:#F7C137;color:#17002E;padding:2px 10px;border-radius:100px;font-weight:700;font-size:.6rem;margin-left:6px;">⭐ DIA</span>':'';
+let bonusTexto="";
+if(isDia&&temResultado){if(!isNaN(ra)&&!isNaN(rb)&&!isNaN(parseInt(pa))&&!isNaN(parseInt(pb))&&ra===parseInt(pa)&&rb===parseInt(pb))bonusTexto=' <span style="color:#F7C137;font-weight:800;background:rgba(247,193,55,.15);padding:2px 8px;border-radius:100px;">+5 BÔNUS ⭐</span>';}
+let ptsDisplay=pts;
+if(coringaAtivo&&temResultado&&(rodadaNum===7||rodadaNum===10))ptsDisplay=pts*2;
+
+html+=`<div class="jogo-card ${cor}" style="border:1px solid var(--pb2);padding:8px 12px;"><div style="display:flex;justify-content:space-between;align-items:center;width:100%;flex-wrap:wrap;gap:4px;"><span style="font-weight:600;font-size:.8rem;">${j.tA} vs ${j.tB} ${diaTag}</span><span style="font-weight:700;font-size:.95rem;background:rgba(61,25,82,.05);padding:2px 12px;border-radius:8px;">${pa} × ${pb}</span><span style="font-size:.7rem;font-weight:600;color:var(--pm);">${temResultado?ptsDisplay+' pts'+bonusTexto:'⏳ Aguardando'}</span></div></div>`;
+});
+html+=`</div>`;
+});
+document.getElementById("modal-container-interno").innerHTML=html;
+document.getElementById("modal-palpites").classList.add("ativo");
 }
 
-function fecharModalExterno(e) {
-    if (e.target.id === "modal-palpites") fecharPalpites();
+function fecharPalpites(){document.getElementById("modal-palpites").classList.remove("ativo");}
+function fecharModalExterno(e){if(e.target.id==="modal-palpites")fecharPalpites();}
+
+function atualizarHistoricoBonus(){
+let html='<div class="bonus-grid">';
+Object.keys(dadosPalpites).forEach(nome=>{
+const r=calcularPontuacaoTotal(nome);
+const temCoringa=dadosPalpites[nome].coringa_usado;
+html+=`<div class="bonus-card"><div class="nome">${nome} ${temCoringa?'<span class="badge-coringa-ativo">🃏 CORINGA</span>':''}</div><div class="total">🏆 Total de bônus: <strong>${r.bonus} pts</strong></div><div class="historico">${r.bonusHistorico.length>0?r.bonusHistorico.map(h=>`<span class="item">⭐ R${h.rodada}: ${h.jogo}</span>`).join(' '):'Nenhum bônus ainda'}${temCoringa?'<span class="item" style="background:#ef444430;color:#ef4444;">🃏 CORINGA ATIVO!</span>':''}</div></div>`;
+});
+html+='</div>';
+document.getElementById('historico-bonus').innerHTML=html;
 }
 
-function atualizarHistoricoBonus() {
-    let html = '<div class="bonus-grid">';
-    const participantes = Object.keys(dadosPalpites);
-    
-    participantes.forEach(nome => {
-        const resultado = calcularPontuacaoTotal(nome);
-        const totalBonus = resultado.bonus;
-        const historico = resultado.bonusHistorico;
-        const temCoringa = dadosPalpites[nome].coringa_usado;
-        
-        html += `
-            <div class="bonus-card">
-                <div class="nome">
-                    ${nome}
-                    ${temCoringa ? '<span class="badge-coringa-ativo">🃏 CORINGA</span>' : ''}
-                </div>
-                <div class="total">
-                    🏆 Total de bônus: <strong>${totalBonus} pts</strong>
-                </div>
-                <div class="historico">
-                    ${historico.length > 0 ? 
-                        historico.map(h => `<span class="item">⭐ R${h.rodada}: ${h.jogo}</span>`).join(' ') : 
-                        'Nenhum bônus ainda'
-                    }
-                    ${temCoringa ? '<span class="item" style="background:#ef444430;color:#ef4444;">🃏 CORINGA ATIVO!</span>' : ''}
-                </div>
-            </div>
-        `;
-    });
-    
-    html += '</div>';
-    document.getElementById('historico-bonus').innerHTML = html;
+function atualizarClassificacao(){
+let ranking=[];
+const participantes=Object.keys(dadosPalpites);
+participantes.forEach(nome=>{
+const r=calcularPontuacaoTotal(nome);
+ranking.push({nome,pontos:r.total,bonus:r.bonus,porRodada:r.porRodada,coringa:dadosPalpites[nome].coringa_usado});
+});
+ranking.sort((a,b)=>b.pontos-a.pontos);
+
+let html="";
+ranking.forEach((p,i)=>{
+const cls=i===0?'gold':i===1?'silver':i===2?'bronze':'';
+html+=`<tr><td class="pos ${cls}">${i+1}º</td><td class="name">${p.nome}</td><td class="pts">${p.pontos}</td></tr>`;
+});
+document.getElementById("tabela-ranking").innerHTML=html;
+
+const totalPts=ranking.reduce((a,c)=>a+c.pontos,0);
+const bonusCount=ranking.filter(c=>c.bonus>0).length;
+document.getElementById("stats-container").innerHTML=`
+<div class="stat-card"><span class="value">${ranking[0]?.pontos||0}</span><span class="label">Líder</span></div>
+<div class="stat-card"><span class="value">${(totalPts/ranking.length).toFixed(1)}</span><span class="label">Média</span></div>
+<div class="stat-card"><span class="value">${ranking.length}</span><span class="label">Antas</span></div>
+<div class="stat-card"><span class="value">⭐ ${bonusCount}</span><span class="label">Dia Acertado</span></div>
+<div class="stat-card"><span class="value">🃏 ${ranking.filter(c=>c.coringa).length}</span><span class="label">Coringa Usado</span></div>`;
+
+const mR=[];
+for(let i=0;i<18;i++){mR.push([...ranking].sort((a,b)=>b.porRodada[i]-a.porRodada[i])[0]);}
+
+document.getElementById("estatisticas-dinamicas").innerHTML=`
+<div style="overflow-x:auto;margin-bottom:16px;"><table class="pl-table">
+<thead><tr><th>Estatística</th><th>Destaque</th><th>Valor</th></tr></thead><tbody>
+${mR.map((r,i)=>`<tr><td>Maior Pontuador R${i+1}</td><td>${r?.nome||'-'}</td><td>${r?.porRodada[i]||0} pts</td></tr>`).join('')}
+<tr><td>⭐ Bônus Palpite do Dia</td><td>${ranking.filter(c=>c.bonus>0).map(c=>c.nome).join(', ')||'Ninguém'}</td><td>+5 pts</td></tr>
+<tr><td>🃏 Coringa Usado</td><td>${ranking.filter(c=>c.coringa).map(c=>c.nome).join(', ')||'Ninguém'}</td><td>Dobrou os pontos</td></tr>
+</tbody></table></div>`;
+
+let partHtml="";
+participantes.forEach(n=>{
+const p=dadosPalpites[n];
+const coringaStatus=p.coringa_usado?'usado':'';
+const coringaLegenda=p.coringa_usado?'🃏 Usado':'🃏 Disponível';
+partHtml+=`<div class="part-item"><span class="nome">${n} <span class="badge-coringa ${coringaStatus}">${coringaLegenda}</span></span><button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver</button></div>`;
+});
+document.getElementById("lista-participantes").innerHTML=partHtml;
+
+const lider=ranking[0]?.nome||'-';
+const liderPts=ranking[0]?.pontos||0;
+const acertaramDia=ranking.filter(c=>c.bonus>0).map(c=>c.nome);
+document.getElementById("news-container").innerHTML=`
+<div class="news-card"><span class="news-tag">🚀 LÍDER</span><div class="news-title">${lider} na liderança!</div><div class="news-text">Com ${liderPts} pontos no BrasileirAntas 2026.</div></div>
+${acertaramDia.length>0?`<div class="news-card" style="border-color:#f7c137;"><span class="news-tag" style="background:#f7c137;color:#000;">⭐ PALPITE DO DIA</span><div class="news-title">${acertaramDia.join(', ')} acertaram o Palpite do Dia!</div><div class="news-text">Ganharam +5 pontos extras! 🎯</div></div>`:''}`;
+
+let ant=JSON.parse(localStorage.getItem("brasileirantas_posicoes")||"{}");
+let first=!ant||Object.keys(ant).length===0;
+let novo={};
+let max=ranking[0]?.pontos||1;
+let evol="";
+ranking.forEach((p,i)=>{
+let pos=i+1;
+novo[p.nome]=pos;
+let s="-",c="manteve";
+if(!first&&ant[p.nome]){
+let a=ant[p.nome];
+if(pos<a){s="▲";c="subiu";}
+else if(pos>a){s="▼";c="desceu";}
+}
+let barra=(p.pontos/max)*100;
+evol+=`<div class="evolucao-linha"><span class="evolucao-nome">${p.nome}</span><div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5,barra)}%"></div></div><span class="evolucao-pts">${p.pontos}</span><span class="evolucao-tendencia ${c}">${s}</span></div>`;
+});
+localStorage.setItem("brasileirantas_posicoes",JSON.stringify(novo));
+document.getElementById("painel-evolucao").innerHTML=evol;
+
+atualizarGrafico(ranking);
+atualizarHistoricoBonus();
 }
 
-function atualizarClassificacao() {
-    let ranking = [];
-    const participantes = Object.keys(dadosPalpites);
-    
-    participantes.forEach(nome => {
-        const resultado = calcularPontuacaoTotal(nome);
-        ranking.push({
-            nome: nome,
-            pontos: resultado.total,
-            bonus: resultado.bonus,
-            porRodada: resultado.porRodada,
-            coringa: dadosPalpites[nome].coringa_usado
-        });
-    });
-    
-    ranking.sort((a, b) => b.pontos - a.pontos);
-    
-    let html = "";
-    ranking.forEach((p, i) => {
-        const cls = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-        html += `<tr><td class="pos ${cls}">${i+1}º</td><td class="name">${p.nome}</td><td class="pts">${p.pontos}</td></tr>`;
-    });
-    document.getElementById("tabela-ranking").innerHTML = html;
-    
-    const totalPts = ranking.reduce((a, c) => a + c.pontos, 0);
-    const bonusCount = ranking.filter(c => c.bonus > 0).length;
-    
-    document.getElementById("stats-container").innerHTML = `
-        <div class="stat-card"><span class="value">${ranking[0]?.pontos || 0}</span><span class="label">Líder</span></div>
-        <div class="stat-card"><span class="value">${(totalPts/ranking.length).toFixed(1)}</span><span class="label">Média</span></div>
-        <div class="stat-card"><span class="value">${ranking.length}</span><span class="label">Antas</span></div>
-        <div class="stat-card"><span class="value">⭐ ${bonusCount}</span><span class="label">Dia Acertado</span></div>
-        <div class="stat-card"><span class="value">🃏 ${ranking.filter(c => c.coringa).length}</span><span class="label">Coringa Usado</span></div>
-    `;
-    
-    const mR1 = [...ranking].sort((a,b) => b.porRodada[0] - a.porRodada[0])[0];
-    const mR2 = [...ranking].sort((a,b) => b.porRodada[1] - a.porRodada[1])[0];
-    const mR3 = [...ranking].sort((a,b) => b.porRodada[2] - a.porRodada[2])[0];
-    const mR4 = [...ranking].sort((a,b) => b.porRodada[3] - a.porRodada[3])[0];
-    const mR5 = [...ranking].sort((a,b) => b.porRodada[4] - a.porRodada[4])[0];
-    const mR6 = [...ranking].sort((a,b) => b.porRodada[5] - a.porRodada[5])[0];
-    const mR7 = [...ranking].sort((a,b) => b.porRodada[6] - a.porRodada[6])[0];
-    const mR8 = [...ranking].sort((a,b) => b.porRodada[7] - a.porRodada[7])[0];
-    const mR9 = [...ranking].sort((a,b) => b.porRodada[8] - a.porRodada[8])[0];
-    const mR10 = [...ranking].sort((a,b) => b.porRodada[9] - a.porRodada[9])[0];
-    const mR11 = [...ranking].sort((a,b) => b.porRodada[10] - a.porRodada[10])[0];
-    const mR12 = [...ranking].sort((a,b) => b.porRodada[11] - a.porRodada[11])[0];
-    const mR13 = [...ranking].sort((a,b) => b.porRodada[12] - a.porRodada[12])[0];
-    const mR14 = [...ranking].sort((a,b) => b.porRodada[13] - a.porRodada[13])[0];
-    const mR15 = [...ranking].sort((a,b) => b.porRodada[14] - a.porRodada[14])[0];
-    const mR16 = [...ranking].sort((a,b) => b.porRodada[15] - a.porRodada[15])[0];
-    const mR17 = [...ranking].sort((a,b) => b.porRodada[16] - a.porRodada[16])[0];
-    const mR18 = [...ranking].sort((a,b) => b.porRodada[17] - a.porRodada[17])[0];
-    
-    document.getElementById("estatisticas-dinamicas").innerHTML = `
-        <div style="overflow-x:auto;margin-bottom:16px;">
-            <table class="pl-table">
-                <thead><tr><th>Estatística</th><th>Destaque</th><th>Valor</th></tr></thead>
-                <tbody>
-                    <tr><td>Maior Pontuador R1</td><td>${mR1?.nome || '-'}</td><td>${mR1?.porRodada[0] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R2</td><td>${mR2?.nome || '-'}</td><td>${mR2?.porRodada[1] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R3</td><td>${mR3?.nome || '-'}</td><td>${mR3?.porRodada[2] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R4</td><td>${mR4?.nome || '-'}</td><td>${mR4?.porRodada[3] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R5</td><td>${mR5?.nome || '-'}</td><td>${mR5?.porRodada[4] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R6</td><td>${mR6?.nome || '-'}</td><td>${mR6?.porRodada[5] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R7</td><td>${mR7?.nome || '-'}</td><td>${mR7?.porRodada[6] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R8</td><td>${mR8?.nome || '-'}</td><td>${mR8?.porRodada[7] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R9</td><td>${mR9?.nome || '-'}</td><td>${mR9?.porRodada[8] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R10</td><td>${mR10?.nome || '-'}</td><td>${mR10?.porRodada[9] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R11</td><td>${mR11?.nome || '-'}</td><td>${mR11?.porRodada[10] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R12</td><td>${mR12?.nome || '-'}</td><td>${mR12?.porRodada[11] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R13</td><td>${mR13?.nome || '-'}</td><td>${mR13?.porRodada[12] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R14</td><td>${mR14?.nome || '-'}</td><td>${mR14?.porRodada[13] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R15</td><td>${mR15?.nome || '-'}</td><td>${mR15?.porRodada[14] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R16</td><td>${mR16?.nome || '-'}</td><td>${mR16?.porRodada[15] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R17</td><td>${mR17?.nome || '-'}</td><td>${mR17?.porRodada[16] || 0} pts</td></tr>
-                    <tr><td>Maior Pontuador R18</td><td>${mR18?.nome || '-'}</td><td>${mR18?.porRodada[17] || 0} pts</td></tr>
-                    <tr><td>⭐ Bônus Palpite do Dia</td><td>${ranking.filter(c => c.bonus > 0).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>+5 pts</td></tr>
-                    <tr><td>🃏 Coringa Usado</td><td>${ranking.filter(c => c.coringa).map(c => c.nome).join(', ') || 'Ninguém'}</td><td>Dobrou os pontos</td></tr>
-                </tbody>
-            </table>
-        </div>
-    `;
-    
-    let partHtml = "";
-    participantes.forEach(n => {
-        const p = dadosPalpites[n];
-        const coringaStatus = p.coringa_usado ? 'usado' : '';
-        const coringaLegenda = p.coringa_usado ? '🃏 Usado' : '🃏 Disponível';
-        partHtml += `<div class="part-item">
-            <span class="nome">${n} <span class="badge-coringa ${coringaStatus}">${coringaLegenda}</span></span>
-            <button class="btn-palpites" onclick="abrirPalpites('${n}')">Ver</button>
-        </div>`;
-    });
-    document.getElementById("lista-participantes").innerHTML = partHtml;
-    
-    const lider = ranking[0]?.nome || '-';
-    const liderPts = ranking[0]?.pontos || 0;
-    const acertaramDia = ranking.filter(c => c.bonus > 0).map(c => c.nome);
-    
-    document.getElementById("news-container").innerHTML = `
-        <div class="news-card">
-            <span class="news-tag">🚀 LÍDER</span>
-            <div class="news-title">${lider} na liderança!</div>
-            <div class="news-text">Com ${liderPts} pontos no BrasileirAntas 2026.</div>
-        </div>
-        ${acertaramDia.length > 0 ? `
-        <div class="news-card" style="border-color:#f7c137;">
-            <span class="news-tag" style="background:#f7c137;color:#000;">⭐ PALPITE DO DIA</span>
-            <div class="news-title">${acertaramDia.join(', ')} acertaram o Palpite do Dia!</div>
-            <div class="news-text">Ganharam +5 pontos extras! 🎯</div>
-        </div>` : ''}
-    `;
-    
-    let ant = JSON.parse(localStorage.getItem("brasileirantas_posicoes") || "{}");
-    let first = !ant || Object.keys(ant).length === 0;
-    let novo = {};
-    let max = ranking[0]?.pontos || 1;
-    let evol = "";
-    ranking.forEach((p, i) => {
-        let pos = i + 1;
-        novo[p.nome] = pos;
-        let s = "-", c = "manteve";
-        if (!first && ant[p.nome]) {
-            let a = ant[p.nome];
-            if (pos < a) { s = "▲"; c = "subiu"; }
-            else if (pos > a) { s = "▼"; c = "desceu"; }
-        }
-        let barra = (p.pontos / max) * 100;
-        evol += `<div class="evolucao-linha">
-            <span class="evolucao-nome">${p.nome}</span>
-            <div class="evolucao-barra-bg"><div class="evolucao-barra-fill" style="width:${Math.max(5, barra)}%"></div></div>
-            <span class="evolucao-pts">${p.pontos}</span>
-            <span class="evolucao-tendencia ${c}">${s}</span>
-        </div>`;
-    });
-    localStorage.setItem("brasileirantas_posicoes", JSON.stringify(novo));
-    document.getElementById("painel-evolucao").innerHTML = evol;
-    
-    atualizarGrafico(ranking);
-    atualizarHistoricoBonus();
-}
-
-function atualizarGrafico(ranking) {
-    const labels = ['Rodada 1', 'Rodada 2', 'Rodada 3', 'Rodada 4', 'Rodada 5', 'Rodada 6', 'Rodada 7', 'Rodada 8', 'Rodada 9', 'Rodada 10', 'Rodada 11', 'Rodada 12', 'Rodada 13', 'Rodada 14', 'Rodada 15', 'Rodada 16', 'Rodada 17', 'Rodada 18'];
-    
-    const ordem = ranking.map(p => p.nome);
-    const datasets = ordem.map((nome, index) => {
-        const resultado = calcularPontuacaoTotal(nome);
-        const dados = resultado.porRodada;
-        let acum = 0;
-        const dadosAcumulados = dados.map(v => { acum += v; return acum; });
-        const cor = cores[index % cores.length];
-        return {
-            label: nome,
-            data: dadosAcumulados,
-            borderColor: cor,
-            backgroundColor: cor + '20',
-            borderWidth: 3,
-            pointRadius: 4,
-            pointBackgroundColor: cor,
-            tension: 0.2,
-            fill: false,
-        };
-    });
-    
-    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
-    if (chartInstance) { chartInstance.destroy(); }
-    
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: { labels, datasets },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.dataset.label + ': ' + context.parsed.y + ' pts';
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: { color: 'rgba(0,0,0,0.04)' },
-                    title: {
-                        display: true,
-                        text: 'Pontos',
-                        color: '#7a7a8a',
-                        font: { size: 11, weight: '600' }
-                    }
-                },
-                x: {
-                    grid: { display: false },
-                    ticks: { font: { size: 10 } }
-                }
-            }
-        }
-    });
-    
-    document.getElementById('grafico-legenda').innerHTML = datasets.map(d => {
-        return `<div class="grafico-legenda-item">
-            <div class="grafico-legenda-cor" style="background:${d.borderColor}"></div>
-            <span>${d.label}</span>
-        </div>`;
-    }).join('');
+function atualizarGrafico(ranking){
+const labels=[];
+for(let i=1;i<=18;i++)labels.push('Rodada '+i);
+const ordem=ranking.map(p=>p.nome);
+const datasets=ordem.map((nome,index)=>{
+const r=calcularPontuacaoTotal(nome);
+let acum=0;
+const dadosAcumulados=r.porRodada.map(v=>{acum+=v;return acum;});
+const cor=cores[index%cores.length];
+return{label:nome,data:dadosAcumulados,borderColor:cor,backgroundColor:cor+'20',borderWidth:3,pointRadius:4,pointBackgroundColor:cor,tension:.2,fill:false};
+});
+const ctx=document.getElementById('graficoEvolucao').getContext('2d');
+if(chartInstance)chartInstance.destroy();
+chartInstance=new Chart(ctx,{
+type:'line',
+data:{labels,datasets},
+options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{callbacks:{label:function(context){return context.dataset.label+': '+context.parsed.y+' pts';}}}},
+scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},title:{display:true,text:'Pontos',color:'#7a7a8a',font:{size:11,weight:'600'}}},x:{grid:{display:false},ticks:{font:{size:10}}}}
+}});
+document.getElementById('grafico-legenda').innerHTML=datasets.map(d=>`<div class="grafico-legenda-item"><div class="grafico-legenda-cor" style="background:${d.borderColor}"></div><span>${d.label}</span></div>`).join('');
 }
 
 // ==================== INICIALIZAÇÃO ====================
+initTabs();
 renderizarPorRodada(18);
 atualizarClassificacao();
 </script>
