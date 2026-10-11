@@ -152,6 +152,14 @@ body{font-family:'Plus Jakarta Sans',-apple-system,sans-serif;background:var(--p
 </div>
 
 <div class="pl-card">
+<h2>🎯 Pontos por <span class="gold">Time</span></h2>
+<div style="margin-bottom:16px;">
+<select id="seletor-participante-times" onchange="renderizarTabelaTimes(this.value)" style="width:100%;max-width:300px;padding:10px 14px;border-radius:12px;border:1px solid var(--pb2);background:#fff;font-family:inherit;font-size:.85rem;font-weight:600;color:var(--pp);cursor:pointer;"></select>
+</div>
+<div id="tabela-times-container" style="overflow-x:auto;"><p style="text-align:center;color:var(--pm);padding:20px;">Selecione um participante acima</p></div>
+</div>
+
+<div class="pl-card">
 <h2>🏅 Histórico de <span class="gold">Bônus</span></h2>
 <div id="historico-bonus"></div>
 </div>
@@ -364,6 +372,18 @@ const jogosRodada20=[
 {id:145,tA:"Palmeiras",eA:"🟢",tB:"Bahia",eB:"🔵",idA:"r20_j9_a",idB:"r20_j9_b"},
 {id:146,tA:"Fluminense",eA:"🔴",tB:"Coritiba",eB:"🟢",idA:"r20_j10_a",idB:"r20_j10_b"}
 ];
+const jogosRodada21=[
+{id:147,tA:"Vasco",eA:"⚫",tB:"Remo",eB:"🔵",idA:"r21_j1_a",idB:"r21_j1_b"},
+{id:148,tA:"São Paulo",eA:"🔴",tB:"Vitória",eB:"🔴",idA:"r21_j2_a",idB:"r21_j2_b"},
+{id:149,tA:"Atlético-MG",eA:"⚫",tB:"Santos",eB:"⚪",idA:"r21_j3_a",idB:"r21_j3_b"},
+{id:150,tA:"Grêmio",eA:"🔵",tB:"Internacional",eB:"🔴",idA:"r21_j4_a",idB:"r21_j4_b"},
+{id:151,tA:"Palmeiras",eA:"🟢",tB:"Corinthians",eB:"⚪",idA:"r21_j5_a",idB:"r21_j5_b"},
+{id:152,tA:"Flamengo",eA:"🔴",tB:"Fluminense",eB:"🔴",idA:"r21_j6_a",idB:"r21_j6_b"},
+{id:153,tA:"Bahia",eA:"🔵",tB:"Mirassol",eB:"🟢",idA:"r21_j7_a",idB:"r21_j7_b"},
+{id:154,tA:"Coritiba",eA:"🟢",tB:"Botafogo",eB:"⚫",idA:"r21_j8_a",idB:"r21_j8_b"},
+{id:155,tA:"Chapecoense",eA:"🟢",tB:"Athletico-PR",eB:"⚫",idA:"r21_j9_a",idB:"r21_j9_b"},
+{id:156,tA:"RB Bragantino",eA:"🔴",tB:"Cruzeiro",eB:"🔵",idA:"r21_j10_a",idB:"r21_j10_b"}
+];
 
 // ==================== DADOS DOS PALPITES ====================
 const dadosPalpites = {
@@ -426,7 +446,11 @@ r20_j1_a:"1",r20_j1_b:"1",r20_j2_a:"1",r20_j2_b:"1",r20_j3_a:"2",r20_j3_b:"1",
 r20_j4_a:"1",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"0",r20_j6_a:"2",r20_j6_b:"0",
 r20_j7_a:"1",r20_j7_b:"2",r20_j8_a:"1",r20_j8_b:"0",r20_j9_a:"2",r20_j9_b:"0",
 r20_j10_a:"2",r20_j10_b:"1",
-palpite_do_dia:"r20_j4",coringa_usado:false
+r21_j1_a:"2",r21_j1_b:"0",r21_j2_a:"1",r21_j2_b:"0",r21_j3_a:"1",r21_j3_b:"1",
+r21_j4_a:"0",r21_j4_b:"0",r21_j5_a:"2",r21_j5_b:"0",r21_j6_a:"2",r21_j6_b:"1",
+r21_j7_a:"2",r21_j7_b:"1",r21_j8_a:"1",r21_j8_b:"1",r21_j9_a:"0",r21_j9_b:"1",
+r21_j10_a:"2",r21_j10_b:"2",
+palpite_do_dia:"r21_j5",coringa_usado:false
 },
 "Lucas":{
 r1_j1_a:"1",r1_j1_b:"1",r1_j2_a:"1",r1_j2_b:"2",r1_j3_a:"0",r1_j3_b:"1",r1_j4_a:"2",r1_j4_b:"1",
@@ -487,7 +511,11 @@ r20_j1_a:"1",r20_j1_b:"2",r20_j2_a:"3",r20_j2_b:"1",r20_j3_a:"1",r20_j3_b:"0",
 r20_j4_a:"1",r20_j4_b:"2",r20_j5_a:"1",r20_j5_b:"1",r20_j6_a:"3",r20_j6_b:"0",
 r20_j7_a:"1",r20_j7_b:"3",r20_j8_a:"1",r20_j8_b:"1",r20_j9_a:"1",r20_j9_b:"0",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j5",coringa_usado:false
+r21_j1_a:"3",r21_j1_b:"0",r21_j2_a:"2",r21_j2_b:"1",r21_j3_a:"2",r21_j3_b:"1",
+r21_j4_a:"1",r21_j4_b:"1",r21_j5_a:"3",r21_j5_b:"0",r21_j6_a:"3",r21_j6_b:"1",
+r21_j7_a:"1",r21_j7_b:"0",r21_j8_a:"1",r21_j8_b:"0",r21_j9_a:"1",r21_j9_b:"2",
+r21_j10_a:"1",r21_j10_b:"2",
+palpite_do_dia:"r21_j5",coringa_usado:false
 },
 "Psico":{
 r1_j1_a:"1",r1_j1_b:"1",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"1",r1_j4_b:"2",
@@ -548,7 +576,11 @@ r20_j1_a:"1",r20_j1_b:"2",r20_j2_a:"2",r20_j2_b:"1",r20_j3_a:"2",r20_j3_b:"2",
 r20_j4_a:"2",r20_j4_b:"1",r20_j5_a:"1",r20_j5_b:"1",r20_j6_a:"2",r20_j6_b:"1",
 r20_j7_a:"2",r20_j7_b:"2",r20_j8_a:"2",r20_j8_b:"1",r20_j9_a:"1",r20_j9_b:"1",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j6",coringa_usado:false
+r21_j1_a:"3",r21_j1_b:"0",r21_j2_a:"2",r21_j2_b:"2",r21_j3_a:"2",r21_j3_b:"1",
+r21_j4_a:"2",r21_j4_b:"2",r21_j5_a:"1",r21_j5_b:"1",r21_j6_a:"2",r21_j6_b:"1",
+r21_j7_a:"2",r21_j7_b:"1",r21_j8_a:"2",r21_j8_b:"1",r21_j9_a:"0",r21_j9_b:"1",
+r21_j10_a:"1",r21_j10_b:"1",
+palpite_do_dia:"r21_j5",coringa_usado:false
 },
 "Neneca":{
 r1_j1_a:"1",r1_j1_b:"2",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"0",r1_j4_b:"0",
@@ -609,7 +641,11 @@ r20_j1_a:"0",r20_j1_b:"1",r20_j2_a:"1",r20_j2_b:"1",r20_j3_a:"2",r20_j3_b:"0",
 r20_j4_a:"1",r20_j4_b:"0",r20_j5_a:"0",r20_j5_b:"0",r20_j6_a:"2",r20_j6_b:"1",
 r20_j7_a:"1",r20_j7_b:"3",r20_j8_a:"1",r20_j8_b:"1",r20_j9_a:"1",r20_j9_b:"1",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j10",coringa_usado:false
+r21_j1_a:"1",r21_j1_b:"1",r21_j2_a:"1",r21_j2_b:"0",r21_j3_a:"2",r21_j3_b:"0",
+r21_j4_a:"1",r21_j4_b:"1",r21_j5_a:"2",r21_j5_b:"1",r21_j6_a:"2",r21_j6_b:"1",
+r21_j7_a:"1",r21_j7_b:"0",r21_j8_a:"0",r21_j8_b:"1",r21_j9_a:"0",r21_j9_b:"1",
+r21_j10_a:"1",r21_j10_b:"1",
+palpite_do_dia:"r21_j3",coringa_usado:false
 },
 "Dj":{
 r16_j1_a:"1",r16_j1_b:"2",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"0",r16_j3_b:"1",
@@ -626,7 +662,11 @@ r20_j1_a:"1",r20_j1_b:"1",r20_j2_a:"1",r20_j2_b:"1",r20_j3_a:"2",r20_j3_b:"1",
 r20_j4_a:"1",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"2",r20_j6_a:"1",r20_j6_b:"2",
 r20_j7_a:"2",r20_j7_b:"1",r20_j8_a:"1",r20_j8_b:"0",r20_j9_a:"2",r20_j9_b:"0",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j2",coringa_usado:false
+r21_j1_a:"3",r21_j1_b:"0",r21_j2_a:"2",r21_j2_b:"0",r21_j3_a:"1",r21_j3_b:"1",
+r21_j4_a:"1",r21_j4_b:"0",r21_j5_a:"2",r21_j5_b:"0",r21_j6_a:"2",r21_j6_b:"0",
+r21_j7_a:"2",r21_j7_b:"0",r21_j8_a:"1",r21_j8_b:"2",r21_j9_a:"1",r21_j9_b:"2",
+r21_j10_a:"1",r21_j10_b:"1",
+palpite_do_dia:"r21_j4",coringa_usado:false
 },
 "Julian":{
 r1_j1_a:"1",r1_j1_b:"2",r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"2",r1_j4_b:"0",
@@ -691,7 +731,11 @@ r20_j1_a:"1",r20_j1_b:"2",r20_j2_a:"1",r20_j2_b:"1",r20_j3_a:"1",r20_j3_b:"1",
 r20_j4_a:"2",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"2",r20_j6_a:"3",r20_j6_b:"0",
 r20_j7_a:"1",r20_j7_b:"2",r20_j8_a:"2",r20_j8_b:"1",r20_j9_a:"2",r20_j9_b:"0",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j9",coringa_usado:false
+r21_j1_a:"3",r21_j1_b:"0",r21_j2_a:"2",r21_j2_b:"2",r21_j3_a:"1",r21_j3_b:"2",
+r21_j4_a:"2",r21_j4_b:"2",r21_j5_a:"2",r21_j5_b:"1",r21_j6_a:"2",r21_j6_b:"1",
+r21_j7_a:"2",r21_j7_b:"1",r21_j8_a:"2",r21_j8_b:"2",r21_j9_a:"0",r21_j9_b:"2",
+r21_j10_a:"1",r21_j10_b:"2",
+palpite_do_dia:"r21_j1",coringa_usado:false
 },
 "Samuel":{
 r1_j2_a:"0",r1_j2_b:"5",r1_j3_a:"2",r1_j3_b:"2",r1_j4_a:"1",r1_j4_b:"1",
@@ -740,7 +784,11 @@ r20_j1_a:"1",r20_j1_b:"0",r20_j2_a:"1",r20_j2_b:"1",r20_j3_a:"2",r20_j3_b:"1",
 r20_j4_a:"1",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"1",r20_j6_a:"2",r20_j6_b:"1",
 r20_j7_a:"1",r20_j7_b:"2",r20_j8_a:"1",r20_j8_b:"0",r20_j9_a:"2",r20_j9_b:"1",
 r20_j10_a:"2",r20_j10_b:"1",
-palpite_do_dia:"r20_j2",coringa_usado:false
+r21_j1_a:"2",r21_j1_b:"1",r21_j2_a:"1",r21_j2_b:"2",r21_j3_a:"1",r21_j3_b:"1",
+r21_j4_a:"1",r21_j4_b:"1",r21_j5_a:"3",r21_j5_b:"0",r21_j6_a:"2",r21_j6_b:"1",
+r21_j7_a:"2",r21_j7_b:"1",r21_j8_a:"1",r21_j8_b:"2",r21_j9_a:"0",r21_j9_b:"2",
+r21_j10_a:"1",r21_j10_b:"2",
+palpite_do_dia:"r21_j5",coringa_usado:false
 },
 "Walishow":{
 r1_j2_a:"0",r1_j2_b:"3",r1_j3_a:"1",r1_j3_b:"1",r1_j4_a:"1",r1_j4_b:"0",
@@ -801,7 +849,11 @@ r20_j1_a:"1",r20_j1_b:"3",r20_j2_a:"1",r20_j2_b:"2",r20_j3_a:"1",r20_j3_b:"1",
 r20_j4_a:"2",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"0",r20_j6_a:"2",r20_j6_b:"0",
 r20_j7_a:"0",r20_j7_b:"2",r20_j8_a:"2",r20_j8_b:"1",r20_j9_a:"3",r20_j9_b:"1",
 r20_j10_a:"2",r20_j10_b:"0",
-palpite_do_dia:"r20_j10",coringa_usado:false
+r21_j1_a:"1",r21_j1_b:"0",r21_j2_a:"1",r21_j2_b:"1",r21_j3_a:"2",r21_j3_b:"1",
+r21_j4_a:"2",r21_j4_b:"1",r21_j5_a:"3",r21_j5_b:"0",r21_j6_a:"1",r21_j6_b:"2",
+r21_j7_a:"2",r21_j7_b:"2",r21_j8_a:"0",r21_j8_b:"2",r21_j9_a:"1",r21_j9_b:"2",
+r21_j10_a:"1",r21_j10_b:"3",
+palpite_do_dia:"r21_j6",coringa_usado:false
 },
 "Freitas":{
 r2_j1_a:"2",r2_j1_b:"1",r2_j2_a:"1",r2_j2_b:"0",
@@ -861,7 +913,11 @@ r20_j1_a:"_",r20_j1_b:"_",r20_j2_a:"_",r20_j2_b:"_",r20_j3_a:"_",r20_j3_b:"_",
 r20_j4_a:"_",r20_j4_b:"_",r20_j5_a:"_",r20_j5_b:"_",r20_j6_a:"_",r20_j6_b:"_",
 r20_j7_a:"_",r20_j7_b:"_",r20_j8_a:"_",r20_j8_b:"_",r20_j9_a:"_",r20_j9_b:"_",
 r20_j10_a:"_",r20_j10_b:"_",
-palpite_do_dia:"r20_j9",coringa_usado:false
+r21_j1_a:"2",r21_j1_b:"0",r21_j2_a:"2",r21_j2_b:"1",r21_j3_a:"1",r21_j3_b:"2",
+r21_j4_a:"1",r21_j4_b:"1",r21_j5_a:"1",r21_j5_b:"1",r21_j6_a:"2",r21_j6_b:"2",
+r21_j7_a:"2",r21_j7_b:"1",r21_j8_a:"1",r21_j8_b:"2",r21_j9_a:"0",r21_j9_b:"1",
+r21_j10_a:"0",r21_j10_b:"2",
+palpite_do_dia:"r21_j3",coringa_usado:false
 },
 "Fish":{
 r2_j1_a:"1",r2_j1_b:"0",r2_j2_a:"2",r2_j2_b:"0",
@@ -896,84 +952,68 @@ palpite_do_dia:"r3_j7",coringa_usado:false
 
 // ==================== RESULTADOS ====================
 const resultadosFinais={
-// Rodada 1
 r1_j1_a:"1",r1_j1_b:"3",r1_j2_a:"0",r1_j2_b:"4",r1_j3_a:"1",r1_j3_b:"2",r1_j4_a:"1",r1_j4_b:"2",
-// Rodada 2
 r2_j1_a:"0",r2_j1_b:"0",r2_j2_a:"3",r2_j2_b:"0",
-// Rodada 3
 r3_j1_a:"2",r3_j1_b:"0",r3_j2_a:"2",r3_j2_b:"2",r3_j3_a:"1",r3_j3_b:"1",
 r3_j4_a:"1",r3_j4_b:"1",r3_j5_a:"0",r3_j5_b:"1",r3_j6_a:"1",r3_j6_b:"1",
 r3_j7_a:"1",r3_j7_b:"1",r3_j8_a:"0",r3_j8_b:"0",r3_j9_a:"1",r3_j9_b:"2",
 r3_j10_a:"2",r3_j10_b:"0",
-// Rodada 4
 r4_j1_a:"1",r4_j1_b:"1",r4_j2_a:"2",r4_j2_b:"1",r4_j3_a:"0",r4_j3_b:"0",
 r4_j4_a:"0",r4_j4_b:"4",r4_j5_a:"0",r4_j5_b:"0",r4_j6_a:"0",r4_j6_b:"1",
-// Rodada 5
 r5_j1_a:"0",r5_j1_b:"0",r5_j2_a:"0",r5_j2_b:"0",r5_j3_a:"0",r5_j3_b:"0",
 r5_j4_a:"3",r5_j4_b:"0",r5_j5_a:"1",r5_j5_b:"1",r5_j6_a:"0",r5_j6_b:"0",
 r5_j7_a:"2",r5_j7_b:"0",r5_j8_a:"2",r5_j8_b:"0",
-// Rodada 6
 r6_j1_a:"0",r6_j1_b:"1",r6_j2_a:"0",r6_j2_b:"1",r6_j3_a:"2",r6_j3_b:"0",
 r6_j4_a:"1",r6_j4_b:"0",r6_j5_a:"1",r6_j5_b:"3",r6_j6_a:"3",r6_j6_b:"2",
 r6_j7_a:"2",r6_j7_b:"1",r6_j8_a:"4",r6_j8_b:"0",
-// Rodada 7
 r7_j1_a:"2",r7_j1_b:"1",r7_j2_a:"2",r7_j2_b:"2",r7_j3_a:"2",r7_j3_b:"1",
 r7_j4_a:"1",r7_j4_b:"1",r7_j5_a:"3",r7_j5_b:"1",r7_j6_a:"0",r7_j6_b:"0",
 r7_j7_a:"0",r7_j7_b:"0",r7_j8_a:"0",r7_j8_b:"2",r7_j9_a:"0",r7_j9_b:"2",
 r7_j10_a:"2",r7_j10_b:"0",
-// Rodada 8
 r8_j1_a:"3",r8_j1_b:"2",r8_j2_a:"1",r8_j2_b:"1",r8_j3_a:"1",r8_j3_b:"1",
 r8_j4_a:"3",r8_j4_b:"3",r8_j5_a:"3",r8_j5_b:"0",r8_j6_a:"0",r8_j6_b:"3",
 r8_j7_a:"1",r8_j7_b:"5",r8_j8_a:"1",r8_j8_b:"0",r8_j9_a:"1",r8_j9_b:"2",
 r8_j10_a:"1",r8_j10_b:"1",
-// Rodada 9
 r9_j1_a:"1",r9_j1_b:"1",r9_j2_a:"0",r9_j2_b:"1",r9_j3_a:"0",r9_j3_b:"3",
 r9_j4_a:"0",r9_j4_b:"1",r9_j5_a:"0",r9_j5_b:"0",r9_j6_a:"2",r9_j6_b:"1",
 r9_j7_a:"0",r9_j7_b:"0",r9_j8_a:"1",r9_j8_b:"0",
-// Rodada 10
 r10_j1_a:"2",r10_j1_b:"1",r10_j2_a:"0",r10_j2_b:"0",r10_j3_a:"2",r10_j3_b:"1",
 r10_j4_a:"1",r10_j4_b:"0",r10_j5_a:"4",r10_j5_b:"1",r10_j6_a:"0",r10_j6_b:"2",
 r10_j7_a:"1",r10_j7_b:"0",r10_j8_a:"1",r10_j8_b:"1",r10_j9_a:"2",r10_j9_b:"1",
 r10_j10_a:"2",r10_j10_b:"3",
-// Rodada 11
 r11_j1_a:"1",r11_j1_b:"1",r11_j2_a:"1",r11_j2_b:"0",r11_j3_a:"3",r11_j3_b:"0",
 r11_j4_a:"0",r11_j4_b:"0",
-// Rodada 12
 r12_j1_a:"2",r12_j1_b:"1",r12_j2_a:"2",r12_j2_b:"1",r12_j3_a:"3",r12_j3_b:"0",
 r12_j4_a:"3",r12_j4_b:"3",r12_j5_a:"3",r12_j5_b:"0",r12_j6_a:"0",r12_j6_b:"1",
 r12_j7_a:"3",r12_j7_b:"1",r12_j8_a:"1",r12_j8_b:"1",r12_j9_a:"3",r12_j9_b:"2",
 r12_j10_a:"2",r12_j10_b:"3",
-// Rodada 13
 r13_j1_a:"2",r13_j1_b:"1",r13_j2_a:"2",r13_j2_b:"0",r13_j3_a:"0",r13_j3_b:"2",
 r13_j4_a:"0",r13_j4_b:"0",r13_j5_a:"3",r13_j5_b:"1",
-// Rodada 14
 r14_j1_a:"2",r14_j1_b:"3",r14_j2_a:"2",r14_j2_b:"0",r14_j3_a:"1",r14_j3_b:"0",
 r14_j4_a:"1",r14_j4_b:"2",r14_j5_a:"0",r14_j5_b:"1",r14_j6_a:"2",r14_j6_b:"3",
 r14_j7_a:"3",r14_j7_b:"1",r14_j8_a:"0",r14_j8_b:"0",r14_j9_a:"1",r14_j9_b:"2",
 r14_j10_a:"1",r14_j10_b:"0",
-// Rodada 15
 r15_j1_a:"2",r15_j1_b:"0",r15_j2_a:"1",r15_j2_b:"0",r15_j3_a:"1",r15_j3_b:"1",
 r15_j4_a:"0",r15_j4_b:"2",
-// Rodada 16
 r16_j1_a:"3",r16_j1_b:"3",r16_j2_a:"1",r16_j2_b:"2",r16_j3_a:"3",r16_j3_b:"1",
 r16_j4_a:"1",r16_j4_b:"2",r16_j5_a:"2",r16_j5_b:"0",r16_j6_a:"1",r16_j6_b:"1",
 r16_j7_a:"2",r16_j7_b:"1",r16_j8_a:"2",r16_j8_b:"2",r16_j9_a:"2",r16_j9_b:"1",
 r16_j10_a:"2",r16_j10_b:"1",
-// Rodada 17
 r17_j1_a:"1",r17_j1_b:"2",r17_j2_a:"2",r17_j2_b:"3",r17_j3_a:"3",r17_j3_b:"2",
 r17_j4_a:"1",r17_j4_b:"0",r17_j5_a:"1",r17_j5_b:"1",
-// RODADA 18
 r18_j1_a:"1",r18_j1_b:"1",r18_j2_a:"2",r18_j2_b:"0",r18_j3_a:"1",r18_j3_b:"2",
 r18_j4_a:"5",r18_j4_b:"0",r18_j5_a:"1",r18_j5_b:"0",r18_j6_a:"0",r18_j6_b:"0",
 r18_j7_a:"1",r18_j7_b:"3",r18_j8_a:"1",r18_j8_b:"3",r18_j9_a:"2",r18_j9_b:"1",
 r18_j10_a:"2",r18_j10_b:"1",
-// RODADA 19 - DataFIFA
 r19_j1_a:"1",r19_j1_b:"2",r19_j2_a:"1",r19_j2_b:"0",
-// RODADA 20 - AGUARDANDO RESULTADOS
 r20_j1_a:"1",r20_j1_b:"1",r20_j2_a:"2",r20_j2_b:"1",r20_j3_a:"1",r20_j3_b:"1",
 r20_j4_a:"4",r20_j4_b:"0",r20_j5_a:"1",r20_j5_b:"2",r20_j6_a:"2",r20_j6_b:"0",
 r20_j7_a:"2",r20_j7_b:"2",r20_j8_a:"2",r20_j8_b:"2",r20_j9_a:"1",r20_j9_b:"0",
-r20_j10_a:"4",r20_j10_b:"0"
+r20_j10_a:"4",r20_j10_b:"0",
+r21_j1_a:"-",r21_j1_b:"-",r21_j2_a:"-",r21_j2_b:"-",r21_j3_a:"-",r21_j3_b:"-",
+r21_j4_a:"-",r21_j4_b:"-",r21_j5_a:"-",r21_j5_b:"-",r21_j6_a:"-",r21_j6_b:"-",
+r21_j7_a:"-",r21_j7_b:"-",r21_j8_a:"-",r21_j8_b:"-",r21_j9_a:"-",r21_j9_b:"-",
+r21_j10_a:"-",r21_j10_b:"-"
 };
 
 // ==================== FUNÇÕES ====================
@@ -989,15 +1029,15 @@ return 0;
 }
 
 function getJogosPorRodada(r){
-const t=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18,jogosRodada19,jogosRodada20];
+const t=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18,jogosRodada19,jogosRodada20,jogosRodada21];
 return t[r-1]||[];
 }
 
 function calcularPontuacaoTotal(jogador){
 const p=dadosPalpites[jogador];
-if(!p)return{total:0,porRodada:Array(20).fill(0),bonus:0,bonusHistorico:[]};
-const todasRodadas=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18,jogosRodada19,jogosRodada20];
-let total=0,bonus=0,porRodada=Array(20).fill(0),bonusHistorico=[];
+if(!p)return{total:0,porRodada:Array(21).fill(0),bonus:0,bonusHistorico:[]};
+const todasRodadas=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18,jogosRodada19,jogosRodada20,jogosRodada21];
+let total=0,bonus=0,porRodada=Array(21).fill(0),bonusHistorico=[];
 
 todasRodadas.forEach((jogos,idx)=>{
 let pts=0,jogoBonus=null;
@@ -1076,6 +1116,97 @@ p._bonus_manual.push({rodada:b.rodada,jogo:b.jogo,pontos:5});
 }
 aplicarBonusManual();
 
+// ==================== PONTOS POR TIME ====================
+const mapaBonusPorTime={
+"Walishow":[["Palmeiras",5],["Cruzeiro",5]],
+"Paulão":[["Cruzeiro",5],["Flamengo",5]],
+"Psico":[["Cruzeiro",5]],
+"Fish":[["Santos",5]],
+"Freitas":[["Flamengo",5]],
+"Samuel":[["Fluminense",5],["Fluminense",5]],
+"Sid":[["Palmeiras",5]],
+"Dj":[["Santos",5]],
+"Lucas":[["Santos",5]]
+};
+
+function normalizarTime(nome){
+if(!nome)return nome;
+const mapa={"Botafogo-RJ":"Botafogo","Botafogo RJ":"Botafogo","Vasco da Gama":"Vasco","Red Bull Bragantino":"Bragantino","RB Bragantino":"Bragantino"};
+return mapa[nome]||nome;
+}
+
+function calcularPontosPorTime(jogador){
+const p=dadosPalpites[jogador];
+if(!p)return{};
+const resultado={};
+const garantir=t=>{if(!resultado[t])resultado[t]={pts:0,jogos:0};return resultado[t];};
+const todasRodadas=[jogosRodada1,jogosRodada2,jogosRodada3,jogosRodada4,jogosRodada5,jogosRodada6,jogosRodada7,jogosRodada8,jogosRodada9,jogosRodada10,jogosRodada11,jogosRodada12,jogosRodada13,jogosRodada14,jogosRodada15,jogosRodada16,jogosRodada17,jogosRodada18,jogosRodada19,jogosRodada20,jogosRodada21];
+todasRodadas.forEach((jogos,idx)=>{
+jogos.forEach(j=>{
+const ra=resultadosFinais[j.idA],rb=resultadosFinais[j.idB];
+if(ra===undefined||rb===undefined||ra==="-"||rb==="-")return;
+const pa=p[j.idA],pb=p[j.idB];
+if(pa===undefined||pb===undefined||pa==="-"||pb==="-")return;
+let pts=calcularPontos(ra,rb,pa,pb);
+if(p.coringa_usado){
+if(jogador==="Fish"&&idx===6)pts*=2;
+if(jogador==="Walishow"&&idx===9)pts*=2;
+}
+const tA=normalizarTime(j.tA),tB=normalizarTime(j.tB);
+garantir(tA).jogos++;
+garantir(tB).jogos++;
+const rA=parseInt(ra),rB=parseInt(rb);
+if(rA===rB){
+garantir(tA).pts+=pts;
+garantir(tB).pts+=pts;
+}else if(rA>rB){
+garantir(tA).pts+=pts;
+}else{
+garantir(tB).pts+=pts;
+}
+});
+});
+if(mapaBonusPorTime[jogador]){
+mapaBonusPorTime[jogador].forEach(b=>{
+const t=normalizarTime(b[0]);
+garantir(t).pts+=b[1];
+});
+}
+return resultado;
+}
+
+function renderizarTabelaTimes(jogador){
+const container=document.getElementById("tabela-times-container");
+if(!jogador){
+container.innerHTML='<p style="text-align:center;color:var(--pm);padding:20px;">Selecione um participante acima</p>';
+return;
+}
+const dados=calcularPontosPorTime(jogador);
+const linhas=Object.entries(dados).sort((a,b)=>b[1].pts-a[1].pts);
+if(linhas.length===0){
+container.innerHTML='<p style="text-align:center;color:var(--pm);padding:20px;">Nenhum dado disponível</p>';
+return;
+}
+let html='<table class="pl-table"><thead><tr><th>Time</th><th style="text-align:center">J</th><th style="text-align:right">Pts</th><th style="text-align:right">Média</th></tr></thead><tbody>';
+linhas.forEach(([time,d])=>{
+const media=d.jogos>0?(d.pts/d.jogos).toFixed(1):"0.0";
+const cls=d.pts>0?"":"style='opacity:.45'";
+html+=`<tr ${cls}><td class="name">${time}</td><td style="text-align:center;color:var(--pm);font-size:.75rem;">${d.jogos}</td><td class="pts">${d.pts}</td><td style="text-align:right;color:var(--pm);font-size:.8rem;">${media}</td></tr>`;
+});
+html+='</tbody></table>';
+container.innerHTML=html;
+}
+
+function initSeletorTimes(){
+const sel=document.getElementById("seletor-participante-times");
+const nomes=Object.keys(dadosPalpites);
+let html='<option value="">-- Escolha um participante --</option>';
+nomes.forEach(n=>{
+html+=`<option value="${n}">${n}</option>`;
+});
+sel.innerHTML=html;
+}
+
 let chartInstance=null;
 const cores=['#3D1952','#F7C137','#26117D','#22c55e','#ef4444','#f59e0b','#3b82f6','#8b5cf6','#ec4899','#14b8a6','#f472b6','#a78bfa','#34d399','#f97316','#eab308','#06b6d4'];
 
@@ -1083,8 +1214,8 @@ const cores=['#3D1952','#F7C137','#26117D','#22c55e','#ef4444','#f59e0b','#3b82f
 function initTabs(){
 const tc=document.getElementById("tab-container");
 let h="";
-for(let i=1;i<=20;i++){
-h+=`<button class="tab-btn ${i===20?'active':''}" data-rodada="${i}" onclick="renderizarPorRodada(${i})">Rodada ${i}</button>`;
+for(let i=1;i<=21;i++){
+h+=`<button class="tab-btn ${i===21?'active':''}" data-rodada="${i}" onclick="renderizarPorRodada(${i})">Rodada ${i}</button>`;
 }
 tc.innerHTML=h;
 }
@@ -1129,7 +1260,7 @@ const todasRodadas=[
 {nome:"Rodada 10",jogos:jogosRodada10},{nome:"Rodada 11",jogos:jogosRodada11},{nome:"Rodada 12",jogos:jogosRodada12},
 {nome:"Rodada 13",jogos:jogosRodada13},{nome:"Rodada 14",jogos:jogosRodada14},{nome:"Rodada 15",jogos:jogosRodada15},
 {nome:"Rodada 16",jogos:jogosRodada16},{nome:"Rodada 17",jogos:jogosRodada17},{nome:"Rodada 18",jogos:jogosRodada18},
-{nome:"Rodada 19 - DataFIFA",jogos:jogosRodada19},{nome:"Rodada 20",jogos:jogosRodada20}
+{nome:"Rodada 19 - DataFIFA",jogos:jogosRodada19},{nome:"Rodada 20",jogos:jogosRodada20},{nome:"Rodada 21",jogos:jogosRodada21}
 ];
 const coringaAtivo=t.coringa_usado;
 let html=`<div style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;font-size:.85rem;background:rgba(61,25,82,.04);padding:12px 16px;border-radius:12px;"><span>⭐ Palpite do Dia: ${t.palpite_do_dia?'✅ Ativo':'❌ Não escolheu'}</span><span>🃏 Coringa: ${coringaAtivo?'✅ Usado':'❌ Disponível'}</span>${coringaAtivo?'<span style="color:#ef4444;font-weight:700;">🔥 CORINGA ATIVO!</span>':''}</div>`;
@@ -1204,7 +1335,7 @@ document.getElementById("stats-container").innerHTML=`
 <div class="stat-card"><span class="value">🃏 ${ranking.filter(c=>c.coringa).length}</span><span class="label">Coringa Usado</span></div>`;
 
 const mR=[];
-for(let i=0;i<20;i++){mR.push([...ranking].sort((a,b)=>b.porRodada[i]-a.porRodada[i])[0]);}
+for(let i=0;i<21;i++){mR.push([...ranking].sort((a,b)=>b.porRodada[i]-a.porRodada[i])[0]);}
 
 document.getElementById("estatisticas-dinamicas").innerHTML=`
 <div style="overflow-x:auto;margin-bottom:16px;"><table class="pl-table">
@@ -1256,7 +1387,7 @@ atualizarHistoricoBonus();
 
 function atualizarGrafico(ranking){
 const labels=[];
-for(let i=1;i<=20;i++)labels.push('Rodada '+i);
+for(let i=1;i<=21;i++)labels.push('Rodada '+i);
 const ordem=ranking.map(p=>p.nome);
 const datasets=ordem.map((nome,index)=>{
 const r=calcularPontuacaoTotal(nome);
@@ -1279,8 +1410,9 @@ document.getElementById('grafico-legenda').innerHTML=datasets.map(d=>`<div class
 
 // ==================== INICIALIZAÇÃO ====================
 initTabs();
-renderizarPorRodada(20);
+renderizarPorRodada(21);
 atualizarClassificacao();
+initSeletorTimes();
 </script>
 </body>
 </html>
