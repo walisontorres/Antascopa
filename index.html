@@ -1081,10 +1081,10 @@ r21_j7_a:"1",r21_j7_b:"0",r21_j8_a:"1",r21_j8_b:"1",r21_j9_a:"1",r21_j9_b:"4",
 r21_j10_a:"4",r21_j10_b:"2",
 r22_j1_a:"0",r22_j1_b:"1",r22_j2_a:"3",r22_j2_b:"0",r22_j3_a:"1",r22_j3_b:"2",
 r22_j4_a:"0",r22_j4_b:"0",
-r23_j1_a:"2",r23_j1_b:"0",r23_j2_a:"1",r23_j2_b:"0",r23_j3_a:"1",r23_j3_b:"0",
-r23_j4_a:"0",r23_j4_b:"2",r23_j5_a:"1",r23_j5_b:"0",r23_j6_a:"2",r23_j6_b:"4",
-r23_j7_a:"1",r23_j7_b:"2",r23_j8_a:"0",r23_j8_b:"3",r23_j9_a:"1",r23_j9_b:"1",
-r23_j10_a:"33",r23_j10_b:"30",r23_j11_a:"-",r23_j11_b:"-"
+r23_j1_a:"-",r23_j1_b:"-",r23_j2_a:"-",r23_j2_b:"-",r23_j3_a:"-",r23_j3_b:"-",
+r23_j4_a:"-",r23_j4_b:"-",r23_j5_a:"-",r23_j5_b:"-",r23_j6_a:"-",r23_j6_b:"-",
+r23_j7_a:"-",r23_j7_b:"-",r23_j8_a:"-",r23_j8_b:"-",r23_j9_a:"-",r23_j9_b:"-",
+r23_j10_a:"30",r23_j10_b:"33",r23_j11_a:"-",r23_j11_b:"-"
 };
 
 // ==================== FUNÇÕES ====================
@@ -1175,7 +1175,8 @@ const bonus=[
 {jogador:"Samuel",jogo:"Fluminense 2x0 Platense",rodada:15},
 {jogador:"Sid",jogo:"Palmeiras 2x0 São Paulo",rodada:16},
 {jogador:"Dj",jogo:"Remo 1x2 Santos",rodada:18},
-{jogador:"Lucas",jogo:"São Paulo 1x2 Santos",rodada:19}
+{jogador:"Lucas",jogo:"São Paulo 1x2 Santos",rodada:19},
+{jogador:"Lucas",jogo:"Remo 1x1 RB Bragantino",rodada:23}
 ];
 bonus.forEach(b=>{
 const p=dadosPalpites[b.jogador];
@@ -1197,7 +1198,7 @@ const mapaBonusPorTime={
 "Samuel":[["Fluminense",5],["Fluminense",5]],
 "Sid":[["Palmeiras",5]],
 "Dj":[["Santos",5]],
-"Lucas":[["Santos",5]]
+"Lucas":[["Santos",5],["Remo",5],["Bragantino",5]]
 };
 
 function normalizarTime(nome){
